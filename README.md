@@ -14,11 +14,11 @@
 2021-06-24 ~ 2021-07-16  
 
 -------
-
+  
 ### 주요 적용기술  
-Json-ajax, jquery, javascript
-Spring Boot : MVC, AOP, Security, tiles
+Json-ajax, jquery, javascript  
+Spring Boot : MVC, AOP, Security, tiles  
 Restful
 
-### 주요 프레임워크
-Spring Boot, MyBatis
+### 주요 프레임워크  
+Spring Boot, MyBatis  
