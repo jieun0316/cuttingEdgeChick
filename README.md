@@ -17,8 +17,8 @@
   
 ### 주요 적용기술  
 Json-ajax, jquery, javascript  
-Spring Boot : MVC, AOP, Security, tiles  
-Restful
+Restful  
 
 ### 주요 프레임워크  
-Spring Boot, MyBatis  
+Spring Boot : MVC, AOP, Security, tiles  
+MyBatis  
