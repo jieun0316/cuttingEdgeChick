@@ -23,20 +23,13 @@
 
 </head>
 <body>
+	<!-- 
+		header. footer 만 있는 영역 
+		(서브페이지에서 사용)
+	-->
+	
 	<!-- Tiles header 영역 -->
 	<tiles:insertAttribute name="header" />
-	<!-- Tiles slider 영역 -->
-	<tiles:insertAttribute name="slider" />
-	<!-- Tiles banner 영역 -->
-	<tiles:insertAttribute name="banner" />
-	<!-- Tiles BestRecipe 영역 -->
-	<tiles:insertAttribute name="bestRecipe" />
-	<!-- Tiles CTA Area 영역 -->
-	<tiles:insertAttribute name="ctaArea" />
-	<!-- Tiles smallRecipe 영역 -->
-	<tiles:insertAttribute name="smallRecipe" />
-	<!-- Tiles instagram 영역 -->
-	<tiles:insertAttribute name="instagram" />
 	<!-- Tiles footer 영역 -->
 	<tiles:insertAttribute name="footer" />
 </body>

@@ -71,19 +71,15 @@
                                                 </ul>
                                             </li>
                                             <li><a href="about.html">재료별 레시피 추천 </a></li>
-                                            <li><a href="blog-post.html">Blog Post</a></li>
-                                            <li><a href="receipe-post.html">Receipe Post</a></li>
-                                            <li><a href="contact.html">Contact</a></li>
-                                            <li><a href="elements.html">Elements</a></li>
                                         </ul>
                                     </li>
                                     <li><a href="#">내정보</a>
-                                        <ul class="dropdown">
-                                            <li><a href="index.html">한식</a></li>
+                                        <!-- <ul class="dropdown">
+                                            <li><a href="index.html">내정보수정</a></li>
                                             <li><a href="blog-post.html">일식</a></li>
                                             <li><a href="about.html">중식</a></li>
                                             <li><a href="receipe-post.html">양식</a></li>
-                                        </ul>
+                                        </ul> -->
                                     </li>
                                 </ul>
 
