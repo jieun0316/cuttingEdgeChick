@@ -1,3 +1,7 @@
+/*
+	여기에 css 작성 부탁드립니다 !!
+*/
+
 /* [Master Stylesheet v1.0]
 
 - Template Name: Delicious - Food Blog Template
@@ -9,14 +13,14 @@
 /* :: 1.0 Import Fonts */
 @import url("https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i");
 /* :: 2.0 Import All CSS */
-@import url(import/bootstrap.min.css);
-@import url(import/owl.carousel.min.css);
-@import url(import/animate.css);
-@import url(import/magnific-popup.css);
-@import url(import/font-awesome.min.css);
-@import url(import/custom-icon.css);
-@import url(import/classy-nav.min.css);
-@import url(import/nice-select.min.css);
+@import url(bootstrap.min.css);
+@import url(owl.carousel.min.css);
+@import url(animate.css);
+@import url(magnific-popup.css);
+@import url(font-awesome.min.css);
+@import url(custom-icon.css);
+@import url(classy-nav.min.css);
+@import url(nice-select.min.css);
 /* :: 3.0 Base CSS */
 * {
   margin: 0;
