@@ -30,6 +30,8 @@
 	
 	<!-- Tiles header 영역 -->
 	<tiles:insertAttribute name="header" />
+	<!-- Tiles main 영역 -->
+	<tiles:insertAttribute name="main" />
 	<!-- Tiles footer 영역 -->
 	<tiles:insertAttribute name="footer" />
 </body>

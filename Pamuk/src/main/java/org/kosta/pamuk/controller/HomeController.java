@@ -11,8 +11,8 @@ public class HomeController {
 		return "home.tiles";
 	}
 	// 서브페이지( header, footer 만 있는거)
-	@RequestMapping("sublayout")
+	@RequestMapping("sub")
 	public String sublayout() {
-		return "sublayout.tiles";
+		return "sub.tiles";
 	}
 }
