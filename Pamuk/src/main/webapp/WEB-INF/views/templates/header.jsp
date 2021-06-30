@@ -67,7 +67,7 @@
                                                     <li><a href="index.html">냉장고 정보 등록</a></li>
                                                     <li><a href="about.html">냉장고 정보 수정</a></li>
                                                     <li><a href="receipe-post.html">재료 검색</a></li>
-                                                    <li><a href="blog-post.html">유통기한 임박상품</a></li>
+                                                    <li><a href="blog-post.html">유통기한 임박재료</a></li>
                                                 </ul>
                                             </li>
                                             <li><a href="about.html">재료별 레시피 추천 </a></li>
@@ -87,6 +87,10 @@
                                 <div class="search-btn">
                                     <i class="fa fa-search" aria-hidden="true"></i>
                                 </div>
+                                <div class="login-btn">
+                                    <i class="fa fa-user" aria-hidden="true"></i>
+                                </div>
+                                
 
                             </div>
                             <!-- Nav End -->
