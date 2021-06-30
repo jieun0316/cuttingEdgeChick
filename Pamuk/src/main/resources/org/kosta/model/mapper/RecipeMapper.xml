@@ -3,7 +3,7 @@
 <!DOCTYPE mapper
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="org.kosta.model.mapper.RecipeMapper">
+<mapper namespace="org.kosta.pamuk.model.mapper.RecipeMapper">
 	<!-- recipe 게시물 작성 -->
 	<insert id="postRecipe" parameterType="RecipeVO">
 		<selectKey keyProperty="recipeNo" resultType="int" order="BEFORE">
