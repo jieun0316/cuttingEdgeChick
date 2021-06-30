@@ -1,0 +1,7 @@
+**210630 (1번째날)
+> fridge/fridge-register-form.jsp 생성
+	-header의 '냉장고 등록하기'누르면 tiles적용되어 연결
+	-냉장고 칸수 값 전달 (성공)
+	-칸수만큼 storage 생성 (테스트중)
+	-생각할것 : -memberVO대신 memberId만 있으면 안되는지?
+			  -type도 직접 입력이 아닌 동적으로 입력해야할지?	
