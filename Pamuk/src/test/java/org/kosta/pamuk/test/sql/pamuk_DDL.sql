@@ -32,7 +32,9 @@ create table member(
 	password varchar2(100) not null,
 	email varchar2(100) not null unique,
 	name varchar2(100) not null,
-	nick varchar2(100) not null
+	nick varchar2(100) not null,
+	status NUMBER not null default 0,
+	birth DATE not null
 )
 
 --2
@@ -92,7 +94,7 @@ create table saved_recipe(
 --7
 create table category(
    category_name varchar2(100) primary key,
-   storage_time varchar2(100)  not null
+   storage_time varchar2(100) not null
 );
 
 --8
