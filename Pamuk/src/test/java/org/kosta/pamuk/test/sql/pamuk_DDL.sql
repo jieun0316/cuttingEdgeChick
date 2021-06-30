@@ -54,7 +54,7 @@ create table recipe(
 	write_date DATE not null,
 	modify_date DATE,
 	category varchar2(100) not null,
-	hits NUMBER not null,
+	hits NUMBER not null default 0,
 	constraint fk_recipe foreign key(member_id) references member(member_id)
 )
 
