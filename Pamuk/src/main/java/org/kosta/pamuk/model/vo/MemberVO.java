@@ -6,6 +6,28 @@ public class MemberVO {
 	private String email;
 	private String name;
 	private String nick;
+	private int status;
+	private String birth;
+	
+	public MemberVO() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+	
+	
+	public MemberVO(String memberId, String password, String email, String name, String nick, int status,
+			String birth) {
+		super();
+		this.memberId = memberId;
+		this.password = password;
+		this.email = email;
+		this.name = name;
+		this.nick = nick;
+		this.status = status;
+		this.birth = birth;
+	}
+
+
 	public String getMemberId() {
 		return memberId;
 	}
@@ -37,17 +59,18 @@ public class MemberVO {
 		this.nick = nick;
 	}
 	
-	public MemberVO() {
-		super();
-		// TODO Auto-generated constructor stub
+	
+	public int getStatus() {
+		return status;
 	}
-	public MemberVO(String memberId, String password, String email, String name, String nick) {
-		super();
-		this.memberId = memberId;
-		this.password = password;
-		this.email = email;
-		this.name = name;
-		this.nick = nick;
+	public void setStatus(int status) {
+		this.status = status;
+	}
+	public String getBirth() {
+		return birth;
+	}
+	public void setBirth(String birth) {
+		this.birth = birth;
 	}
 	@Override
 	public String toString() {
