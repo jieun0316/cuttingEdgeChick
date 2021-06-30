@@ -117,8 +117,9 @@ create table stored_item(
    stored_item_no number primary key,
    storage_no number not null,
    item_name varchar2(100) not null,
-   expiry_date date, 
-   stored_date date,
+   item_memo varchar2(100),
+   expiry_date date not null, 
+   stored_date date not null,
    qty varchar2(30),
    constraint fk_stored_storage foreign key (storage_no) references storage(storage_no),
    constraint fk_stored_item foreign key (item_name) references item(item_name)

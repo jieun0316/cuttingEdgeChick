@@ -1,5 +1,5 @@
 package org.kosta.pamuk.model.vo;
 
-public class fakeVO {
+public class RecipeContent {
 
 }
