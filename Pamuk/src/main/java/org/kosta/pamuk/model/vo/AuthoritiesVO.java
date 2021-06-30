@@ -1,6 +1,6 @@
 package org.kosta.pamuk.model.vo;
 
-public class Authorities {
+public class AuthoritiesVO {
 	private MemberVO memberVO;
 	private String authority;
 	public MemberVO getMemberVO() {
@@ -15,11 +15,11 @@ public class Authorities {
 	public void setAuthority(String authority) {
 		this.authority = authority;
 	}
-	public Authorities() {
+	public AuthoritiesVO() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public Authorities(MemberVO memberVO, String authority) {
+	public AuthoritiesVO(MemberVO memberVO, String authority) {
 		super();
 		this.memberVO = memberVO;
 		this.authority = authority;
