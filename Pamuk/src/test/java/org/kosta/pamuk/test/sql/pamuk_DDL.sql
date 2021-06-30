@@ -33,7 +33,7 @@ create table member(
 	email varchar2(100) not null unique,
 	name varchar2(100) not null,
 	nick varchar2(100) not null,
-	status NUMBER not null default 0,
+	status NUMBER default 0,
 	birth DATE not null
 )
 
@@ -54,7 +54,7 @@ create table recipe(
 	write_date DATE not null,
 	modify_date DATE,
 	category varchar2(100) not null,
-	hits NUMBER not null default 0,
+	hits NUMBER default 0,
 	constraint fk_recipe foreign key(member_id) references member(member_id)
 )
 
