@@ -4,7 +4,7 @@ create table member(
 	email varchar2(100) not null unique,
 	name varchar2(100) not null,
 	nick varchar2(100) not null,
-	status NUMBER not null default 0,
+	status NUMBER default 0,
 	birth DATE not null
 )
 INSERT INTO member VALUES ('java','a','java@email.com','아이유','자바',0,'19930316')

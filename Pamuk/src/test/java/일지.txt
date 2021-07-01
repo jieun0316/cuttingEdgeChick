@@ -5,3 +5,7 @@
 	-칸수만큼 storage 생성 (테스트중)
 	-생각할것 : -memberVO대신 memberId만 있으면 안되는지?
 			  -type도 직접 입력이 아닌 동적으로 입력해야할지?	
+
+**210631(2번째날)
+>fridge/fridge-register-form.jsp에서 전달받은 칸수만큼 storage 생성 (경로 잘못 생성, insert쿼리 잘못 입력 등의 실수로 겨우겨우)
+해야할것 > db에 저장된 칸수만큼 조회탭에서 칸 탭 생성해야 

@@ -4,10 +4,14 @@
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.kosta.pamuk.model.mapper.StorageMapper">
+
  	<insert id="registerStorage" parameterType="storageVO">
- 	insert into storage values (storage_no, member_id, type, location_no)
- 	(storage_seq.nextval, #{memberVO.memberId},#{type},#{locationNo})
+ 	insert into storage (storage_no, member_id, type, location_no) values (storage_seq.nextval, #{memberVO.memberId},#{type},#{locationNo})
  	</insert>
+ 	
+ 	<select id="findStorageByMemberId" parameterType="string" resultType="storageVO">
+ 	select storage_no, type, location_no from storage where member_id=#{value}
+ 	</select>
 </mapper>
  
  
