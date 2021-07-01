@@ -13,6 +13,14 @@ public class RecipeVO {
 		super();
 		// TODO Auto-generated constructor stub
 	}
+	
+	
+	public RecipeVO(int recipeNo) {
+		super();
+		this.recipeNo = recipeNo;
+	}
+
+
 	public RecipeVO(int recipeNo, MemberVO memberVO, String recipeName, String writeDate, String modifyDate,
 			String category, int hits) {
 		super();
