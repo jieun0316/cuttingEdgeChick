@@ -506,8 +506,9 @@ textarea:focus {
         border-bottom: 3px solid #1c8314; }
         .header-area .delicious-main-menu .classy-navbar .classynav > ul > li.active > a::after {
           color: #ffffff; }
-    .header-area .delicious-main-menu .classynav .search-btn {
+    .header-area .delicious-main-menu .classynav .search-btn, .login-btn {
       color: #b6b6b6;
+      font-size:21px;
       margin-left: 150px;
       cursor: pointer;
       -webkit-transition-duration: 500ms;

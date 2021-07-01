@@ -1,0 +1,13 @@
+/*
+	개인이 작성한 CSS는 여기서 작성 부탁드립니다 !
+*/
+@charset "UTF-8";
+
+#scrollBanner {
+	position: absolute;
+	z-index:10;
+	width:80px;
+	top:50%;
+	right:0px;
+	cursor: pointer;
+}

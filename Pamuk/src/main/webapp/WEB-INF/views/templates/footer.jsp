@@ -30,6 +30,5 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
     <script src="${pageContext.request.contextPath}/js/plugins/plugins.js"></script>
     <!-- Active js -->
     <script src="${pageContext.request.contextPath}/js/active.js"></script>
-<footer class="container-fluid text-center">
-  <p>Footer Text</p>
-</footer>
+    <!-- Pamuk js -->
+    <script src="${pageContext.request.contextPath}/js/pamuk.js"></script>
