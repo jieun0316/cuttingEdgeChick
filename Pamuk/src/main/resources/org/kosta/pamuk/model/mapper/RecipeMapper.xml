@@ -4,6 +4,7 @@
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.kosta.pamuk.model.mapper.RecipeMapper">
+	<!-- recipe 관련 insert문 -->
 	<!-- recipe 게시물 작성 -->
 	<insert id="postRecipe" parameterType="RecipeVO">
 		<selectKey keyProperty="recipeNo" resultType="int" order="BEFORE">
@@ -14,10 +15,19 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		values (#{recipeNo}, #{memberVO.memberId}, #{recipeName}, sysdate, #{category})
 	</insert>
 	<!-- recipe 게시물의 세부 content(step) 작성 -->
-	<insert id="postRecipeContent">
-		insert into r
-	
+	<insert id="postRecipeContent" parameterType="RecipeContentVO">
+		insert into recipe_content
+		(recipe_no, step_no, step_title, content, image_path)
+		values (#{recipeVO.recipeNo}, #{stepNo}, #{stepTitle}, #{content}, #{imagePath})
 	</insert>
+	<!-- recipe에 사용되는 재료 작성 -->
+	<insert id="postRecipeItem" parameterType="RecipeItemVO">
+		insert into recipe_item
+		(item_name, recipe_no, qty)
+		values (#{itemName}, #{recipeVO.recipeNo}, #{qty})
+	</insert>
+	
+	<!-- recipe 관련 select문 -->
 	<!-- recipe 게시물 조회 -->
 	<select id="">
 	
