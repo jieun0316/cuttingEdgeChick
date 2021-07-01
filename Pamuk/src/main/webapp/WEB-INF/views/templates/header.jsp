@@ -7,7 +7,8 @@
     </div>
     <!-- Scroll Banner -->
     <div id="scrollBanner">
-    	<img src="${pageContext.request.contextPath}/img/core-img/scroll.png" alt="">
+    	<a href="#"><img src="${pageContext.request.contextPath}/img/core-img/scroll.png" alt="당신의 냉장고에 접속하세요!"></a>
+    	<p>냉장고 보기</p>
     </div>
 
     <!-- Search Wrapper -->
@@ -37,7 +38,7 @@
                     <nav class="classy-navbar justify-content-between" id="deliciousNav">
 
                         <!-- Logo -->
-                        <a class="nav-brand" href="index.html"><img src="${pageContext.request.contextPath}/img/core-img/logo.png" alt=""></a>
+                        <a class="nav-brand" href="home"><img src="${pageContext.request.contextPath}/img/core-img/logo.png" alt=""></a>
 
                         <!-- Navbar Toggler -->
                         <div class="classy-navbar-toggler">
@@ -55,8 +56,8 @@
                             <!-- Nav Start -->
                             <div class="classynav">
                                 <ul>
-                                    <li class="active"><a href="index.html">Home</a></li>
-                                    <li><a href="#">레시피</a>
+                                    <li><a href="index.html">Home</a></li>
+                                    <li><a href="recipeBoardList">레시피</a>
                                         <ul class="dropdown">
                                             <li><a href="index.html">한식</a></li>
                                             <li><a href="blog-post.html">일식</a></li>
