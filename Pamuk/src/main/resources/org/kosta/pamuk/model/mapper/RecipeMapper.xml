@@ -11,10 +11,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		</selectKey>
 		insert into recipe
 		(recipe_no,member_id,recipe_name,write_date,category)
-		values(#{recipeNo}, #{memberVO.memberId}, #{recipeName}, sysdate, #{category})
+		values (#{recipeNo}, #{memberVO.memberId}, #{recipeName}, sysdate, #{category})
 	</insert>
 	<!-- recipe 게시물의 세부 content(step) 작성 -->
 	<insert id="postRecipeContent">
+		insert into r
 	
 	</insert>
 	<!-- recipe 게시물 조회 -->

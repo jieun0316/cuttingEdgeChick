@@ -4,6 +4,7 @@ import org.junit.jupiter.api.Test;
 import org.kosta.pamuk.model.mapper.RecipeMapper;
 import org.kosta.pamuk.model.vo.MemberVO;
 import org.kosta.pamuk.model.vo.RecipeVO;
+import org.kosta.pamuk.service.RecipeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
@@ -11,6 +12,9 @@ import org.springframework.boot.test.context.SpringBootTest;
 public class RecipeTest {
 	@Autowired
 	RecipeMapper rm;
+	
+	@Autowired
+	RecipeService rs;
 	
 	@Test
 	public void postRecipe() {
@@ -20,7 +24,7 @@ public class RecipeTest {
 		recipeVO.setMemberVO(memberVO);
 		recipeVO.setCategory("한식");
 		recipeVO.setRecipeName("계란장");
-		rm.postRecipe(recipeVO);
+		rs.postRecipe(recipeVO);
 		System.out.println(recipeVO);
 	}
 }
