@@ -64,6 +64,13 @@ $(document).ready(function(){
 	</c:forTokens>
     </p>
   </div>
+  <div id="sauce" class="tab-pane fade">
+    <p>
+    <c:forTokens  var="item" items="사과,배,감귤,만감류,수박,멜론,참외,토마토,딸기,키위,블루베리,포도,자두,복숭아,감,곶감,바나나,파인애플,오렌지,자몽,레몬,망고,열대과일,체리,석류,아보카도" delims=",">
+	<input type="checkbox" id="${item}">${item}
+	</c:forTokens>
+    </p>
+  </div>
 </div>
 	
 	</div>

@@ -1,11 +1,14 @@
 package org.kosta.pamuk.controller;
 
+import java.util.List;
+
 import javax.annotation.Resource;
 
 import org.kosta.pamuk.model.mapper.StorageMapper;
 import org.kosta.pamuk.model.vo.MemberVO;
 import org.kosta.pamuk.model.vo.StorageVO;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
@@ -48,7 +51,10 @@ public String registerStorage(int fridge, int freezer, int room) {
 	return "redirect:fridge-update-form";
 }
 @RequestMapping("fridge-update-form")
-public String fridgeUpdateForm() {
+public String fridgeUpdateForm(String id, Model model) {
+	id="java";//원래는 세션에서 가져올 것
+	List<StorageVO> myStorage=sm.findStorageByMemberId(id);
+	model.addAttribute("myStorage", myStorage);
 	return "fridge/fridge-update-form.tiles";	
 }
 @RequestMapping("item-list")

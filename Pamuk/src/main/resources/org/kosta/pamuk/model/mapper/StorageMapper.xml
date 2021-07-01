@@ -10,7 +10,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  	</insert>
  	
  	<select id="findStorageByMemberId" parameterType="string" resultType="storageVO">
- 	select storage_no, type, location_no from storage where member_id=#{value}
+ 	select storage_no, type, location_no from storage where member_id=#{value} order by storage_no
  	</select>
 </mapper>
  

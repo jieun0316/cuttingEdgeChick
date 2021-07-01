@@ -21,9 +21,14 @@
   	<p>칸별로 어떤 재료가 있는지 확인, 추가, 수정, 삭제하세요</p>
 
   <ul class="nav nav-tabs">
-    <li class="active"><a data-toggle="tab" href="#fridge">냉장</a></li>
-    <li><a data-toggle="tab" href="#fridge1">냉장 1</a></li>
-    <li><a data-toggle="tab" href="#fridge2">냉장 2</a></li>
+
+    <li class="active"><a data-toggle="tab" href="#all">전체보기</a></li>
+      <c:forEach items="${myStorage}" var="s">
+    <li><a data-toggle="tab" href="#fridge1">${s.type}${s.locationNo}</a></li>
+    </c:forEach>
+    </ul>
+    
+<!--     <li><a data-toggle="tab" href="#fridge2">냉장 2</a></li>
     <li><a data-toggle="tab" href="#fridge3">냉장 3</a></li>
   </ul><br><br>
   <ul class="nav nav-tabs">
@@ -34,7 +39,7 @@
   <ul class="nav nav-tabs">
     <li class="active"><a data-toggle="tab" href="#home">실온</a></li>
     <li><a data-toggle="tab" href="#menu1">Menu 1</a></li>
-  </ul><br><br>
+  </ul><br><br> -->
   </div>
 		
 <%-- 	<c:forEach item="${storage}" var="s" varStatus="status"> 
@@ -43,7 +48,7 @@
 
 	
 	<div class="tab-content col-sm-8">
-	<div id="fridge" class="tab-pane fade in active">
+	<div id="all" class="tab-pane fade in active">
 	<h3>냉장 전체</h3>
 	<table class="table">
 	<thead class="thead-light">

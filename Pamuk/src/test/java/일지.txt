@@ -9,3 +9,5 @@
 **210631(2번째날)
 >fridge/fridge-register-form.jsp에서 전달받은 칸수만큼 storage 생성 (경로 잘못 생성, insert쿼리 잘못 입력 등의 실수로 겨우겨우)
 해야할것 > db에 저장된 칸수만큼 조회탭에서 칸 탭 생성해야 
+
+	-locationNO필요없을지도 - type별 조회해서 seq로 정렬해서 index주면 되니까 ? 그럼 넣을때 불편한가?
