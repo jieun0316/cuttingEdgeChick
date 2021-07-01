@@ -21,7 +21,7 @@ public class RecipeServiceImpl implements RecipeService {
 	private RecipeMapper recipeMapper;
 	
 	/**
-	 * Recipe를 Post (recipe, content, item)을 transactional 하게 처리
+	 * Recipe를 Post (recipe, content, item)을 transactional하게 처리
 	 * content와 item은 List로 받아서 insert
 	 * @author 최인재
 	 * @param RecipeVO, ArrayList<RecipeContentVO>, ArrayList<RecipeItemVO>

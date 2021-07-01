@@ -10,4 +10,8 @@ public interface RecipeMapper {
 	void postRecipe(RecipeVO recipeVO);
 	void postRecipeContent(RecipeContentVO recipeContentVO);
 	void postRecipeItem(RecipeItemVO recipeItemVO);
+	
+	int getTotalRecipeCount();
+	int getContentCountByRecipeNo(int recipeNo);
+	int getItemCountByRecipeNo(int recipeNo);
 }

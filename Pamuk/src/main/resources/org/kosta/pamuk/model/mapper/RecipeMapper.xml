@@ -28,10 +28,20 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</insert>
 	
 	<!-- recipe 관련 select문 -->
-	<!-- recipe 게시물 조회 -->
-	<select id="">
-	
+		<!-- count 개수 조회  -->
+	<!-- recipe 게시물 수 조회 -->
+	<select id="getTotalRecipeCount" resultType="int">
+		select count(*) from recipe
 	</select>
+	<!-- 개별 recipe 게시물의 content 수 조회 -->
+	<select id="getContentCountByRecipeNo" resultType="int">
+		select count(*) from recipe_content where recipe_no=#{value}
+	</select>
+	<!-- 개별 recipe 게시물의 item 수 조회 -->
+	<select id="getItemCountByRecipeNo" resultType="int">
+		select count(*) from recipe_item where recipe_no=#{value}
+	</select>
+	
 </mapper>
 
 
