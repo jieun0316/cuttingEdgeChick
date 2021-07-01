@@ -8,6 +8,7 @@ public class MemberVO {
 	private String nick;
 	private int status;
 	private String birth;
+	private String gender;
 	
 	public MemberVO() {
 		super();
@@ -15,8 +16,9 @@ public class MemberVO {
 	}
 	
 	
+	
 	public MemberVO(String memberId, String password, String email, String name, String nick, int status,
-			String birth) {
+			String birth, String gender) {
 		super();
 		this.memberId = memberId;
 		this.password = password;
@@ -25,6 +27,7 @@ public class MemberVO {
 		this.nick = nick;
 		this.status = status;
 		this.birth = birth;
+		this.gender = gender;
 	}
 
 
@@ -59,7 +62,6 @@ public class MemberVO {
 		this.nick = nick;
 	}
 	
-	
 	public int getStatus() {
 		return status;
 	}
@@ -72,11 +74,24 @@ public class MemberVO {
 	public void setBirth(String birth) {
 		this.birth = birth;
 	}
+	
+	public String getGender() {
+		return gender;
+	}
+
+
+	public void setGender(String gender) {
+		this.gender = gender;
+	}
+
+
 	@Override
 	public String toString() {
 		return "MemberVO [memberId=" + memberId + ", password=" + password + ", email=" + email + ", name=" + name
-				+ ", nick=" + nick + "]";
+				+ ", nick=" + nick + ", status=" + status + ", birth=" + birth + ", gender=" + gender + "]";
 	}
+	
+	
 	
 	
 }
