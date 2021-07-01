@@ -7,7 +7,8 @@
     </div>
     <!-- Scroll Banner -->
     <div id="scrollBanner">
-    	<img src="${pageContext.request.contextPath}/img/core-img/scroll.png" alt="">
+    	<a href="#"><img src="${pageContext.request.contextPath}/img/core-img/scroll.png" alt="당신의 냉장고에 접속하세요!"></a>
+    	<p>냉장고 보기</p>
     </div>
 
     <!-- Search Wrapper -->

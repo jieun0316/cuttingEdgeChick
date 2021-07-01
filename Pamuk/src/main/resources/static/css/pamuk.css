@@ -3,11 +3,18 @@
 */
 @charset "UTF-8";
 
+/* jquery floating banner */
 #scrollBanner {
 	position: absolute;
 	z-index:10;
 	width:80px;
-	top:50%;
-	right:0px;
+	top:400px;
+	right:30px;
 	cursor: pointer;
+}
+#scrollBanner p {
+	text-align: center;
+	background-color: #40ba37;
+	color:#fff;
+	
 }
