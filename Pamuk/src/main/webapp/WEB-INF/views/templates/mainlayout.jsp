@@ -25,11 +25,7 @@
 <!-- ##### All Javascript Files ##### -->
 <!-- jQuery-2.2.4 js -->
 <script
-<<<<<<< HEAD
-	src="${pageContext.request.contextPath}/js/jquery/jquery-2.2.4.min.js" ></script>
-=======
 	src="${pageContext.request.contextPath}/js/jquery/jquery-2.2.4.min.js"></script>
->>>>>>> branch 'main' of https://github.com/jieun0316/cuttingEdgeChick.git
 <!-- Popper js -->
 <script
 	src="${pageContext.request.contextPath}/js/bootstrap/popper.min.js" defer></script>
