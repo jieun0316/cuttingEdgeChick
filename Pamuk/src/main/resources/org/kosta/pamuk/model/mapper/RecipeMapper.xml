@@ -88,7 +88,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 	<!-- recipe 게시물 ContentList를 조회 -->
 	<select id="getRecipeContentListByRecipeNoOrderByStepNo" resultType="recipeContentVO">
-		select recipe_no, step_no, step_title, content, image_path
+		select recipe_no, step_no, content, image_path
 		from recipe_content
 		where recipe_no = #{value}
 		order by step_no
