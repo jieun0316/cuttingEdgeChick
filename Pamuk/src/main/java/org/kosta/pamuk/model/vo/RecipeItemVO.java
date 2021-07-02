@@ -15,6 +15,11 @@ public class RecipeItemVO extends ItemVO {
 		this.recipeVO = recipeVO;
 		this.qty = qty;
 	}
+	
+	public RecipeItemVO(String itemName, CategoryVO categoryVO) {
+		super(itemName, categoryVO);
+		// TODO Auto-generated constructor stub
+	}
 
 	public RecipeVO getRecipeVO() {
 		return recipeVO;
