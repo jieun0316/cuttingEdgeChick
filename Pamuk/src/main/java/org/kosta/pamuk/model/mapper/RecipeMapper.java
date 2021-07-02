@@ -28,4 +28,5 @@ public interface RecipeMapper {
 	ArrayList<RecipeContentVO> getRecipeContentListByRecipeNoOrderByStepNo(int recipeNo);
 
 	//recipe 검색 조회 관련
+	
 }
