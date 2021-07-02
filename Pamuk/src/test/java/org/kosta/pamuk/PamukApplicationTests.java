@@ -8,6 +8,7 @@ class PamukApplicationTests {
 
 	@Test
 	void contextLoads() {
+		
 	}
 
 }
