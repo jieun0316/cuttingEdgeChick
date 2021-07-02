@@ -23,7 +23,7 @@ public class RecipeTest {
 
 	@Test
 	public void postRecipe() {
-		int testCase = 5;
+		int testCase = 3;
 
 		// recipe Insert test
 		if (testCase == 1) {
@@ -39,12 +39,29 @@ public class RecipeTest {
 
 		// recipe content Insert Test
 		else if (testCase == 2) {
-			RecipeContentVO recipeContentVO = new RecipeContentVO();
+			RecipeContentVO recipeContentVO;
+			/*RecipeContentVO recipeContentVO = new RecipeContentVO();
 			recipeContentVO.setContent("양념간장에 삶은 계란을 넣으세요");
 			recipeContentVO.setImagePath("");
-			recipeContentVO.setRecipeVO(new RecipeVO(3));
+			recipeContentVO.setRecipeVO(new RecipeVO(1));
 			recipeContentVO.setStepNo(3);
 			recipeContentVO.setStepTitle("계란장 만들기");
+			rm.postRecipeContent(recipeContentVO);*/
+			
+			recipeContentVO = new RecipeContentVO();
+			recipeContentVO.setContent("설탕과 간장을 섞으세요");
+			recipeContentVO.setImagePath("");
+			recipeContentVO.setRecipeVO(new RecipeVO(1));
+			recipeContentVO.setStepNo(2);
+			recipeContentVO.setStepTitle("양념 간장 만들기");
+			rm.postRecipeContent(recipeContentVO);
+			
+			recipeContentVO = new RecipeContentVO();
+			recipeContentVO.setContent("계란을 10분간 삶으세요");
+			recipeContentVO.setImagePath("");
+			recipeContentVO.setRecipeVO(new RecipeVO(1));
+			recipeContentVO.setStepNo(1);
+			recipeContentVO.setStepTitle("계란삶기");
 			rm.postRecipeContent(recipeContentVO);
 		}
 		
@@ -53,7 +70,19 @@ public class RecipeTest {
 			RecipeItemVO recipeItemVO = new RecipeItemVO();
 			recipeItemVO.setItemName("설탕");
 			recipeItemVO.setQty("5큰술");
-			recipeItemVO.setRecipeVO(new RecipeVO(3));
+			recipeItemVO.setRecipeVO(new RecipeVO(1));
+			rm.postRecipeItem(recipeItemVO);
+			
+			recipeItemVO = new RecipeItemVO();
+			recipeItemVO.setItemName("간장");
+			recipeItemVO.setQty("100ml");
+			recipeItemVO.setRecipeVO(new RecipeVO(1));
+			rm.postRecipeItem(recipeItemVO);
+			
+			recipeItemVO = new RecipeItemVO();
+			recipeItemVO.setItemName("계란");
+			recipeItemVO.setQty("10알");
+			recipeItemVO.setRecipeVO(new RecipeVO(1));
 			rm.postRecipeItem(recipeItemVO);
 		}
 		

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Sql Mapper -->
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.kosta.pamuk.model.mapper.ItemMapper">
+	
+	<resultMap type="itemVO" id="ItemRM">
+		<result column="category_name" property="categoryVO.categoryName"/>
+		<result column="storage_time" property="categoryVO.storageTime"/>
+	</resultMap>
+	<!-- select -->
+	<select id="getCategoryList" resultType="categoryVO">
+		select category_name,storage_time 
+		from category
+	</select>
+	<select id="getItemListByCategory" resultMap="ItemRM">
+		select i.item_name, i.category_name, c.storage_time
+		from item i, category c
+		where i.category_name=#{value} and i.category_name = c.category_name
+	</select>
+	
+	<!-- insert -->
+	<insert id="addCategory" parameterType="categoryVO">
+		insert into category (category_name,storage_time) values (#{categoryName},#{storageTime})
+	</insert>
+	<insert id="addItem" parameterType="itemVO">
+		insert into item (item_name, category_name) values (#{itemName},#{categoryVO.categoryName})
+	</insert>
+</mapper>
