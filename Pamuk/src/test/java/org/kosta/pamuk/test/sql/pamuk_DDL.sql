@@ -67,7 +67,7 @@ create table review(
 	grade NUMBER not null,
 	review_date DATE default sysdate,
 	constraint fk_review_member foreign key(member_id) references member(member_id),
-	constraint fk_review_recipe foreign key(recipe_no) references recipe(recipe_no),
+	constraint fk_review_recipe foreign key(recipe_no) references recipe(recipe_no) ON DELETE CASCADE,
 	constraint pk_member_review primary key(member_id, recipe_no)
 );
 
@@ -78,7 +78,7 @@ create table recipe_content(
 	step_title varchar2(100) not null,
 	content clob not null,
 	image_path clob,
-	constraint fk_recipe_content foreign key(recipe_no) references recipe(recipe_no),
+	constraint fk_recipe_content foreign key(recipe_no) references recipe(recipe_no) ON DELETE CASCADE,
 	constraint pk_recipe_step primary key(recipe_no,step_no)
 );
 
@@ -87,8 +87,8 @@ create table saved_recipe(
 	member_id varchar2(100) not null,
 	recipe_no number not null,
 	saved_date DATE default sysdate,
-	constraint fk_saved_member foreign key(member_id) references member(member_id),
-	constraint fk_saved_recipe foreign key(recipe_no) references recipe(recipe_no),
+	constraint fk_saved_member foreign key(member_id) references member(member_id) ON DELETE CASCADE,
+	constraint fk_saved_recipe foreign key(recipe_no) references recipe(recipe_no) ON DELETE CASCADE,
 	constraint pk_member_recipe primary key(member_id,recipe_no)
 );
 
@@ -136,7 +136,7 @@ create table recipe_item(
 	recipe_no number not null,
 	qty varchar2(30),
 	constraint fk_recipe_item_item foreign key(item_name) references item(item_name),
-	constraint fk_recipe_item_recipe foreign key(recipe_no) references recipe(recipe_no),
+	constraint fk_recipe_item_recipe foreign key(recipe_no) references recipe(recipe_no) ON DELETE CASCADE,
 	constraint pk_item_recipe primary key(item_name,recipe_no)
 );
 -------------------------------------------------------------------------------
