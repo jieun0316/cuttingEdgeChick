@@ -53,7 +53,7 @@
         </div>
 		<div class="row">
 			<div id="totalCount">
-				총 <span>43</span>개의 맛있는 레시피가 있습니다 !
+				총 <span>${totalRecipeCount}</span>개의 맛있는 레시피가 있습니다 !
 			</div>
 		</div>
 		<div class="row">
