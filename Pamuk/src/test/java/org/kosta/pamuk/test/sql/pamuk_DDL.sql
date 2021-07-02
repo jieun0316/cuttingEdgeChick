@@ -52,7 +52,7 @@ create table recipe(
 	recipe_no NUMBER primary key,
 	member_id varchar2(100) not null,
 	recipe_name varchar2(100) not null,
-	write_date DATE not null,
+	write_date DATE default sysdate,
 	modify_date DATE,
 	category varchar2(100) not null,
 	hits NUMBER default 0,
@@ -65,7 +65,7 @@ create table review(
 	recipe_no NUMBER not null,
 	review_comment clob,
 	grade NUMBER not null,
-	review_date DATE not null,
+	review_date DATE default sysdate,
 	constraint fk_review_member foreign key(member_id) references member(member_id),
 	constraint fk_review_recipe foreign key(recipe_no) references recipe(recipe_no),
 	constraint pk_member_review primary key(member_id, recipe_no)
@@ -86,7 +86,7 @@ create table recipe_content(
 create table saved_recipe(
 	member_id varchar2(100) not null,
 	recipe_no number not null,
-	saved_date DATE not null,
+	saved_date DATE default sysdate,
 	constraint fk_saved_member foreign key(member_id) references member(member_id),
 	constraint fk_saved_recipe foreign key(recipe_no) references recipe(recipe_no),
 	constraint pk_member_recipe primary key(member_id,recipe_no)
@@ -122,7 +122,7 @@ create table stored_item(
    item_name varchar2(100) not null,
    item_memo varchar2(100),
    expiry_date date not null, 
-   stored_date date not null,
+   stored_date date default sysdate,
    qty varchar2(30),
    constraint fk_stored_storage foreign key (storage_no) references storage(storage_no),
    constraint fk_stored_item foreign key (item_name) references item(item_name)
