@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Sql Mapper -->
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.kosta.pamuk.model.mapper.MemberMapper">
+	<insert id="registerMember" parameterType="memberVO">
+		insert into MEMBER(member_id, password, email, name, nick, birth, gender) values(#{memberId},#{password},#{email},#{name},#{nick},#{birth}, #{gender})
+	</insert>
+	<select id="findMemberInfo" parameterType="string" resultType="memberVO">
+		select member_id, password, email, name, nick, to_char(birth,'YYYY-MM-DD') as birth, gender from member where member_id=#{value}
+	</select>
+	<select id="findMemberId" resultType="memberVO">
+		select member_id, name, email from member where name=#{name} and email=#{email}
+	</select>
+	<select id="findMemberPassword" resultType="memberVO">
+		select member_id, password, name, email from member where member_id=#{memberId} and name=#{name} and email=#{email}
+	</select>
+	<select id="identifyMemberPassword" resultType="memberVO">
+		select member_id, password from member where member_id=#{memberId} and password=#{password}
+	</select>
+	<update id="updateMemberPassword" parameterType="string">
+		update member set password=#{password} where member_id=#{memberId}
+	</update>
+	<update id="updateNick" parameterType="string">
+		update member set nick=#{nick} where member_id=#{memberId}
+	</update>
+</mapper>

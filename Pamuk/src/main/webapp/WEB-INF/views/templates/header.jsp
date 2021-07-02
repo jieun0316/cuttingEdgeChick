@@ -93,9 +93,16 @@
                                     <i class="fa fa-search" aria-hidden="true"></i>
                                 </div>
                                 <div class="login-btn">
-                                    <i class="fa fa-user" aria-hidden="true"></i>
+                                    <span id="loginLink">Login&nbsp;&nbsp;</span><i class="fa fa-user" aria-hidden="true"></i>
                                 </div>
-                                
+                               <!-- <script src="/js/jquery/jquery-2.2.4.min.js"></script> -->
+	                                <script type="text/javascript">
+	                                	$(document).ready(function() {
+	                                		$(".login-btn").click(function() {                                		
+	                                			location.href="/loginForm";
+	                                		});
+	                                	})
+	                                </script>
 
                             </div>
                             <!-- Nav End -->

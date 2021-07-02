@@ -25,7 +25,7 @@
 <!-- ##### All Javascript Files ##### -->
 <!-- jQuery-2.2.4 js -->
 <script
-	src="${pageContext.request.contextPath}/js/jquery/jquery-2.2.4.min.js" defer></script>
+	src="${pageContext.request.contextPath}/js/jquery/jquery-2.2.4.min.js" ></script>
 <!-- Popper js -->
 <script
 	src="${pageContext.request.contextPath}/js/bootstrap/popper.min.js" defer ></script>
