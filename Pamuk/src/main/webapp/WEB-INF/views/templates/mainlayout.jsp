@@ -18,8 +18,26 @@
 <!-- <link rel="icon" href="img/core-img/favicon.ico"> -->
 
 <!-- Core Stylesheet -->
-<link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/css/pamuk.css">
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/css/style.css">
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/css/pamuk.css">
+<!-- ##### All Javascript Files ##### -->
+<!-- jQuery-2.2.4 js -->
+<script
+	src="${pageContext.request.contextPath}/js/jquery/jquery-2.2.4.min.js" defer></script>
+<!-- Popper js -->
+<script
+	src="${pageContext.request.contextPath}/js/bootstrap/popper.min.js" defer ></script>
+<!-- Bootstrap js -->
+<script
+	src="${pageContext.request.contextPath}/js/bootstrap/bootstrap.min.js" defer></script>
+<!-- All Plugins js -->
+<script src="${pageContext.request.contextPath}/js/plugins/plugins.js" defer></script>
+<!-- Active js -->
+<script src="${pageContext.request.contextPath}/js/active.js" defer></script>
+<!-- Pamuk js -->
+<script src="${pageContext.request.contextPath}/js/pamuk.js" defer></script>
 
 </head>
 <body>
