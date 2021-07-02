@@ -9,14 +9,9 @@ public class RecipeItemVO extends ItemVO {
 		// TODO Auto-generated constructor stub
 	}
 
-	public RecipeItemVO(String itemName, CategoryVO categoryVO) {
-		super(itemName, categoryVO);
-		// TODO Auto-generated constructor stub
-	}
 
-
-	public RecipeItemVO(String itemName, CategoryVO categoryVO, RecipeVO recipeVO, String qty) {
-		super(itemName, categoryVO);
+	public RecipeItemVO(String itemName, RecipeVO recipeVO, String qty) {
+		super.setItemName(itemName);
 		this.recipeVO = recipeVO;
 		this.qty = qty;
 	}

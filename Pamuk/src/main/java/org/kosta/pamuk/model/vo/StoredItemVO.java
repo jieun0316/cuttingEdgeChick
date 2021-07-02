@@ -1,6 +1,6 @@
 package org.kosta.pamuk.model.vo;
 
-class StoredItemVO extends ItemVO {
+public class StoredItemVO extends ItemVO {
 	private int storedItemNo;
 	private StorageVO storageVO;
 	private String itemMemo;
