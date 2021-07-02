@@ -99,21 +99,36 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="getAllRecipeListByRowNumber" resultMap="recipeDetailRM">
 		SELECT  x.* 
 		FROM (
-			SELECT ROWNUM rn, r.recipe_no, m.nick, r.recipe_name, to_char(r.write_date,'YYYY-MM-DD') as write_date, r.category
+			SELECT ROWNUM rn, r.recipe_no, m.nick, r.recipe_name, hits
 			FROM RECIPE r, member m
 			WHERE m.member_id = r.member_id ORDER BY recipe_no DESC)x 
 		WHERE rn BETWEEN #{startRowNumber} and #{endRowNumber}
 	</select>
+	<!-- category별 recipe 게시물의 List를 rowNumber로 조회 -->
 	<select id="getRecipeListByCategory"  resultMap="recipeDetailRM">
 		SELECT  x.* 
 		FROM (
-			SELECT ROWNUM rn, r.recipe_no, m.nick, r.recipe_name, to_char(r.write_date,'YYYY-MM-DD') as write_date, r.category
+			SELECT ROWNUM rn, r.recipe_no, m.nick, r.recipe_name, hits
 			FROM RECIPE r, member m
 			WHERE m.member_id = r.member_id and category=#{category} ORDER BY recipe_no DESC)x 
 		WHERE rn BETWEEN #{startRowNumber} and #{endRowNumber}
 	</select>
 	
-
+	
+	<!-- delete !!테스트 아직 안함!! -->
+	<delete id="deleteRecipeByRecipeNo">
+		delete from recipe where recipeNo=#{value}
+	</delete>
+	<delete id="deleteRecipeItemByRecipeNoAndRecipeItem">
+		delete from recipe_item where recipe_no=#{recipeNo} and recipe_item=#{recipeItem}
+	</delete>
+	<delete id="deleteAllRecipeItemByRecipeNo">
+		delete from recipe_item where recipe_no=#{recipeNo}
+	</delete>
+	<delete id="deleteLastRecipeContentByRecipeNo">
+		delete from recipe_content where recipe_no=#{recipeNo}
+		and step_no=(SELECT max(step_no) FROM recipe_content where recipe_no=#{recipeNo})
+	</delete>
 </mapper>
 
 

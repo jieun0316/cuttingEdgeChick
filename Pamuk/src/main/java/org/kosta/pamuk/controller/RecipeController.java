@@ -1,6 +1,11 @@
 package org.kosta.pamuk.controller;
 
+import org.kosta.pamuk.model.mapper.RecipeMapper;
+import org.kosta.pamuk.model.vo.PagingBean;
+import org.kosta.pamuk.service.RecipeService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 /**
@@ -10,14 +15,33 @@ import org.springframework.web.bind.annotation.RequestMapping;
  */
 @Controller
 public class RecipeController {
+	@Autowired
+	RecipeService recipeService;
+	@Autowired
+	RecipeMapper recipeMapper;
 	/**
 	 * 레시피 게시판 목록 보기
 	 * @return
 	 */
 	@RequestMapping("recipeBoardList")
-	public String recipeBoardList() {
+	public String recipeBoardList(Model model) {
+		//totalRecipeCount
+		int totalRecipeCount = recipeMapper.getTotalRecipeCount();
+		model.addAttribute("totalRecipeCount", totalRecipeCount);
+		
+		//paging
+		String pageNo= (String)model.getAttribute("pageNo");
+		PagingBean pagingBean = null;
+		if(pageNo==null) {
+			pagingBean=new PagingBean(totalRecipeCount);
+		} else {
+			pagingBean=new PagingBean(totalRecipeCount,Integer.parseInt(pageNo));
+		}
+		model.addAttribute("pagingBean", pagingBean);
+		
 		return "recipes/recipeBoardList.tiles";
 	}
+	
 	/**
 	 * 레시피 게시판 등록폼(상세)
 	 * @return
