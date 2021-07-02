@@ -33,23 +33,45 @@
 				<div class="contact-form-area">
 					<form action="#" method="post">
 						<div class="row">
-							<div class="col-12 col-lg-6">
-								<input type="text" class="form-control" id="name"
-									placeholder="Name">
-							</div>
-							<div class="col-12 col-lg-6">
-								<input type="email" class="form-control" id="email"
-									placeholder="E-mail">
-							</div>
-							<div class="col-12">
-								<input type="text" class="form-control" id="subject"
-									placeholder="Subject">
-							</div>
-							<div class="col-12">
+							<div class="col-4">
 								<textarea name="message" class="form-control" id="message"
-									cols="30" rows="10" placeholder="Message"></textarea>
+									cols="30" rows="10" placeholder="재료 선택하는 텝"></textarea>
 							</div>
-							<div class="col-12 text-center">
+							<div class="col-8">
+								<div class="row">
+									<input type="text" class="form-control" id="subject"
+										placeholder="제목">
+								</div>
+								<!-- 
+									이거 Ajax 로 처리해서 + 증가시켜주면 됩니당!!
+									recipeWriteStep class
+									Step + 숫자 해주기
+								-->
+								<div class="recipeWriteStep">
+									<div class="row mt-30 mg-15">
+										<h3 style="text-align: center">Step1</h3>
+									</div>
+									<div class="row">
+										<input type="file" class="form-control" id="file"
+											placeholder="파일 제목">
+										<textarea name="message" class="form-control" id="message"
+											cols="30" rows="10" placeholder="레시피 설명을 넣어주세요!"></textarea>
+									</div>
+								</div>
+								<div class="recipeWriteStep">
+									<div class="row mt-30 mg-15">
+										<h3 style="text-align: center">Step2</h3>
+									</div>
+									<div class="row">
+										<input type="file" class="form-control" id="file"
+											placeholder="파일 제목">
+										<textarea name="message" class="form-control" id="message"
+											cols="30" rows="10" placeholder="레시피 설명을 넣어주세요!"></textarea>
+									</div>
+								</div>
+							</div>
+
+							<div class="col-12 text-right">
 								<button class="btn delicious-btn mt-30" type="submit">Send</button>
 							</div>
 						</div>

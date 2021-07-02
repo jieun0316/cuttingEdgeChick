@@ -25,16 +25,16 @@
 	src="${pageContext.request.contextPath}/js/jquery/jquery-2.2.4.min.js"></script>
 <!-- Popper js -->
 <script
-	src="${pageContext.request.contextPath}/js/bootstrap/popper.min.js" ></script>
+	src="${pageContext.request.contextPath}/js/bootstrap/popper.min.js" defer></script>
 <!-- Bootstrap js -->
 <script
-	src="${pageContext.request.contextPath}/js/bootstrap/bootstrap.min.js"></script>
+	src="${pageContext.request.contextPath}/js/bootstrap/bootstrap.min.js" defer></script>
 <!-- All Plugins js -->
-<script src="${pageContext.request.contextPath}/js/plugins/plugins.js"></script>
+<script src="${pageContext.request.contextPath}/js/plugins/plugins.js" defer></script>
 <!-- Active js -->
-<script src="${pageContext.request.contextPath}/js/active.js"></script>
+<script src="${pageContext.request.contextPath}/js/active.js" defer></script>
 <!-- Pamuk js -->
-<script src="${pageContext.request.contextPath}/js/pamuk.js" defer></script>
+<script src="${pageContext.request.contextPath}/js/pamuk.js"></script>
 </head>
 <body>
 	<!-- 
