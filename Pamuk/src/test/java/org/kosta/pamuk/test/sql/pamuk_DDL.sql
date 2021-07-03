@@ -33,9 +33,10 @@ create table member(
 	email varchar2(100) not null unique,
 	name varchar2(100) not null,
 	nick varchar2(100) not null,
-	status NUMBER not null default 0,
-	birth DATE not null
-)
+	status NUMBER default 0,
+	birth DATE not null,
+	gender varchar2(2) not null
+);
 
 --2
 create table authorities(
@@ -43,10 +44,10 @@ create table authorities(
 	authority varchar2(30) not null,
 	constraint fk_authorities foreign key(member_id) references member(member_id),
 	constraint pk_member_authorities primary key(member_id,authority)
-)
+);
 
 --3
-create sequence recipe_seq
+create sequence recipe_seq;
 create table recipe(
 	recipe_no NUMBER primary key,
 	member_id varchar2(100) not null,
@@ -54,32 +55,32 @@ create table recipe(
 	write_date DATE not null,
 	modify_date DATE,
 	category varchar2(100) not null,
-	hits NUMBER not null default 0,
+	hits NUMBER default 0,
 	constraint fk_recipe foreign key(member_id) references member(member_id)
-)
+);
 
 --4
 create table review(
 	member_id varchar2(100) not null,
 	recipe_no NUMBER not null,
-	review_comment blob,
+	review_comment clob,
 	grade NUMBER not null,
 	review_date DATE not null,
 	constraint fk_review_member foreign key(member_id) references member(member_id),
 	constraint fk_review_recipe foreign key(recipe_no) references recipe(recipe_no),
 	constraint pk_member_review primary key(member_id, recipe_no)
-)
+);
 
 --5
 create table recipe_content(
 	recipe_no NUMBER not null,	
 	step_no NUMBER not null,
 	step_title varchar2(100) not null,
-	content blob not null,
-	image_path blob,
+	content clob not null,
+	image_path clob,
 	constraint fk_recipe_content foreign key(recipe_no) references recipe(recipe_no),
 	constraint pk_recipe_step primary key(recipe_no,step_no)
-)
+);
 
 --6
 create table saved_recipe(
@@ -89,7 +90,7 @@ create table saved_recipe(
 	constraint fk_saved_member foreign key(member_id) references member(member_id),
 	constraint fk_saved_recipe foreign key(recipe_no) references recipe(recipe_no),
 	constraint pk_member_recipe primary key(member_id,recipe_no)
-)
+);
 
 --7
 create table category(
@@ -137,7 +138,7 @@ create table recipe_item(
 	constraint fk_recipe_item_item foreign key(item_name) references item(item_name),
 	constraint fk_recipe_item_recipe foreign key(recipe_no) references recipe(recipe_no),
 	constraint pk_item_recipe primary key(item_name,recipe_no)
-)
+);
 -------------------------------------------------------------------------------
 
 

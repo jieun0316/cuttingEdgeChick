@@ -13,6 +13,13 @@ public class ItemVO {
 		super();
 		// TODO Auto-generated constructor stub
 	}
+	
+
+	public ItemVO(String itemName) {
+		super();
+		this.itemName = itemName;
+	}
+
 
 	public ItemVO(String itemName, CategoryVO categoryVO) {
 		super();
