@@ -10,9 +10,4 @@ public class HomeController {
 	public String home() {
 		return "home.tiles";
 	}
-	// 서브페이지( header, footer 만 있는거)
-	@RequestMapping("sub")
-	public String sublayout() {
-		return "sub.tiles";
-	}
 }

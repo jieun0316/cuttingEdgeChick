@@ -32,4 +32,21 @@
 	color:#40ba37;
 	font-size:32px;
 }
+.recipePlusBtn {
+	text-align:center;
+	cursor: pointer;
+}
+.prepStep {
+	margin-bottom: 50px; 
+}
+.prepStep img {
+	
+}
+/* main header font size  */
+.classynav ul li a , .classy-nav-container a, .classy-nav-container a:focus, .classy-nav-container a:hover{
+	font-size:16px;
+}
+
+/* recipe */
+
 

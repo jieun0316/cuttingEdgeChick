@@ -57,6 +57,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-12">
+                	<!-- 레시피 img_path list 불러오기 -->
                     <div class="receipe-slider owl-carousel">
                         <img src="img/bg-img/bg5.jpg" alt="">
                         <img src="img/bg-img/bg5.jpg" alt="">
@@ -73,12 +74,11 @@
                 <div class="row">
                     <div class="col-12 col-md-8">
                         <div class="receipe-headline my-5">
-                            <span>April 05, 2018</span>
-                            <h2>Vegetarian cheese salad</h2>
+                            <span>2021-07-04</span>
+                            <h2>계란장</h2>
                             <div class="receipe-duration">
-                                <h6>Prep: 15 mins</h6>
-                                <h6>Cook: 30 mins</h6>
-                                <h6>Yields: 8 Servings</h6>
+                                <h3>카테고리: 한식</h3>
+                                <h6>작성자 : 김자바</h6>
                             </div>
                         </div>
                     </div>
@@ -100,24 +100,15 @@
                 <div class="row">
                     <div class="col-12 col-lg-8">
                         <!-- Single Preparation Step -->
-                        <div class="single-preparation-step d-flex">
-                            <h4>01.</h4>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum nec varius dui. Suspendisse potenti. Vestibulum ac pellentesque tortor. Aenean congue sed metus in iaculis. Cras a tortor enim. Phasellus posuere vestibulum ipsum, eget lobortis purus. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. </p>
-                        </div>
-                        <!-- Single Preparation Step -->
-                        <div class="single-preparation-step d-flex">
-                            <h4>02.</h4>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum nec varius dui. Suspendisse potenti. Vestibulum ac pellentesque tortor. Aenean congue sed metus in iaculis. Cras a tortor enim. Phasellus posuere vestibulum ipsum, eget lobortis purus. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. </p>
-                        </div>
-                        <!-- Single Preparation Step -->
-                        <div class="single-preparation-step d-flex">
-                            <h4>03.</h4>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum nec varius dui. Suspendisse potenti. Vestibulum ac pellentesque tortor. Aenean congue sed metus in iaculis. Cras a tortor enim. Phasellus posuere vestibulum ipsum, eget lobortis purus. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. </p>
-                        </div>
-                        <!-- Single Preparation Step -->
-                        <div class="single-preparation-step d-flex">
-                            <h4>04.</h4>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum nec varius dui. Suspendisse potenti. Vestibulum ac pellentesque tortor. Aenean congue sed metus in iaculis. Cras a tortor enim. Phasellus posuere vestibulum ipsum, eget lobortis purus. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. </p>
+                        <div class="prepStep">
+                        	<div class="preImgStep1 img">                        	
+                        		<img src="${pageContext.request.contextPath}/img/bg-img/insta2.jpg" alt="">
+                        	</div>
+                        	<div class="single-preparation-step d-flex">
+                            	<h4>01.</h4>
+                            	<h5>계란 삶기</h5>
+                        	</div>
+                       		<p>계란을 10분간 삶으세요</p>
                         </div>
                     </div>
 
