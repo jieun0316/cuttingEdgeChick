@@ -23,7 +23,7 @@ public class RecipeTest {
 
 	@Test
 	public void postRecipe() {
-		int testCase = 3;
+		int testCase = 5;
 
 		// recipe Insert test
 		if (testCase == 1) {
@@ -31,8 +31,8 @@ public class RecipeTest {
 			MemberVO memberVO = new MemberVO();
 			memberVO.setMemberId("java");
 			recipeVO.setMemberVO(memberVO);
-			recipeVO.setCategory("한식");
-			recipeVO.setRecipeName("계란장");
+			recipeVO.setCategory("일식");
+			recipeVO.setRecipeName("후토마끼");
 			rm.postRecipe(recipeVO);
 			System.out.println(recipeVO);
 		}
@@ -51,7 +51,7 @@ public class RecipeTest {
 			recipeContentVO = new RecipeContentVO();
 			recipeContentVO.setContent("설탕과 간장을 섞으세요");
 			recipeContentVO.setImagePath("");
-			recipeContentVO.setRecipeVO(new RecipeVO(1));
+			recipeContentVO.setRecipeVO(new RecipeVO(2));
 			recipeContentVO.setStepNo(2);
 			recipeContentVO.setStepTitle("양념 간장 만들기");
 			rm.postRecipeContent(recipeContentVO);
@@ -59,7 +59,7 @@ public class RecipeTest {
 			recipeContentVO = new RecipeContentVO();
 			recipeContentVO.setContent("계란을 10분간 삶으세요");
 			recipeContentVO.setImagePath("");
-			recipeContentVO.setRecipeVO(new RecipeVO(1));
+			recipeContentVO.setRecipeVO(new RecipeVO(2));
 			recipeContentVO.setStepNo(1);
 			recipeContentVO.setStepTitle("계란삶기");
 			rm.postRecipeContent(recipeContentVO);
@@ -70,27 +70,27 @@ public class RecipeTest {
 			RecipeItemVO recipeItemVO = new RecipeItemVO();
 			recipeItemVO.setItemName("설탕");
 			recipeItemVO.setQty("5큰술");
-			recipeItemVO.setRecipeVO(new RecipeVO(1));
+			recipeItemVO.setRecipeVO(new RecipeVO(2));
 			rm.postRecipeItem(recipeItemVO);
 			
 			recipeItemVO = new RecipeItemVO();
 			recipeItemVO.setItemName("간장");
 			recipeItemVO.setQty("100ml");
-			recipeItemVO.setRecipeVO(new RecipeVO(1));
+			recipeItemVO.setRecipeVO(new RecipeVO(2));
 			rm.postRecipeItem(recipeItemVO);
 			
 			recipeItemVO = new RecipeItemVO();
 			recipeItemVO.setItemName("계란");
 			recipeItemVO.setQty("10알");
-			recipeItemVO.setRecipeVO(new RecipeVO(1));
+			recipeItemVO.setRecipeVO(new RecipeVO(2));
 			rm.postRecipeItem(recipeItemVO);
 		}
 		
 		//select Count Test
 		else if(testCase==4) {
 			System.out.println(rm.getTotalRecipeCount());
-			System.out.println(rm.getContentCountByRecipeNo(3));
-			System.out.println(rm.getItemCountByRecipeNo(3));
+			System.out.println(rm.getContentCountByRecipeNo(2));
+			System.out.println(rm.getItemCountByRecipeNo(2));
 			System.out.println(rm.getRecipeCountByCategory("한식"));
 		}
 		

@@ -1,7 +1,10 @@
 package org.kosta.pamuk.controller;
 
+import java.util.ArrayList;
+
 import org.kosta.pamuk.model.mapper.RecipeMapper;
 import org.kosta.pamuk.model.vo.PagingBean;
+import org.kosta.pamuk.model.vo.RecipeVO;
 import org.kosta.pamuk.service.RecipeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -24,21 +27,23 @@ public class RecipeController {
 	 * @return
 	 */
 	@RequestMapping("recipeBoardList")
-	public String recipeBoardList(Model model) {
+	public String recipeBoardList(Model model,String pageNo) {
 		//totalRecipeCount
 		int totalRecipeCount = recipeMapper.getTotalRecipeCount();
 		model.addAttribute("totalRecipeCount", totalRecipeCount);
 		
-		//paging
-		String pageNo= (String)model.getAttribute("pageNo");
+		// paging
 		PagingBean pagingBean = null;
 		if(pageNo==null) {
 			pagingBean=new PagingBean(totalRecipeCount);
 		} else {
 			pagingBean=new PagingBean(totalRecipeCount,Integer.parseInt(pageNo));
-		}
-		model.addAttribute("pagingBean", pagingBean);
+		}		
 		
+		//view All Recipe List
+		ArrayList<RecipeVO> recipeList = recipeMapper.getAllRecipeListByRowNumber( pagingBean.getStartRowNumber(),pagingBean.getEndRowNumber());
+		model.addAttribute("recipeList",recipeList);
+		model.addAttribute("pagingBean", pagingBean);
 		return "recipes/recipeBoardList.tiles";
 	}
 	

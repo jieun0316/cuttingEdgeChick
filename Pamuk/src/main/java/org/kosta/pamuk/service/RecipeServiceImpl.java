@@ -37,4 +37,14 @@ public class RecipeServiceImpl implements RecipeService {
 			recipeMapper.postRecipeItem(rItemVO);
 		}
 	}
+	/**
+	 * Recipe List 불러오기
+	 * @author 조수빈
+	 * @param int startRowNumber, int endRowNumber
+	 */
+	@Override
+	public ArrayList<RecipeVO> getAllRecipeListByRowNumber(int startRowNumber, int endRowNumber) {
+		// TODO Auto-generated method stub
+		return recipeMapper.getAllRecipeListByRowNumber(startRowNumber, endRowNumber);
+	}
 }

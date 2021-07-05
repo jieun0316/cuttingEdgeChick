@@ -9,5 +9,5 @@ import org.springframework.transaction.annotation.Transactional;
 
 public interface RecipeService {
 	void postRecipe(RecipeVO vo, ArrayList<RecipeContentVO> recipeContentList, ArrayList<RecipeItemVO> recipeItemList);
-
+	ArrayList<RecipeVO> getAllRecipeListByRowNumber(int startRowNumber,int endRowNumber);
 }
