@@ -6,7 +6,7 @@ import javax.annotation.Resource;
 
 import org.junit.jupiter.api.Test;
 import org.kosta.pamuk.model.mapper.StorageMapper;
-import org.kosta.pamuk.model.vo.StorageVO;
+import org.kosta.pamuk.model.vo.StoredItemVO;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
@@ -26,9 +26,14 @@ class PamukApplicationTests {
 		svo.setLocationNo(1);
 		System.out.println(svo);
 		sm.registerStorage(svo);
-		*/
+		
 		List<StorageVO> list = sm.findStorageByMemberId("java");
 		System.out.println(list);
+		*/
+		List<StoredItemVO> list = sm.getStoredItemByStorageNo(28);
+		System.out.println(list);
+
+		
 	}
 
 }

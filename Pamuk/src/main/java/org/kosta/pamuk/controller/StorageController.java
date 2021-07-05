@@ -7,9 +7,11 @@ import javax.annotation.Resource;
 import org.kosta.pamuk.model.mapper.StorageMapper;
 import org.kosta.pamuk.model.vo.MemberVO;
 import org.kosta.pamuk.model.vo.StorageVO;
+import org.kosta.pamuk.model.vo.StoredItemVO;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 public class StorageController {
@@ -59,6 +61,17 @@ public String fridgeUpdateForm(String id, Model model) {
 }
 @RequestMapping("item-list")
 public String itemList() {
-	return "fridge/item-list.tiles";
+	return "fridge/item-list";
+}
+
+//ajax로 가져오기
+@RequestMapping("getStoredItemByStorageNo")
+@ResponseBody
+public List<StoredItemVO> getStoredItemByStorageNoAjax(int storageNo) {
+	return sm.getStoredItemByStorageNo(storageNo);
+}
+@RequestMapping("test")
+public String test() {
+	return "fridge/basic-fridge-create-form2.tiles";
 }
 }

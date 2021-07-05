@@ -1,12 +1,13 @@
 package org.kosta.pamuk.service;
 
-import org.springframework.stereotype.Service;
-/**
- * 
- * @author 최인재
- *
- */
-@Service
-public class RecipeService {
+import java.util.ArrayList;
+
+import org.kosta.pamuk.model.vo.RecipeContentVO;
+import org.kosta.pamuk.model.vo.RecipeItemVO;
+import org.kosta.pamuk.model.vo.RecipeVO;
+import org.springframework.transaction.annotation.Transactional;
+
+public interface RecipeService {
+	void postRecipe(RecipeVO vo, ArrayList<RecipeContentVO> recipeContentList, ArrayList<RecipeItemVO> recipeItemList);
 
 }

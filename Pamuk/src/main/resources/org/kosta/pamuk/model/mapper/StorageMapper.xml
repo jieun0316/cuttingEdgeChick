@@ -9,8 +9,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  	insert into storage (storage_no, member_id, type, location_no) values (storage_seq.nextval, #{memberVO.memberId},#{type},#{locationNo})
  	</insert>
  	
- 	<select id="findStorageByMemberId" parameterType="string" resultType="storageVO">
+ 	<select id="findStorageByMemberId" parameterType="string" resultType="storageVO"> 
  	select storage_no, type, location_no from storage where member_id=#{value} order by storage_no
+ 	</select>
+ 	
+ 	
+ 	<!-- item과 category 연동하기 위한 resultMap추가해야할수도 -->
+ 	<select id="getStoredItemByStorageNo" parameterType="int" resultType="storedItemVO">
+ 	select stored_item_no, item_name,item_memo, to_char(expiry_date,'YY"년"MM"월"DD"일"') as expiry_date, to_char(stored_date,'YY"년"MM"월"DD"일"') as stored_date, qty from stored_item where storage_no=#{value}
  	</select>
 </mapper>
  

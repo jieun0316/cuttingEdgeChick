@@ -21,3 +21,4 @@ INSERT INTO storage VALUES (storage_seq.nextval, 'java', '냉장', 1)
 DELETE FROM storage WHERE member_id='java'
 select * from member;
 select * from storage;
+select * from STORED_ITEM;

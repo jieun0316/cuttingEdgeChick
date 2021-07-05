@@ -7,7 +7,7 @@
                 <div class="col-12 h-100 d-flex flex-wrap align-items-center justify-content-between">
                     <!-- Footer Logo -->
                     <div class="footer-logo">
-                        <a href="index.html"><img src="${pageContext.request.contextPath}img/core-img/logo.png" alt=""></a>
+                        <a href="home"><img src="${pageContext.request.contextPath}img/core-img/logo.png" alt=""></a>
                     </div>
                     <!-- Copywrite -->
                     <p><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
@@ -30,3 +30,5 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
     <script src="${pageContext.request.contextPath}/js/plugins/plugins.js"></script>
     <!-- Active js -->
     <script src="${pageContext.request.contextPath}/js/active.js"></script>
+    <!-- Pamuk js -->
+    <script src="${pageContext.request.contextPath}/js/pamuk.js"></script>

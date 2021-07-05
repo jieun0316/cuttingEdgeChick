@@ -7,6 +7,14 @@ public class CategoryVO {
 		super();
 		// TODO Auto-generated constructor stub
 	}
+		
+	
+	public CategoryVO(String categoryName) {
+			super();
+			this.categoryName = categoryName;
+		}
+
+
 	public CategoryVO(String categoryName, String storageTime) {
 		super();
 		this.categoryName = categoryName;
