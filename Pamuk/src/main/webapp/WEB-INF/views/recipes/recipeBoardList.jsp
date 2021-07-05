@@ -64,7 +64,7 @@
 					<img src="${pageContext.request.contextPath}/img/bg-img/r1.jpg"
 						alt="">
 					<div class="receipe-content">
-						<a href="receipe-post.html">
+						<a href="recipeBoardView?recipeNo=${recipeVO.recipeNo}">
 							<h5>[${recipeVO.category}] ${recipeVO.recipeName}</h5>
 						</a>
 						<div class="ratings">

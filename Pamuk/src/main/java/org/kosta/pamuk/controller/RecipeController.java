@@ -1,6 +1,7 @@
 package org.kosta.pamuk.controller;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.kosta.pamuk.model.mapper.RecipeMapper;
 import org.kosta.pamuk.model.vo.PagingBean;
@@ -55,12 +56,16 @@ public class RecipeController {
 	public String recipeBoardWrite() {
 		return "recipes/recipeBoardWrite.tiles";
 	}
+
 	/**
 	 * 레시피 게시판 상세보기(상세)
 	 * @return
 	 */
 	@RequestMapping("recipeBoardView")
-	public String recipeBoardView() {
+	public String recipeBoardView(int recipeNo, Model model) {
+		HashMap<String,Object>recipeDetailMap = recipeService.viewRecipeDetail(recipeNo);
+		model.addAttribute("paramMap", recipeDetailMap);
+		
 		return "recipes/recipeBoardView.tiles";
 	}
 }
