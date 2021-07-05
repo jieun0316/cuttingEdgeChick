@@ -39,8 +39,8 @@ public class MemberServiceImpl implements MemberService {
 	 * 이름, 이메일로 아이디 찾기
 	 */
 	@Override
-	public MemberVO findMemberId(String name, String email) {
-		return memberMapper.findMemberId(name, email);
+	public MemberVO findMemberId(String name, String email, String birth) {
+		return memberMapper.findMemberId(name, email, birth);
 	}
 	/**
 	 * 아이디, 이름, 이메일로 패스워드 찾기

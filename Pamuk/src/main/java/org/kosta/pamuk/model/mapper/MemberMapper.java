@@ -9,7 +9,7 @@ public interface MemberMapper {
 	//멤버정보 조회
 	MemberVO findMemberInfo(String memberId);
 	//아이디 찾기
-	MemberVO findMemberId(String name, String email);
+	MemberVO findMemberId(String name, String email, String birth);
 	//비밀번호 찾기
 	MemberVO findMemberPassword(String memberId, String name, String email);
 	//비밀번호 확인 (비밀번호 수정, 회원정보 수정 전에 사용, 세션으로 아이디 값을 받아온다)

@@ -41,8 +41,8 @@
                                 </div>
                                 <div class="col-12 col-lg-12 mt-30" align="center">
                                 	<a href="registerForm">회원가입</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
-                                	<a href="">아이디 찾기</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
-                                	<a href="">비밀번호 찾기</a>
+                                	<a href="findMemberIdForm">아이디 찾기</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+                                	<a href="findMemberPasswordForm">비밀번호 찾기</a>
                                 </div>
                             </div>
                         </form>

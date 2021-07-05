@@ -11,7 +11,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		select member_id, password, email, name, nick, to_char(birth,'YYYY-MM-DD') as birth, gender from member where member_id=#{value}
 	</select>
 	<select id="findMemberId" resultType="memberVO">
-		select member_id, name, email from member where name=#{name} and email=#{email}
+		select member_id, name, email, to_char(birth, 'yyyy-mm-dd') as birth from member where name=#{name} and email=#{email} and birth=#{birth}
 	</select>
 	<select id="findMemberPassword" resultType="memberVO">
 		select member_id, password, name, email from member where member_id=#{memberId} and name=#{name} and email=#{email}
