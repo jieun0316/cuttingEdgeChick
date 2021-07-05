@@ -54,10 +54,10 @@
         </div>
 
         <!-- Receipe Slider -->
+        <!--  
         <div class="container">
             <div class="row">
                 <div class="col-12">
-                	<!-- 레시피 img_path list 불러오기 -->
                     <div class="receipe-slider owl-carousel">
                         <img src="img/bg-img/bg5.jpg" alt="">
                         <img src="img/bg-img/bg5.jpg" alt="">
@@ -66,6 +66,7 @@
                 </div>
             </div>
         </div>
+        -->
 
         <!-- Receipe Content Area -->
         <div class="receipe-content-area">
@@ -101,14 +102,27 @@
                     <div class="col-12 col-lg-8">
                         <!-- Single Preparation Step -->
                         <div class="prepStep">
-                        	<div class="preImgStep1 img">                        	
+                        	
+                        	<div class="single-preparation-step d-flex">
+                        		<div class="preImgStep1 img mr-15">                        	
                         		<img src="${pageContext.request.contextPath}/img/bg-img/insta2.jpg" alt="">
                         	</div>
-                        	<div class="single-preparation-step d-flex">
                             	<h4>01.</h4>
-                            	<h5>계란 삶기</h5>
+                            	<h5 class="mr-15">계란 삶기</h5>
+                       			<p>계란을 10분간 삶으세요</p>
                         	</div>
-                       		<p>계란을 10분간 삶으세요</p>
+                        </div>
+                        <!-- Single Preparation Step -->
+                        <div class="prepStep">
+                        	
+                        	<div class="single-preparation-step d-flex">
+                        		<div class="preImgStep1 img mr-15">                        	
+                        		<img src="${pageContext.request.contextPath}/img/bg-img/insta2.jpg" alt="">
+                        	</div>
+                            	<h4>01.</h4>
+                            	<h5 class="mr-15">계란 삶기</h5>
+                       			<p>계란을 10분간 삶으세요</p>
+                        	</div>
                         </div>
                     </div>
 
