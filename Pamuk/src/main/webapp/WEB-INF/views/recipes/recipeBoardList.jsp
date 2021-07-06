@@ -1,6 +1,23 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<script>
+	$(document).ready( function(){
+		$("#category").change( function(){
+			var $category = $("#category").val();
+			//console.log($category);
+			$.ajax({
+				type:"get",
+				url:"recipeListByCategoryAjax",
+				dataType:"json",
+				data:"category=" + $category,
+				success:function(recipeList){
+					console.log(recipeList);
+				} // success
+			}); //ajax
+		}) // change
+	});
+</script>
 <!-- 
 	레시피 게시판 목록 보기 페이지
  -->
@@ -26,19 +43,19 @@
                 <form action="#" method="post">
                     <div class="row">
                         <div class="col-12 col-lg-3">
-                            <select name="select1" id="select1">
-                                <option value="1">전체보기</option>
-                                <option value="1">한식</option>
-                                <option value="1">중식</option>
-                                <option value="1">일식</option>
-                                <option value="1">양식</option>
+                            <select name="category" id="category">
+                                <option value="전체">전체보기</option>
+                                <option value="한식">한식</option>
+                                <option value="중식">중식</option>
+                                <option value="일식">일식</option>
+                                <option value="양식">양식</option>
                             </select>
                         </div>
                         <div class="col-12 col-lg-3">
-                            <select name="select1" id="select2">
-                                <option value="1">추천순</option>
-                                <option value="1">최신순</option>
-                                <option value="1">댓글순</option>
+                            <select name="sort" id="sort">
+                                <option value="추천순">추천순</option>
+                                <option value="최근순">최신순</option>
+                                <option value="댓글순">댓글순</option>
                             </select>
                         </div>
                         <div class="col-12 col-lg-3">

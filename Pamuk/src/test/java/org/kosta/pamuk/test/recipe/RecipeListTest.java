@@ -23,7 +23,7 @@ public class RecipeListTest {
 
 	@Test
 	public void postRecipe() {
-		int testCase = 6;
+		int testCase = 4;
 
 		// recipe Insert test
 		if (testCase == 1) {

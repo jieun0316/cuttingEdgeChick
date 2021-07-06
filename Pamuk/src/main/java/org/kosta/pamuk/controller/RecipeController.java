@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
  * Recipe 게시판에 관련된 비즈니스 로직을 정의합니다
@@ -23,33 +24,37 @@ public class RecipeController {
 	RecipeService recipeService;
 	@Autowired
 	RecipeMapper recipeMapper;
+
 	/**
 	 * 레시피 게시판 목록 보기
+	 * 
 	 * @return
 	 */
 	@RequestMapping("recipeBoardList")
-	public String recipeBoardList(Model model,String pageNo) {
-		//totalRecipeCount
+	public String recipeBoardList(Model model, String pageNo) {
+		// totalRecipeCount
 		int totalRecipeCount = recipeMapper.getTotalRecipeCount();
 		model.addAttribute("totalRecipeCount", totalRecipeCount);
-		
+
 		// paging
 		PagingBean pagingBean = null;
-		if(pageNo==null) {
-			pagingBean=new PagingBean(totalRecipeCount);
+		if (pageNo == null) {
+			pagingBean = new PagingBean(totalRecipeCount);
 		} else {
-			pagingBean=new PagingBean(totalRecipeCount,Integer.parseInt(pageNo));
-		}		
-		
-		//view All Recipe List
-		ArrayList<RecipeVO> recipeList = recipeMapper.getAllRecipeListByRowNumber( pagingBean.getStartRowNumber(),pagingBean.getEndRowNumber());
-		model.addAttribute("recipeList",recipeList);
+			pagingBean = new PagingBean(totalRecipeCount, Integer.parseInt(pageNo));
+		}
+
+		// view All Recipe List
+		ArrayList<RecipeVO> recipeList = recipeService.getAllRecipeListByRowNumber(pagingBean.getStartRowNumber(),
+				pagingBean.getEndRowNumber());
+		model.addAttribute("recipeList", recipeList);
 		model.addAttribute("pagingBean", pagingBean);
 		return "recipes/recipeBoardList.tiles";
 	}
-	
+
 	/**
 	 * 레시피 게시판 등록폼(상세)
+	 * 
 	 * @return
 	 */
 	@RequestMapping("recipeBoardWrite")
@@ -59,13 +64,68 @@ public class RecipeController {
 
 	/**
 	 * 레시피 게시판 상세보기(상세)
+	 * 
 	 * @return
 	 */
 	@RequestMapping("recipeBoardView")
 	public String recipeBoardView(int recipeNo, Model model) {
-		HashMap<String,Object>recipeDetailMap = recipeService.viewRecipeDetail(recipeNo);
+		HashMap<String, Object> recipeDetailMap = recipeService.viewRecipeDetail(recipeNo);
 		model.addAttribute("paramMap", recipeDetailMap);
-		
+
 		return "recipes/recipeBoardView.tiles";
+	}
+	/**
+	 * 카테고리별 게시판 목록 받아오기
+	 * @param category, pageNo, model
+	 * @return
+	 */
+	@RequestMapping("recipeListByCategory")
+	public String recipeListByCategory(String category, String pageNo, Model model) {
+		// totalRecipeCount
+		int totalRecipeCount = recipeMapper.getRecipeCountByCategory(category);
+		model.addAttribute("totalRecipeCount", totalRecipeCount);
+
+		// paging
+		PagingBean pagingBean = null;
+		if (pageNo == null) {
+			pagingBean = new PagingBean(totalRecipeCount);
+		} else {
+			pagingBean = new PagingBean(totalRecipeCount, Integer.parseInt(pageNo));
+		}
+
+		// view All Recipe List
+		ArrayList<RecipeVO> recipeList = recipeService.getRecipeListByCategory(pagingBean.getStartRowNumber(),
+				pagingBean.getEndRowNumber(), category);
+		model.addAttribute("recipeList", recipeList);
+		model.addAttribute("pagingBean", pagingBean);
+		return "recipes/recipeBoardList.tiles";
+	}
+	/**
+	 * 카테고리별 게시판 목록 받아오기 (Ajax 사용)
+	 * @param category, pageNo, model
+	 * @return
+	 */
+	@RequestMapping("recipeListByCategoryAjax")
+	@ResponseBody
+	public ArrayList<RecipeVO> recipeListByCategoryAjax(String category, String pageNo, Model model) {
+		// totalRecipeCount
+		int totalRecipeCount = recipeMapper.getRecipeCountByCategory(category);
+		model.addAttribute("totalRecipeCount", totalRecipeCount);
+
+		// paging
+		PagingBean pagingBean = null;
+		if (pageNo == null) {
+			pagingBean = new PagingBean(totalRecipeCount);
+		} else {
+			pagingBean = new PagingBean(totalRecipeCount, Integer.parseInt(pageNo));
+		}
+
+		// view All Recipe List
+		ArrayList<RecipeVO> recipeList = recipeService.getRecipeListByCategory(pagingBean.getStartRowNumber(),
+				pagingBean.getEndRowNumber(), category);
+		model.addAttribute("recipeList", recipeList);
+		model.addAttribute("pagingBean", pagingBean);
+		// System.out.println(recipeList);
+		return recipeList;
 	}
 }

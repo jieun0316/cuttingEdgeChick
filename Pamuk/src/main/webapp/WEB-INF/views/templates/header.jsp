@@ -59,10 +59,10 @@
                                     <li><a href="index.html">Home</a></li>
                                     <li><a href="recipeBoardList">레시피</a>
                                         <ul class="dropdown">
-                                            <li><a href="index.html">한식</a></li>
-                                            <li><a href="blog-post.html">일식</a></li>
-                                            <li><a href="about.html">중식</a></li>
-                                            <li><a href="receipe-post.html">양식</a></li>
+                                            <li><a href="recipeListByCategory?category=한식">한식</a></li>
+                                            <li><a href="recipeListByCategory?category=일식">일식</a></li>
+                                            <li><a href="recipeListByCategory?category=중식">중식</a></li>
+                                            <li><a href="recipeListByCategory?category=양식">양식</a></li>
                                         </ul>
                                     </li>
                                     <li><a href="#">냉장고</a>
