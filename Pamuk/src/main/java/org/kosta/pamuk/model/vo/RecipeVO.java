@@ -108,8 +108,10 @@ public class RecipeVO {
 	public String toString() {
 		return "RecipeVO [recipeNo=" + recipeNo + ", memberVO=" + memberVO + ", recipeName=" + recipeName
 				+ ", writeDate=" + writeDate + ", modifyDate=" + modifyDate + ", category=" + category + ", hits="
-				+ hits + "]";
+				+ hits + ", recipeContentList=" + recipeContentList + ", recipeItemList=" + recipeItemList + "]";
 	}
+
+
 	
 	
 }
