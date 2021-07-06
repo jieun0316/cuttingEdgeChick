@@ -52,9 +52,10 @@ public class RecipeController {
 	 * 레시피 게시판 등록폼(상세)
 	 * @return
 	 */
-	@RequestMapping("recipeBoardWrite")
-	public String recipeBoardWrite() {
-		return "recipes/recipeBoardWrite.tiles";
+	@RequestMapping("recipeBoardWriteForm")
+	public String recipeBoardWrite(Model model) {
+		
+		return "recipes/recipeBoardWriteForm.tiles";
 	}
 
 	/**
