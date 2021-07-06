@@ -1,7 +1,6 @@
 package org.kosta.pamuk.service;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 import javax.annotation.Resource;
 
@@ -53,20 +52,17 @@ public class RecipeServiceImpl implements RecipeService {
 	 * recipeNo로 recipeDetail를 map로 반환
 	 * @author 최인재
 	 * @param recipeNo
-	 * @return HashMap (recipeDetailVO, recipeItemVOList, recipeContentVOList)
+	 * @return RecipeVO
 	 */
 	@Override
-	public HashMap<String, Object> viewRecipeDetail(int recipeNo) {
-		HashMap<String, Object> recipeDetailMap = new HashMap<String,Object>();
+	public RecipeVO viewRecipeDetail(int recipeNo) {
 		
 		RecipeVO recipeVO = recipeMapper.getRecipeDetailByRecipeNo(recipeNo);
-		ArrayList<RecipeItemVO> recipeItemVOList = recipeMapper.getRecipeItemListByRecipeNo(recipeNo);
-		ArrayList<RecipeContentVO> recipeContentVOList = recipeMapper.getRecipeContentListByRecipeNoOrderByStepNo(recipeNo);
+		ArrayList<RecipeItemVO> recipeItemList = recipeMapper.getRecipeItemListByRecipeNo(recipeNo);
+		ArrayList<RecipeContentVO> recipeContentList = recipeMapper.getRecipeContentListByRecipeNoOrderByStepNo(recipeNo);
+		recipeVO.setRecipeItemList(recipeItemList);
+		recipeVO.setRecipeContentList(recipeContentList);
 		
-		recipeDetailMap.put("recipeVO", recipeVO);
-		recipeDetailMap.put("recipeItemVOList", recipeItemVOList);
-		recipeDetailMap.put("recipeContentVOList",recipeContentVOList);
-		
-		return recipeDetailMap;
+		return recipeVO;
 	}
 }

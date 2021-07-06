@@ -14,7 +14,7 @@ public interface RecipeService {
 	 * recipeNo로 recipeDetail를 map로 반환
 	 * @author 최인재
 	 * @param recipeNo
-	 * @return HashMap (recipeDetailVO, recipeItemVOList, recipeContentVOList)
+	 * @return RecipeVO (recipeDetailVO, recipeItemVOList, recipeContentVOList)
 	 */
-	HashMap<String, Object> viewRecipeDetail(int recipeNo);
+	RecipeVO viewRecipeDetail(int recipeNo);
 }

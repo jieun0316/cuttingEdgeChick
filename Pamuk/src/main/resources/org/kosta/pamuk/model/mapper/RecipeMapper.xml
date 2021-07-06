@@ -12,12 +12,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  	<resultMap type="recipeVO" id="recipeDetailRM" extends="recipeRM">
  		<result column="nick" property="memberVO.nick"/>
  	</resultMap>
- 	<resultMap type="recipeItemVO" id="RecipeItemRM">
- 		<result column="recipe_no" property="recipeVO.recipeNo"/>
- 	</resultMap>
- 	<resultMap type="recipeContentVO" id="RecipeContentRM">
- 		<result column="recipe_no" property="recipeVO.recipeNo"/>
- 	</resultMap>
 	
 	<!-- recipe 관련 insert문 -->
 	<!-- recipe 게시물 작성 -->
@@ -81,14 +75,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		where recipe_no = #{value}
 	</select>
 	<!-- recipe 게시물의 ItemList를 조회 -->
-	<select id="getRecipeItemListByRecipeNo" resultMap="RecipeItemRM">
-		select item_name, recipe_no, qty
+	<select id="getRecipeItemListByRecipeNo" resultType="RecipeItemVO">
+		select item_name, qty
 		from recipe_item
 		where recipe_no = #{value}
 	</select>
 	<!-- recipe 게시물 ContentList를 조회 -->
-	<select id="getRecipeContentListByRecipeNoOrderByStepNo" resultType="recipeContentVO">
-		select recipe_no, step_no, content, image_path
+	<select id="getRecipeContentListByRecipeNoOrderByStepNo" resultType="RecipeContentVO">
+		select step_no, content, image_path
 		from recipe_content
 		where recipe_no = #{value}
 		order by step_no
