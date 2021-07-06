@@ -8,7 +8,6 @@ import org.kosta.pamuk.model.vo.RecipeItemVO;
 import org.kosta.pamuk.model.vo.RecipeVO;
 
 public interface RecipeService {
-	void postRecipe(RecipeVO vo, ArrayList<RecipeContentVO> recipeContentList, ArrayList<RecipeItemVO> recipeItemList);
 	ArrayList<RecipeVO> getAllRecipeListByRowNumber(int startRowNumber,int endRowNumber);
 	/**
 	 * recipeNo로 recipeDetail를 map로 반환
@@ -17,4 +16,5 @@ public interface RecipeService {
 	 * @return RecipeVO (recipeDetailVO, recipeItemVOList, recipeContentVOList)
 	 */
 	RecipeVO viewRecipeDetail(int recipeNo);
+	void postRecipe(RecipeVO recipeVO);
 }

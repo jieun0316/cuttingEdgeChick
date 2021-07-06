@@ -31,7 +31,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		insert into
 		recipe_content
 		(recipe_no, step_no, step_title, content, image_path)
-		values (#{recipeVO.recipeNo}, #{stepNo}, #{stepTitle}, #{content},
+		values (#{recipeNo}, #{stepNo}, #{stepTitle}, #{content},
 		#{imagePath})
 	</insert>
 	<!-- recipe에 사용되는 재료 작성 -->
@@ -40,7 +40,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		recipe_item
 		(item_name, recipe_no, qty)
 		values (#{itemName},
-		#{recipeVO.recipeNo}, #{qty})
+		#{recipeNo}, #{qty})
 	</insert>
 
 	<!-- recipe 관련 select문 -->

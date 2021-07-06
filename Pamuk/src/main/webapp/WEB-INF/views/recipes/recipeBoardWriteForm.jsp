@@ -2,30 +2,36 @@
 	pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <script>
-	$(document).ready( function(){
-		// recipe step 을 증가위한 no
-		let stepNo = 0;
-		// 현재 recipeWriteStep 번호를 받기 위한 no
-		let stepCurForm =  "";
+	$(document).ready(function(){
+		newStepForm(); 
 		$(".recipePlusBtn").on({
 			click: function(){
-				stepNo++;
-				let recipeStepForm = '<div class="recipeWriteStep">';
-				recipeStepForm += '<div class="row mt-30 mg-15">';
-				recipeStepForm += '<h3 style="text-align: center">Step' + stepNo + '</h3></div>';
-				recipeStepForm += '<div class="row"> <input type="text" class="form-control" name="stepTitle" placeholder="step' + stepNo + ' 제목을 입력해주세요"></div>';
-				recipeStepForm += '<div class="row">';
-				recipeStepForm += '<input type="file" class="form-control" name="imagePath';
-				recipeStepForm += 'placeholder="레시피 step' + stepNo + ' 에 따른 이미지파일을 업로드해주세요!">';
-				recipeStepForm += '<textarea name="message" class="form-control" name="content" cols="30" rows="10" placeholder="레시피 step' + stepNo + ' 에 따른 설명을 넣어주세요!"></textarea>';
-				recipeStepForm += '</div>';
-				recipeStepForm += '</div>';
-				
-				// 현재 스탭 뒤에 append
-				$("#recipeStepWrap").append(recipeStepForm);
-			}// function
+				newStepForm(); 			}
 		}); // on
 	}); //ready
+	// recipe step 을 증가위한 no
+	let stepNo = 0;
+	// 현재 recipeWriteStep 번호를 받기 위한 no
+	let stepCurForm =  "";
+	function newStepForm() {
+		stepNo++;
+		
+		let recipeStepForm = '<div class="recipeWriteStep">';
+		recipeStepForm += '<div class="row mt-30 mg-15">';
+		recipeStepForm += '<h3 style="text-align: center">Step' + stepNo + '</h3 ></div>';
+		recipeStepForm += '<div class="row"> <input type="text" class="form-control" name="recipeContentList['+(stepNo-1)+'].stepTitle" placeholder="step' + stepNo + ' 제목을 입력해주세요"></div>';
+		recipeStepForm += '<div class="row">';
+		recipeStepForm += '<input type="file" class="form-control" name="recipeContentList['+(stepNo-1)+'].imagePath"';
+		recipeStepForm += 'placeholder="레시피 step' + stepNo + ' 에 따른 이미지파일을 업로드해주세요!">';
+		recipeStepForm += '<textarea class="form-control" name="recipeContentList['+(stepNo-1)+'].content" cols="30" rows="10" placeholder="레시피 step' + stepNo + ' 에 따른 설명을 넣어주세요!"></textarea>';
+		recipeStepForm += '<input type="hidden" name="recipeContentList['+(stepNo-1)+'].stepNo" value="'+stepNo+'"/>';
+		recipeStepForm += '</div>';
+		recipeStepForm += '</div>';
+		
+		// 현재 스탭 뒤에 append
+		$("#recipeStepWrap").append(recipeStepForm);
+	};
+	
 </script>
 <!-- 
 	레시피 게시판 목록 보기 페이지
@@ -66,34 +72,12 @@
 							</div>
 							<div class="col-8" id="recipeStepWrap">
 								<div class="row">
-									<input type="text" class="form-control" name="recipeTitle"
+									<input type="text" class="form-control" name="recipeName"
 										placeholder="레시피 제목을 입력해주세요">
 								</div>
-								<!-- 
-									이거 Ajax 로 처리해서 + 증가시켜주면 됩니당!!
-									recipeWriteStep class
-									Step + 숫자 해주기
-								-->
-								<!--
-								<div class="recipeWriteStep1">
-									<div class="row mt-30 mg-15">
-										<h3 style="text-align: center">Step1</h3>
-									</div>
-									<div class="row">
-										<input type="text" class="form-control" name="stepTitle"
-											placeholder="step1 제목을 입력해주세요">
-									</div>
-									<div class="row">
-										<input type="file" class="form-control" name="imagePath"
-											placeholder="레시피 step1에 따른 이미지파일을 업로드해주세요!">
-										<textarea name="message" class="form-control"
-											name="content" cols="30" rows="10"
-											placeholder="레시피 step1 에 따른 설명을 넣어주세요!"></textarea>
-									</div>
-								</div>
-								  -->
-
+								<!-- 이 곳에 step이 추가 되고 있어요 -->
 								
+
 							</div>
 							<div class="col-12 recipePlusBtn mt-50">
 								<i class="fa fa-plus-circle fa-3x" aria-hidden="true"></i>

@@ -1,8 +1,10 @@
 package org.kosta.pamuk.controller;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.kosta.pamuk.model.mapper.RecipeMapper;
+import org.kosta.pamuk.model.vo.MemberVO;
 import org.kosta.pamuk.model.vo.PagingBean;
 import org.kosta.pamuk.model.vo.RecipeContentVO;
 import org.kosta.pamuk.model.vo.RecipeVO;
@@ -11,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 /**
  * Recipe 게시판에 관련된 비즈니스 로직을 정의합니다
@@ -56,38 +59,14 @@ public class RecipeController {
 		return "recipes/recipeBoardWriteForm.tiles";
 	}
 	
-	//Title 리스트로 받기
-	/*@RequestMapping("recipeBoardWrite")
-	public String recipeBoardWrite(
-			String recipeTitle,
-			@RequestParam(value="recipeStepTitle", required = true) List<String> recipeStepTitleArray
-			) {
-		System.out.println(recipeTitle+ "\n");
-		
-		for(String recipeStepTitle : recipeStepTitleArray)
-			System.out.println(recipeStepTitle);
-		return "redirect:recipeBoardList";
-	}*/
 	
-	/*@RequestParam(value="recipeStepImg") List<String> recipeStepImgArray,*/
-
 	@RequestMapping("recipeBoardWrite")
-	public String recipeBoardWrite(
-			String recipeTitle,
-			RecipeContentVO recipeContentVOList
-			) {
-		System.out.println(recipeTitle+ "\n");
-		
-		
-		
-		/*
-		 * for(String recipeImgTitle : recipeStepImgArray)
-		 * System.out.println(recipeStepImg);
-		 * 
-		 * for(String recipeContentTitle : recipeStepContentArray)
-		 * System.out.println(recipeContentTitle);
-		 */
-		
+	public String recipeBoardWrite(RecipeVO recipeVO) {
+		MemberVO memberVO = new MemberVO();
+		recipeVO.setCategory("한식");
+		memberVO.setMemberId("java");
+		recipeVO.setMemberVO(memberVO);
+		recipeService.postRecipe(recipeVO);
 		return "redirect:recipeBoardList";
 	}
 
@@ -100,6 +79,7 @@ public class RecipeController {
 	public String recipeBoardView(int recipeNo, Model model) {
 		RecipeVO recipeVO = recipeService.viewRecipeDetail(recipeNo);
 		model.addAttribute("recipeVO", recipeVO);
+
 		
 		return "recipes/recipeBoardView.tiles";
 	}
