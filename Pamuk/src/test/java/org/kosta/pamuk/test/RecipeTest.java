@@ -5,7 +5,6 @@ import java.util.HashMap;
 
 import org.junit.jupiter.api.Test;
 import org.kosta.pamuk.model.mapper.RecipeMapper;
-import org.kosta.pamuk.model.vo.CategoryVO;
 import org.kosta.pamuk.model.vo.MemberVO;
 import org.kosta.pamuk.model.vo.RecipeContentVO;
 import org.kosta.pamuk.model.vo.RecipeItemVO;
