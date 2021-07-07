@@ -27,7 +27,7 @@
 					
 						<div class="row mt-70">
 							<div class="row" style="margin:0 auto">
-							<form action="/user/loginForm" method="get">
+							<form action="user/loginForm" method="get">
 								<div class="col-6 text-center">
 									<button class="btn delicious-btn mt-30" type="submit">로그인 하러가기</button>
 								</div>
