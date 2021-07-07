@@ -76,9 +76,12 @@
 				<div class="contact-form-area">
 					<form action="recipeBoardWrite" method="post">
 						<div class="row">
-							<div class="col-4" id="recipeItemWrap">
+							<div class="col-12">
+								<input type="text" class="form-control" name="recipeName" placeholder="레시피 제목을 입력해주세요">
+							</div>
+							<div class="col-12" id="recipeItemWrap">
 								<div class="form-control recipeCategoryList" id="" name=""
-									style="height: 90px; overflow-x: scroll;">
+									style="height: 90px;">
 
 									<div class="btn-group" role="group">
 										<button type="button" class="btn btn-success">전체보기</button>
@@ -93,41 +96,34 @@
 									<div class="card" style="margin: 50px 0">
 										<!-- Default panel contents -->
 										<ul class="list-group list-group-flush">
-											<li class="list-group-item">당근 
-												<label class="switch "> 
-													<input type="checkbox" class="success">  <span class="slider round"></span>
-												</label>
-												<input type="text" placeholder="수량">
+											<li class="list-group-item">당근 <label class="switch ">
+													<input type="checkbox" class="success"> <span
+													class="slider round"></span>
+											</label> <input type="text" placeholder="수량">
 											</li>
-											<li class="list-group-item">오이 
-												<label class="switch "> 
-													<input type="checkbox" class="success">  <span class="slider round"></span>
-												</label>
-												<input type="text" placeholder="수량">
+											<li class="list-group-item">오이 <label class="switch ">
+													<input type="checkbox" class="success"> <span
+													class="slider round"></span>
+											</label> <input type="text" placeholder="수량">
 											</li>
-											<li class="list-group-item">감자 
-												<label class="switch "> 
-													<input type="checkbox" class="success">  <span class="slider round"></span>
-												</label>
-												<input type="text" placeholder="수량">
+											<li class="list-group-item">감자 <label class="switch ">
+													<input type="checkbox" class="success"> <span
+													class="slider round"></span>
+											</label> <input type="text" placeholder="수량">
 											</li>
-											<li class="list-group-item">고구마 
-												<label class="switch "> 
-													<input type="checkbox" class="success">  <span class="slider round"></span>
-												</label>
-												<input type="text" placeholder="수량">
+											<li class="list-group-item">고구마 <label class="switch ">
+													<input type="checkbox" class="success"> <span
+													class="slider round"></span>
+											</label> <input type="text" placeholder="수량">
 											</li>
-											
+
 										</ul>
 									</div>
 								</div>
 
 							</div>
-							<div class="col-8" id="recipeStepWrap">
-								<div class="row">
-									<input type="text" class="form-control" name="recipeName"
-										placeholder="레시피 제목을 입력해주세요">
-								</div>
+							<div class="col-12" id="recipeStepWrap">
+								
 								<!-- 이 곳에 step이 추가 되고 있어요 -->
 
 
