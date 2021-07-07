@@ -79,6 +79,10 @@
 							<div class="col-12">
 								<input type="text" class="form-control" name="recipeName" placeholder="레시피 제목을 입력해주세요">
 							</div>
+							<div class="col-12">
+								<h6>레시피 대표 이미지</h6>
+								<input type="file" class="form-control" name="recipeThumbnail" placeholder="레시피 대표 이미지파일을 업로드해주세요!">
+							</div>
 							<div class="col-12" id="recipeItemWrap">
 								<div class="form-control recipeCategoryList" id="" name=""
 									style="height: 90px;">
