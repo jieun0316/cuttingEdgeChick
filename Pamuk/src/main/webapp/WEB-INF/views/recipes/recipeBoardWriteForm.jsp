@@ -2,6 +2,9 @@
 	pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <script>
+	
+
+
 	$(document).ready(function() {
 		newStepForm();
 		$(".recipePlusBtn").on({
@@ -9,6 +12,21 @@
 				newStepForm();
 			}
 		}); // on
+		
+		$("button[name=categoryBtn]").on("click",function(){
+			$.ajax({
+				url : "itemListByCategoryAjax",
+				type: "get",
+				data : { "categoryName" : $(this).attr('value') },
+				success : function(responseData){	
+					$("#ajax").remove();
+					$.each(responseData, function(index) {
+						console.log($(this)[0].itemName);
+						//얘를 목록에 뿌려주면 됩니다!!
+					});
+				}
+			}); 
+		});
 	}); //ready
 	// recipe step 을 증가위한 no
 	let stepNo = 0;
@@ -84,10 +102,10 @@
 									style="height: 90px;">
 
 									<div class="btn-group" role="group">
-										<button type="button" class="btn btn-success">전체보기</button>
-										<button type="button" class="btn btn-success">채소류</button>
-										<button type="button" class="btn btn-success">과일류</button>
-										<button type="button" class="btn btn-success">조미료</button>
+										<button type="button" name="categoryBtn" class="btn btn-success" value="전체">전체</button>
+										<c:forEach items="${categoryList}" var="category">
+											<button type="button" name="categoryBtn" class="btn btn-success" value="${category.categoryName}">${category.categoryName}</button>
+										</c:forEach>
 									</div>
 								</div>
 
@@ -95,28 +113,13 @@
 									style="height: 500px; overflow-y: scroll;">
 									<div class="card" style="margin: 50px 0">
 										<!-- Default panel contents -->
-										<ul class="list-group list-group-flush">
+										<ul name="item-list-group" class="list-group list-group-flush">
 											<li class="list-group-item">당근 <label class="switch ">
 													<input type="checkbox" class="success"> <span
 													class="slider round"></span>
 											</label> <input type="text" placeholder="수량">
 											</li>
-											<li class="list-group-item">오이 <label class="switch ">
-													<input type="checkbox" class="success"> <span
-													class="slider round"></span>
-											</label> <input type="text" placeholder="수량">
-											</li>
-											<li class="list-group-item">감자 <label class="switch ">
-													<input type="checkbox" class="success"> <span
-													class="slider round"></span>
-											</label> <input type="text" placeholder="수량">
-											</li>
-											<li class="list-group-item">고구마 <label class="switch ">
-													<input type="checkbox" class="success"> <span
-													class="slider round"></span>
-											</label> <input type="text" placeholder="수량">
-											</li>
-
+										
 										</ul>
 									</div>
 								</div>

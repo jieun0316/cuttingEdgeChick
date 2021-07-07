@@ -3,6 +3,7 @@ package org.kosta.pamuk.controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.kosta.pamuk.model.mapper.ItemMapper;
 import org.kosta.pamuk.model.mapper.RecipeMapper;
 import org.kosta.pamuk.model.vo.MemberVO;
 import org.kosta.pamuk.model.vo.PagingBean;
@@ -24,6 +25,8 @@ public class RecipeController {
 	RecipeService recipeService;
 	@Autowired
 	RecipeMapper recipeMapper;
+	@Autowired
+	ItemMapper itemMapper;
 
 	/**
 	 * 레시피 게시판 목록 보기
@@ -60,7 +63,7 @@ public class RecipeController {
 
 	@RequestMapping("recipeBoardWriteForm")
 	public String recipeBoardWriteForm(Model model) {
-		
+		model.addAttribute("categoryList", itemMapper.getCategoryList());
 		return "recipes/recipeBoardWriteForm.tiles";
 	}
 	
