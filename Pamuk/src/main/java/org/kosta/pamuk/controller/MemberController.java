@@ -80,4 +80,11 @@ public class MemberController {
 	public String findMemberPasswordForm() {
 		return "member/findMemberPasswordForm.tiles";
 	}
+	/*
+	 * 회원정보 조회
+	 */
+	@RequestMapping("user/myInfo")
+	public String myInfo() {
+		return "member/memberInfo.tiles";
+	}
 }
