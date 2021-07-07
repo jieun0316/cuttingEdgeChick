@@ -19,7 +19,6 @@ import org.springframework.stereotype.Service;
 public class RecipeServiceImpl implements RecipeService {
 	@Resource
 	private RecipeMapper recipeMapper;
-	
 	/**
 	 * Recipe를 Post (recipe, content, item)을 transactional하게 처리
 	 * content와 item은 List로 받아서 insert
@@ -36,13 +35,6 @@ public class RecipeServiceImpl implements RecipeService {
 			 recipeContentVO.setRecipeNo(recipeVO.getRecipeNo());
 			 recipeMapper.postRecipeContent(recipeContentVO); 
 		 }
-		 
-		
-		/*
-		 * List<RecipeItemVO> recipeItemList = recipeVO.getRecipeItemList();
-		 * for(RecipeItemVO recipeItemVO : recipeItemList) {
-		 * recipeMapper.postRecipeItem(recipeItemVO); }
-		 */
 	}
 	/**
 	 * Recipe List 불러오기

@@ -12,7 +12,7 @@ public interface RecipeService {
 	 * @author 최인재
 	 * @param RecipeVO, ArrayList<RecipeContentVO>, ArrayList<RecipeItemVO>
 	 */
-	void postRecipe(RecipeVO vo);
+	void postRecipe(RecipeVO recipeVO);
 	/**
 	 * Recipe List 불러오기
 	 * @author 조수빈
@@ -34,4 +34,6 @@ public interface RecipeService {
 	 * @return
 	 */
 	ArrayList<RecipeVO> getRecipeListByCategory(int startRowNumber,int endRowNumber, String category);
+	
+	
 }

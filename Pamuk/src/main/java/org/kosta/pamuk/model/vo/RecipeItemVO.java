@@ -29,9 +29,4 @@ public class RecipeItemVO extends ItemVO {
 	public String toString() {
 		return super.toString() + "RecipeItemVO [qty=" + qty + "]";
 	}
-
-
-
-	
-	
 }

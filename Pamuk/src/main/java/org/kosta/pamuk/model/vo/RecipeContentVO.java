@@ -12,8 +12,6 @@ public class RecipeContentVO {
 		// TODO Auto-generated constructor stub
 	}
 
-	
-
 	public RecipeContentVO(int recipeNo, int stepNo, String stepTitle, String content, String imagePath) {
 		super();
 		this.recipeNo = recipeNo;
@@ -22,8 +20,6 @@ public class RecipeContentVO {
 		this.content = content;
 		this.imagePath = imagePath;
 	}
-
-
 
 	public int getRecipeNo() {
 		return recipeNo;
@@ -67,8 +63,8 @@ public class RecipeContentVO {
 
 	@Override
 	public String toString() {
-		return "RecipeContentVO [stepNo=" + stepNo + ", stepTitle=" + stepTitle + ", content=" + content
-				+ ", imagePath=" + imagePath + "]";
+		return "RecipeContentVO [recipeNo=" + recipeNo + ", stepNo=" + stepNo + ", stepTitle=" + stepTitle
+				+ ", content=" + content + ", imagePath=" + imagePath + "]";
 	}
 
 }
