@@ -77,11 +77,11 @@
 			<div class="row">
 				<div class="col-12 col-md-8">
 					<div class="receipe-headline my-5">
-						<span>${paramMap.recipeVO.writeDate}</span>
-						<h2>${paramMap.recipeVO.recipeName}</h2>
+						<span>${recipeVO.writeDate}</span>
+						<h2>${recipeVO.recipeName}</h2>
 						<div class="receipe-duration">
-							<h3>카테고리: ${paramMap.recipeVO.category}</h3>
-							<h6>작성자 : ${paramMap.recipeVO.memberVO.memberId}</h6>
+							<h3>카테고리: ${recipeVO.category}</h3>
+							<h6>작성자 : ${recipeVO.memberVO.memberId}</h6>
 						</div>
 					</div>
 				</div>
@@ -101,7 +101,7 @@
 			<div class="row">
 				<div class="col-12 col-lg-8">
 					<!-- Single Preparation Step -->
-					<c:forEach items="${paramMap.recipeContentVOList}" var="content">
+					<c:forEach items="${recipeVO.recipeContentList}" var="content">
 						<div class="prepStep">
 
 							<div class="single-preparation-step d-flex">
@@ -127,7 +127,7 @@
 						<h4>Ingredients</h4>
 
 						<!-- Custom Checkbox -->
-						<c:forEach items="${paramMap.recipeItemVOList}" var="item" varStatus="order">
+						<c:forEach items="${recipeVO.recipeItemList}" var="item" varStatus="order">
 						<div class="custom-control custom-checkbox">
 							<input type="checkbox" class="custom-control-input"
 								id="customCheck${order.count}"> <label class="custom-control-label"

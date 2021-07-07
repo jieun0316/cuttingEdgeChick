@@ -1,7 +1,7 @@
 package org.kosta.pamuk.service;
 
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.List;
 
 import javax.annotation.Resource;
 
@@ -10,7 +10,6 @@ import org.kosta.pamuk.model.vo.RecipeContentVO;
 import org.kosta.pamuk.model.vo.RecipeItemVO;
 import org.kosta.pamuk.model.vo.RecipeVO;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 /**
  * 
  * 
@@ -21,23 +20,8 @@ public class RecipeServiceImpl implements RecipeService {
 	@Resource
 	private RecipeMapper recipeMapper;
 	
-	/**
-	 * Recipe를 Post (recipe, content, item)을 transactional하게 처리
-	 * content와 item은 List로 받아서 insert
-	 * @author 최인재
-	 * @param RecipeVO, ArrayList<RecipeContentVO>, ArrayList<RecipeItemVO>
-	 */
-	@Override
-	@Transactional
-	public void postRecipe(RecipeVO recipeVO, ArrayList<RecipeContentVO> recipeContentList, ArrayList<RecipeItemVO> recipeItemList){
-		recipeMapper.postRecipe(recipeVO);
-		for(RecipeContentVO rContentVO : recipeContentList) {
-			recipeMapper.postRecipeContent(rContentVO);
-		}
-		for(RecipeItemVO rItemVO : recipeItemList) {
-			recipeMapper.postRecipeItem(rItemVO);
-		}
-	}
+	
+	
 	/**
 	 * Recipe List 불러오기
 	 * @author 조수빈
@@ -53,21 +37,45 @@ public class RecipeServiceImpl implements RecipeService {
 	 * recipeNo로 recipeDetail를 map로 반환
 	 * @author 최인재
 	 * @param recipeNo
-	 * @return HashMap (recipeDetailVO, recipeItemVOList, recipeContentVOList)
+	 * @return RecipeVO
 	 */
 	@Override
-	public HashMap<String, Object> viewRecipeDetail(int recipeNo) {
-		HashMap<String, Object> recipeDetailMap = new HashMap<String,Object>();
+	public RecipeVO viewRecipeDetail(int recipeNo) {
 		
 		RecipeVO recipeVO = recipeMapper.getRecipeDetailByRecipeNo(recipeNo);
-		ArrayList<RecipeItemVO> recipeItemVOList = recipeMapper.getRecipeItemListByRecipeNo(recipeNo);
-		ArrayList<RecipeContentVO> recipeContentVOList = recipeMapper.getRecipeContentListByRecipeNoOrderByStepNo(recipeNo);
+		ArrayList<RecipeItemVO> recipeItemList = recipeMapper.getRecipeItemListByRecipeNo(recipeNo);
+		ArrayList<RecipeContentVO> recipeContentList = recipeMapper.getRecipeContentListByRecipeNoOrderByStepNo(recipeNo);
+		recipeVO.setRecipeItemList(recipeItemList);
+		recipeVO.setRecipeContentList(recipeContentList);
 		
-		recipeDetailMap.put("recipeVO", recipeVO);
-		recipeDetailMap.put("recipeItemVOList", recipeItemVOList);
-		recipeDetailMap.put("recipeContentVOList",recipeContentVOList);
+		return recipeVO;
+	}
+	/**
+	 * Recipe를 Post (recipe, content, item)을 transactional하게 처리
+	 * content와 item은 List로 받아서 insert
+	 * @author 최인재
+	 * @param RecipeVO, ArrayList<RecipeContentVO>, ArrayList<RecipeItemVO>
+	 */
+	@Override
+	public void postRecipe(RecipeVO recipeVO) {
+		recipeMapper.postRecipe(recipeVO);
+		System.out.println(recipeVO);
 		
-		return recipeDetailMap;
+		 List<RecipeContentVO> recipeContentList = recipeVO.getRecipeContentList();
+		  
+		 for(RecipeContentVO recipeContentVO : recipeContentList) 
+		 {	
+			 recipeContentVO.setRecipeNo(recipeVO.getRecipeNo());
+			 System.out.println(recipeContentVO);
+			 recipeMapper.postRecipeContent(recipeContentVO); 
+		 }
+		 
+		
+		/*
+		 * List<RecipeItemVO> recipeItemList = recipeVO.getRecipeItemList();
+		 * for(RecipeItemVO recipeItemVO : recipeItemList) {
+		 * recipeMapper.postRecipeItem(recipeItemVO); }
+		 */
 	}
 	/**
 	 * category로 recipeList 받아오기

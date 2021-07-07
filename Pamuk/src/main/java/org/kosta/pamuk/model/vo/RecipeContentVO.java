@@ -1,7 +1,7 @@
 package org.kosta.pamuk.model.vo;
 
 public class RecipeContentVO {
-	private RecipeVO recipeVO;
+	private int recipeNo;
 	private int stepNo;
 	private String stepTitle;
 	private String content;
@@ -12,21 +12,21 @@ public class RecipeContentVO {
 		// TODO Auto-generated constructor stub
 	}
 
-	public RecipeContentVO(RecipeVO recipeVO, int stepNo, String stepTitle, String content, String imagePath) {
+	public RecipeContentVO(int recipeNo, int stepNo, String stepTitle, String content, String imagePath) {
 		super();
-		this.recipeVO = recipeVO;
+		this.recipeNo = recipeNo;
 		this.stepNo = stepNo;
 		this.stepTitle = stepTitle;
 		this.content = content;
 		this.imagePath = imagePath;
 	}
 
-	public RecipeVO getRecipeVO() {
-		return recipeVO;
+	public int getRecipeNo() {
+		return recipeNo;
 	}
 
-	public void setRecipeVO(RecipeVO recipeVO) {
-		this.recipeVO = recipeVO;
+	public void setRecipeNo(int recipeNo) {
+		this.recipeNo = recipeNo;
 	}
 
 	public int getStepNo() {
@@ -63,9 +63,12 @@ public class RecipeContentVO {
 
 	@Override
 	public String toString() {
-		return "RecipeContentVO [recipeVO=" + recipeVO + ", stepNo=" + stepNo + ", stepTitle=" + stepTitle
+		return "RecipeContentVO [recipeNo=" + recipeNo + ", stepNo=" + stepNo + ", stepTitle=" + stepTitle
 				+ ", content=" + content + ", imagePath=" + imagePath + "]";
 	}
+	
+	
+	
 	
 	
 }
