@@ -106,8 +106,7 @@ public class RecipeController {
 	 * @return
 	 */
 	@RequestMapping("recipeListByCategoryAjax")
-	@ResponseBody
-	public ArrayList<RecipeVO> recipeListByCategoryAjax(String category, String pageNo, Model model) {
+	public String recipeListByCategoryAjax(String category, String pageNo, Model model) {
 		// totalRecipeCount
 		int totalRecipeCount = recipeMapper.getRecipeCountByCategory(category);
 		model.addAttribute("totalRecipeCount", totalRecipeCount);
@@ -126,6 +125,6 @@ public class RecipeController {
 		model.addAttribute("recipeList", recipeList);
 		model.addAttribute("pagingBean", pagingBean);
 		// System.out.println(recipeList);
-		return recipeList;
+		return "recipes/recipeListAjax";
 	}
 }

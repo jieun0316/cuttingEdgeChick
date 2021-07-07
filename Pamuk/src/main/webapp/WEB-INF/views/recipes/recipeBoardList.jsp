@@ -5,15 +5,18 @@
 	$(document).ready( function(){
 		$("#category").change( function(){
 			var $category = $("#category").val();
-			//console.log($category);
 			$.ajax({
 				type:"get",
 				url:"recipeListByCategoryAjax",
-				dataType:"json",
+				dataType:"text",
 				data:"category=" + $category,
-				success:function(recipeList){
-					console.log(recipeList);
-				} // success
+				success:function(result){
+					//console.log(result);
+					$("#recipeListAjax").html(result);
+				},// success
+				error:function(request,status,error){
+			        console.log("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+			       }// error
 			}); //ajax
 		}) // change
 	});
@@ -68,12 +71,12 @@
                 </form>
             </div>
         </div>
-		<div class="row">
+		<div class="row recipeWrap">
 			<div id="totalCount">
 				총 <span>${totalRecipeCount}</span>개의 맛있는 레시피가 있습니다 !
 			</div>
 		</div>
-		<div class="row">
+		<div class="row" id="recipeListAjax">
 			<!-- Single Best Receipe Area -->
 			<c:forEach var="recipeVO" items="${recipeList}">
 				<div class="col-12 col-sm-6 col-lg-4">
@@ -97,8 +100,6 @@
 					</div>
 				</div>
 			</c:forEach><!-- // forEach -->
-			
-					
 		</div>
 		<!-- Pagination -->
 		<c:set var="pb" value="${requestScope.pagingBean}"></c:set>
