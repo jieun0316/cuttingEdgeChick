@@ -1,6 +1,11 @@
 --회원 관련 테스트 데이터
 insert into MEMBER (member_id, password, email, name, nick, birth, gender) values ('java','a','a@ab.com','아이유','IU','2010-10-10', 'F');
 
+--회원 권한 관련 테스트 데이터
+insert into authorities(member_id, authority) values('sukuon', 'ROLE_MEMBER');
+insert into authorities(member_id, authority) values('sukuon', 'ROLE_ADMIN');
+
+select * from authorities
 --카테고리
 insert into CATEGORY (category_name, storage_time) values ('계란류','30');
 insert into category VALUES ('채소','5일');
@@ -24,3 +29,11 @@ insert into stored_item VALUES(stored_item_seq.nextval,24,'딸기','지은최애
 
 
 insert into 
+
+insert into MEMBER(member_id,password,email,name, nick, birth, gender) 
+		values("scv",#{password},#{email},#{name},#{nick},to_date(#{birth}, 'yyyy-mm-dd') as birth, #{gender})
+		delete from authorities;
+		delete from member;
+		commit
+		select * from member
+		select * from authorities

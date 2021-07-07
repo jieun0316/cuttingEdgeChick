@@ -121,3 +121,5 @@ drop table storage;
 drop sequence storage_seq;
 drop table stored_item;
 drop sequence stored_item_seq;
+
+select member_id, name, email, to_char(birth, 'yyyy-mm-dd') as birth from member where member_id='sukuon' and status=0

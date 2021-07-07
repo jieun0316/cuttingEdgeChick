@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 <script type="text/javascript">
 	$(document).ready(function(){
 		$("#findId").submit(function(){
@@ -8,7 +9,7 @@
 				alert("이름을 입력해주세요");
 				return false;
 			} else if ($("#findId :input[name=name]").val().trim()=="") {
-				alert("아이디 입력란에 공백을 지워주세요");
+				alert("이름 입력란에 공백을 지워주세요");
 				return false;
 			} 
 			
@@ -30,7 +31,7 @@
 
 
 <div class="breadcumb-area bg-img bg-overlay"
-	style="background-image: url(img/bg-img/breadcumb4.jpg);">
+	style="background-image: url(/img/bg-img/breadcumb4.jpg);">
 	<div class="container h-100">
 		<div class="row h-100 align-items-center">
 			<div class="col-12">
@@ -52,7 +53,8 @@
                     	<div class="breadcumb-text text-center">
                             <h6>가입할 때 사용하신 이메일로 아이디를 찾아요</h6>
                         </div>
-                        <form action="findMemberId" method="post" id="findId">
+                        <form action="${pageContext.request.contextPath}/user/findMemberId" method="post" id="findId">
+                        <sec:csrfInput />
                             <div class="row mt-70">
                                  <div class="col-12 col-lg-7  ml-auto mr-auto">
                                 	이름

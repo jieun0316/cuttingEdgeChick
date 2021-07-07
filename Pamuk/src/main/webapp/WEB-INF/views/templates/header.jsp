@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+    <%@taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
     <!-- Preloader -->
     <div id="preloader">
         <i class="circle-preloader"></i>
@@ -38,7 +40,7 @@
                     <nav class="classy-navbar justify-content-between" id="deliciousNav">
 
                         <!-- Logo -->
-                        <a class="nav-brand" href="home"><img src="${pageContext.request.contextPath}/img/core-img/logo.png" alt=""></a>
+                        <a class="nav-brand" href="/home"><img src="${pageContext.request.contextPath}/img/core-img/logo.png" alt=""></a>
 
                         <!-- Navbar Toggler -->
                         <div class="classy-navbar-toggler">
@@ -92,6 +94,7 @@
                                 <div class="search-btn">
                                     <i class="fa fa-search" aria-hidden="true"></i>
                                 </div>
+                                <sec:authorize access="isAuthenticated()==false">
                                 <div class="login-btn">
                                     <span id="loginLink">Login&nbsp;&nbsp;</span><i class="fa fa-user" aria-hidden="true"></i>
                                 </div>
@@ -99,11 +102,16 @@
 	                                <script type="text/javascript">
 	                                	$(document).ready(function() {
 	                                		$(".login-btn").click(function() {                                		
-	                                			location.href="/loginForm";
+	                                			location.href="/user/loginForm";
 	                                		});
 	                                	})
 	                                </script>
-
+								</sec:authorize>
+								<%-- <sec:authorize access="isAuthenticated()">
+								<div>
+									${memberVO.memberId}님 로그인
+								</div>
+								</sec:authorize> --%>
                             </div>
                             <!-- Nav End -->
                         </div>
