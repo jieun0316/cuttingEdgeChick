@@ -111,7 +111,7 @@
 		</ul>
 		<!-- /.Pagination -->
 		<div class="row mb-15">
-			<button type="button" class="btn btn-outline-success">레시피 작성</button>
+			<button type="button" class="btn btn-outline-success" onclick="location.href='recipeBoardWriteForm'">레시피 작성</button>
 		</div>
 	</div>
 </section>

@@ -92,21 +92,27 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<!-- recipe 게시물의 List를 rowNumber로 조회 -->
 	<!-- recipe select 에 category 추가 -->
 	<select id="getAllRecipeListByRowNumber" resultMap="recipeDetailRM">
-		SELECT  x.* 
+		SELECT rnum_view.*
 		FROM (
-			SELECT ROWNUM rn, r.recipe_no, m.nick, r.recipe_name, hits, r.category
-			FROM RECIPE r, member m
-			WHERE m.member_id = r.member_id ORDER BY recipe_no DESC)x 
-		WHERE rn BETWEEN #{startRowNumber} and #{endRowNumber}
+			SELECT ROWNUM as rnum, recipe_view.*
+			FROM
+				(SELECT r.recipe_no, m.nick, r.recipe_name, hits, r.category
+				FROM RECIPE r, member m
+				WHERE m.member_id = r.member_id ORDER BY recipe_no DESC)recipe_view
+			)rnum_view
+		WHERE rnum between #{startRowNumber} and #{endRowNumber}
 	</select>
 	<!-- category별 recipe 게시물의 List를 rowNumber로 조회 -->
 	<select id="getRecipeListByCategory"  resultMap="recipeDetailRM">
-		SELECT  x.* 
+		SELECT rnum_view.*
 		FROM (
-			SELECT ROWNUM rn, r.recipe_no, m.nick, r.recipe_name, hits
-			FROM RECIPE r, member m
-			WHERE m.member_id = r.member_id and category=#{category} ORDER BY recipe_no DESC)x 
-		WHERE rn BETWEEN #{startRowNumber} and #{endRowNumber}
+			SELECT ROWNUM as rnum, recipe_view.*
+			FROM
+				(SELECT r.recipe_no, m.nick, r.recipe_name, hits, r.category
+				FROM RECIPE r, member m
+				WHERE m.member_id = r.member_id and category=#{category} ORDER BY recipe_no DESC)recipe_view
+			)rnum_view
+		WHERE rnum between #{startRowNumber} and #{endRowNumber}
 	</select>
 	
 	
