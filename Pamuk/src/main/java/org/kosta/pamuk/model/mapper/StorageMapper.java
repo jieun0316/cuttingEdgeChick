@@ -14,4 +14,6 @@ public interface StorageMapper {
 	List<StorageVO> findStorageByMemberId(String id);
 
 	List<StoredItemVO> getStoredItemByStorageNo(int storageNo); //메서드명에 list붙여야하나?
+
+	void storeItem(StoredItemVO siv);
 }

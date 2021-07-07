@@ -18,7 +18,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  	<select id="getStoredItemByStorageNo" parameterType="int" resultType="storedItemVO">
  	select stored_item_no, item_name,item_memo, to_char(expiry_date,'YY"년"MM"월"DD"일"') as expiry_date, to_char(stored_date,'YY"년"MM"월"DD"일"') as stored_date, qty from stored_item where storage_no=#{value}
  	</select>
-</mapper>
+ 	
+ 	<insert id="storeItem" parameterType="storedItemVO">
+ 	insert into stored_item (stored_item_no, storage_no, item_name, expiry_date, stored_date , qty) 
+ 	values (stored_item_seq.nextval, #{storageVO.storageNo}, #{itemName},  #{expiryDate}, #{storedDate}, #{qty})
+</insert></mapper>
  
  
  

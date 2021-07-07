@@ -12,6 +12,7 @@
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
 <title>Insert title here</title>
 </head>
 <body>
@@ -21,8 +22,63 @@
   <input class="form-control" id="myInput" type="text" placeholder="Search..">
   <br>
   
-  <div id="totalItems">
-  <c:forTokens  var="item" items="계란,알류,소고기,돼지고기,닭고기,오리고기,양념육,가공육" delims=",">
+  
+  
+  <script type="text/javascript">
+$(document).ready(function(){
+  $("#myInput").on("keyup", function() {
+    var value = $(this).val().toLowerCase();
+    $("#totalItems input:checkbox").filter(function() {
+      $(this).toggle($(this).val().toLowerCase().indexOf(value) > -1);
+      $(this).next().toggle($(this).val().toLowerCase().indexOf(value) > -1);
+
+    });
+  });
+  $("#addBtn").click(function(){
+	  //let info=$(this).parent().children().eq(0).text();
+	  let storageName = $("#storedItemInfo input:hidden[name=currentStorageName]" , opener.document ).val();
+		  //$("#storedItemInfo tr td:eq(3)" , opener.document ).text();
+	  let storageNo= $("#storedItemInfo input:hidden[name=currentStorageNo]" , opener.document ).val();
+	
+  let ia = $("input:checkbox:checked");
+	  let row="";
+			  for (let i=0;i<ia.length;i++){
+				row+="<tr><td><input type='checkbox'></td>";
+				row+="<td>"+$(ia[i]).val()+"</td>";
+				row+="<input type='hidden' name='itemName' value='"+$(ia[i]).val()+"'>";
+				row+="<td><button type='button' class='storeItemBtn'>등록</button><button type='reset'>리셋</button></td>";
+				row+="<td>"+storageName+"</td>";
+				row+="<input type='hidden' name='storageVO.storageNo' value='"+storageNo+"'>";
+				row+="<td><input type='text' name='qty'  style='width:80px;'></td><td><input type='date' name='storedDate' style='width:100px;'></td><td><input type='date' name='expiryDate' style='width:100px;'></td>"; 
+	  			row+="</tr>";
+				$("#items").append($(ia[i]).val()+" ");
+
+			  }
+			$(opener.document).find("#newItemInfo").append(row);
+			$("input:checkbox:checked").prop("checked", false);
+  });
+});
+</script>
+	
+	<ul class="nav nav-tabs">
+<%-- 	<c:forEach items=${category} var="cat" varStatus="status"> 
+	  <li ><a data-toggle="tab" href="#category${status.count}">정육/계란류</a></li>
+	</c:forEach> --%>
+<li class="active"><a data-toggle="tab" href="#totalItems">전체보기</a></li>
+  <li ><a data-toggle="tab" href="#meat">정육/계란류</a></li>
+  <li><a data-toggle="tab" href="#veg">채소</a></li>
+  <li><a data-toggle="tab" href="#sauce">소스</a></li>
+  <li><a data-toggle="tab" href="#sauce2">장류/양념/가루/오일</a></li>
+    <li><a data-toggle="tab" href="#fish">수산물/건해산</a></li>
+      <li><a data-toggle="tab" href="#milk">우유/유제품/유아식</a></li>
+  <li><a data-toggle="tab" href="#other1">리면/면류/즉석식품/통조림</a></li>
+	  <li><a data-toggle="tab" href="#other2">기타</a></li>
+</ul>
+
+<div class="tab-content">
+<!--    <div id="all1" class="tab-pane fade in active"> -->
+<div id="totalItems" class="tab-pane fade in active">
+	<c:forTokens  var="item" items="계란,알류,소고기,돼지고기,닭고기,오리고기,양념육,가공육" delims=",">
 	<input type="checkbox" value="${item}"><span>${item}</span>
 	</c:forTokens>
 	<c:forTokens  var="item" items="두부,콩나물,숙주나물,고구마,감자,양파,마늘,파,생강,오이,가지,호박,옥수수,상추,깻잎,쌈채소,고추,피망,파프리카,시금치,부추,나물,양배추,양상추,브로콜리,샐러드,어린잎채소,당근,우엉,연근,마,버섯,배추,무,김장채소,아스파라거스,허브류,인삼,더덕,도라지,약선재료" delims=",">
@@ -51,48 +107,14 @@
 	</c:forTokens>
   </div>
   
-  <script type="text/javascript">
-$(document).ready(function(){
-  $("#myInput").on("keyup", function() {
-    var value = $(this).val().toLowerCase();
-    $("#totalItems input:checkbox").filter(function() {
-      $(this).toggle($(this).val().toLowerCase().indexOf(value) > -1);
-      $(this).next().toggle($(this).val().toLowerCase().indexOf(value) > -1);
-
-    });
-  });
-  $("#addBtn").click(function(){
-	  let ia = $("input:checkbox:checked");
-			  for (let i=0;i<ia.length;i++){
-				$("#items").append($(ia[i]).val()+" ");
-	  } 
-  });
-});
-</script>
-	
-	<ul class="nav nav-tabs">
-<%-- 	<c:forEach items=${category} var="cat" varStatus="status"> 
-	  <li ><a data-toggle="tab" href="#category${status.count}">정육/계란류</a></li>
-	</c:forEach> --%>
-  <li ><a data-toggle="tab" href="#meat">정육/계란류</a></li>
-  <li><a data-toggle="tab" href="#veg">채소</a></li>
-  <li><a data-toggle="tab" href="#sauce">소스</a></li>
-  <li><a data-toggle="tab" href="#sauce2">장류/양념/가루/오일</a></li>
-    <li><a data-toggle="tab" href="#fish">수산물/건해산</a></li>
-      <li><a data-toggle="tab" href="#milk">우유/유제품/유아식</a></li>
-  
-  <li><a data-toggle="tab" href="#other1">리면/면류/즉석식품/통조림</a></li>
-	  <li><a data-toggle="tab" href="#other2">기타</a></li>
-</ul>
-
-<div class="tab-content">
-  <div id="meat" class="tab-pane fade in active">
+  <div id="meat" class="tab-pane fade ">
     <c:forTokens  var="item" items="계란,알류,소고기,돼지고기,닭고기,오리고기,양념육,가공육" delims=",">
 	<input type="checkbox" value="${item}"><span>${item}</span>
 	</c:forTokens>
   </div>
   
   <div id="veg" class="tab-pane fade">
+
 	<p>
 	<c:forTokens  var="item" items="두부,콩나물,숙주나물,고구마,감자,양파,마늘,파,생강,오이,가지,호박,옥수수,상추,깻잎,쌈채소,고추,피망,파프리카,시금치,부추,나물,양배추,양상추,브로콜리,샐러드,어린잎채소,당근,우엉,연근,마,버섯,배추,무,김장채소,아스파라거스,허브류,인삼,더덕,도라지,약선재료" delims=",">
 	<input type="checkbox" value="${item}"><span>${item}</span>
@@ -156,6 +178,7 @@ $(document).ready(function(){
     </p>
   </div>
 </div>
+<!-- </div> -->
 <span id="items"></span>
 	  <input type="button" id="addBtn" value="추가">
 	</div>

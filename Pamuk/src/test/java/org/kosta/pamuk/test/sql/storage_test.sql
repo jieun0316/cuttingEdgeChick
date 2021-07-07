@@ -22,3 +22,8 @@ DELETE FROM storage WHERE member_id='java'
 select * from member;
 select * from storage;
 select * from STORED_ITEM;
+select * from item;
+delete from stored_item where item_name='수박'or item_name='당근'
+
+insert into stored_item (stored_item_no, storage_no, item_name, expiry_date, stored_date ) 
+values (stored_item_seq.nextval, 28, '수박',  '20210808', '20210707')

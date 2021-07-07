@@ -11,6 +11,7 @@ import org.kosta.pamuk.model.vo.StoredItemVO;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
@@ -69,6 +70,14 @@ public String itemList() {
 @ResponseBody
 public List<StoredItemVO> getStoredItemByStorageNoAjax(int storageNo) {
 	return sm.getStoredItemByStorageNo(storageNo);
+}
+
+@RequestMapping(value="storeItem", method=RequestMethod.POST)
+public List<StoredItemVO> storeItem(StoredItemVO siv) {
+	 sm.storeItem(siv);
+	 int storageNo = siv.getStorageVO().getStorageNo();
+	//return  "getStoredItemByStorageNo?storageNo="+storageNo;
+	 return sm.getStoredItemByStorageNo(storageNo);
 }
 @RequestMapping("test")
 public String test() {
