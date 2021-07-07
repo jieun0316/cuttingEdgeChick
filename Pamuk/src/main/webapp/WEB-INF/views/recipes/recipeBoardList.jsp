@@ -5,19 +5,33 @@
 	$(document).ready( function(){
 		$("#category").change( function(){
 			var $category = $("#category").val();
+			// 레시피 총 갯수 받아오는 ajax
+			$.ajax({
+				type:"get",
+				url:"recipeCountByCategory",
+				dataType:"json",
+				data:"category=" + $category,
+				success:function(totalRecipeCount){
+					$("#totalCount").html("총 <span>" + totalRecipeCount +"</span>개의 맛있는 레시피가 있습니다 !");
+				},// success
+				error:function(request,status,error){
+			        console.log("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+			    }// error
+			}); //ajax
+			// 레시피 리스트 받아오는 ajax
 			$.ajax({
 				type:"get",
 				url:"recipeListByCategoryAjax",
 				dataType:"text",
 				data:"category=" + $category,
 				success:function(result){
-					//console.log(result);
 					$("#recipeListAjax").html(result);
 				},// success
 				error:function(request,status,error){
 			        console.log("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
 			       }// error
 			}); //ajax
+			
 		}) // change
 	});
 </script>

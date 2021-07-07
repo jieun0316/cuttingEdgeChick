@@ -100,15 +100,39 @@ public class RecipeController {
 		model.addAttribute("pagingBean", pagingBean);
 		return "recipes/recipeBoardList.tiles";
 	}
+	
+	/**
+	 * 카테고리별 카테고리별 레시피 글 갯수 받아오기
+	 * @param category, model
+	 * @return
+	 */
+	@RequestMapping("recipeCountByCategory")
+	@ResponseBody
+	public int recipeCountByCategory(String category, Model model) {
+		int totalRecipeCount;
+		if(category.equals("전체")) { // 전체보기
+			totalRecipeCount = recipeMapper.getTotalRecipeCount();
+		}else { // 카테고리별 보기이면
+			totalRecipeCount = recipeMapper.getRecipeCountByCategory(category);
+		}
+		model.addAttribute("totalRecipeCount", totalRecipeCount);
+		return totalRecipeCount;
+	}
+	
 	/**
 	 * 카테고리별 게시판 목록 받아오기 (Ajax 사용)
+	 * ajax 적용하는 jsp로 return 되도록 작성
 	 * @param category, pageNo, model
 	 * @return
 	 */
 	@RequestMapping("recipeListByCategoryAjax")
 	public String recipeListByCategoryAjax(String category, String pageNo, Model model) {
-		// totalRecipeCount
-		int totalRecipeCount = recipeMapper.getRecipeCountByCategory(category);
+		int totalRecipeCount;
+		if(category.equals("전체")) { // 전체보기
+			totalRecipeCount = recipeMapper.getTotalRecipeCount();
+		}else { // 카테고리별 보기이면
+			totalRecipeCount = recipeMapper.getRecipeCountByCategory(category);
+		}
 		model.addAttribute("totalRecipeCount", totalRecipeCount);
 
 		// paging
@@ -119,9 +143,15 @@ public class RecipeController {
 			pagingBean = new PagingBean(totalRecipeCount, Integer.parseInt(pageNo));
 		}
 
-		// view All Recipe List
-		ArrayList<RecipeVO> recipeList = recipeService.getRecipeListByCategory(pagingBean.getStartRowNumber(),
-				pagingBean.getEndRowNumber(), category);
+		// 레시피 목록 보기
+		ArrayList<RecipeVO> recipeList = null;
+		if(category.equals("전체")) { // 전체보기
+			recipeList = recipeService.getAllRecipeListByRowNumber(pagingBean.getStartRowNumber(),
+					pagingBean.getEndRowNumber());
+		}else { // 카테고리별 보기이면
+			recipeList = recipeService.getRecipeListByCategory(pagingBean.getStartRowNumber(),
+					pagingBean.getEndRowNumber(), category);
+		}
 		model.addAttribute("recipeList", recipeList);
 		model.addAttribute("pagingBean", pagingBean);
 		// System.out.println(recipeList);
