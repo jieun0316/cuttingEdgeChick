@@ -3,8 +3,6 @@ package org.kosta.pamuk.service;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import org.kosta.pamuk.model.vo.RecipeContentVO;
-import org.kosta.pamuk.model.vo.RecipeItemVO;
 import org.kosta.pamuk.model.vo.RecipeVO;
 
 public interface RecipeService {
@@ -14,7 +12,7 @@ public interface RecipeService {
 	 * @author 최인재
 	 * @param RecipeVO, ArrayList<RecipeContentVO>, ArrayList<RecipeItemVO>
 	 */
-	void postRecipe(RecipeVO vo, ArrayList<RecipeContentVO> recipeContentList, ArrayList<RecipeItemVO> recipeItemList);
+	void postRecipe(RecipeVO vo);
 	/**
 	 * Recipe List 불러오기
 	 * @author 조수빈
@@ -25,9 +23,9 @@ public interface RecipeService {
 	 * recipeNo로 recipeDetail를 map로 반환
 	 * @author 최인재
 	 * @param recipeNo
-	 * @return HashMap (recipeDetailVO, recipeItemVOList, recipeContentVOList)
+	 * @return RecipeVO (recipeDetailVO, recipeItemVOList, recipeContentVOList)
 	 */
-	HashMap<String, Object> viewRecipeDetail(int recipeNo);
+	RecipeVO viewRecipeDetail(int recipeNo);
 	/**
 	 * category로 recipeList 받아오기
 	 * @param startRowNumber

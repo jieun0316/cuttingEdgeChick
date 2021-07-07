@@ -1,9 +1,9 @@
 package org.kosta.pamuk.controller;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 import org.kosta.pamuk.model.mapper.RecipeMapper;
+import org.kosta.pamuk.model.vo.MemberVO;
 import org.kosta.pamuk.model.vo.PagingBean;
 import org.kosta.pamuk.model.vo.RecipeVO;
 import org.kosta.pamuk.service.RecipeService;
@@ -58,8 +58,12 @@ public class RecipeController {
 	 * @return
 	 */
 	@RequestMapping("recipeBoardWrite")
-	public String recipeBoardWrite() {
-		return "recipes/recipeBoardWrite.tiles";
+	public String recipeBoardWrite(RecipeVO recipeVO) {
+		MemberVO memberVO = new MemberVO();
+		memberVO.setMemberId("java");
+		recipeVO.setMemberVO(memberVO);
+		recipeService.postRecipe(recipeVO);
+		return "redirect:recipeBoardList";
 	}
 
 	/**
@@ -69,8 +73,8 @@ public class RecipeController {
 	 */
 	@RequestMapping("recipeBoardView")
 	public String recipeBoardView(int recipeNo, Model model) {
-		HashMap<String, Object> recipeDetailMap = recipeService.viewRecipeDetail(recipeNo);
-		model.addAttribute("paramMap", recipeDetailMap);
+		RecipeVO recipeVO = recipeService.viewRecipeDetail(recipeNo);
+		model.addAttribute("recipeVO", recipeVO);
 
 		return "recipes/recipeBoardView.tiles";
 	}

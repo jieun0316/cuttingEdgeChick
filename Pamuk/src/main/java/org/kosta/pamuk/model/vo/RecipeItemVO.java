@@ -1,32 +1,20 @@
 package org.kosta.pamuk.model.vo;
 
 public class RecipeItemVO extends ItemVO {
-	private RecipeVO recipeVO;
 	private String qty;
 	
 	public RecipeItemVO() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
-
-	public RecipeItemVO(String itemName, RecipeVO recipeVO, String qty) {
+	public RecipeItemVO(String itemName, String qty) {
 		super.setItemName(itemName);
-		this.recipeVO = recipeVO;
 		this.qty = qty;
 	}
 	
-	public RecipeItemVO(String itemName, CategoryVO categoryVO) {
+	public RecipeItemVO(String itemName, CategoryVO categoryVO, String qty) {
 		super(itemName, categoryVO);
-		// TODO Auto-generated constructor stub
-	}
-
-	public RecipeVO getRecipeVO() {
-		return recipeVO;
-	}
-
-	public void setRecipeVO(RecipeVO recipeVO) {
-		this.recipeVO = recipeVO;
+		this.qty = qty;
 	}
 
 	public String getQty() {
@@ -39,8 +27,9 @@ public class RecipeItemVO extends ItemVO {
 
 	@Override
 	public String toString() {
-		return "RecipeItemVO [" + super.toString() + "recipeVO=" + recipeVO + ", qty=" + qty + "]";
+		return super.toString() + "RecipeItemVO [qty=" + qty + "]";
 	}
+
 
 
 	
