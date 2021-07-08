@@ -6,6 +6,8 @@ drop table review;
 select * FROM MEMBER
 DROP TABLE member CASCADE CONSTRAINTS;
 
+select * from authorities; 
+
 --1
 create table member(
    member_id varchar2(100) primary key,

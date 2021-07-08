@@ -75,13 +75,15 @@ create table review(
 --5
 create table recipe_content(
 	recipe_no NUMBER not null,	
+	step_title clob not null,
 	step_no NUMBER not null,
 	content clob not null,
 	image_path clob,
 	constraint fk_recipe_content foreign key(recipe_no) references recipe(recipe_no) ON DELETE CASCADE,
 	constraint pk_recipe_step primary key(recipe_no,step_no)
 );
-
+drop table recipe_content
+alter table recipe_content add column step_title clob not null
 --6
 create table saved_recipe(
 	member_id varchar2(100) not null,
