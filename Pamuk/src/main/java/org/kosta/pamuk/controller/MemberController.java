@@ -84,7 +84,7 @@ public class MemberController {
 	 * 회원정보 조회
 	 */
 	@RequestMapping("user/myInfo")
-	public String myInfo() {
+	public String myInfo(String memberId, Model model) {
 		return "member/memberInfo.tiles";
 	}
 }
