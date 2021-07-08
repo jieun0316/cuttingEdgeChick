@@ -141,7 +141,7 @@ public class RecipeController {
 	 * @return
 	 */
 	
-	@RequestMapping("/user/recipeListByCategoryAjax")
+	@RequestMapping("recipeListByCategoryAjax")
 	public String recipeListByCategoryAjax(String category, String pageNo, Model model) {
 		int totalRecipeCount;
 		if(category.equals("전체")) { // 전체보기
