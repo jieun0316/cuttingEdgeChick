@@ -1,6 +1,7 @@
-package org.kosta.pamuk.test.recipe;
+package org.kosta.pamuk.test;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.junit.jupiter.api.Test;
 import org.kosta.pamuk.model.mapper.RecipeMapper;
@@ -23,7 +24,7 @@ public class RecipeTest {
 
 	@Test
 	public void postRecipe() {
-		int testCase = 5;
+		int testCase = 6;
 
 		// recipe Insert test
 		if (testCase == 1) {
@@ -31,8 +32,8 @@ public class RecipeTest {
 			MemberVO memberVO = new MemberVO();
 			memberVO.setMemberId("java");
 			recipeVO.setMemberVO(memberVO);
-			recipeVO.setCategory("일식");
-			recipeVO.setRecipeName("후토마끼");
+			recipeVO.setCategory("한식");
+			recipeVO.setRecipeName("계란장");
 			rm.postRecipe(recipeVO);
 			System.out.println(recipeVO);
 		}
@@ -51,7 +52,7 @@ public class RecipeTest {
 			recipeContentVO = new RecipeContentVO();
 			recipeContentVO.setContent("설탕과 간장을 섞으세요");
 			recipeContentVO.setImagePath("");
-			recipeContentVO.setRecipeVO(new RecipeVO(2));
+			recipeContentVO.setRecipeVO(new RecipeVO(1));
 			recipeContentVO.setStepNo(2);
 			recipeContentVO.setStepTitle("양념 간장 만들기");
 			rm.postRecipeContent(recipeContentVO);
@@ -59,7 +60,7 @@ public class RecipeTest {
 			recipeContentVO = new RecipeContentVO();
 			recipeContentVO.setContent("계란을 10분간 삶으세요");
 			recipeContentVO.setImagePath("");
-			recipeContentVO.setRecipeVO(new RecipeVO(2));
+			recipeContentVO.setRecipeVO(new RecipeVO(1));
 			recipeContentVO.setStepNo(1);
 			recipeContentVO.setStepTitle("계란삶기");
 			rm.postRecipeContent(recipeContentVO);
@@ -70,27 +71,27 @@ public class RecipeTest {
 			RecipeItemVO recipeItemVO = new RecipeItemVO();
 			recipeItemVO.setItemName("설탕");
 			recipeItemVO.setQty("5큰술");
-			recipeItemVO.setRecipeVO(new RecipeVO(2));
+			recipeItemVO.setRecipeVO(new RecipeVO(1));
 			rm.postRecipeItem(recipeItemVO);
 			
 			recipeItemVO = new RecipeItemVO();
 			recipeItemVO.setItemName("간장");
 			recipeItemVO.setQty("100ml");
-			recipeItemVO.setRecipeVO(new RecipeVO(2));
+			recipeItemVO.setRecipeVO(new RecipeVO(1));
 			rm.postRecipeItem(recipeItemVO);
 			
 			recipeItemVO = new RecipeItemVO();
 			recipeItemVO.setItemName("계란");
 			recipeItemVO.setQty("10알");
-			recipeItemVO.setRecipeVO(new RecipeVO(2));
+			recipeItemVO.setRecipeVO(new RecipeVO(1));
 			rm.postRecipeItem(recipeItemVO);
 		}
 		
 		//select Count Test
 		else if(testCase==4) {
 			System.out.println(rm.getTotalRecipeCount());
-			System.out.println(rm.getContentCountByRecipeNo(2));
-			System.out.println(rm.getItemCountByRecipeNo(2));
+			System.out.println(rm.getContentCountByRecipeNo(3));
+			System.out.println(rm.getItemCountByRecipeNo(3));
 			System.out.println(rm.getRecipeCountByCategory("한식"));
 		}
 		
@@ -108,7 +109,7 @@ public class RecipeTest {
 				System.out.println(rContent);
 			}*/
 			
-			ArrayList<RecipeVO> rList = rm.getRecipeListByCategory(1, 12, "중식");
+			ArrayList<RecipeVO> rList = rm.getRecipeListByCategory(1, 2, "한식");
 			//rm.getAllRecipeListByRowNumber(1, 2);
 					
 			for (RecipeVO r : rList) {
@@ -116,7 +117,21 @@ public class RecipeTest {
 			}
 		}
 		
+		else if(testCase==6) {
+			HashMap<String, Object> map = rs.viewRecipeDetail(5);
+			RecipeVO recipeVO = (RecipeVO)map.get("recipeVO");
+			ArrayList<RecipeItemVO> recipeItemVOList = (ArrayList<RecipeItemVO>)map.get("recipeItemVOList");
+			ArrayList<RecipeContentVO> recipeContentVOList = (ArrayList<RecipeContentVO>)map.get("recipeContentVOList");
 		
+			System.out.println("recipe:" + recipeVO + "\n");
+			
+			for(RecipeItemVO rItem : recipeItemVOList) 
+				System.out.println("item:" + rItem + "\n");
+			
+			for(RecipeContentVO rContent : recipeContentVOList) 
+				System.out.println("content:" + rContent + "\n");
+		
+		}
 
 	}
 }

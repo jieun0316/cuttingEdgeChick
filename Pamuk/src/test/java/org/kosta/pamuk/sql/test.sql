@@ -110,6 +110,7 @@ create table stored_item(
 );
 create sequence stored_item_seq;
 
+select * from recipe;
 select * from category;
 select * from item;
 select * from storage
@@ -121,3 +122,13 @@ drop table storage;
 drop sequence storage_seq;
 drop table stored_item;
 drop sequence stored_item_seq;
+
+SELECT rnum_view.*
+FROM (
+	SELECT ROWNUM as rnum, recipe_view.*
+	FROM
+		(SELECT r.recipe_no, m.nick, r.recipe_name, hits, r.category
+		FROM RECIPE r, member m
+		WHERE m.member_id = r.member_id ORDER BY recipe_no DESC)recipe_view
+	)rnum_view
+WHERE rnum between '1' and '6'
