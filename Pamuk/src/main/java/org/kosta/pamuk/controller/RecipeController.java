@@ -119,7 +119,7 @@ public class RecipeController {
 	 * @return
 	 */
 	@RequestMapping("recipeCountByCategory")
-	@ResponseBody
+	@ResponseBody // 응답하는 body에 필요한 data만 받는다.
 	public int recipeCountByCategory(String category, Model model) {
 		int totalRecipeCount;
 		if(category.equals("전체")) { // 전체보기
