@@ -22,7 +22,6 @@
 			$.ajax({
 				type:"get",
 				url:"recipeListByCategoryAjax",
-				dataType:"text",
 				data:"category=" + $category,
 				success:function(result){
 					console.log(result);
