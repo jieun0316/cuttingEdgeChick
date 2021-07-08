@@ -20,23 +20,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class RecipeServiceImpl implements RecipeService {
 	@Resource
 	private RecipeMapper recipeMapper;
-	/**
-	 * Recipe를 Post (recipe, content, item)을 transactional하게 처리
-	 * content와 item은 List로 받아서 insert
-	 * @author 최인재
-	 * @param RecipeVO, ArrayList<RecipeContentVO>, ArrayList<RecipeItemVO>
-	 */
-	@Override
-	public void postRecipe(RecipeVO recipeVO) {
-		recipeMapper.postRecipe(recipeVO);
-		List<RecipeContentVO> recipeContentList = recipeVO.getRecipeContentList();
-		  
-		 for(RecipeContentVO recipeContentVO : recipeContentList) 
-		 {	
-			 recipeContentVO.setRecipeNo(recipeVO.getRecipeNo());
-			 recipeMapper.postRecipeContent(recipeContentVO); 
-		 }
-	}
+	
 	/**
 	 * Recipe List 불러오기
 	 * @author 조수빈
