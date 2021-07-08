@@ -58,7 +58,7 @@
                             <!-- Nav Start -->
                             <div class="classynav">
                                 <ul>
-                                    <li><a href="index.html">Home</a></li>
+                                    <li><a href="/home">Home</a></li>
                                     <li><a href="recipeBoardList">레시피</a>
                                         <ul class="dropdown">
                                             <li><a href="recipeListByCategory?category=한식">한식</a></li>
