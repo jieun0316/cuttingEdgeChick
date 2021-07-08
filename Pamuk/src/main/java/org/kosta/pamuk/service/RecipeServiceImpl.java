@@ -10,6 +10,7 @@ import org.kosta.pamuk.model.vo.RecipeContentVO;
 import org.kosta.pamuk.model.vo.RecipeItemVO;
 import org.kosta.pamuk.model.vo.RecipeVO;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 /**
  * 
  * 
@@ -56,6 +57,7 @@ public class RecipeServiceImpl implements RecipeService {
 	 * @author 최인재
 	 * @param RecipeVO, ArrayList<RecipeContentVO>, ArrayList<RecipeItemVO>
 	 */
+	@Transactional
 	@Override
 	public void postRecipe(RecipeVO recipeVO) {
 		recipeMapper.postRecipe(recipeVO);
