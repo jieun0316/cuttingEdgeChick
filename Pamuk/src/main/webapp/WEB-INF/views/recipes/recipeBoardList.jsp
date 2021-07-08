@@ -22,9 +22,9 @@
 			$.ajax({
 				type:"get",
 				url:"recipeListByCategoryAjax",
-				dataType:"text",
 				data:"category=" + $category,
 				success:function(result){
+					console.log(result);
 					$("#recipeListAjax").html(result);
 				},// success
 				error:function(request,status,error){
@@ -75,11 +75,8 @@
                                 <option value="댓글순">댓글순</option>
                             </select>
                         </div>
-                        <div class="col-12 col-lg-3">
-                            <input type="search" name="search" placeholder="검색어를 입력하세요">
-                        </div>
                         <div class="col-12 col-lg-3 text-right">
-                            <button type="submit" class="btn delicious-btn">검색</button>
+                            <button type="submit" class="btn delicious-btn">레시피 작성</button>
                         </div>
                     </div>
                 </form>

@@ -129,6 +129,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		delete from recipe_content where recipe_no=#{recipeNo}
 		and step_no=(SELECT max(step_no) FROM recipe_content where recipe_no=#{recipeNo})
 	</delete>
+	
+	<!-- search -->
 </mapper>
 
 
