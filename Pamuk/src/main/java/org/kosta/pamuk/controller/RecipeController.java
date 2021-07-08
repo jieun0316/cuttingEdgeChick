@@ -1,7 +1,7 @@
 package org.kosta.pamuk.controller;
 
 import java.util.ArrayList;
-
+import org.kosta.pamuk.model.mapper.ItemMapper;
 import org.kosta.pamuk.model.mapper.RecipeMapper;
 import org.kosta.pamuk.model.vo.MemberVO;
 import org.kosta.pamuk.model.vo.PagingBean;
@@ -23,6 +23,8 @@ public class RecipeController {
 	RecipeService recipeService;
 	@Autowired
 	RecipeMapper recipeMapper;
+	@Autowired
+	ItemMapper itemMapper;
 
 	/**
 	 * 레시피 게시판 목록 보기
@@ -59,10 +61,11 @@ public class RecipeController {
 	@Secured("ROLE_MEMBER")
 	@RequestMapping("recipeBoardWriteForm")
 	public String recipeBoardWriteForm(Model model) {
-		
+		model.addAttribute("categoryList", itemMapper.getCategoryList());
 		return "recipes/recipeBoardWriteForm.tiles";
 	}
 	
+
 	@Secured("ROLE_MEMBER")
 	@RequestMapping("recipeBoardWrite")
 	public String recipeBoardWrite(RecipeVO recipeVO) {
@@ -79,7 +82,7 @@ public class RecipeController {
 	 * 
 	 * @return
 	 */
-	@RequestMapping("recipeBoardView")
+	@RequestMapping("/user/recipeBoardView")
 	public String recipeBoardView(int recipeNo, Model model) {
 		RecipeVO recipeVO = recipeService.viewRecipeDetail(recipeNo);
 		model.addAttribute("recipeVO", recipeVO);
@@ -119,7 +122,7 @@ public class RecipeController {
 	 * @return
 	 */
 	@RequestMapping("recipeCountByCategory")
-	@ResponseBody // 응답하는 body에 필요한 data만 받는다.
+	@ResponseBody
 	public int recipeCountByCategory(String category, Model model) {
 		int totalRecipeCount;
 		if(category.equals("전체")) { // 전체보기
@@ -137,7 +140,8 @@ public class RecipeController {
 	 * @param category, pageNo, model
 	 * @return
 	 */
-	@RequestMapping("recipeListByCategoryAjax")
+	
+	@RequestMapping("/user/recipeListByCategoryAjax")
 	public String recipeListByCategoryAjax(String category, String pageNo, Model model) {
 		int totalRecipeCount;
 		if(category.equals("전체")) { // 전체보기
