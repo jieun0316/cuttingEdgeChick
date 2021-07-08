@@ -7,7 +7,7 @@
 		<div class="row h-100 align-items-center">
 			<div class="col-12">
 				<div class="breadcumb-text text-center">
-					<h2>회원님의 아이디를 찾습니다</h2>
+					<h2>내 정보</h2>
 				</div>
 			</div>
 		</div>
@@ -22,7 +22,7 @@
 			<div class="col-12">
 				<div class="contact-form-area">
 					<div class="breadcumb-text text-center">
-						<h6>회원님의 아이디는 ${memberVO.memberId} 입니다</h6>
+						<h6>아이디 ${memberVO.memberId}</h6>
 					</div>
 					
 						<div class="row mt-70">
