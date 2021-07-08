@@ -12,6 +12,7 @@ public class RecipeVO {
 	private int hits;
 	private List<RecipeContentVO> recipeContentList;
 	private List<RecipeItemVO> recipeItemList;
+	private String imagePath;
 	
 	public RecipeVO() {
 		super();
@@ -24,11 +25,9 @@ public class RecipeVO {
 		this.recipeNo = recipeNo;
 	}
 
-
-	
-	
 	public RecipeVO(int recipeNo, MemberVO memberVO, String recipeName, String writeDate, String modifyDate,
-			String category, int hits, List<RecipeContentVO> recipeContentList, List<RecipeItemVO> recipeItemList) {
+			String category, int hits, List<RecipeContentVO> recipeContentList, List<RecipeItemVO> recipeItemList,
+			String imagePath) {
 		super();
 		this.recipeNo = recipeNo;
 		this.memberVO = memberVO;
@@ -39,6 +38,7 @@ public class RecipeVO {
 		this.hits = hits;
 		this.recipeContentList = recipeContentList;
 		this.recipeItemList = recipeItemList;
+		this.imagePath = imagePath;
 	}
 
 
@@ -104,12 +104,25 @@ public class RecipeVO {
 	}
 
 
+	public String getImagePath() {
+		return imagePath;
+	}
+
+
+	public void setImagePath(String imagePath) {
+		this.imagePath = imagePath;
+	}
+
+
 	@Override
 	public String toString() {
 		return "RecipeVO [recipeNo=" + recipeNo + ", memberVO=" + memberVO + ", recipeName=" + recipeName
 				+ ", writeDate=" + writeDate + ", modifyDate=" + modifyDate + ", category=" + category + ", hits="
-				+ hits + ", recipeContentList=" + recipeContentList + ", recipeItemList=" + recipeItemList + "]";
+				+ hits + ", recipeContentList=" + recipeContentList + ", recipeItemList=" + recipeItemList
+				+ ", imagePath=" + imagePath + "]";
 	}
+
+
 
 
 	

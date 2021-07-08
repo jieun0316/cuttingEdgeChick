@@ -55,10 +55,12 @@ create table recipe(
 	write_date DATE default sysdate,
 	modify_date DATE,
 	category varchar2(100) not null,
-	
+	image_path clob,
 	hits NUMBER default 0,
 	constraint fk_recipe foreign key(member_id) references member(member_id)
 );
+
+ALTER TABLE recipe ADD (image_path clob);
 
 --4
 create table review(
