@@ -82,7 +82,7 @@ public class RecipeController {
 	 * 
 	 * @return
 	 */
-	@RequestMapping("/user/recipeBoardView")
+	@RequestMapping("/recipeBoardView")
 	public String recipeBoardView(int recipeNo, Model model) {
 		RecipeVO recipeVO = recipeService.viewRecipeDetail(recipeNo);
 		model.addAttribute("recipeVO", recipeVO);
