@@ -14,15 +14,26 @@
 		}); // on
 		
 		$("button[name=categoryBtn]").on("click",function(){
+			
 			$.ajax({
 				url : "itemListByCategoryAjax",
 				type: "get",
 				data : { "categoryName" : $(this).attr('value') },
 				success : function(responseData){	
 					$("#ajax").remove();
+					$("#item_ul_list").html("");
 					$.each(responseData, function(index) {
 						console.log($(this)[0].itemName);
 						//얘를 목록에 뿌려주면 됩니다!!
+						
+						let itemForm = '<li class="list-group-item">'+$(this)[0].itemName+'&nbsp;&nbsp;<label class="switch ">';
+						itemForm += '<input type="checkbox" class="success"> <span ';
+						itemForm += 'class="slider round"></span>';
+						itemForm += '</label> <input type="text" placeholder="수량"> </li>';
+						
+						//let itemForm = '<li>'+$(this)[0].itemName+'</li>';
+						
+						$("#item_ul_list").append(itemForm);
 					});
 				}
 			}); 
@@ -102,7 +113,6 @@
 									style="height: 90px;">
 
 									<div class="btn-group" role="group">
-										<button type="button" name="categoryBtn" class="btn btn-success" value="전체">전체</button>
 										<c:forEach items="${categoryList}" var="category">
 											<button type="button" name="categoryBtn" class="btn btn-success" value="${category.categoryName}">${category.categoryName}</button>
 										</c:forEach>
@@ -113,12 +123,8 @@
 									style="height: 500px; overflow-y: scroll;">
 									<div class="card" style="margin: 50px 0">
 										<!-- Default panel contents -->
-										<ul name="item-list-group" class="list-group list-group-flush">
-											<li class="list-group-item">당근 <label class="switch ">
-													<input type="checkbox" class="success"> <span
-													class="slider round"></span>
-											</label> <input type="text" placeholder="수량">
-											</li>
+										<ul id="item_ul_list" class="list-group list-group-flush">
+											
 										
 										</ul>
 									</div>
