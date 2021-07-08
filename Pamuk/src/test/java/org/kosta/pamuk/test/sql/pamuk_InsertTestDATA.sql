@@ -4,7 +4,7 @@ insert into MEMBER (member_id, password, email, name, nick, birth, gender) value
 --회원 권한 관련 테스트 데이터
 insert into authorities(member_id, authority) values('sukuon', 'ROLE_MEMBER');
 insert into authorities(member_id, authority) values('sukuon', 'ROLE_ADMIN');
-
+insert into authorities(member_id, authority) values('sukuon', 'ROLE_MASTER');
 select * from authorities
 --카테고리
 insert into CATEGORY (category_name, storage_time) values ('계란류','30');

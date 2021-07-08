@@ -12,12 +12,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  	<resultMap type="recipeVO" id="recipeDetailRM" extends="recipeRM">
  		<result column="nick" property="memberVO.nick"/>
  	</resultMap>
- 	<resultMap type="recipeItemVO" id="RecipeItemRM">
- 		<result column="recipe_no" property="recipeVO.recipeNo"/>
- 	</resultMap>
- 	<resultMap type="recipeContentVO" id="RecipeContentRM">
- 		<result column="recipe_no" property="recipeVO.recipeNo"/>
- 	</resultMap>
 	
 	<!-- recipe 관련 insert문 -->
 	<!-- recipe 게시물 작성 -->
@@ -37,7 +31,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		insert into
 		recipe_content
 		(recipe_no, step_no, step_title, content, image_path)
-		values (#{recipeVO.recipeNo}, #{stepNo}, #{stepTitle}, #{content},
+		values (#{recipeNo}, #{stepNo}, #{stepTitle}, #{content},
 		#{imagePath})
 	</insert>
 	<!-- recipe에 사용되는 재료 작성 -->
@@ -46,7 +40,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		recipe_item
 		(item_name, recipe_no, qty)
 		values (#{itemName},
-		#{recipeVO.recipeNo}, #{qty})
+		#{recipeNo}, #{qty})
 	</insert>
 
 	<!-- recipe 관련 select문 -->
@@ -81,14 +75,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		where recipe_no = #{value}
 	</select>
 	<!-- recipe 게시물의 ItemList를 조회 -->
-	<select id="getRecipeItemListByRecipeNo" resultMap="RecipeItemRM">
-		select item_name, recipe_no, qty
+	<select id="getRecipeItemListByRecipeNo" resultType="RecipeItemVO">
+		select item_name, qty
 		from recipe_item
 		where recipe_no = #{value}
 	</select>
 	<!-- recipe 게시물 ContentList를 조회 -->
-	<select id="getRecipeContentListByRecipeNoOrderByStepNo" resultType="recipeContentVO">
-		select recipe_no, step_no, content, image_path
+	<select id="getRecipeContentListByRecipeNoOrderByStepNo" resultType="RecipeContentVO">
+		select step_no, content, image_path
 		from recipe_content
 		where recipe_no = #{value}
 		order by step_no
@@ -97,21 +91,27 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<!-- recipe 게시물의 리스트 조회 -->
 	<!-- recipe 게시물의 List를 rowNumber로 조회 -->
 	<select id="getAllRecipeListByRowNumber" resultMap="recipeDetailRM">
-		SELECT  x.* 
+		SELECT rnum_view.*
 		FROM (
-			SELECT ROWNUM rn, r.recipe_no, m.nick, r.recipe_name, hits
-			FROM RECIPE r, member m
-			WHERE m.member_id = r.member_id ORDER BY recipe_no DESC)x 
-		WHERE rn BETWEEN #{startRowNumber} and #{endRowNumber}
+			SELECT ROWNUM as rnum, recipe_view.*
+			FROM
+				(SELECT r.recipe_no, m.nick, r.recipe_name, hits, r.category
+				FROM RECIPE r, member m
+				WHERE m.member_id = r.member_id ORDER BY recipe_no DESC)recipe_view
+			)rnum_view
+		WHERE rnum between #{startRowNumber} and #{endRowNumber}
 	</select>
 	<!-- category별 recipe 게시물의 List를 rowNumber로 조회 -->
 	<select id="getRecipeListByCategory"  resultMap="recipeDetailRM">
-		SELECT  x.* 
+		SELECT rnum_view.*
 		FROM (
-			SELECT ROWNUM rn, r.recipe_no, m.nick, r.recipe_name, hits
-			FROM RECIPE r, member m
-			WHERE m.member_id = r.member_id and category=#{category} ORDER BY recipe_no DESC)x 
-		WHERE rn BETWEEN #{startRowNumber} and #{endRowNumber}
+			SELECT ROWNUM as rnum, recipe_view.*
+			FROM
+				(SELECT r.recipe_no, m.nick, r.recipe_name, hits, r.category
+				FROM RECIPE r, member m
+				WHERE m.member_id = r.member_id and category=#{category} ORDER BY recipe_no DESC)recipe_view
+			)rnum_view
+		WHERE rnum between #{startRowNumber} and #{endRowNumber}
 	</select>
 	
 	

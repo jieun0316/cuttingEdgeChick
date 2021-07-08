@@ -6,6 +6,8 @@ drop table review;
 select * FROM MEMBER
 DROP TABLE member CASCADE CONSTRAINTS;
 
+select * from authorities; 
+
 --1
 create table member(
    member_id varchar2(100) primary key,
@@ -110,6 +112,7 @@ create table stored_item(
 );
 create sequence stored_item_seq;
 
+select * from recipe;
 select * from category;
 select * from item;
 select * from storage
@@ -122,4 +125,16 @@ drop sequence storage_seq;
 drop table stored_item;
 drop sequence stored_item_seq;
 
+<<<<<<< HEAD
+SELECT rnum_view.*
+FROM (
+	SELECT ROWNUM as rnum, recipe_view.*
+	FROM
+		(SELECT r.recipe_no, m.nick, r.recipe_name, hits, r.category
+		FROM RECIPE r, member m
+		WHERE m.member_id = r.member_id ORDER BY recipe_no DESC)recipe_view
+	)rnum_view
+WHERE rnum between '1' and '6'
+=======
 select member_id, name, email, to_char(birth, 'yyyy-mm-dd') as birth from member where member_id='sukuon' and status=0
+>>>>>>> refs/heads/WaterPunch

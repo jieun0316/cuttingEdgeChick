@@ -1,7 +1,11 @@
 select * from MEMBER;
 select * from RECIPE;
 select * from RECIPE_ITEM;
+<<<<<<< HEAD
+select * from RECIPE_CONTENT;
+=======
 select * from authorities;
+>>>>>>> refs/heads/WaterPunch
 
 
 SELECT M.name, M.nick, A.authority FROM member M, authorities A	WHERE M.member_id=A.member_id;

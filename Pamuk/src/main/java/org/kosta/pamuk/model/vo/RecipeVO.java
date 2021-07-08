@@ -1,5 +1,7 @@
 package org.kosta.pamuk.model.vo;
 
+import java.util.List;
+
 public class RecipeVO {
 	private int recipeNo;
 	private MemberVO memberVO;
@@ -8,6 +10,8 @@ public class RecipeVO {
 	private String modifyDate;
 	private String category;
 	private int hits;
+	private List<RecipeContentVO> recipeContentList;
+	private List<RecipeItemVO> recipeItemList;
 	
 	public RecipeVO() {
 		super();
@@ -21,8 +25,10 @@ public class RecipeVO {
 	}
 
 
+	
+	
 	public RecipeVO(int recipeNo, MemberVO memberVO, String recipeName, String writeDate, String modifyDate,
-			String category, int hits) {
+			String category, int hits, List<RecipeContentVO> recipeContentList, List<RecipeItemVO> recipeItemList) {
 		super();
 		this.recipeNo = recipeNo;
 		this.memberVO = memberVO;
@@ -31,8 +37,11 @@ public class RecipeVO {
 		this.modifyDate = modifyDate;
 		this.category = category;
 		this.hits = hits;
+		this.recipeContentList = recipeContentList;
+		this.recipeItemList = recipeItemList;
 	}
-	
+
+
 	public int getRecipeNo() {
 		return recipeNo;
 	}
@@ -75,12 +84,34 @@ public class RecipeVO {
 	public void setHits(int hits) {
 		this.hits = hits;
 	}
+	
+	public List<RecipeContentVO> getRecipeContentList() {
+		return recipeContentList;
+	}
+
+	public void setRecipeContentList(List<RecipeContentVO> recipeContentList) {
+		this.recipeContentList = recipeContentList;
+	}
+
+
+	public List<RecipeItemVO> getRecipeItemList() {
+		return recipeItemList;
+	}
+
+
+	public void setRecipeItemList(List<RecipeItemVO> recipeItemList) {
+		this.recipeItemList = recipeItemList;
+	}
+
+
 	@Override
 	public String toString() {
 		return "RecipeVO [recipeNo=" + recipeNo + ", memberVO=" + memberVO + ", recipeName=" + recipeName
 				+ ", writeDate=" + writeDate + ", modifyDate=" + modifyDate + ", category=" + category + ", hits="
-				+ hits + "]";
+				+ hits + ", recipeContentList=" + recipeContentList + ", recipeItemList=" + recipeItemList + "]";
 	}
+
+
 	
 	
 }
