@@ -1,13 +1,22 @@
 package org.kosta.pamuk.model.vo;
 
-public class AuthoritiesVO {
-	private MemberVO memberVO;
+import java.io.Serializable;
+
+public class AuthoritiesVO implements Serializable{
+	private static final long serialVersionUID = -5897871141843522239L;
+	private String memberId;
 	private String authority;
-	public MemberVO getMemberVO() {
-		return memberVO;
+	public AuthoritiesVO() {}
+	public AuthoritiesVO(String memberId, String authority) {
+		super();
+		this.memberId = memberId;
+		this.authority = authority;
 	}
-	public void setMemberVO(MemberVO memberVO) {
-		this.memberVO = memberVO;
+	public String getMemberId() {
+		return memberId;
+	}
+	public void setMemberId(String memberId) {
+		this.memberId = memberId;
 	}
 	public String getAuthority() {
 		return authority;
@@ -15,20 +24,9 @@ public class AuthoritiesVO {
 	public void setAuthority(String authority) {
 		this.authority = authority;
 	}
-	public AuthoritiesVO() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
-	public AuthoritiesVO(MemberVO memberVO, String authority) {
-		super();
-		this.memberVO = memberVO;
-		this.authority = authority;
-	}
 	@Override
 	public String toString() {
-		return "Authorities [memberVO=" + memberVO + ", authority=" + authority + "]";
+		return "AuthoritiesVO [memberId=" + memberId + ", authority=" + authority + "]";
 	}
-	
-	
 	
 }

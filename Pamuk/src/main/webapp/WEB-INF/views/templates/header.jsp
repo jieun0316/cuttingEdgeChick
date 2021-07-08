@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+    <%@taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
     <!-- Preloader -->
     <div id="preloader">
         <i class="circle-preloader"></i>
@@ -38,7 +40,7 @@
                     <nav class="classy-navbar justify-content-between" id="deliciousNav">
 
                         <!-- Logo -->
-                        <a class="nav-brand" href="home"><img src="${pageContext.request.contextPath}/img/core-img/logo.png" alt=""></a>
+                        <a class="nav-brand" href="/home"><img src="${pageContext.request.contextPath}/img/core-img/logo.png" alt=""></a>
 
                         <!-- Navbar Toggler -->
                         <div class="classy-navbar-toggler">
@@ -78,7 +80,7 @@
                                             <li><a href="about.html">재료별 레시피 추천 </a></li>
                                         </ul>
                                     </li>
-                                    <li><a href="#">내정보</a>
+                                    <li><a href="${pageContext.request.contextPath}/user/myInfo">내정보</a>
                                         <!-- <ul class="dropdown">
                                             <li><a href="index.html">내정보수정</a></li>
                                             <li><a href="blog-post.html">일식</a></li>
@@ -91,7 +93,8 @@
                                 <!-- Newsletter Form -->
                                 <div class="search-btn">
                                     <i class="fa fa-search" aria-hidden="true"></i>
-                                </div>
+                                </div>&nbsp;&nbsp;&nbsp;
+                                <sec:authorize access="isAuthenticated()==false">
                                 <div class="login-btn">
                                     <span id="loginLink">Login&nbsp;&nbsp;</span><i class="fa fa-user" aria-hidden="true"></i>
                                 </div>
@@ -99,11 +102,52 @@
 	                                <script type="text/javascript">
 	                                	$(document).ready(function() {
 	                                		$(".login-btn").click(function() {                                		
-	                                			location.href="/loginForm";
+	                                		location.href="/user/loginForm";
 	                                		});
-	                                	})
+	                                	});
 	                                </script>
-
+	                                <!-- 
+	                                	<%-- <a href="${pageContext.request.contextPath}/logout">로그아웃</a> --%>
+	<%-- spring security logout은 다음과 같은 처리가 필요하다
+	로그인 로그아웃은 모두 post 방식 요청으로 해야 하며  csrf 토큰처리가 필요하다 --%>
+	<script type="text/javascript">
+		$(document).ready(function() {
+			$("#logoutAction").click(function() {
+				$("#logoutForm").submit();
+			});
+		});
+	</script>
+	<a href="#" id="logoutAction">로그아웃</a>
+	<form id="logoutForm"
+		action="${pageContext.request.contextPath}/logout" method="post"
+		style="display: none">
+		<sec:csrfInput />
+	</form>
+	 -->
+								</sec:authorize>
+								<sec:authorize access="isAuthenticated()">
+								<div>
+									<sec:authentication property="principal.name" />님 안녕하세용&nbsp;&nbsp;&nbsp;
+								</div>
+								<div class="logout-btn">
+                                    <a href="#" id="logoutAction">Logout&nbsp;&nbsp;<i class="fa fa-user" aria-hidden="true"></i></a>
+                                </div>
+                                <script type="text/javascript">
+								$(document).ready(function() {
+									$(".logout-btn").click(function() {  
+	                        			$("#logoutForm").submit();
+	                        		});
+								})
+                                </script>
+                               		<form id="logoutForm" action="${pageContext.request.contextPath}/logout" method="post" style="display: none">
+										<sec:csrfInput />
+									</form>
+								</sec:authorize>
+								<div class="adminPage">
+								<sec:authorize access="hasRole('ROLE_ADMIN') and hasRole('ROLE_MEMBER')">
+									&nbsp;&nbsp;&nbsp;<a href="${pageContext.request.contextPath}/admin/main">관리자모드</a>	
+								</sec:authorize> 
+								</div>
                             </div>
                             <!-- Nav End -->
                         </div>
