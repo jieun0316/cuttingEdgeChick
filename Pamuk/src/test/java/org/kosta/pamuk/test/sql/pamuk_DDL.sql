@@ -141,7 +141,7 @@ create table recipe_item(
 );
 -------------------------------------------------------------------------------
 
-
+select member_id, name, email, to_char(birth, 'yyyy-mm-dd') as birth from member where name='김수권' and email='kaiosuku@naver.com' and birth='1994-01-03'
 
 
 

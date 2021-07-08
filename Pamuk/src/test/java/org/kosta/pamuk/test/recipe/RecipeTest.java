@@ -108,7 +108,7 @@ public class RecipeTest {
 				System.out.println(rContent);
 			}*/
 			
-			ArrayList<RecipeVO> rList = rm.getRecipeListByCategory(1, 2, "한식");
+			ArrayList<RecipeVO> rList = rm.getRecipeListByCategory(1, 12, "중식");
 			//rm.getAllRecipeListByRowNumber(1, 2);
 					
 			for (RecipeVO r : rList) {

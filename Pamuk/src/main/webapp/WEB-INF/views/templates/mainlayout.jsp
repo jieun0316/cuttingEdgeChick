@@ -38,7 +38,6 @@
 <script src="${pageContext.request.contextPath}/js/active.js" defer></script>
 <!-- Pamuk js -->
 <script src="${pageContext.request.contextPath}/js/pamuk.js"></script>
-
 </head>
 <body>
 	<!-- Tiles header 영역 -->

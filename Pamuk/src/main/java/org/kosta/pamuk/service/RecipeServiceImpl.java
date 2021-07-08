@@ -77,4 +77,16 @@ public class RecipeServiceImpl implements RecipeService {
 		 * recipeMapper.postRecipeItem(recipeItemVO); }
 		 */
 	}
+	/**
+	 * category로 recipeList 받아오기
+	 * @param startRowNumber
+	 * @param endRowNumber
+	 * @param category
+	 * @return
+	 */
+	@Override
+	public ArrayList<RecipeVO> getRecipeListByCategory(int startRowNumber, int endRowNumber, String category) {
+		// TODO Auto-generated method stub
+		return recipeMapper.getRecipeListByCategory(startRowNumber, endRowNumber, category);
+	}
 }
