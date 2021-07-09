@@ -79,6 +79,14 @@
 					<form action="recipeBoardWrite" method="post">
 					<sec:csrfInput />
 						<div class="row">
+							<div class="col-12 mb-15">
+								<select name="category">
+                              		<option value="한식">한식</option>
+                               		<option value="일식">일식</option>
+                         		    <option value="중식">중식</option>
+                         		    <option value="양식">양식</option>
+                            	</select>
+							</div>
 							<div class="col-12">
 								<input type="text" class="form-control" name="recipeName" placeholder="레시피 제목을 입력해주세요">
 							</div>

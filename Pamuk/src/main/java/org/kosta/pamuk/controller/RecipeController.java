@@ -12,6 +12,7 @@ import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 /**
@@ -71,7 +72,6 @@ public class RecipeController {
 	public String recipeBoardWrite(RecipeVO recipeVO) {
 		// 세션에서 세선 정보를 mvo에 넣는다
 		recipeVO.setMemberVO( (MemberVO) SecurityContextHolder.getContext().getAuthentication().getPrincipal());
-		recipeVO.setCategory("한식");
 		recipeService.postRecipe(recipeVO);
 		return "redirect:recipeBoardList";
 	}
@@ -174,6 +174,21 @@ public class RecipeController {
 		// System.out.println(recipeList);
 		return "recipes/recipeListAjax";
 	}
+	@Secured("ROLE_MEMBER")
+	@RequestMapping("deleteRecipeForm")
+	public String deleteRecipeForm(int recipeNo) {
+		// session 체크 해줘야함.
+		return "redirect:deleteRecipeByRecipeNo?" + recipeNo;
+	}
+	
+	@PostMapping("deleteRecipeByRecipeNo")
+	public void deleteRecipeByRecipeNo(int recipeNo, Model model) {
+		recipeMapper.deleteRecipeByRecipeNo(recipeNo);
+	}
+	
+	
+	
+	
 	
 	@RequestMapping("recipeSearchRsultPage")
 	public String recipeSearchRsultPage() {

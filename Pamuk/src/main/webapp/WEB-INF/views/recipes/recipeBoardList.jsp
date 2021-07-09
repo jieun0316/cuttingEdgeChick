@@ -76,9 +76,6 @@
                                 <option value="댓글순">댓글순</option>
                             </select>
                         </div>
-                        <div class="col-12 col-lg-3 text-right">
-                            <button type="submit" class="btn delicious-btn">레시피 작성</button>
-                        </div>
                     </div>
                 </form>
             </div>
@@ -140,7 +137,7 @@
 			</c:if>
 		</ul>
 		<!-- /.Pagination -->
-		<div class="row mb-15">
+		<div class="row mt-50">
 			<button type="button" class="btn btn-outline-success" onclick="location.href='recipeBoardWriteForm'">레시피 작성</button>
 		</div>
 	</div>
