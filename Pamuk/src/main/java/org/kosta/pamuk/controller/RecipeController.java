@@ -1,6 +1,11 @@
 package org.kosta.pamuk.controller;
 
+import java.io.File;
 import java.util.ArrayList;
+import java.util.List;
+
+import javax.swing.filechooser.FileSystemView;
+
 import org.kosta.pamuk.model.mapper.ItemMapper;
 import org.kosta.pamuk.model.mapper.RecipeMapper;
 import org.kosta.pamuk.model.vo.MemberVO;
@@ -12,8 +17,11 @@ import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 /**
  * Recipe 게시판에 관련된 비즈니스 로직을 정의합니다
  */
@@ -65,7 +73,6 @@ public class RecipeController {
 		return "recipes/recipeBoardWriteForm.tiles";
 	}
 	
-
 	@Secured("ROLE_MEMBER")
 	@RequestMapping("recipeBoardWrite")
 	public String recipeBoardWrite(RecipeVO recipeVO) {
@@ -75,7 +82,6 @@ public class RecipeController {
 		recipeService.postRecipe(recipeVO);
 		return "redirect:recipeBoardList";
 	}
-
 
 	/**
 	 * 레시피 게시판 상세보기(상세)

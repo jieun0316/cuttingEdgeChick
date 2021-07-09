@@ -105,7 +105,7 @@
 		<div class="row">
 			<div class="col-12">
 				<div class="contact-form-area">
-					<form action="recipeBoardWrite" method="post">
+					<form action="recipeBoardWrite" method="post" enctype="multipart/form-data">>
 					<sec:csrfInput />
 						<div class="row">
 							<div class="col-12">
