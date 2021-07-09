@@ -59,7 +59,7 @@
                             <div class="classynav">
                                 <ul>
                                     <li><a href="/home">Home</a></li>
-                                    <li><a href="recipeBoardList">레시피</a>
+                                    <li><a href="/recipeBoardList">레시피</a>
                                         <ul class="dropdown">
                                             <li><a href="recipeListByCategory?category=한식">한식</a></li>
                                             <li><a href="recipeListByCategory?category=일식">일식</a></li>
