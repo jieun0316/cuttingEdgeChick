@@ -22,3 +22,34 @@ DELETE FROM storage WHERE member_id='java'
 select * from member;
 select * from storage;
 select * from STORED_ITEM;
+select * from item; 
+
+---정윤-------------------------------------------
+insert into storage values (1, 'java','냉장')
+------------------------------------------------
+insert into category VALUES ('채소','5일');
+insert into category VALUES ('과일','5일');
+--
+--
+
+insert into item VALUES ('감자','채소');
+--
+insert into item VALUES ('브로콜리','채소');
+--
+insert into item VALUES ('당근','채소');
+insert into item VALUES ('수박','과일');
+insert into item VALUES ('딸기','과일');
+insert into stored_item VALUES(stored_item_seq.nextval,1,'감자','주말농장','20210701','20210730','5알');
+insert into stored_item VALUES(stored_item_seq.nextval,1,'브로콜리','주말농장','20210701','20210730','5개');
+insert into stored_item VALUES(stored_item_seq.nextval,1,'수박','정윤최애','20210705','20210730','2개');
+delete from stored_item where stored_item_no =2;
+
+--
+insert into stored_item VALUES(stored_item_seq.nextval,22,'당근','주말농장','20210702','20210731','1개');
+insert into stored_item VALUES(stored_item_seq.nextval,23,'수박','정윤최애','20210702','20210731','1통');
+insert into stored_item VALUES(stored_item_seq.nextval,24,'딸기','지은최애','20210702','20210731','1바구니');
+
+update STORED_ITEM set QTY = '8알' , STORED_DATE='20210705', EXPIRY_DATE='20210830' where STORAGE_NO=1; 	
+-------------------------------------------------
+
+
