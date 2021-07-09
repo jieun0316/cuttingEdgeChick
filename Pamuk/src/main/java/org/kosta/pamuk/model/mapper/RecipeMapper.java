@@ -27,10 +27,14 @@ public interface RecipeMapper {
 	ArrayList<RecipeItemVO> getRecipeItemListByRecipeNo(int recipeNo);
 	ArrayList<RecipeContentVO> getRecipeContentListByRecipeNoOrderByStepNo(int recipeNo);
 
-	//recipe 검색 조회 관련
+	//recipe 삭제 관련
 	void deleteRecipeByRecipeNo(int recipeNo);
 	void deleteRecipeItemByRecipeNoAndRecipeItem(String recipeItem, int recipeNo);
 	void deleteRecipeItemByRecipeNo(int recipeNo);
 	void deleteLastRecipeContentByRecipeNo(int recipeNo);
+	
+	// main page 에서 recipe 조회 관련
+	ArrayList<RecipeVO> getBestRecipeListForMain();
+	ArrayList<RecipeVO> getRecentRecipeListForMain();
 	
 }

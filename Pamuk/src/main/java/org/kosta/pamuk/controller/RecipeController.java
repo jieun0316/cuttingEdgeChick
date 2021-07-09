@@ -71,7 +71,6 @@ public class RecipeController {
 	public String recipeBoardWrite(RecipeVO recipeVO) {
 		// 세션에서 세선 정보를 mvo에 넣는다
 		recipeVO.setMemberVO( (MemberVO) SecurityContextHolder.getContext().getAuthentication().getPrincipal());
-		recipeVO.setCategory("한식");
 		recipeService.postRecipe(recipeVO);
 		return "redirect:recipeBoardList";
 	}

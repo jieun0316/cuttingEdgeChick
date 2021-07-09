@@ -131,6 +131,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</delete>
 	
 	<!-- search -->
+	
+	<!-- main page -->
+	<select id="getBestRecipeListForMain" resultType="RecipeVO">
+		select recipe_no ,recipe_name, category, hits from recipe order by hits desc
+	</select>
+	<select id="getRecentRecipeListForMain" resultType="RecipeVO">
+		select recipe_no ,recipe_name, category, TO_CHAR(write_date, 'YYYY.MM.DD') as write_date from recipe order by write_date desc
+	</select>
 </mapper>
 
 

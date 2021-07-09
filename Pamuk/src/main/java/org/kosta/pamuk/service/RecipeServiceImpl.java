@@ -91,4 +91,22 @@ public class RecipeServiceImpl implements RecipeService {
 		// TODO Auto-generated method stub
 		return recipeMapper.getRecipeListByCategory(startRowNumber, endRowNumber, category);
 	}
+	/**
+	 * Main page 로 Best recipeList 받아오기
+	 * @return
+	 */
+	@Override
+	public ArrayList<RecipeVO> getBestRecipeListForMain() {
+		// TODO Auto-generated method stub
+		return recipeMapper.getBestRecipeListForMain();
+	}
+	/**
+	 * Main page 로 Recent recipeList 받아오기
+	 * @return
+	 */
+	@Override
+	public ArrayList<RecipeVO> getRecentRecipeListForMain() {
+		// TODO Auto-generated method stub
+		return recipeMapper.getRecentRecipeListForMain();
+	}
 }

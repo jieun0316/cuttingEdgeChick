@@ -20,57 +20,6 @@
 	</div>
 </div>
 <div class="receipe-post-area section-padding-80">
-
-	<!-- Receipe Post Search -->
-	<div class="receipe-post-search mb-80">
-		<div class="container">
-			<form action="#" method="post">
-				<div class="row">
-					<div class="col-12 col-lg-3">
-						<select name="select1" id="select1">
-							<option value="1">All Receipies Categories</option>
-							<option value="1">All Receipies Categories 2</option>
-							<option value="1">All Receipies Categories 3</option>
-							<option value="1">All Receipies Categories 4</option>
-							<option value="1">All Receipies Categories 5</option>
-						</select>
-					</div>
-					<div class="col-12 col-lg-3">
-						<select name="select1" id="select2">
-							<option value="1">All Receipies Categories</option>
-							<option value="1">All Receipies Categories 2</option>
-							<option value="1">All Receipies Categories 3</option>
-							<option value="1">All Receipies Categories 4</option>
-							<option value="1">All Receipies Categories 5</option>
-						</select>
-					</div>
-					<div class="col-12 col-lg-3">
-						<input type="search" name="search" placeholder="Search Receipies">
-					</div>
-					<div class="col-12 col-lg-3 text-right">
-						<button type="submit" class="btn delicious-btn">Search</button>
-					</div>
-				</div>
-			</form>
-		</div>
-	</div>
-
-	<!-- Receipe Slider -->
-	<!--  
-        <div class="container">
-            <div class="row">
-                <div class="col-12">
-                    <div class="receipe-slider owl-carousel">
-                        <img src="img/bg-img/bg5.jpg" alt="">
-                        <img src="img/bg-img/bg5.jpg" alt="">
-                        <img src="img/bg-img/bg5.jpg" alt="">
-                    </div>
-                </div>
-            </div>
-        </div>
-        -->
-
-	<!-- Receipe Content Area -->
 	<div class="receipe-content-area">
 		<div class="container">
 
