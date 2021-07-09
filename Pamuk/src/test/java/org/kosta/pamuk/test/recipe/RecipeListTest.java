@@ -16,7 +16,7 @@ public class RecipeListTest {
 
 	@Test
 	public void getBestRecipeListForMain() {
-		int testCase = 2;
+		int testCase = 3;
 
 		// Main page Best recipe list
 		if (testCase == 1) {
@@ -27,7 +27,10 @@ public class RecipeListTest {
 		else if (testCase == 2) {
 			System.out.println(rs.getRecentRecipeListForMain());
 		}
-
+		// Main page Recent recipe list
+		else if (testCase == 3) {
+			rs.deleteRecipeByRecipeNo(23);
+		}
 
 	}
 }

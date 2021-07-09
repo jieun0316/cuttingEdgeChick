@@ -116,8 +116,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	
 	<!-- delete !!테스트 아직 안함!! -->
-	<delete id="deleteRecipeByRecipeNo">
-		delete from recipe where recipeNo=#{value}
+	<delete id="deleteRecipeByRecipeNo" parameterType="int">
+		delete from recipe where recipe_no=#{value}
 	</delete>
 	<delete id="deleteRecipeItemByRecipeNoAndRecipeItem">
 		delete from recipe_item where recipe_no=#{recipeNo} and recipe_item=#{recipeItem}

@@ -26,3 +26,5 @@ select recipe_no ,recipe_name, category, hits from recipe order by hits desc;
 TO_CHAR(mydate, 'YYYY.MM.DD')
 -- MAIN page Recent Recipe
 select recipe_no ,recipe_name, category, TO_CHAR(write_date, 'YYYY.MM.DD') as write_date from recipe order by write_date desc
+
+delete from recipe where recipe_no='21';

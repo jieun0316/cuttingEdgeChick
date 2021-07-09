@@ -49,5 +49,11 @@ public interface RecipeService {
 	 * @return
 	 */
 	ArrayList<RecipeVO> getRecentRecipeListForMain();
+	/**
+	 * recipe 삭제
+	 * @author 조수빈
+	 * @param recipeNo
+	 */
+	void deleteRecipeByRecipeNo(int recipeNo);
 	
 }

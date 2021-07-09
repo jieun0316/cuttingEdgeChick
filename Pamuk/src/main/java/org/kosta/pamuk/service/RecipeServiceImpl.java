@@ -109,4 +109,14 @@ public class RecipeServiceImpl implements RecipeService {
 		// TODO Auto-generated method stub
 		return recipeMapper.getRecentRecipeListForMain();
 	}
+	/**
+	 * recipe delete 
+	 * @return 
+	 */
+	@Override
+	public void deleteRecipeByRecipeNo(int recipeNo) {
+		recipeMapper.deleteRecipeByRecipeNo(recipeNo);
+		// TODO Auto-generated method stub
+		
+	}
 }
