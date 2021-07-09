@@ -13,6 +13,21 @@
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <title>Insert title here</title>
+
+<script type="text/javascript">
+	//모든 Ajax Post 요청에 대해 Http 헤더에 CSRF 토큰을 설정
+	$.ajaxPrefilter(function(options) {
+		let headerName = '${_csrf.headerName}';
+		let token = '${_csrf.token}';
+		if (options.type.toLowerCase() === 'post') {
+			options.headers = {};
+			options.headers[headerName] = token;
+		}
+	});
+</script>
+
+
+
 <script type="text/javascript">
 let storageName="";
 let storageNo="";
@@ -52,25 +67,35 @@ let storageNo="";
 		/*재료 삭제버튼 클릭시 */
 		$("#deleteBtn").click(function() {
 			let ma = $("input:checkbox[name='delete']:checked");
-			let deleteArray=[];
+			let deleteArray=[];					
 			//체크된 리스트 저장
              ma.each(function(i){
             	 deleteArray.push($(this).val());
              });
-
-            let params={"deleteArray":deleteArray, "storageNo" : storageNo};
-             $.ajax({
-					type:"post",
-					url:"checkboxDelete",
-					data: JSON.stringify(params), 
-					dataType: 'json',
-					//배열을 json 형태로 보내주기 떄문에, 스프링 부트에서 컨텐트 타입 명시가 필요 
-					contentType: 'application/json; charset=utf-8', 
-					success : function(ja){
-						showList(ja);
-						}
-				}); 
-		});
+		 	/* for(let i=0; i<ma.length; i++){
+				alert($(ma[i]).val());
+			} */
+			 
+			 for(let i=0; i<ma.length; i++){
+				if($(ma[i]).val()==null||$(ma[i]).val()=="on"){
+					 $("input:checkbox[name='delete']:checked").parent().parent("tr").remove();
+				} else {
+					let params={"deleteArray":deleteArray, "storageNo" : storageNo};
+		             $.ajax({
+							type:"post",
+							url:"checkboxDelete",
+							data: JSON.stringify(params), 
+							dataType: 'json',
+							//배열을 json 형태로 보내주기 떄문에, 스프링 부트에서 컨텐트 타입 명시가 필요 
+							contentType: 'application/json; charset=utf-8', 
+							success : function(ja){
+							showList(ja);
+								} //ja
+						}); //ajax
+		        
+				} //else
+			} //for           
+		}); //deleteBtn
 		
 		/* 재료 수정버튼 클릭시 */
 		$("#storedItemInfo").on("click","input[name='update']", function (){
@@ -169,10 +194,10 @@ let storageNo="";
       <col width="20%" />
       </c:forEach>
   	  </colgroup>
-	<thead class="thead-light">
-	<tr><th>삭제</th><th>식재료명</th><th>수정</th><th>위치</th><th>수량</th><th>보관날짜</th><th>유통기한</th></tr>
+	<thead style="background-color: Lavender;">
+	<tr><th>선택</th><th>식재료명</th><th>수정</th><th>위치</th><th>수량</th><th>보관날짜</th><th>유통기한</th></tr>
 	</thead>
-	<tbody id="storedItemInfo" >
+	<tbody id="storedItemInfo" style="background-color: LightCyan;">
 	</tbody>
 	</table>
 	
@@ -188,7 +213,7 @@ let storageNo="";
       <col width="20%" />
       </c:forEach>
   	  </colgroup>
-	<tbody id="newItemInfo">
+	<tbody id="newItemInfo" style="background-color: PapayaWhip;">
 	</tbody>
 	</table>
 	</form>

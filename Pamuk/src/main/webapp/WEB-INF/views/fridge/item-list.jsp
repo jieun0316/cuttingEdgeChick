@@ -25,6 +25,14 @@
   
   
   <script type="text/javascript">
+let finalList=new Array();
+function deleteFromList(item){
+	finalList.splice(finalList.indexOf(item),1);
+	$("#items").empty();
+	       for (let i=0;i<finalList.length;i++){
+	         $("#items").append('<span style="background:Lavender;border-radius: 15px;">'+finalList[i]+'<span style="cursor:pointer;color:blue;" onclick="deleteFromList('+'\'' +finalList[i]+'\''+');"> x </span></span>&nbsp');
+	      }
+	   };
 $(document).ready(function(){
 	//재료 검색창에 문자 입력시 필터
 	$("#myInput").on("keyup", function() {
@@ -37,29 +45,31 @@ $(document).ready(function(){
 	
 	//추가버튼 클릭시 체크된 항목들을 입력폼과함께 부모창의 테이블에 추가한다
 	$("#addBtn").click(function(){
-		//let info=$(this).parent().children().eq(0).text(); // 뭐때문에 가져왔지?
-		let storageName = $("#storedItemInfo input:hidden[name=currentStorageName]" , opener.document ).val();
-		// storageName 다르게 가져오는 방법 : $("#storedItemInfo tr td:eq(3)" , opener.document ).text();
-		let storageNo= $("#storedItemInfo input:hidden[name=currentStorageNo]" , opener.document ).val();
-  		let ia = $("input:checkbox:checked");
-	  	let row="";
-		for (let i=0;i<ia.length;i++){
-			row+="<tr><td><input type='checkbox'></td>";
-			row+="<td>"+$(ia[i]).val()+"</td>";
-			row+="<input type='hidden' name='itemName' value='"+$(ia[i]).val()+"'>";
-			row+="<td><button type='reset' '>리셋</button></td>";
-			row+="<td>"+storageName+"</td>";
-			//아래 storageNo는 StoredItemVO 매핑을 위해선 storageVO.storageNo 로 써줘야함
-			row+="<input type='hidden' name='storageNo' value='"+storageNo+"'>";
-			row+="<td><input type='text' name='qty'  style='width:80px;'></td><td><input type='date' name='storedDate' style='width:100px;'></td><td><input type='date' name='expiryDate' style='width:100px;'></td>"; 
-	  		row+="</tr>";
-			$("#items").append($(ia[i]).val()+" ");
-		}
-		//
-		$(opener.document).find("#newItemInfo").append(row);
-		$("input:checkbox:checked").prop("checked", false);
-  		});
-	});
+        let ia = $("input:checkbox:checked");
+      for (let i=0;i<ia.length;i++){
+         let item = $(ia[i]).val();
+         $("#items").append('<span style="background:Lavender;border-radius: 15px;">'+item+'<span style="cursor:pointer;color:blue;" onclick="deleteFromList('+'\'' +item+'\''+');"> x </span></span>&nbsp'); 
+         finalList.push(item);
+      }
+      ia.prop("checked", false);
+        });
+   $("#addBtn2").click(function(){
+      let storageName = $("#storedItemInfo input:hidden[name=currentStorageName]" , opener.document ).val();
+      let storageNo= $("#storedItemInfo input:hidden[name=currentStorageNo]" , opener.document ).val();
+      let row="";
+      for (let i=0;i<finalList.length;i++){
+         row+="<tr><td><input type='checkbox' name='delete'></td>";
+         row+="<td>"+finalList[i]+"</td>";
+         row+="<input type='hidden' name='itemName' value='"+finalList[i]+"'>";
+         row+="<td><button type='reset' '>리셋</button></td>";
+         row+="<td>"+storageName+"</td>";
+         row+="<input type='hidden' name='storageNo' value='"+storageNo+"'>";
+         row+="<td><input type='text' name='qty'  style='width:80px;'></td><td><input type='date' name='storedDate' style='width:100px;'></td><td><input type='date' name='expiryDate' style='width:100px;'></td>"; 
+         row+="</tr>";
+      }
+      $(opener.document).find("#newItemInfo").append(row);
+   });
+});
 </script>
 	
 	<ul class="nav nav-tabs">
@@ -179,12 +189,13 @@ $(document).ready(function(){
 	</c:forTokens>
     </p>
   </div>
+   <br>	
+	<input type="button" id="addBtn" value="추가">
 </div>
 <hr>
-	  <h4>추가된 항목</h4>
-	  <span id="items"></span><br>	
-	  	  <input type="button" id="addBtn" value="추가">
-	  
+<h4>추가된 항목</h4>
+	<span id="items"></span><br>	
+	<button id="addBtn2" onclick="window.close();" >추가완료</button>
 	</div>
 </body>
 </html>

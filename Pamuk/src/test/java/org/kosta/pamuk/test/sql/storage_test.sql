@@ -23,12 +23,21 @@ select * from member;
 select * from storage;
 select * from STORED_ITEM;
 select * from item; 
+select * from category; 
 
 ---정윤-------------------------------------------
 insert into storage values (1, 'java','냉장')
 ------------------------------------------------
 insert into category VALUES ('채소','5일');
 insert into category VALUES ('과일','5일');
+insert into category VALUES ('유제품','6일');
+insert into category VALUES ('어패류','7일');
+insert into category VALUES ('육류','15일');
+insert into category VALUES ('양념','30일');
+insert into category VALUES ('소스','60일');
+insert into category VALUES ('즉석식품','50일');
+insert into category VALUES ('기타','30일');
+
 --
 --
 

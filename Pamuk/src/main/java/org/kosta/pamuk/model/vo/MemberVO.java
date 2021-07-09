@@ -29,7 +29,7 @@ public class MemberVO {
 		this.birth = birth;
 		this.gender = gender;
 	}
-
+	
 
 	public String getMemberId() {
 		return memberId;

@@ -20,7 +20,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
+@RequestMapping("fridge")
 public class StorageController {
+	
 @Resource
 StorageMapper sm;
 

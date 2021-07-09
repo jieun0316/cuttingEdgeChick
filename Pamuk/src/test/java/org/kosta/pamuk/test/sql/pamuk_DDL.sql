@@ -52,12 +52,15 @@ create table recipe(
 	recipe_no NUMBER primary key,
 	member_id varchar2(100) not null,
 	recipe_name varchar2(100) not null,
-	write_date DATE not null,
+	write_date DATE default sysdate,
 	modify_date DATE,
 	category varchar2(100) not null,
+	recipe_thumbnail clob,
 	hits NUMBER default 0,
 	constraint fk_recipe foreign key(member_id) references member(member_id)
 );
+
+ALTER TABLE recipe ADD (recipe_thumbnail clob);
 
 --4
 create table review(
@@ -65,9 +68,9 @@ create table review(
 	recipe_no NUMBER not null,
 	review_comment clob,
 	grade NUMBER not null,
-	review_date DATE not null,
+	review_date DATE default sysdate,
 	constraint fk_review_member foreign key(member_id) references member(member_id),
-	constraint fk_review_recipe foreign key(recipe_no) references recipe(recipe_no),
+	constraint fk_review_recipe foreign key(recipe_no) references recipe(recipe_no) ON DELETE CASCADE,
 	constraint pk_member_review primary key(member_id, recipe_no)
 );
 
@@ -75,10 +78,9 @@ create table review(
 create table recipe_content(
 	recipe_no NUMBER not null,	
 	step_no NUMBER not null,
-	step_title varchar2(100) not null,
 	content clob not null,
 	image_path clob,
-	constraint fk_recipe_content foreign key(recipe_no) references recipe(recipe_no),
+	constraint fk_recipe_content foreign key(recipe_no) references recipe(recipe_no) ON DELETE CASCADE,
 	constraint pk_recipe_step primary key(recipe_no,step_no)
 );
 
@@ -86,9 +88,9 @@ create table recipe_content(
 create table saved_recipe(
 	member_id varchar2(100) not null,
 	recipe_no number not null,
-	saved_date DATE not null,
-	constraint fk_saved_member foreign key(member_id) references member(member_id),
-	constraint fk_saved_recipe foreign key(recipe_no) references recipe(recipe_no),
+	saved_date DATE default sysdate,
+	constraint fk_saved_member foreign key(member_id) references member(member_id) ON DELETE CASCADE,
+	constraint fk_saved_recipe foreign key(recipe_no) references recipe(recipe_no) ON DELETE CASCADE,
 	constraint pk_member_recipe primary key(member_id,recipe_no)
 );
 
@@ -122,7 +124,7 @@ create table stored_item(
    item_name varchar2(100) not null,
    item_memo varchar2(100),
    expiry_date date not null, 
-   stored_date date not null,
+   stored_date date default sysdate,
    qty varchar2(30),
    constraint fk_stored_storage foreign key (storage_no) references storage(storage_no),
    constraint fk_stored_item foreign key (item_name) references item(item_name)
@@ -136,12 +138,12 @@ create table recipe_item(
 	recipe_no number not null,
 	qty varchar2(30),
 	constraint fk_recipe_item_item foreign key(item_name) references item(item_name),
-	constraint fk_recipe_item_recipe foreign key(recipe_no) references recipe(recipe_no),
+	constraint fk_recipe_item_recipe foreign key(recipe_no) references recipe(recipe_no) ON DELETE CASCADE,
 	constraint pk_item_recipe primary key(item_name,recipe_no)
 );
 -------------------------------------------------------------------------------
 
-
+select member_id, name, email, to_char(birth, 'yyyy-mm-dd') as birth from member where name='김수권' and email='kaiosuku@naver.com' and birth='1994-01-03'
 
 
 
