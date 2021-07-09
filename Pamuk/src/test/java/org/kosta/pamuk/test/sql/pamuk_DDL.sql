@@ -55,11 +55,10 @@ create table recipe(
 	write_date DATE default sysdate,
 	modify_date DATE,
 	category varchar2(100) not null,
-	
+	recipe_thumbnail varchar2(1000),
 	hits NUMBER default 0,
 	constraint fk_recipe foreign key(member_id) references member(member_id)
 );
-
 --4
 create table review(
 	member_id varchar2(100) not null,
@@ -77,10 +76,13 @@ create table recipe_content(
 	recipe_no NUMBER not null,	
 	step_no NUMBER not null,
 	content clob not null,
-	image_path clob,
+	image_path varchar2(1000),
+	step_title clob not null,
 	constraint fk_recipe_content foreign key(recipe_no) references recipe(recipe_no) ON DELETE CASCADE,
 	constraint pk_recipe_step primary key(recipe_no,step_no)
 );
+
+alter table recipe_content add (step_title clob not null)
 
 --6
 create table saved_recipe(
