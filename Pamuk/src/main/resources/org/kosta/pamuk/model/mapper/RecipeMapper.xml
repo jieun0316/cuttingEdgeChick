@@ -21,10 +21,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			select recipe_seq.nextval from dual
 		</selectKey>
 		insert into recipe
-		(recipe_no,member_id,recipe_name,write_date,category)
+		(recipe_no,member_id,recipe_name,write_date,category,recipe_thumbnail)
 		values
-		(#{recipeNo}, #{memberVO.memberId}, #{recipeName}, sysdate,
-		#{category})
+		(#{recipeNo}, #{memberVO.memberId}, #{recipeName}, sysdate, 
+		#{category}, #{recipeThumbnail})
 	</insert>
 	<!-- recipe 게시물의 세부 content(step) 작성 -->
 	<insert id="postRecipeContent" parameterType="recipeContentVO">

@@ -58,10 +58,10 @@
 				+ stepNo
 				+ ' 제목을 입력해주세요"></div>';
 		recipeStepForm += '<div class="row">';
-		recipeStepForm += '<input type="file" class="form-control" name="recipeContentList['
+/* 		recipeStepForm += '<input type="file" class="form-control" name="recipeContentList['
 				+ (stepNo - 1) + '].imagePath"';
 		recipeStepForm += 'placeholder="레시피 step' + stepNo
-				+ ' 에 따른 이미지파일을 업로드해주세요!">';
+				+ ' 에 따른 이미지파일을 업로드해주세요!">'; */
 		recipeStepForm += '<textarea class="form-control" name="recipeContentList['
 				+ (stepNo - 1)
 				+ '].content" cols="30" rows="10" placeholder="레시피 step'
@@ -113,7 +113,7 @@
 							</div>
 							<div class="col-12">
 								<h6>레시피 대표 이미지</h6>
-								<input type="file" class="form-control" name="recipeThumbnail" placeholder="레시피 대표 이미지파일을 업로드해주세요!">
+								<input type="file" class="form-control" name="recipeThumbnailImg" placeholder="레시피 대표 이미지파일을 업로드해주세요!">
 							</div>
 							<div class="col-12" id="recipeItemWrap">
 								<div class="form-control recipeCategoryList" id="" name=""
