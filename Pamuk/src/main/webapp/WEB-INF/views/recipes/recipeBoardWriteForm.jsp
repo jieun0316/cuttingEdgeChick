@@ -4,6 +4,9 @@
 <%@taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 <sec:authentication var="mvo" property="principal" /> 
 <script>
+	
+
+
 	$(document).ready(function() {
 		newStepForm();
 		$(".recipePlusBtn").on({
@@ -11,6 +14,32 @@
 				newStepForm();
 			}
 		}); // on
+		
+		$("button[name=categoryBtn]").on("click",function(){
+			
+			$.ajax({
+				url : "itemListByCategoryAjax",
+				type: "get",
+				data : { "categoryName" : $(this).attr('value') },
+				success : function(responseData){	
+					$("#ajax").remove();
+					$("#item_ul_list").html("");
+					$.each(responseData, function(index) {
+						console.log($(this)[0].itemName);
+						//얘를 목록에 뿌려주면 됩니다!!
+						
+						let itemForm = '<li class="list-group-item">'+$(this)[0].itemName+'&nbsp;&nbsp;<label class="switch ">';
+						itemForm += '<input type="checkbox" class="success"> <span ';
+						itemForm += 'class="slider round"></span>';
+						itemForm += '</label> <input type="text" placeholder="수량"> </li>';
+						
+						//let itemForm = '<li>'+$(this)[0].itemName+'</li>';
+						
+						$("#item_ul_list").append(itemForm);
+					});
+				}
+			}); 
+		});
 	}); //ready
 	// recipe step 을 증가위한 no
 	let stepNo = 0;
@@ -29,10 +58,10 @@
 				+ stepNo
 				+ ' 제목을 입력해주세요"></div>';
 		recipeStepForm += '<div class="row">';
-		recipeStepForm += '<input type="file" class="form-control" name="recipeContentList['
+/* 		recipeStepForm += '<input type="file" class="form-control" name="recipeContentList['
 				+ (stepNo - 1) + '].imagePath"';
 		recipeStepForm += 'placeholder="레시피 step' + stepNo
-				+ ' 에 따른 이미지파일을 업로드해주세요!">';
+				+ ' 에 따른 이미지파일을 업로드해주세요!">'; */
 		recipeStepForm += '<textarea class="form-control" name="recipeContentList['
 				+ (stepNo - 1)
 				+ '].content" cols="30" rows="10" placeholder="레시피 step'
@@ -76,7 +105,7 @@
 		<div class="row">
 			<div class="col-12">
 				<div class="contact-form-area">
-					<form action="recipeBoardWrite" method="post">
+					<form action="recipeBoardWrite" method="post" enctype="multipart/form-data">>
 					<sec:csrfInput />
 						<div class="row">
 							<div class="col-12 mb-15">
@@ -92,17 +121,16 @@
 							</div>
 							<div class="col-12">
 								<h6>레시피 대표 이미지</h6>
-								<input type="file" class="form-control" name="recipeThumbnail" placeholder="레시피 대표 이미지파일을 업로드해주세요!">
+								<input type="file" class="form-control" name="recipeThumbnailImg" placeholder="레시피 대표 이미지파일을 업로드해주세요!">
 							</div>
 							<div class="col-12" id="recipeItemWrap">
 								<div class="form-control recipeCategoryList" id="" name=""
 									style="height: 90px;">
 
 									<div class="btn-group" role="group">
-										<button type="button" class="btn btn-success">전체보기</button>
-										<button type="button" class="btn btn-success">채소류</button>
-										<button type="button" class="btn btn-success">과일류</button>
-										<button type="button" class="btn btn-success">조미료</button>
+										<c:forEach items="${categoryList}" var="category">
+											<button type="button" name="categoryBtn" class="btn btn-success" value="${category.categoryName}">${category.categoryName}</button>
+										</c:forEach>
 									</div>
 								</div>
 
@@ -110,28 +138,9 @@
 									style="height: 500px; overflow-y: scroll;">
 									<div class="card" style="margin: 50px 0">
 										<!-- Default panel contents -->
-										<ul class="list-group list-group-flush">
-											<li class="list-group-item">당근 <label class="switch ">
-													<input type="checkbox" class="success"> <span
-													class="slider round"></span>
-											</label> <input type="text" placeholder="수량">
-											</li>
-											<li class="list-group-item">오이 <label class="switch ">
-													<input type="checkbox" class="success"> <span
-													class="slider round"></span>
-											</label> <input type="text" placeholder="수량">
-											</li>
-											<li class="list-group-item">감자 <label class="switch ">
-													<input type="checkbox" class="success"> <span
-													class="slider round"></span>
-											</label> <input type="text" placeholder="수량">
-											</li>
-											<li class="list-group-item">고구마 <label class="switch ">
-													<input type="checkbox" class="success"> <span
-													class="slider round"></span>
-											</label> <input type="text" placeholder="수량">
-											</li>
-
+										<ul id="item_ul_list" class="list-group list-group-flush">
+											
+										
 										</ul>
 									</div>
 								</div>

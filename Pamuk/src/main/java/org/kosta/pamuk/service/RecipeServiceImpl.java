@@ -21,8 +21,6 @@ public class RecipeServiceImpl implements RecipeService {
 	@Resource
 	private RecipeMapper recipeMapper;
 	
-	
-	
 	/**
 	 * Recipe List 불러오기
 	 * @author 조수빈
@@ -42,7 +40,6 @@ public class RecipeServiceImpl implements RecipeService {
 	 */
 	@Override
 	public RecipeVO viewRecipeDetail(int recipeNo) {
-		
 		RecipeVO recipeVO = recipeMapper.getRecipeDetailByRecipeNo(recipeNo);
 		ArrayList<RecipeItemVO> recipeItemList = recipeMapper.getRecipeItemListByRecipeNo(recipeNo);
 		ArrayList<RecipeContentVO> recipeContentList = recipeMapper.getRecipeContentListByRecipeNoOrderByStepNo(recipeNo);
@@ -68,16 +65,9 @@ public class RecipeServiceImpl implements RecipeService {
 		 for(RecipeContentVO recipeContentVO : recipeContentList) 
 		 {	
 			 recipeContentVO.setRecipeNo(recipeVO.getRecipeNo());
-			 System.out.println(recipeContentVO);
+			 recipeContentVO.setImagePath("null");
 			 recipeMapper.postRecipeContent(recipeContentVO); 
 		 }
-		 
-		
-		/*
-		 * List<RecipeItemVO> recipeItemList = recipeVO.getRecipeItemList();
-		 * for(RecipeItemVO recipeItemVO : recipeItemList) {
-		 * recipeMapper.postRecipeItem(recipeItemVO); }
-		 */
 	}
 	/**
 	 * category로 recipeList 받아오기

@@ -3,8 +3,6 @@ package org.kosta.pamuk.service;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import org.kosta.pamuk.model.vo.RecipeContentVO;
-import org.kosta.pamuk.model.vo.RecipeItemVO;
 import org.kosta.pamuk.model.vo.RecipeVO;
 
 public interface RecipeService {
