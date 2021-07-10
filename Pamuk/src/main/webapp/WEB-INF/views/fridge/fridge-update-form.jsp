@@ -8,8 +8,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<!-- <script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script> -->
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <title>Insert title here</title>
@@ -67,6 +67,12 @@ let storageNo="";
 		/*재료 삭제버튼 클릭시 */
 		$("#deleteBtn").click(function() {
 			let ma = $("input:checkbox[name='delete']:checked");
+			if (ma.length==0){
+				alert("선택된 항목이 없습니다");
+				return;
+			}
+			if(!confirm("삭제하시겠습니까?"))
+				return false;	
 			let deleteArray=[];					
 			//체크된 리스트 저장
              ma.each(function(i){
@@ -99,10 +105,9 @@ let storageNo="";
 		
 		/* 재료 수정버튼 클릭시 */
 		$("#storedItemInfo").on("click","input[name='update']", function (){
+			let updateBtn = $(this);
+			let btnTr = $(this).parent().parent();
 			if ($(this).val()=="수정완료"){
-				let updateBtn = $(this);
-				let tableBtn = $(this).parent().parent();
-			
 				$.ajax({
 					type:"post",
 					url:"getStoredItemByStorageNoUpdate",
@@ -111,17 +116,18 @@ let storageNo="";
 					dataType :"json", 
 					success : function(kj){
 						updateBtn.val("수정");		
-						tableBtn.find("td[name='td2']").html(kj.qty);
-						tableBtn.find("td[name='td3']").html(kj.storedDate);
-						tableBtn.find("td[name='td4']").html(kj.expiryDate);
+						btnTr.find("td[name='td2']").html(kj.qty);
+						btnTr.find("td[name='td3']").html(kj.storedDate);
+						btnTr.find("td[name='td4']").html(kj.expiryDate);
 						}
 				}); 
 			}			
 			else{
-				$(this).parent().parent().find(":input[name='update']").val("수정완료");
-				$(this).parent().parent().find("td[name='td2']").html("<input type='text' name='qty' value='' placeholder='수량' size=8>");
-				$(this).parent().parent().find("td[name='td3']").html("<input type='date' name='storedDate' value='"+$("td[name='td3']").text()+"'size=8>");
-				$(this).parent().parent().find("td[name='td4']").html("<input type='date' name='expiryDate' value='"+$("td[name='td4']").text()+"'size=8>");		
+				updateBtn.val("수정완료");
+				btnTr.children('td').eq(4).html("<input type='text' name='qty' value='"+btnTr.children('td').eq(4).html()+"' size=8>");
+				btnTr.children('td').eq(5).html("<input type='date' name='storedDate' value='"+btnTr.children('td').eq(5).html()+"' size=8>");
+				btnTr.children('td').eq(6).html("<input type='date' name='expiryDate' value='"+btnTr.children('td').eq(6).html()+"' size=8>");
+				//$(this).parent().parent().find("td[name='td4']").html("<input type='date' name='expiryDate' value='"+$("td[name='td4']").text()+"'size=8>");		
 			}	
 		});
 		//

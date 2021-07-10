@@ -21,6 +21,7 @@ INSERT INTO storage VALUES (storage_seq.nextval, 'java', '냉장', 1)
 DELETE FROM storage WHERE member_id='java'
 select * from member;
 select * from storage;
+delete from STORAGE
 select * from STORED_ITEM;
 select * from item; 
 select * from category; 
@@ -42,9 +43,7 @@ insert into category VALUES ('기타','30일');
 --
 
 insert into item VALUES ('감자','채소');
---
 insert into item VALUES ('브로콜리','채소');
---
 insert into item VALUES ('당근','채소');
 insert into item VALUES ('수박','과일');
 insert into item VALUES ('딸기','과일');
