@@ -103,6 +103,7 @@ public class RecipeServiceImpl implements RecipeService {
 	 * recipe delete 
 	 * @return 
 	 */
+	@Transactional
 	@Override
 	public void deleteRecipeByRecipeNo(int recipeNo) {
 		recipeMapper.deleteRecipeByRecipeNo(recipeNo);

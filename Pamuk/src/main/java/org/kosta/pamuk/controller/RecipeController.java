@@ -167,9 +167,8 @@ public class RecipeController {
 	 * @param category, pageNo, model
 	 * @return
 	 */
-	
 	@RequestMapping("recipeListByCategoryAjax")
-	// 요청은 ajax 지만 
+	// 이렇게 처리하면(jsp를 넘겨줌, responseBody가 아니면) 동기 형식의 ajax
 	public String recipeListByCategoryAjax(String category, String pageNo, Model model) {
 		int totalRecipeCount;
 		if (category.equals("전체")) { // 전체보기
@@ -201,21 +200,25 @@ public class RecipeController {
 		// System.out.println(recipeList);
 		return "recipes/recipeListAjax";
 	}
+	/**
+	 * 권한 check 후 레시피 게시글 삭제로 이동
+	 * @param recipeNo
+	 * @return
+	 */
 	@Secured("ROLE_MEMBER")
 	@RequestMapping("deleteRecipeForm")
 	public String deleteRecipeForm(int recipeNo) {
 		// session 체크 해줘야함.
-		return "redirect:deleteRecipeByRecipeNo?" + recipeNo;
+		System.out.println("deleteRecipeForm");
+		return "redirect:deleteRecipeByRecipeNo?recipeNo=" + recipeNo;
 	}
-	
-	@PostMapping("deleteRecipeByRecipeNo")
-	public void deleteRecipeByRecipeNo(int recipeNo, Model model) {
+	@Secured("ROLE_MEMBER")
+	@RequestMapping("deleteRecipeByRecipeNo")
+	public String deleteRecipeByRecipeNo(int recipeNo, Model model) {
+		System.out.println("deleteRecipeByRecipeNo");
 		recipeMapper.deleteRecipeByRecipeNo(recipeNo);
+		return "redirect:recipeBoardList";
 	}
-	
-	
-	
-	
 	
 	@RequestMapping("recipeSearchRsultPage")
 	public String recipeSearchRsultPage() {

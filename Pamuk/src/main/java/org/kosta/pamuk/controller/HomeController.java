@@ -28,7 +28,6 @@ public class HomeController {
 		
 		// Recent Recipes
 		ArrayList<RecipeVO> RecentRecipeList = recipeService.getRecentRecipeListForMain();
-		System.out.println(RecentRecipeList);
 		model.addAttribute("RecentRecipeList", RecentRecipeList);
 		return "home.tiles";
 	}

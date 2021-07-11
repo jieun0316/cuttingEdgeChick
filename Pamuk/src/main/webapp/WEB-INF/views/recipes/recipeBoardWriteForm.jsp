@@ -4,9 +4,6 @@
 <%@taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 <sec:authentication var="mvo" property="principal" /> 
 <script>
-	
-
-
 	$(document).ready(function() {
 		newStepForm();
 		$(".recipePlusBtn").on({
@@ -14,9 +11,7 @@
 				newStepForm();
 			}
 		}); // on
-		
 		$("button[name=categoryBtn]").on("click",function(){
-			
 			$.ajax({
 				url : "itemListByCategoryAjax",
 				type: "get",
@@ -96,7 +91,7 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-12">
-				<div class="section-heading mt-70"">
+				<div class="section-heading mt-70">
 					<h3>레시피 등록하기</h3>
 				</div>
 			</div>
@@ -105,7 +100,7 @@
 		<div class="row">
 			<div class="col-12">
 				<div class="contact-form-area">
-					<form action="recipeBoardWrite" method="post" enctype="multipart/form-data">>
+					<form action="recipeBoardWrite" method="post" enctype="multipart/form-data">
 					<sec:csrfInput />
 						<div class="row">
 							<div class="col-12 mb-15">
@@ -117,11 +112,11 @@
                             	</select>
 							</div>
 							<div class="col-12">
-								<input type="text" class="form-control" name="recipeName" placeholder="레시피 제목을 입력해주세요">
+								<input type="text" class="form-control" name="recipeName" placeholder="레시피 제목을 입력해주세요" required="required">
 							</div>
 							<div class="col-12">
 								<h6>레시피 대표 이미지</h6>
-								<input type="file" class="form-control" name="recipeThumbnailImg" placeholder="레시피 대표 이미지파일을 업로드해주세요!">
+								<input type="file" class="form-control" name="recipeThumbnailImg" placeholder="레시피 대표 이미지파일을 업로드해주세요!" required="required">
 							</div>
 							<div class="col-12" id="recipeItemWrap">
 								<div class="form-control recipeCategoryList" id="" name=""
