@@ -139,7 +139,41 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			WHERE r.member_id = m.member_id AND m.nick = #{keyword} ORDER BY recipe_no DESC)x
 		WHERE rn between #{startRowNumber} and #{endRowNumber}
 	
+	<!-- 검색 결과 count 관련 -->
+	<select id="getRecipeListByWriterCount" resultType="int">
+		select count(*) 
+		from RECIPE r, member m 
+		where r.member_id = m.member_id 
+		AND m.nick IN (#{keyword})
 	</select>
+	<select id="getRecipeListByItemsCount" resultType="int">
+		select count(*) from RECIPE_ITEM where item_name IN (#{keyword})
+	</select>
+	<select id="getRecipeListByRecipesCount" resultType="int">
+		
+	</select>
+	<!-- search 관련 -->
+	<select id="getRecipeListByWriter" resultType="RecipeVO" resultMap="recipeDetailRM">
+		select r.recipe_no ,r.recipe_name, r.category, TO_CHAR(r.write_date, 'YYYY.MM.DD') as write_date 
+		from RECIPE r, member m 
+		where r.member_id = m.member_id 
+		AND m.nick IN (#{keyword})
+	</select>
+	<select id="getRecipeListByItems"  resultType="RecipeVO">
+		select r.recipe_no ,r.recipe_name, r.category, ri.item_name, TO_CHAR(r.write_date, 'YYYY.MM.DD') as write_date
+		from RECIPE r, RECIPE_ITEM ri
+		where r.recipe_no = ri.recipe_no AND ri.item_name IN (#{keyword})
+	</select>
+	<select id="getRecipeListByRecipes"   resultType="RecipeVO">
+		select r.recipe_no ,r.recipe_name, r.category, TO_CHAR(r.write_date, 'YYYY.MM.DD') as write_date
+		from RECIPE r, RECIPE_CONTENT rc
+		where r.recipe_no = rc.recipe_no 
+		AND 
+		(r.recipe_name LIKE '%' || #{keyword} || '%' 
+		OR rc.step_title LIKE '%' || #{keyword} || '%' 
+		OR rc.content LIKE '%' || #{keyword} || '%' )
+	</select>
+	
 	
 	
 	<!-- main page -->

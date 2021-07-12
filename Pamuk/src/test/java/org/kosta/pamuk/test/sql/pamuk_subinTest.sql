@@ -17,9 +17,28 @@ select * from RECIPE_CONTENT where content LIKE '%간장%';
 
 -- 작성자 검색
 -- RECIPE (member_id )
-select * from RECIPE where member_id IN ('java')
+select * from RECIPE r, member m where r.member_id = m.member_id AND m.nick IN ('kove')
+select count(*) from RECIPE r, member m where r.member_id = m.member_id AND m.nick IN ('kove')
 
 -- RECIPE_CONTENT 합치기
+
+-- 식재료 검색
+select count(*) from RECIPE_ITEM where item_name IN ('설탕')
+-- join 사용
+select r.recipe_no ,r.recipe_name, r.category, ri.item_name, TO_CHAR(r.write_date, 'YYYY.MM.DD') as write_date
+from RECIPE r, RECIPE_ITEM ri
+where r.recipe_no = ri.recipe_no AND ri.item_name IN ('사과')
+
+-- 레시피 카운트
+select r.recipe_no ,r.recipe_name, r.category, TO_CHAR(r.write_date, 'YYYY.MM.DD') as write_date
+from RECIPE r, RECIPE_CONTENT rc
+where r.recipe_no = rc.recipe_no AND (r.recipe_name LIKE '%' || '계란' || '%' OR rc.step_title LIKE '%' || '계란' || '%' OR rc.content LIKE '%' || '계란' || '%' )
+
+-- 레시피 검색
+select r.recipe_no ,r.recipe_name, r.category, TO_CHAR(r.write_date, 'YYYY.MM.DD') as write_date
+from RECIPE r, RECIPE_CONTENT rc
+where r.recipe_no = rc.recipe_no AND (r.recipe_name LIKE '%' || '계란' || '%' OR rc.step_title LIKE '%' || '계란' || '%' OR rc.content LIKE '%' || '계란' || '%' )
+
 
 -- MAIN page BEST Recipe 
 select recipe_no ,recipe_name, category, hits from recipe order by hits desc;

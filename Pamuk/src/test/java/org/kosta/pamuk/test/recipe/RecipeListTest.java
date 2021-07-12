@@ -31,9 +31,18 @@ public class RecipeListTest {
 		else if (testCase == 3) {
 			rs.deleteRecipeByRecipeNo(23);
 		}
-		// 작성자 검색
+		// 검색
 		else if (testCase == 4) {
-			System.out.println( rm.getRecipeListByWriter(1, 2, "kove") );
+			// 작성자
+			// System.out.println(rm.getRecipeListByWriterCount("kove"));
+			// System.out.println( rm.getRecipeListByWriter("kove") );
+			
+			// 아이템 검색
+			//System.out.println(rm.getRecipeListByItems("설탕"));
+			//System.out.println(rm.getRecipeListByItemsCount("설탕"));
+			
+			// 레시피 검색
+			System.out.println(rm.getRecipeListByRecipes("계란"));
 		}
 
 	}

@@ -253,11 +253,26 @@ public class RecipeController {
 	 */
 	@RequestMapping("recipeSearchResultPage")
 	public String recipeSearchRsultPage(String keyword, Model model) {
+		model.addAttribute("keyword", keyword);
 		// 레시피
 		
-		// 작성자
-		
 		// 식재료
+		ArrayList<RecipeVO> ResultByItems =  recipeMapper.getRecipeListByItems(keyword);
+		
+		int ResultByItemsCount = recipeMapper.getRecipeListByItemsCount(keyword);
+		model.addAttribute("ResultByItemsCount", ResultByItemsCount);
+		model.addAttribute("ResultByItems", ResultByItems);
+		
+		System.out.println(ResultByItemsCount);
+		System.out.println(ResultByItems);
+		
+		// 작성자
+		ArrayList<RecipeVO> ResultByWriter =  recipeMapper.getRecipeListByWriter(keyword);
+		int ResultByWriterCount = recipeMapper.getRecipeListByWriterCount(keyword);
+		model.addAttribute("ResultByWriterCount", ResultByWriterCount);
+		model.addAttribute("ResultByWriter", ResultByWriter);
+		
+		
 		return "recipes/recipeSearchResultPage.tiles"; 
 	}
 }
