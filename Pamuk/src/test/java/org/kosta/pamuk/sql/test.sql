@@ -138,3 +138,5 @@ WHERE rnum between '1' and '6'
 =======
 select member_id, name, email, to_char(birth, 'yyyy-mm-dd') as birth from member where member_id='sukuon' and status=0
 >>>>>>> refs/heads/WaterPunch
+
+select * from member;

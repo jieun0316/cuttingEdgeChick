@@ -42,4 +42,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="idCheck" resultType="int">
 		select count(*) from member where member_id=#{value}
 	</select>
+	<update id="updateMemberInfo" parameterType="memberVO">
+		update member set nick=#{nick} where member_id=#{memberId}		
+	</update>
 </mapper>

@@ -16,30 +16,29 @@ public class MemberServiceImpl implements MemberService {
 	@Resource
 	private MemberMapper memberMapper;
 
-	 @Resource 
-	 private BCryptPasswordEncoder passwordEncoder;
-	
+	@Resource
+	private BCryptPasswordEncoder passwordEncoder;
+
 	/**
-	 * 회원등록
-	 * 비밀번호를 bcrypt 알고리즘으로 암호화하여 DB에 저장
-	 * 회원 가입시 반드시 권한이 등록되도록 트랜잭션처리를 한다
+	 * 회원등록 비밀번호를 bcrypt 알고리즘으로 암호화하여 DB에 저장 회원 가입시 반드시 권한이 등록되도록 트랜잭션처리를 한다
 	 */
 	@Transactional
 	@Override
-	public void registerMember(MemberVO memberVO){
+	public void registerMember(MemberVO memberVO) {
 		String encodedPwd = passwordEncoder.encode(memberVO.getPassword()); // MemberVO에서 받아온 패스워드를 인코딩(암호화)
 		memberVO.setPassword(encodedPwd);
 		memberMapper.registerMember(memberVO);
 		// 권한 부여, 맨 마지막 "user"는 권한명
 		AuthoritiesVO authority = new AuthoritiesVO(memberVO.getMemberId(), "ROLE_MEMBER");
 		memberMapper.registerRole(authority);
-		System.out.println("registerMember: "+memberVO+" "+authority);
+		System.out.println("registerMember: " + memberVO + " " + authority);
 	}
 
 	@Override
 	public MemberVO findMemberInfo(String memberId) {
 		return memberMapper.findMemberInfo(memberId);
 	}
+
 	/**
 	 * 이름, 이메일로 아이디 찾기
 	 */
@@ -47,6 +46,7 @@ public class MemberServiceImpl implements MemberService {
 	public MemberVO findMemberId(String name, String email, String birth) {
 		return memberMapper.findMemberId(name, email, birth);
 	}
+
 	/**
 	 * 아이디, 이름, 이메일로 패스워드 찾기
 	 */
@@ -54,6 +54,7 @@ public class MemberServiceImpl implements MemberService {
 	public MemberVO findMemberPassword(String memberId, String name, String email) {
 		return memberMapper.findMemberPassword(memberId, name, email);
 	}
+
 	/**
 	 * 비밀번호 수정 전 비밀번호 확인
 	 */
@@ -61,6 +62,7 @@ public class MemberServiceImpl implements MemberService {
 	public MemberVO identifyMemberPassword(String memberId, String password) {
 		return memberMapper.identifyMemberPassword(memberId, password);
 	}
+
 	/**
 	 * 비밀번호 수정
 	 */
@@ -90,5 +92,12 @@ public class MemberServiceImpl implements MemberService {
 		return (count == 0) ? "ok" : "fail";
 	}
 
-	
+	@Override
+	public void updateMemberInfo(MemberVO memberVO) {
+		MemberVO mvo=memberMapper.findMemberById(memberVO.getMemberId());
+		System.out.println(mvo);
+		mvo.setNick(memberVO.getNick());
+		memberMapper.updateMemberInfo(mvo);
+	}
+
 }
