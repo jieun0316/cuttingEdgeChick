@@ -209,19 +209,27 @@ public class RecipeController {
 	@RequestMapping("deleteRecipeForm")
 	public String deleteRecipeForm(int recipeNo) {
 		// session 체크 해줘야함.
-		System.out.println("deleteRecipeForm");
+		// System.out.println("deleteRecipeForm");
 		return "redirect:deleteRecipeByRecipeNo?recipeNo=" + recipeNo;
 	}
 	@Secured("ROLE_MEMBER")
 	@RequestMapping("deleteRecipeByRecipeNo")
 	public String deleteRecipeByRecipeNo(int recipeNo, Model model) {
-		System.out.println("deleteRecipeByRecipeNo");
+		// System.out.println("deleteRecipeByRecipeNo");
 		recipeMapper.deleteRecipeByRecipeNo(recipeNo);
 		return "redirect:recipeBoardList";
 	}
-	
-	@RequestMapping("recipeSearchRsultPage")
-	public String recipeSearchRsultPage() {
-		return "recipes/recipeSearchRsultPage.tiles"; 
+	/**
+	 * 검색 결과 보여주는 page !
+	 * @return
+	 */
+	@RequestMapping("recipeSearchResultPage")
+	public String recipeSearchRsultPage(String keyword, Model model) {
+		// 레시피
+		
+		// 작성자
+		
+		// 식재료
+		return "recipes/recipeSearchResultPage.tiles"; 
 	}
 }

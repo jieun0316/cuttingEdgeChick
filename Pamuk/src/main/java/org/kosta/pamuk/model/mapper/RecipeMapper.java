@@ -37,4 +37,6 @@ public interface RecipeMapper {
 	ArrayList<RecipeVO> getBestRecipeListForMain();
 	ArrayList<RecipeVO> getRecentRecipeListForMain();
 	
+	// recipe 검색 관련
+	ArrayList<RecipeVO> getRecipeListByWriter(int startRowNumber,int endRowNumber, String keyword);
 }

@@ -131,6 +131,16 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</delete>
 	
 	<!-- search -->
+	<select id="getRecipeListByWriter" resultType="RecipeVO"  resultMap="recipeDetailRM">
+		SELECT  x.* 
+		FROM (
+			SELECT ROWNUM rn, r.recipe_no, m.nick, m.member_id, r.recipe_name, to_char(r.write_date,'YYYY-MM-DD') as write_date, r.category
+			FROM RECIPE r, member m
+			WHERE r.member_id = m.member_id AND m.nick = #{keyword} ORDER BY recipe_no DESC)x
+		WHERE rn between #{startRowNumber} and #{endRowNumber}
+	
+	</select>
+	
 	
 	<!-- main page -->
 	<select id="getBestRecipeListForMain" resultType="RecipeVO">
