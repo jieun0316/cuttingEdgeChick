@@ -10,7 +10,7 @@ public class StorageVO {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-
+	
 	public StorageVO(int storageNo, MemberVO memberVO, String type, int locationNo) {
 		super();
 		this.storageNo = storageNo;
