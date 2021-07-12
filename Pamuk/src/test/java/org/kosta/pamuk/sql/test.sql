@@ -115,6 +115,7 @@ select * from category;
 select * from item;
 select * from storage
 select * from stored_item
+select * from recipe_content
 
 drop table category;
 drop table item;
@@ -136,3 +137,8 @@ WHERE rnum between '1' and '6'
 =======
 select member_id, name, email, to_char(birth, 'yyyy-mm-dd') as birth from member where member_id='sukuon' and status=0
 >>>>>>> refs/heads/WaterPunch
+
+
+
+
+se

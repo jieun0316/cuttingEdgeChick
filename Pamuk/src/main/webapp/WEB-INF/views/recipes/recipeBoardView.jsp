@@ -66,9 +66,8 @@
 							<div class="single-preparation-step d-flex">
 								<div class="preImgStep1 img mr-15">
 									<img
-										src="${pageContext.request.contextPath}/img/bg-img/insta2.jpg"
+										src="${pageContext.request.contextPath}/upload/${content.imagePath}"
 										alt="">
-										${pageContext.request.contextPath}/${imagePath}
 								</div>
 								<h4>${content.stepNo}.</h4>
 								<h5 class="mr-15">${content.stepTitle}</h5>

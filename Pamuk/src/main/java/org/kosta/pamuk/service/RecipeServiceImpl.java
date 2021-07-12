@@ -65,7 +65,6 @@ public class RecipeServiceImpl implements RecipeService {
 		 for(RecipeContentVO recipeContentVO : recipeContentList) 
 		 {	
 			 recipeContentVO.setRecipeNo(recipeVO.getRecipeNo());
-			 recipeContentVO.setImagePath("null");
 			 recipeMapper.postRecipeContent(recipeContentVO); 
 		 }
 		 for(RecipeItemVO recipeItemVO : recipeItemList) {
