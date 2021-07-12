@@ -78,6 +78,12 @@ public String itemList() {
 public List<StoredItemVO> getStoredItemByStorageNoAjax(int storageNo) {
 	return sm.getStoredItemByStorageNo(storageNo);
 }
+
+@RequestMapping("getTotalStoredItemList")
+@ResponseBody
+public Map<String, String[]> getTotalStoredItemList(String storageNo){
+	return sm.getTotalStoredItemList(storageNo);
+}
 /*
  * 현재수정중
  */
