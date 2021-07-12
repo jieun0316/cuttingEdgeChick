@@ -32,7 +32,8 @@
 							<input type="hidden" name="recipeNo" value="${recipeVO.recipeNo}">
 						</form>
 					</div>
-					<div class="receipe-headline my-5">
+					<div class="breadcumb-area bg-img bg-overlay receipe-headline my-5"
+						style="background-image: url(${pageContext.request.contextPath}/upload/${recipeVO.recipeThumbnail});">
 						<span>${recipeVO.writeDate}</span>
 						<h2>${recipeVO.recipeName}</h2>
 						<div class="receipe-duration">

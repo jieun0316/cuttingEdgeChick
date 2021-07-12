@@ -67,7 +67,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<!-- recipe 게시물 Detail 조회 -->
 	<!-- recipe 게시물의 detail을 조회 -->
 	<sql id="selectRecipe">
-		select recipe_no,member_id,recipe_name,write_date,category
+		select recipe_no,member_id,recipe_name,write_date,category,recipe_thumbnail
 		from recipe
 	</sql>
 	<select id="getRecipeDetailByRecipeNo" resultMap="recipeRM">
