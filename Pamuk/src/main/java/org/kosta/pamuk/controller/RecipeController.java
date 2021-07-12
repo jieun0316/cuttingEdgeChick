@@ -1,11 +1,13 @@
 package org.kosta.pamuk.controller;
 
 import java.util.ArrayList;
+
 import org.kosta.pamuk.model.mapper.ItemMapper;
 import org.kosta.pamuk.model.mapper.RecipeMapper;
 import org.kosta.pamuk.model.vo.MemberVO;
 import org.kosta.pamuk.model.vo.PagingBean;
 import org.kosta.pamuk.model.vo.RecipeVO;
+import org.kosta.pamuk.model.vo.ReviewVO;
 import org.kosta.pamuk.service.RecipeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
@@ -13,11 +15,13 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 /**
  * Recipe 게시판에 관련된 비즈니스 로직을 정의합니다
  */
 @Controller
+@RequestMapping("recipe")
 public class RecipeController {
 	@Autowired
 	RecipeService recipeService;
@@ -82,8 +86,9 @@ public class RecipeController {
 	 * 
 	 * @return
 	 */
-	@RequestMapping("/recipeBoardView")
+	@RequestMapping("recipeBoardView")
 	public String recipeBoardView(int recipeNo, Model model) {
+		System.out.println("recipeBoardView");
 		RecipeVO recipeVO = recipeService.viewRecipeDetail(recipeNo);
 		model.addAttribute("recipeVO", recipeVO);
 
@@ -179,4 +184,16 @@ public class RecipeController {
 	public String recipeSearchRsultPage() {
 		return "recipes/recipeSearchRsultPage.tiles"; 
 	}
+	
+	
+	 // 댓글 작성
+	@Secured("ROLE_MEMBER")
+	@RequestMapping("writeReview")
+	public String postReview(ReviewVO reviewVO) {
+		reviewVO.setMemberVO( (MemberVO) SecurityContextHolder.getContext().getAuthentication().getPrincipal());	
+		//System.out.println(reviewVO);
+		recipeService.writeReview(reviewVO);
+		return  "redirect:/recipe/recipeBoardView?recipeNo="+reviewVO.getRecipeVO().getRecipeNo();
+	}
+	
 }

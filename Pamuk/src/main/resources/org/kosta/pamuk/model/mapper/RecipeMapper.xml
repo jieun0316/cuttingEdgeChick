@@ -130,7 +130,20 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		and step_no=(SELECT max(step_no) FROM recipe_content where recipe_no=#{recipeNo})
 	</delete>
 	
-	<!-- search -->
+	<!-- 댓글 -->
+	<insert id="writeReview">
+		insert into review(member_id, recipe_no, review_comment, rating, review_date) 
+		values(#{memberId}, #{recipeNo}, #{reviewComment}, #{rating}, sysdate)
+	</insert>
+	
+	<resultMap type="reviewVO" id="reviewRM">
+ 		<result column="member_id" property="memberVO.memberId"/>
+ 		<result column="recipe_no" property="recipeVO.recipeNo"/>
+ 	</resultMap>
+	<select id="readReview" resultMap="reviewRM">
+		select member_id, recipe_no, review_comment, rating, to_char(review_date, 'yyyy-mm-dd hh24:mi') as review_date 
+		from review where recipe_no=#{recipeNo} order by review_date asc
+	</select>
 </mapper>
 
 

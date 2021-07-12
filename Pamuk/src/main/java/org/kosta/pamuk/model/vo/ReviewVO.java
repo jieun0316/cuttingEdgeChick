@@ -4,18 +4,18 @@ public class ReviewVO {
 	private MemberVO memberVO;
 	private RecipeVO recipeVO;
 	private String reviewComment;
-	private int grade;
+	private int rating;
 	private String reviewDate;
 	public ReviewVO() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public ReviewVO(MemberVO memberVO, RecipeVO recipeVO, String reviewComment, int grade, String reviewDate) {
+	public ReviewVO(MemberVO memberVO, RecipeVO recipeVO, String reviewComment, int rating, String reviewDate) {
 		super();
 		this.memberVO = memberVO;
 		this.recipeVO = recipeVO;
 		this.reviewComment = reviewComment;
-		this.grade = grade;
+		this.rating = rating;
 		this.reviewDate = reviewDate;
 	}
 	public MemberVO getMemberVO() {
@@ -36,11 +36,11 @@ public class ReviewVO {
 	public void setReviewComment(String reviewComment) {
 		this.reviewComment = reviewComment;
 	}
-	public int getGrade() {
-		return grade;
+	public int getRating() {
+		return rating;
 	}
-	public void setGrade(int grade) {
-		this.grade = grade;
+	public void setRating(int rating) {
+		this.rating = rating;
 	}
 	public String getReviewDate() {
 		return reviewDate;
@@ -51,7 +51,7 @@ public class ReviewVO {
 	@Override
 	public String toString() {
 		return "ReviewVO [memberVO=" + memberVO + ", recipeVO=" + recipeVO + ", reviewComment=" + reviewComment
-				+ ", grade=" + grade + ", reviewDate=" + reviewDate + "]";
+				+ ", rating=" + rating + ", reviewDate=" + reviewDate + "]";
 	}
 	
 	

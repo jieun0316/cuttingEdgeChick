@@ -90,5 +90,28 @@ public class MemberServiceImpl implements MemberService {
 		return (count == 0) ? "ok" : "fail";
 	}
 
-	
+	@Override
+	public List<MemberVO> adminList() {
+		return memberMapper.adminList();
+	}
+
+	@Override
+	public void disaccreditAdmin(String memberId) {
+		memberMapper.disaccreditAdmin(memberId);
+	}
+
+	@Override
+	public List<MemberVO> findMemberByNick(String nick) {
+		return memberMapper.findMemberByNick(nick);
+	}
+
+	@Override
+	public List<MemberVO> findMemberAll() {
+		return memberMapper.findMemberAll();
+	}
+
+	@Override
+	public void authorizeAdmin(String memberId) {
+		memberMapper.authorizeAdmin(memberId);
+	}
 }

@@ -41,7 +41,7 @@
  -->
 <!-- ##### Breadcumb Area Start ##### -->
 <div class="breadcumb-area bg-img bg-overlay"
-	style="background-image: url(img/bg-img/breadcumb3.jpg);">
+	style="background-image: url(/img/bg-img/breadcumb3.jpg);">
 	<div class="container h-100">
 		<div class="row h-100 align-items-center">
 			<div class="col-12">
@@ -103,9 +103,10 @@
 								<span>작성자 : ${recipeVO.memberVO.nick}&nbsp;&nbsp;|&nbsp;&nbsp;</span>
 								<span>조회수 : ${recipeVO.hits}</span>
 								<br>
-								<i class="fa fa-star" aria-hidden="true"></i> <i
-									class="fa fa-star" aria-hidden="true"></i> <i class="fa fa-star"
-									aria-hidden="true"></i> <i class="fa fa-star" aria-hidden="true"></i>
+								<i class="fa fa-star" aria-hidden="true"></i> 
+								<i class="fa fa-star" aria-hidden="true"></i> 
+								<i class="fa fa-star" aria-hidden="true"></i> 
+								<i class="fa fa-star" aria-hidden="true"></i>
 								<i class="fa fa-star-o" aria-hidden="true"></i>
 							</div>
 						</div>

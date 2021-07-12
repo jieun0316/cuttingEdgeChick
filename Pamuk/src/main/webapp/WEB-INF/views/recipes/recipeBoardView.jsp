@@ -1,14 +1,59 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 
-
+<script type="text/javascript">
+$(document).ready(function () {
+	
+	  function setRating(rating) {
+	    $('#rating-input').val(rating);
+	    // fill all the stars assigning the '.selected' class
+	    $('.rating-star').removeClass('fa-star-o').addClass('selected');
+	    // empty all the stars to the right of the mouse
+	    $('.rating-star#rating-' + rating + ' ~ .rating-star').removeClass('selected').addClass('fa-star-o');
+	  }
+	  
+	  $('.rating-star')
+	  .on('mouseover', function(e) {
+	    var rating = $(e.target).data('rating');
+	    // fill all the stars
+	    $('.rating-star').removeClass('fa-star-o').addClass('fa-star');
+	    // empty all the stars to the right of the mouse
+	    $('.rating-star#rating-' + rating + ' ~ .rating-star').removeClass('fa-star').addClass('fa-star-o');
+	  })
+	  .on('mouseleave', function (e) {
+	    // empty all the stars except those with class .selected
+	    $('.rating-star').removeClass('fa-star').addClass('fa-star-o');
+	  })
+	  .on('click', function(e) {
+	    var rating = $(e.target).data('rating');
+	    setRating(rating);
+	  })
+	  .on('keyup', function(e){
+	    // if spacebar is pressed while selecting a star
+	    if (e.keyCode === 32) {
+	      // set rating (same as clicking on the star)
+	      var rating = $(e.target).data('rating');
+	      setRating(rating);
+	    }
+	  });
+	});
+</script>
+<%-- <script type="text/javascript">
+	$(document).ready(function(){
+		$("#postReview").click(function() {
+			let r_content = $("#r_content").val();
+			let member_
+		})
+	});
+</script> --%>
 <!-- 
 	레시피 게시판 목록 보기 페이지
  -->
 <!-- ##### Breadcumb Area Start ##### -->
 <div class="breadcumb-area bg-img bg-overlay"
-	style="background-image: url(img/bg-img/breadcumb3.jpg);">
+	style="background-image: url(/img/bg-img/breadcumb3.jpg);">
 	<div class="container h-100">
 		<div class="row h-100 align-items-center">
 			<div class="col-12">
@@ -143,7 +188,7 @@
 			<div class="row">
 				<div class="col-12">
 					<div class="section-heading text-left">
-						<h3>Leave a comment</h3>
+						<h3>댓글</h3>
 					</div>
 				</div>
 			</div>
@@ -151,30 +196,39 @@
 			<div class="row">
 				<div class="col-12">
 					<div class="contact-form-area">
-						<form action="#" method="post">
+						<form action="" method="post" id="readReview">
+						<sec:csrfInput/>
+						</form>
+					
+						<sec:authorize access="hasRole('ROLE_MEMBER')">
+						<form action="${pageContext.request.contextPath}/recipe/writeReview" method="post" id="postReview">
+						
 							<div class="row">
 								<div class="col-12 col-lg-6">
-									<input type="text" class="form-control" id="name"
-										placeholder="Name">
+									<h6> <sec:authentication property="principal.nick" /></h6>
 								</div>
-								<div class="col-12 col-lg-6">
-									<input type="email" class="form-control" id="email"
-										placeholder="E-mail">
+								<div>
+								<h6>만족도를 별로 표현해보아요~&nbsp;&nbsp;</h6>
+								</div>
+								<input type="hidden" name="recipeVO.recipeNo" value="${recipeVO.recipeNo}" id="recipeNo"/>
+								<input type="hidden" name="rating" id="rating-input" min="1" max="5" />
+								<div class="rating" role="optgroup">
+									<i class="fa fa-star-o fa-2x rating-star" id="rating-1" data-rating="1" tabindex="0" aria-label="Rate as one out of 5 stars" role="radio"></i>
+									<i class="fa fa-star-o fa-2x rating-star" id="rating-2" data-rating="2" tabindex="0" aria-label="Rate as two out of 5 stars" role="radio"></i>
+									<i class="fa fa-star-o fa-2x rating-star" id="rating-3" data-rating="3" tabindex="0" aria-label="Rate as three out of 5 stars" role="radio"></i>
+									<i class="fa fa-star-o fa-2x rating-star" id="rating-4" data-rating="4" tabindex="0" aria-label="Rate as four out of 5 stars" role="radio"></i>
+									<i class="fa fa-star-o fa-2x rating-star" id="rating-5" data-rating="5" tabindex="0" aria-label="Rate as five out of 5 stars" role="radio"></i>
 								</div>
 								<div class="col-12">
-									<input type="text" class="form-control" id="subject"
-										placeholder="Subject">
+									<textarea name="reviewComment" class="form-control" id="reviewComment"
+										cols="30" rows="10" placeholder="작성하실 댓글을 입력해주세요~"></textarea>
 								</div>
 								<div class="col-12">
-									<textarea name="message" class="form-control" id="message"
-										cols="30" rows="10" placeholder="Message"></textarea>
-								</div>
-								<div class="col-12">
-									<button class="btn delicious-btn mt-30" type="submit">Post
-										Comments</button>
+									<button class="btn delicious-btn mt-30" type="submit">댓글 등록</button>
 								</div>
 							</div>
 						</form>
+						</sec:authorize>
 					</div>
 				</div>
 			</div>

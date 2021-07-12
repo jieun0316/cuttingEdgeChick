@@ -74,6 +74,8 @@ create table review(
 	constraint pk_member_review primary key(member_id, recipe_no)
 );
 
+alter table review rename column grade to rating
+
 --5
 create table recipe_content(
 	recipe_no NUMBER not null,	

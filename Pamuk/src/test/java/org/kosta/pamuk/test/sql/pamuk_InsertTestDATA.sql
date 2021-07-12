@@ -37,3 +37,9 @@ insert into MEMBER(member_id,password,email,name, nick, birth, gender)
 		commit
 		select * from member
 		select * from authorities
+		
+-- 댓글 등록
+select * from review
+insert into review(member_id, recipe_no, review_comment, rating, review_date) values('yang', '6', '해먹어봤는데 정말 맛있어요!', 5, sysdate)
+
+truncate table REVIEW

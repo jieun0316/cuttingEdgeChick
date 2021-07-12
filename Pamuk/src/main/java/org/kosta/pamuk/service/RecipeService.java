@@ -1,11 +1,10 @@
 package org.kosta.pamuk.service;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
-import org.kosta.pamuk.model.vo.RecipeContentVO;
-import org.kosta.pamuk.model.vo.RecipeItemVO;
+import org.kosta.pamuk.model.vo.MemberVO;
 import org.kosta.pamuk.model.vo.RecipeVO;
+import org.kosta.pamuk.model.vo.ReviewVO;
 
 public interface RecipeService {
 	/**
@@ -37,5 +36,6 @@ public interface RecipeService {
 	 */
 	ArrayList<RecipeVO> getRecipeListByCategory(int startRowNumber,int endRowNumber, String category);
 	
-	
+	void writeReview(ReviewVO reviewVO);
+	ArrayList<ReviewVO> readReview(int recipeNo);
 }
