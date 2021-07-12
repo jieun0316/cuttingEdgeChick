@@ -21,8 +21,8 @@
         <div class="container">
             <div class="row">
                 <div class="col-12">
-                    <form action="#" method="post">
-                        <input type="search" name="search" placeholder="검색어를 입력해주세요">
+                    <form action="/recipeSearchResultPage" method="get">
+                        <input type="search" name="keyword" placeholder="검색어를 입력해주세요">
                         <button type="submit"><i class="fa fa-search" aria-hidden="true"></i></button>
                     </form>
                 </div>
