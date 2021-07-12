@@ -57,16 +57,20 @@ public class RecipeServiceImpl implements RecipeService {
 	@Transactional
 	@Override
 	public void postRecipe(RecipeVO recipeVO) {
-		recipeMapper.postRecipe(recipeVO);
-		System.out.println(recipeVO);
+		 recipeMapper.postRecipe(recipeVO);
 		
 		 List<RecipeContentVO> recipeContentList = recipeVO.getRecipeContentList();
+		 List<RecipeItemVO> recipeItemList = recipeVO.getRecipeItemList();
 		  
 		 for(RecipeContentVO recipeContentVO : recipeContentList) 
 		 {	
 			 recipeContentVO.setRecipeNo(recipeVO.getRecipeNo());
 			 recipeContentVO.setImagePath("null");
 			 recipeMapper.postRecipeContent(recipeContentVO); 
+		 }
+		 for(RecipeItemVO recipeItemVO : recipeItemList) {
+			 recipeItemVO.setRecipeNo(recipeVO.getRecipeNo());
+			 recipeMapper.postRecipeItem(recipeItemVO);
 		 }
 	}
 	/**

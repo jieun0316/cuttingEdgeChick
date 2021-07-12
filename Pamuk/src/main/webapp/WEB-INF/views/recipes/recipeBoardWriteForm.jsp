@@ -4,7 +4,10 @@
 <%@taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 <sec:authentication var="mvo" property="principal" /> 
 <script>
+
 	$(document).ready(function() {
+		
+		
 		newStepForm();
 		$(".recipePlusBtn").on({
 			click : function() {
@@ -23,13 +26,14 @@
 						console.log($(this)[0].itemName);
 						//얘를 목록에 뿌려주면 됩니다!!
 						
-						let itemForm = '<li class="list-group-item">'+$(this)[0].itemName+'&nbsp;&nbsp;<label class="switch ">';
+						/*let itemForm = '<li class="list-group-item">'+$(this)[0].itemName+'&nbsp;&nbsp;<label class="switch ">';
 						itemForm += '<input type="checkbox" class="success"> <span ';
 						itemForm += 'class="slider round"></span>';
-						itemForm += '</label> <input type="text" placeholder="수량"> </li>';
+						itemForm += '</label> <input type="text" placeholder="수량"> </li>';*/
 						
 						//let itemForm = '<li>'+$(this)[0].itemName+'</li>';
 						
+						let itemForm = '<input type="button" value="'+$(this)[0].itemName+'" onclick="selectItem(this)"></input>';
 						$("#item_ul_list").append(itemForm);
 					});
 				}
@@ -38,11 +42,11 @@
 	}); //ready
 	// recipe step 을 증가위한 no
 	let stepNo = 0;
+	let itemNo = 0;
 	// 현재 recipeWriteStep 번호를 받기 위한 no
 	let stepCurForm = "";
 	function newStepForm() {
 		stepNo++;
-
 		let recipeStepForm = '<div class="recipeWriteStep">';
 		recipeStepForm += '<div class="row mt-30 mg-15">';
 		recipeStepForm += '<h3 style="text-align: center">Step' + stepNo
@@ -65,9 +69,15 @@
 				+ (stepNo - 1) + '].stepNo" value="' + stepNo + '"/>';
 		recipeStepForm += '</div>';
 		recipeStepForm += '</div>';
-
 		// 현재 스탭 뒤에 append
 		$("#recipeStepWrap").append(recipeStepForm);
+	};
+	function selectItem(item) {
+		itemNo++;
+		let selectedItemForm = '<tr><td>' + $(item).attr('value') + '<input type="hidden" name="recipeItemList[' + (itemNo - 1) + '].itemName" value="'+ $(item).attr('value') +'"/>';
+		selectedItemForm += '</td> <td><input type="text" name="recipeItemList[' + (itemNo - 1) + '].qty"></td></tr>';
+		
+		$("#selectedItemList").append(selectedItemForm);
 	};
 </script>
 <!-- 
@@ -130,13 +140,28 @@
 								</div>
 
 								<div class="form-control recipeItemList" id="" name=""
-									style="height: 500px; overflow-y: scroll;">
+									style="height: 300px; overflow-y: scroll;">
 									<div class="card" style="margin: 50px 0">
 										<!-- Default panel contents -->
 										<ul id="item_ul_list" class="list-group list-group-flush">
 											
 										
 										</ul>
+									</div>
+								</div>
+								<div class="form-control recipeItemList" id="" name=""
+									style="height: 300px; overflow-y: scroll;">
+									<div class="card" style="margin: 50px 0">
+										<!-- Default panel contents -->
+										<table>
+											<thead>
+												<tr>
+													<td>품목</td><td>수량</td>
+												</tr>
+											</thead>
+											<tbody id="selectedItemList">
+											</tbody>
+										</table>
 									</div>
 								</div>
 

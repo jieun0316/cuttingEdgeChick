@@ -3,8 +3,10 @@ package org.kosta.pamuk.controller;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
-import org.apache.tomcat.util.http.fileupload.FileUtils;
+
 import org.kosta.pamuk.model.mapper.ItemMapper;
 import org.kosta.pamuk.model.mapper.RecipeMapper;
 import org.kosta.pamuk.model.vo.MemberVO;
@@ -16,7 +18,6 @@ import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -98,6 +99,7 @@ public class RecipeController {
 		// 세션에서 세선 정보를 mvo에 넣는다
 		recipeVO.setMemberVO( (MemberVO) SecurityContextHolder.getContext().getAuthentication().getPrincipal());
 		recipeService.postRecipe(recipeVO);
+		
 		return "redirect:recipeBoardList";
 	}
 
