@@ -14,8 +14,8 @@ import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 /**
  * Recipe 게시판에 관련된 비즈니스 로직을 정의합니다
@@ -83,15 +83,16 @@ public class RecipeController {
 
 	/**
 	 * 레시피 게시판 상세보기(상세)
-	 * 
+	 * 리뷰 리스트
 	 * @return
 	 */
 	@RequestMapping("recipeBoardView")
 	public String recipeBoardView(int recipeNo, Model model) {
-		System.out.println("recipeBoardView");
 		RecipeVO recipeVO = recipeService.viewRecipeDetail(recipeNo);
+		ArrayList<ReviewVO> reviewList = recipeService.readReview(recipeNo);
+		
 		model.addAttribute("recipeVO", recipeVO);
-
+		model.addAttribute("reviewList", reviewList);
 		return "recipes/recipeBoardView.tiles";
 	}
 	/**
@@ -188,7 +189,7 @@ public class RecipeController {
 	
 	 // 댓글 작성
 	@Secured("ROLE_MEMBER")
-	@RequestMapping("writeReview")
+	@PostMapping("writeReview")
 	public String postReview(ReviewVO reviewVO) {
 		reviewVO.setMemberVO( (MemberVO) SecurityContextHolder.getContext().getAuthentication().getPrincipal());	
 		//System.out.println(reviewVO);
@@ -196,4 +197,10 @@ public class RecipeController {
 		return  "redirect:/recipe/recipeBoardView?recipeNo="+reviewVO.getRecipeVO().getRecipeNo();
 	}
 	
+	
+	
+	@RequestMapping("postReviewAjax")
+	public String postReviewAjax() {
+		return null;
+	}
 }

@@ -104,8 +104,8 @@ public class RecipeServiceImpl implements RecipeService {
 		String memberId = reviewVO.getMemberVO().getMemberId();
 		int recipeNo = reviewVO.getRecipeVO().getRecipeNo();
 		String reviewComment = reviewVO.getReviewComment();
-		int grade = reviewVO.getRating();
-		recipeMapper.writeReview(memberId, recipeNo, reviewComment, grade);
+		int rating = reviewVO.getRating();
+		recipeMapper.writeReview(memberId, recipeNo, reviewComment, rating);
 	}
 
 	@Override

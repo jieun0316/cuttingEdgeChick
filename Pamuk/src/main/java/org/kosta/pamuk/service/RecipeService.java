@@ -2,7 +2,6 @@ package org.kosta.pamuk.service;
 
 import java.util.ArrayList;
 
-import org.kosta.pamuk.model.vo.MemberVO;
 import org.kosta.pamuk.model.vo.RecipeVO;
 import org.kosta.pamuk.model.vo.ReviewVO;
 
