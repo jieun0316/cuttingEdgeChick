@@ -6,7 +6,6 @@
 
 <script type="text/javascript">
 $(document).ready(function () {
-	
 	  function setRating(rating) {
 	    $('#rating-input').val(rating);
 	    // fill all the stars assigning the '.selected' class

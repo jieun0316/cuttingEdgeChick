@@ -5,6 +5,7 @@
 <sec:authentication var="mvo" property="principal" /> 
 <script>
 	$(document).ready(function() {
+	
 		newStepForm();
 		$(".recipePlusBtn").on({
 			click : function() {

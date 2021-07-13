@@ -27,7 +27,6 @@ insert into stored_item VALUES(stored_item_seq.nextval,22,'당근','주말농장
 insert into stored_item VALUES(stored_item_seq.nextval,23,'수박','정윤최애','20210702','20210731','1통');
 insert into stored_item VALUES(stored_item_seq.nextval,24,'딸기','지은최애','20210702','20210731','1바구니');
 
-
 insert into 
 
 insert into MEMBER(member_id,password,email,name, nick, birth, gender) 

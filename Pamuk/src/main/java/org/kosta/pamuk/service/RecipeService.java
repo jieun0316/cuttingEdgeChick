@@ -1,6 +1,7 @@
 package org.kosta.pamuk.service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.kosta.pamuk.model.vo.RecipeVO;
 import org.kosta.pamuk.model.vo.ReviewVO;
@@ -31,9 +32,28 @@ public interface RecipeService {
 	 * @param startRowNumber
 	 * @param endRowNumber
 	 * @param category
+	 * @author 조수빈
 	 * @return
 	 */
 	ArrayList<RecipeVO> getRecipeListByCategory(int startRowNumber,int endRowNumber, String category);
+	/**
+	 * main page 의 Best Recipe List 불러오기
+	 * @author 조수빈
+	 * @return
+	 */
+	ArrayList<RecipeVO> getBestRecipeListForMain();
+	/**
+	 * main page 의 Recent Recipe List 불러오기
+	 * @author 조수빈
+	 * @return
+	 */
+	ArrayList<RecipeVO> getRecentRecipeListForMain();
+	/**
+	 * recipe 삭제
+	 * @author 조수빈
+	 * @param recipeNo
+	 */
+	void deleteRecipeByRecipeNo(int recipeNo);
 	
 	void writeReview(ReviewVO reviewVO);
 	ArrayList<ReviewVO> readReview(int recipeNo);
