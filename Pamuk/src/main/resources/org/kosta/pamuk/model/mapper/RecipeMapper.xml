@@ -67,7 +67,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<!-- recipe 게시물 Detail 조회 -->
 	<!-- recipe 게시물의 detail을 조회 -->
 	<sql id="selectRecipe">
-		select recipe_no,member_id,recipe_name,write_date,category
+		select recipe_no,member_id,recipe_name,write_date,category,recipe_thumbnail
 		from recipe
 	</sql>
 	<select id="getRecipeDetailByRecipeNo" resultMap="recipeRM">
@@ -95,7 +95,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		FROM (
 			SELECT ROWNUM as rnum, recipe_view.*
 			FROM
-				(SELECT r.recipe_no, m.nick, r.recipe_name, hits, r.category
+				(SELECT r.recipe_no, m.nick, r.recipe_name, hits, r.category, r.recipe_thumbnail
 				FROM RECIPE r, member m
 				WHERE m.member_id = r.member_id ORDER BY recipe_no DESC)recipe_view
 			)rnum_view
@@ -107,7 +107,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		FROM (
 			SELECT ROWNUM as rnum, recipe_view.*
 			FROM
-				(SELECT r.recipe_no, m.nick, r.recipe_name, hits, r.category
+				(SELECT r.recipe_no, m.nick, r.recipe_name, hits, r.category, r.recipe_thumbnail
 				FROM RECIPE r, member m
 				WHERE m.member_id = r.member_id and category=#{category} ORDER BY recipe_no DESC)recipe_view
 			)rnum_view

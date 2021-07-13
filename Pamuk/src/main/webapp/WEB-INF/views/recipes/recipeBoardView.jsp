@@ -32,7 +32,8 @@
 							<input type="hidden" name="recipeNo" value="${recipeVO.recipeNo}">
 						</form>
 					</div>
-					<div class="receipe-headline my-5">
+					<div class="breadcumb-area bg-img bg-overlay receipe-headline my-5"
+						style="background-image: url(${pageContext.request.contextPath}/upload/${recipeVO.recipeThumbnail});">
 						<span>${recipeVO.writeDate}</span>
 						<h2>${recipeVO.recipeName}</h2>
 						<div class="receipe-duration">
@@ -66,9 +67,8 @@
 							<div class="single-preparation-step d-flex">
 								<div class="preImgStep1 img mr-15">
 									<img
-										src="${pageContext.request.contextPath}/img/bg-img/insta2.jpg"
+										src="${pageContext.request.contextPath}/upload/${content.imagePath}"
 										alt="">
-										${pageContext.request.contextPath}/${imagePath}
 								</div>
 								<h4>${content.stepNo}.</h4>
 								<h5 class="mr-15">${content.stepTitle}</h5>

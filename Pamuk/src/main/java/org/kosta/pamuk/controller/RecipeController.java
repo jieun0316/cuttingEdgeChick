@@ -3,12 +3,16 @@ package org.kosta.pamuk.controller;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.UUID;
+
 import javax.servlet.http.HttpServletRequest;
-import org.apache.tomcat.util.http.fileupload.FileUtils;
+
 import org.kosta.pamuk.model.mapper.ItemMapper;
 import org.kosta.pamuk.model.mapper.RecipeMapper;
 import org.kosta.pamuk.model.vo.MemberVO;
 import org.kosta.pamuk.model.vo.PagingBean;
+import org.kosta.pamuk.model.vo.RecipeContentVO;
 import org.kosta.pamuk.model.vo.RecipeVO;
 import org.kosta.pamuk.service.RecipeService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +20,6 @@ import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -78,6 +81,7 @@ public class RecipeController {
 	public String recipeBoardWrite(
 			RecipeVO recipeVO,
 			@RequestParam("recipeThumbnailImg") MultipartFile recipeThumbnailImg,
+			@RequestParam("recipeStepImgs") MultipartFile[] recipeStepImgs,
 			HttpServletRequest request
 			) throws IOException {
 		 
@@ -88,16 +92,40 @@ public class RecipeController {
         String originalFile = recipeThumbnailImg.getOriginalFilename();
         //파일명 중 확장자만 추출                                                //lastIndexOf(".") - 뒤에 있는 . 의 index번호
 		String originalFileExtension = originalFile.substring(originalFile.lastIndexOf("."));
+		//저장될 파일명 - 파일명이 같은 사진이 있을 수 있으므로 파일명 변경
+		String savedFileName = UUID.randomUUID() + originalFileExtension;
 		
-		File file = new File(filePath + originalFile);
+		File file = new File(filePath + savedFileName);
         //파일 저장
 		recipeThumbnailImg.transferTo(file);
 		
-		recipeVO.setRecipeThumbnail(originalFile);
+		recipeVO.setRecipeThumbnail(savedFileName);
+		
+		
+		
+		
+		//2. step별 이미지 등록
+		List<RecipeContentVO> recipeContentList = recipeVO.getRecipeContentList();
+		for(int i=0; i<recipeContentList.size(); i++) {
+			MultipartFile recipeStepImg = recipeStepImgs[i];
+			//파일명
+			originalFile = recipeStepImg.getOriginalFilename();
+	        //파일명 중 확장자만 추출                                                //lastIndexOf(".") - 뒤에 있는 . 의 index번호
+			originalFileExtension = originalFile.substring(originalFile.lastIndexOf("."));
+			//저장될 파일명 - 파일명이 같은 사진이 있을 수 있으므로 파일명 변경
+			savedFileName = UUID.randomUUID() + originalFileExtension;
+			
+			file = new File(filePath + savedFileName);
+			
+			recipeStepImg.transferTo(file);
+			recipeVO.getRecipeContentList().get(i).setImagePath(savedFileName);
+		}
 		
 		// 세션에서 세선 정보를 mvo에 넣는다
 		recipeVO.setMemberVO( (MemberVO) SecurityContextHolder.getContext().getAuthentication().getPrincipal());
+		System.out.println(recipeVO);
 		recipeService.postRecipe(recipeVO);
+		
 		return "redirect:recipeBoardList";
 	}
 
