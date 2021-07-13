@@ -1,4 +1,4 @@
--- test sql 
+색- test sql 
 -- subin
 select * from MEMBER;
 select * from RECIPE;
@@ -43,9 +43,21 @@ from RECIPE r, RECIPE_CONTENT rc
 where r.recipe_no = rc.recipe_no AND (r.recipe_name LIKE '%' || '계란' || '%' OR rc.step_title LIKE '%' || '계란' || '%' OR rc.content LIKE '%' || '계란' || '%' )
 
 -- 레시피 검색
-select DISTINCT r.recipe_no ,r.recipe_name, r.category, TO_CHAR(r.write_date, 'YYYY.MM.DD') as write_date
-from RECIPE r, RECIPE_CONTENT rc
-where r.recipe_no = rc.recipe_no AND (r.recipe_name LIKE '%' || '스시' || '%' OR rc.step_title LIKE '%' || '스시' || '%' OR rc.content LIKE '%' || '스시' || '%' )
+select 
+from
+(
+	select r.recipe_no, r.recipe_name, r.recipe_thumbnail, r.category, TO_CHAR(r.write_date, 'YYYY.MM.DD') as write_date
+	from RECIPE r, RECIPE_CONTENT rc
+	where r.recipe_no = rc.recipe_no 
+	AND 
+	(r.recipe_name LIKE '%' || '검색' || '%' 
+	OR 
+	rc.step_title LIKE '%' || '검색' || '%' 
+	OR 
+	rc.content LIKE '%' || '검색' || '%' )
+)
+
+
 
 
 -- MAIN page BEST Recipe 
@@ -66,3 +78,15 @@ WHERE r.member_id = m.member_id AND m.nick = 'kove' ORDER BY recipe_no DESC)
 x WHERE rn BETWEEN 1 AND 2
 
 
+ select r.recipe_no, r.recipe_name, r.recipe_thumbnail, r.category, TO_CHAR(r.write_date, 'YYYY.MM.DD') as write_date
+   from RECIPE r 
+   where r.recipe_name LIKE '%' || '검색' || '%' 
+   
+   union
+   
+   select r.recipe_no, r.recipe_name, r.recipe_thumbnail, r.category, TO_CHAR(r.write_date, 'YYYY.MM.DD') as write_date
+   from RECIPE r, RECIPE_CONTENT rc
+   where r.recipe_no = rc.recipe_no and 
+         (rc.step_title LIKE '%' || '검색' || '%' 
+       OR rc.content LIKE '%' || '검색' || '%' )
+   

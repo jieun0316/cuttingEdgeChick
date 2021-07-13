@@ -62,7 +62,7 @@
 													<!-- Receipe Thumb -->
 													<div class="receipe-thumb">
 														<img
-															src="${pageContextz.request.contextPath}/img/bg-img/sr1.jpg"
+															src="${pageContext.request.contextPath}/upload/${recipeVO.recipeThumbnail}"
 															alt="">
 													</div>
 													<!-- Receipe Content -->
@@ -112,7 +112,7 @@
 													<!-- Receipe Thumb -->
 													<div class="receipe-thumb">
 														<img
-															src="${pageContextz.request.contextPath}/img/bg-img/sr1.jpg"
+															src="${pageContext.request.contextPath}/upload/${recipeVO.recipeThumbnail}"
 															alt="">
 													</div>
 													<!-- Receipe Content -->
@@ -161,7 +161,7 @@
 													<!-- Receipe Thumb -->
 													<div class="receipe-thumb">
 														<img
-															src="${pageContextz.request.contextPath}/img/bg-img/sr1.jpg"
+															src="${pageContext.request.contextPath}/upload/${recipeVO.recipeThumbnail}"
 															alt="">
 													</div>
 													<!-- Receipe Content -->

@@ -58,7 +58,7 @@
 				+ ' 제목을 입력해주세요"></div>';
 		recipeStepForm += '<div class="row">';
  		recipeStepForm += '<input type="file" class="form-control" name="recipeStepImgs"';
-		recipeStepForm += 'placeholder="레시피 step' + stepNo + ' 에 따른 이미지파일을 업로드해주세요!">'; 
+		recipeStepForm += 'placeholder="레시피 step' + stepNo + ' 에 따른 이미지파일을 업로드해주세요!" required="required">'; 
 		recipeStepForm += '<textarea class="form-control" name="recipeContentList['
 				+ (stepNo - 1)
 				+ '].content" cols="30" rows="10" placeholder="레시피 step'
@@ -174,7 +174,7 @@
 								<i class="fa fa-plus-circle fa-3x" aria-hidden="true"></i>
 								<h6 class="mt-15">버튼을 클릭하면 레시피 step 을 증가시킬 수 있어요 !</h6>
 							</div>
-							<div class="col-12 text-right">
+							<div class="col-12 text-right mt-100">
 								<button class="btn delicious-btn mt-30" type="submit">작성</button>
 							</div>
 						</div>

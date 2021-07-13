@@ -13,7 +13,7 @@
 				<div class="single-small-receipe-area d-flex">
 					<!-- Receipe Thumb -->
 					<div class="receipe-thumb">
-						<img src="${pageContext.request.contextPath}/img/bg-img/sr1.jpg"
+						<img src="${pageContext.request.contextPath}/upload/${recipeVO.recipeThumbnail}"
 							alt="">
 					</div>
 					<!-- Receipe Content -->

@@ -693,6 +693,10 @@ textarea:focus {
   position: relative;
   z-index: 1; }
   .single-best-receipe-area img {
+  	width:350px;
+  	height:350px;
+  	object-fit:cover;
+  	box-sizing:border-box;
     border-bottom: 3px solid #40ba37; }
   .single-best-receipe-area .receipe-content {
     padding-top: 30px;
@@ -757,6 +761,11 @@ textarea:focus {
     max-width: 100px;
     width: 100px;
     padding-right: 20px; }
+  .single-small-receipe-area .receipe-thumb img{
+  	width:80px;
+  	height:80px;
+  	object-fit:cover;
+  } 
   .single-small-receipe-area .receipe-content span {
     font-size: 12px;
     display: block;
@@ -1009,11 +1018,11 @@ textarea:focus {
 .receipe-headline span {
   font-size: 14px;
   display: block;
-  color: #a4a4a4;
+  color: #F5F5F5;
   margin-bottom: 0; }
 .receipe-headline h2 {
   font-size: 36px;
-  color: #474747;
+  color: #FFFFFF;
   margin-bottom: 30px; }
   @media only screen and (max-width: 767px) {
     .receipe-headline h2 {
@@ -1205,6 +1214,12 @@ textarea:focus {
   height: 190px;
   margin-left: 4%;
   margin-right: 4%; }
+.breadcumb-area.recipe{
+  width: 100%;
+  height:250px;
+  margin-left: 0%;
+  margin-right: 0%;	
+} 
   @media only screen and (max-width: 767px) {
     .breadcumb-area {
       height: 120px; } }
