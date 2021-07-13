@@ -30,14 +30,22 @@ from RECIPE r, RECIPE_ITEM ri
 where r.recipe_no = ri.recipe_no AND ri.item_name IN ('사과')
 
 -- 레시피 카운트
-select r.recipe_no ,r.recipe_name, r.category, TO_CHAR(r.write_date, 'YYYY.MM.DD') as write_date
+select count(*)
+from 
+(
+	select DISTINCT r.recipe_no ,r.recipe_name, r.category, TO_CHAR(r.write_date, 'YYYY.MM.DD') as write_date
+	from RECIPE r, RECIPE_CONTENT rc
+	where r.recipe_no = rc.recipe_no AND (r.recipe_name LIKE '%' || '계란' || '%' OR rc.step_title LIKE '%' || '계란' || '%' OR rc.content LIKE '%' || '계란' || '%' )
+)
+
+select DISTINCT count(*)
 from RECIPE r, RECIPE_CONTENT rc
 where r.recipe_no = rc.recipe_no AND (r.recipe_name LIKE '%' || '계란' || '%' OR rc.step_title LIKE '%' || '계란' || '%' OR rc.content LIKE '%' || '계란' || '%' )
 
 -- 레시피 검색
-select r.recipe_no ,r.recipe_name, r.category, TO_CHAR(r.write_date, 'YYYY.MM.DD') as write_date
+select DISTINCT r.recipe_no ,r.recipe_name, r.category, TO_CHAR(r.write_date, 'YYYY.MM.DD') as write_date
 from RECIPE r, RECIPE_CONTENT rc
-where r.recipe_no = rc.recipe_no AND (r.recipe_name LIKE '%' || '계란' || '%' OR rc.step_title LIKE '%' || '계란' || '%' OR rc.content LIKE '%' || '계란' || '%' )
+where r.recipe_no = rc.recipe_no AND (r.recipe_name LIKE '%' || '스시' || '%' OR rc.step_title LIKE '%' || '스시' || '%' OR rc.content LIKE '%' || '스시' || '%' )
 
 
 -- MAIN page BEST Recipe 

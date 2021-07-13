@@ -27,109 +27,71 @@
 			<div class="col-12">
 				<div class="delicious-tabs-content">
 					<ul class="nav nav-tabs" id="myTab" role="tablist">
-						<li class="nav-item"><a class="nav-link active" id="tab--1"
-							data-toggle="tab" href="#tab1" role="tab" aria-controls="tab1"
-							aria-selected="false">레시피 + 식재료</a></li>
-						<li class="nav-item"><a class="nav-link" id="tab--2"
-							data-toggle="tab" href="#tab2" role="tab" aria-controls="tab2"
+						<li class="nav-item"><a class="nav-link active" id="tab--2"
+							data-toggle="tab" href="#tab1" role="tab" aria-controls="tab2"
 							aria-selected="false">레시피</a></li>
 						<li class="nav-item"><a class="nav-link" id="tab--3"
-							data-toggle="tab" href="#tab3" role="tab" aria-controls="tab3"
+							data-toggle="tab" href="#tab2" role="tab" aria-controls="tab3"
 							aria-selected="true">식재료</a></li>
 						<li class="nav-item"><a class="nav-link" id="tab--4"
-							data-toggle="tab" href="#tab4" role="tab" aria-controls="tab4"
+							data-toggle="tab" href="#tab3" role="tab" aria-controls="tab4"
 							aria-selected="false">작성자</a></li>
 					</ul>
 					
 					<div class="tab-content mb-80" id="myTabContent">
-						<!-- // 레시피 + 식재료 -->
-						<div class="tab-pane fade show active" id="tab1" role="tabpanel"
-							aria-labelledby="tab--1">
-							<div class="resultWrap">
-								<div id="totalCount">
-									검색어 <span>${keyword}</span>에 대한 레시피 검색 결과 <span>100</span>개의 검색결과가 있습니다!
-								</div>
-								<div class="row">
-									<!-- Small Receipe Area -->
-									<div class="col-12 col-sm-6 col-lg-4">
-										<div class="single-small-receipe-area d-flex">
-											<!-- Receipe Thumb -->
-											<div class="receipe-thumb">
-												<img
-													src="${pageContext.request.contextPath}/img/bg-img/sr3.jpg"
-													alt="">
-											</div>
-											<!-- Receipe Content -->
-											<div class="receipe-content">
-												<span>January 04, 2018</span> <a href="receipe-post.html">
-													<h5>Scalops on salt</h5>
-												</a>
-												<div class="ratings">
-													<i class="fa fa-star" aria-hidden="true"></i> <i
-														class="fa fa-star" aria-hidden="true"></i> <i
-														class="fa fa-star" aria-hidden="true"></i> <i
-														class="fa fa-star" aria-hidden="true"></i> <i
-														class="fa fa-star-o" aria-hidden="true"></i>
-												</div>
-												<p>2 Comments</p>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-							<hr>
-							<div class="resultWrap">
-								<div id="totalCount">
-									검색어 <span>${keyword}</span>에 대한 식재료 검색 결과 <span>100</span>개의 검색결과가 있습니다!
-								</div>
-								<div class="row">
-									<!-- Small Receipe Area -->
-									<div class="col-12 col-sm-6 col-lg-4">
-										<div class="single-small-receipe-area d-flex">
-											<!-- Receipe Thumb -->
-											<div class="receipe-thumb">
-												<img
-													src="${pageContext.request.contextPath}/img/bg-img/sr1.jpg"
-													alt="">
-											</div>
-											<!-- Receipe Content -->
-											<div class="receipe-content">
-												<span>January 04, 2018</span> <a href="receipe-post.html">
-													<h5>Homemade italian pasta</h5>
-												</a>
-												<div class="ratings">
-													<i class="fa fa-star" aria-hidden="true"></i> <i
-														class="fa fa-star" aria-hidden="true"></i> <i
-														class="fa fa-star" aria-hidden="true"></i> <i
-														class="fa fa-star" aria-hidden="true"></i> <i
-														class="fa fa-star-o" aria-hidden="true"></i>
-												</div>
-												<p>2 Comments</p>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-							<hr>
-							
-						</div>
 						<!-- // 레시피 -->
-						<div class="tab-pane fade" id="tab2" role="tabpanel"
-							aria-labelledby="tab--2">
+						<div class="tab-pane fade active show" id="tab1" role="tabpanel"
+							aria-labelledby="tab--1">
 							<div class="delicious-tab-content">
-								<!-- Tab Text -->
-								<div class="delicious-tab-text">
-									<p>Integer nec bibendum lacus. Praesent malesuada congue,
-										Suspendisse dictum enim sit amet libero malesu ada feugiat.
-										Praesent malesuada congue magna at finibus. In hac habitasse
-										platea dictumst. Curabitur rhoncus auctor eleifend. Praesent
-										malesuada congue.</p>
+								<div class="resultWrap">
+								<c:choose>
+									<c:when test = "${empty ResultByRecipes}">
+										<div id="totalCount">
+											검색어 <span>${keyword}</span>에 대한 <span>레시피</span> 검색 결과 없습니다! <b style="color:red">검색어를 확인해주세요 !</b>
+										</div>
+									</c:when>
+									<c:otherwise>
+										<div id="totalCount">
+											검색어 <span>${keyword}</span>에 대한 <span>레시피</span> 검색 결과 <span>${ResultByRecipesCount}</span>개의 검색결과가 있습니다!
+										</div>
+										<div class="row">
+											<c:forEach var="recipeVO" items="${ResultByRecipes}">
+											<!-- Small Receipe Area -->
+											<div class="col-12 col-sm-6 col-lg-4">
+												<div class="single-small-receipe-area d-flex">
+													<!-- Receipe Thumb -->
+													<div class="receipe-thumb">
+														<img
+															src="${pageContextz.request.contextPath}/img/bg-img/sr1.jpg"
+															alt="">
+													</div>
+													<!-- Receipe Content -->
+													<div class="receipe-content">
+														<span>${recipeVO.writeDate}</span> <a href="receipe-post.html">
+															<h5>[${recipeVO.category}] ${recipeVO.recipeName}</h5>
+														</a>
+														<div class="ratings">
+															<i class="fa fa-star" aria-hidden="true"></i> <i
+																class="fa fa-star" aria-hidden="true"></i> <i
+																class="fa fa-star" aria-hidden="true"></i> <i
+																class="fa fa-star" aria-hidden="true"></i> <i
+																class="fa fa-star-o" aria-hidden="true"></i>
+														</div>
+														<p>2 Comments</p>
+													</div>
+												</div>
+											</div>
+											</c:forEach>
+										</div>
+									</c:otherwise>
+								</c:choose>
+								
 								</div>
 							</div>
 						</div>
 						<!-- // 식재료 -->
-						<div class="tab-pane fade" id="tab3" role="tabpanel"
-							aria-labelledby="tab--3">
+						<div class="tab-pane fade" id="tab2" role="tabpanel"
+							aria-labelledby="tab--2">
 							<div class="delicious-tab-content">
 								<div class="resultWrap">
 								<c:choose>
@@ -174,11 +136,11 @@
 									</c:otherwise>
 								</c:choose>
 								
-							</div>
+								</div>
 							</div>
 						</div>
-						<div class="tab-pane fade" id="tab4" role="tabpanel"
-							aria-labelledby="tab--4">
+						<div class="tab-pane fade" id="tab3" role="tabpanel"
+							aria-labelledby="tab--3">
 							<div class="delicious-tab-content">
 								<div class="resultWrap">
 								<c:choose>

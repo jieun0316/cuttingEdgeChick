@@ -142,7 +142,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		select count(*) from RECIPE_ITEM where item_name IN (#{keyword})
 	</select>
 	<select id="getRecipeListByRecipesCount" resultType="int">
-		
+		select count(*)
+		from 
+		(
+			select DISTINCT r.recipe_no ,r.recipe_name, r.category, TO_CHAR(r.write_date, 'YYYY.MM.DD') as write_date
+			from RECIPE r, RECIPE_CONTENT rc
+			where r.recipe_no = rc.recipe_no AND (r.recipe_name LIKE '%' || #{keyword} || '%' OR rc.step_title LIKE '%' || #{keyword} || '%' OR rc.content LIKE '%' || #{keyword} || '%' )
+		)
 	</select>
 	<!-- search 관련 -->
 	<select id="getRecipeListByWriter" resultType="RecipeVO" resultMap="recipeDetailRM">
@@ -157,7 +163,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		where r.recipe_no = ri.recipe_no AND ri.item_name IN (#{keyword})
 	</select>
 	<select id="getRecipeListByRecipes"   resultType="RecipeVO">
-		select r.recipe_no ,r.recipe_name, r.category, TO_CHAR(r.write_date, 'YYYY.MM.DD') as write_date
+		select DISTINCT r.recipe_no ,r.recipe_name, r.category, TO_CHAR(r.write_date, 'YYYY.MM.DD') as write_date
 		from RECIPE r, RECIPE_CONTENT rc
 		where r.recipe_no = rc.recipe_no 
 		AND 

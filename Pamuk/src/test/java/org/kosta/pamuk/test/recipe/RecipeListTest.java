@@ -42,7 +42,7 @@ public class RecipeListTest {
 			//System.out.println(rm.getRecipeListByItemsCount("설탕"));
 			
 			// 레시피 검색
-			System.out.println(rm.getRecipeListByRecipes("계란"));
+			System.out.println(rm.getRecipeListByRecipes("스시"));
 		}
 
 	}
