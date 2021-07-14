@@ -37,7 +37,7 @@
 
 <script type="text/javascript">
 let storageName="";
-let storageNo="";
+let storageNo=""         A;
  function showList (ja) {
 	 	if (ja.length==0){
 			let row="<input type='hidden' name='currentStorageNo' value='"+storageNo+"'>";	 		
@@ -90,6 +90,21 @@ let storageNo="";
 			$("#newItemInfo").html('');
 			storageNo=$(this).children('input').val();
 			storageName=$(this).children('a').text();
+			if (storageName=="전체보기"){
+				alert("storage_no별 보관된 아이템 목록 유통기한임박순으로 한줄에 출력");
+				/* let storageArray=new Array();
+				<c:forEach items='${myStorage}' var='s'>
+				storageArray.push(${s.storageNo});
+				</c:forEach> */
+				$.ajax({
+					type:"get",
+					url:"getTotalStoredItemList",
+					dataType:"json",
+					data:storageArray,
+					
+				});
+				}
+			else{
 			$.ajax({
 				type:"get",
 				url:"getStoredItemByStorageNo",
@@ -100,6 +115,7 @@ let storageNo="";
 					alert(ja.val());
 				}//callback
 			});//ajax 	
+		}//else
 		});//click
 		
 		/*재료 삭제버튼 클릭시 */
@@ -212,6 +228,7 @@ let storageNo="";
   <!-- 냉장고칸별탭 -->
   	<ul class="nav nav-tabs">
    	 <li class="active"><a data-toggle="tab" href="#all">전체보기</a></li>
+   	 
     	<c:forEach items="${myStorage}" var="s">
     		<li>
     		<a data-toggle="tab" href="#fridge">${s.type}${s.locationNo}</a>
