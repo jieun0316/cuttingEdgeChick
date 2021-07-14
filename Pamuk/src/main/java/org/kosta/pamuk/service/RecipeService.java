@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import org.kosta.pamuk.model.vo.RecipeVO;
+import org.kosta.pamuk.model.vo.ReviewVO;
 
 public interface RecipeService {
 	/**
@@ -53,5 +54,6 @@ public interface RecipeService {
 	 * @param recipeNo
 	 */
 	void deleteRecipeByRecipeNo(int recipeNo);
-	
+	void writeReview(ReviewVO reviewVO);
+	ArrayList<ReviewVO> readReview(int recipeNo);
 }

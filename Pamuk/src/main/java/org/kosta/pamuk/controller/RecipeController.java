@@ -1,5 +1,4 @@
 package org.kosta.pamuk.controller;
-
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -14,12 +13,14 @@ import org.kosta.pamuk.model.vo.MemberVO;
 import org.kosta.pamuk.model.vo.PagingBean;
 import org.kosta.pamuk.model.vo.RecipeContentVO;
 import org.kosta.pamuk.model.vo.RecipeVO;
+import org.kosta.pamuk.model.vo.ReviewVO;
 import org.kosta.pamuk.service.RecipeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -29,6 +30,7 @@ import org.springframework.web.multipart.MultipartFile;
  * Recipe 게시판에 관련된 비즈니스 로직을 정의합니다
  */
 @Controller
+@RequestMapping("recipe")
 public class RecipeController {
 	@Autowired
 	RecipeService recipeService;
@@ -101,9 +103,6 @@ public class RecipeController {
 		
 		recipeVO.setRecipeThumbnail(savedFileName);
 		
-		
-		
-		
 		//2. step별 이미지 등록
 		List<RecipeContentVO> recipeContentList = recipeVO.getRecipeContentList();
 		for(int i=0; i<recipeContentList.size(); i++) {
@@ -131,14 +130,16 @@ public class RecipeController {
 
 	/**
 	 * 레시피 게시판 상세보기(상세)
-	 * 
+	 * 리뷰 리스트
 	 * @return
 	 */
-	@RequestMapping("/recipeBoardView")
+	@RequestMapping("recipeBoardView")
 	public String recipeBoardView(int recipeNo, Model model) {
 		RecipeVO recipeVO = recipeService.viewRecipeDetail(recipeNo);
+		ArrayList<ReviewVO> reviewList = recipeService.readReview(recipeNo);
+		
 		model.addAttribute("recipeVO", recipeVO);
-
+		model.addAttribute("reviewList", reviewList);
 		return "recipes/recipeBoardView.tiles";
 	}
 
@@ -228,6 +229,22 @@ public class RecipeController {
 		// System.out.println(recipeList);
 		return "recipes/recipeListAjax";
 	}
+	
+	 // 댓글 작성
+	@Secured("ROLE_MEMBER")
+	@PostMapping("writeReview")
+	public String postReview(ReviewVO reviewVO) {
+		reviewVO.setMemberVO( (MemberVO) SecurityContextHolder.getContext().getAuthentication().getPrincipal());	
+		//System.out.println(reviewVO);
+		recipeService.writeReview(reviewVO);
+		return  "redirect:/recipe/recipeBoardView?recipeNo="+reviewVO.getRecipeVO().getRecipeNo();
+	}
+
+	@RequestMapping("postReviewAjax")
+	public String postReviewAjax() {
+		return null;
+	}
+		
 	/**
 	 * 권한 check 후 레시피 게시글 삭제로 이동
 	 * @param recipeNo

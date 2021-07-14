@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.kosta.pamuk.model.vo.RecipeContentVO;
 import org.kosta.pamuk.model.vo.RecipeItemVO;
 import org.kosta.pamuk.model.vo.RecipeVO;
+import org.kosta.pamuk.model.vo.ReviewVO;
 
 @Mapper
 public interface RecipeMapper {
@@ -44,4 +45,8 @@ public interface RecipeMapper {
 	ArrayList<RecipeVO> getRecipeListByWriter(String keyword);
 	ArrayList<RecipeVO> getRecipeListByItems(String keyword);
 	ArrayList<RecipeVO> getRecipeListByRecipes(String keyword);
+	
+	//review 관련
+	void writeReview(String memberId, int recipeNo, String reviewComment, int rating);
+	ArrayList<ReviewVO> readReview(int recipeNo);
 }

@@ -3,6 +3,7 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 <sec:authentication var="mvo" property="principal" /> 
+<<<<<<< HEAD
 <script type="text/javascript">
 $(document).ready(function () {
 	  function setRating(rating) {
@@ -39,12 +40,52 @@ $(document).ready(function () {
 	  });
 	});
 </script>
+=======
+
+<script type="text/javascript">
+$(document).ready(function () {
+	  function setRating(rating) {
+	    $('#rating-input').val(rating);
+	    // fill all the stars assigning the '.selected' class
+	    $('.rating-star').removeClass('fa-star-o').addClass('selected');
+	    // empty all the stars to the right of the mouse
+	    $('.rating-star#rating-' + rating + ' ~ .rating-star').removeClass('selected').addClass('fa-star-o');
+	  }
+	  
+	  $('.rating-star')
+	  .on('mouseover', function(e) {
+	    var rating = $(e.target).data('rating');
+	    // fill all the stars
+	    $('.rating-star').removeClass('fa-star-o').addClass('fa-star');
+	    // empty all the stars to the right of the mouse
+	    $('.rating-star#rating-' + rating + ' ~ .rating-star').removeClass('fa-star').addClass('fa-star-o');
+	  })
+	  .on('mouseleave', function (e) {
+	    // empty all the stars except those with class .selected
+	    $('.rating-star').removeClass('fa-star').addClass('fa-star-o');
+	  })
+	  .on('click', function(e) {
+	    var rating = $(e.target).data('rating');
+	    setRating(rating);
+	  })
+	  .on('keyup', function(e){
+	    // if spacebar is pressed while selecting a star
+	    if (e.keyCode === 32) {
+	      // set rating (same as clicking on the star)
+	      var rating = $(e.target).data('rating');
+	      setRating(rating);
+	    }
+	  });
+	});
+</script>
+
+>>>>>>> branch 'main' of https://github.com/jieun0316/cuttingEdgeChick.git
 <!-- 
 	레시피 게시판 목록 보기 페이지
  -->
 <!-- ##### Breadcumb Area Start ##### -->
 <div class="breadcumb-area bg-img bg-overlay"
-	style="background-image: url(img/bg-img/breadcumb3.jpg);">
+	style="background-image: url(/img/bg-img/breadcumb3.jpg);">
 	<div class="container h-100">
 		<div class="row h-100 align-items-center">
 			<div class="col-12">
@@ -144,6 +185,12 @@ $(document).ready(function () {
 <div class="row col-6 text-left mb-15">
 				<h3>리뷰</h3>
 			</div>
+<<<<<<< HEAD
+=======
+			<div class="row col-6 text-left mb-15">
+				<h3>리뷰</h3>
+			</div>
+>>>>>>> branch 'main' of https://github.com/jieun0316/cuttingEdgeChick.git
 			<!-- 댓글 리스트 -->
 			<c:forEach items="${reviewList}" var="review">
 			

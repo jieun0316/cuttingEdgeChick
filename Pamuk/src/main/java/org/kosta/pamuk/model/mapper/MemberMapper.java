@@ -27,4 +27,13 @@ public interface MemberMapper {
 	
 	MemberVO findMemberById(String memberId);
 	List<AuthoritiesVO> selectAuthorityById(String memberId);
+	
+	//관리자 관련
+	//권한 박탈
+	List<MemberVO> adminList();
+	void disaccreditAdmin(String memberId);
+	//권한 부여
+	List<MemberVO> findMemberAll();
+	List<MemberVO> findMemberByNick(String nick);
+	void authorizeAdmin(String memberId);
 }
