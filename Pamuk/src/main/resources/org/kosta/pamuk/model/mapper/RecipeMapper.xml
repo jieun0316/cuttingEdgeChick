@@ -201,5 +201,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		select member_id, recipe_no, review_comment, rating, to_char(review_date, 'yyyy-mm-dd hh24:mi') as review_date 
 		from review where recipe_no=#{recipeNo} order by review_date asc
 	</select>
+	
+	<update id="updateReview">
+		update review set review_comment=#{reviewComment} where member_id=#{memberId} and recipe_no=#{recipeNo}
+	</update>
 </mapper>
 

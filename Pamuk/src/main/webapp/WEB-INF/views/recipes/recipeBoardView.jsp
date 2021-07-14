@@ -79,22 +79,17 @@ $(document).ready(function () {
 								<h6>작성자 : ${recipeVO.memberVO.memberId}</h6>
 							</div>
 						</div>
-						
 					</div>
 				</div>
-
 				<div class="col-12 col-md-4">
 					<div class="receipe-ratings text-right my-5">
-					
 						<div class="ratings">
 							<i class="fa fa-star" aria-hidden="true"></i> <i
 								class="fa fa-star" aria-hidden="true"></i> <i class="fa fa-star"
 								aria-hidden="true"></i> <i class="fa fa-star" aria-hidden="true"></i>
 							<i class="fa fa-star-o" aria-hidden="true"></i>
 						</div>
-						
 					</div>
-					
 				</div>
 			</div>
 
@@ -177,8 +172,12 @@ $(document).ready(function () {
 			        	        <p>
 			        	        	<c:choose>
 			        	        		<c:when test="${review.memberVO.memberId==mvo.memberId}">
-			        	        			<a class="float-right btn btn-outline-primary ml-2"><i class="fa fa-trash"></i> 삭제</a>
-			        	          			<a class="float-right btn btn-outline-primary ml-2"> <i class="fa fa-reply"></i> 수정</a>
+				        	        		<form action="${pageContext.request.contextPath}/recipe/updateReview" method="post" id="updateReview">
+				        	        			<button type="submit" class="float-right btn btn-outline-primary ml-2"><i class="fa fa-trash"></i> 삭제</button>
+				        	        		</form>
+				        	        		<form action="">
+				        	          			<button type="submit" class="float-right btn btn-outline-primary ml-2"><i class="fa fa-reply"></i> 수정</button>
+				        	          		</form>
 			        	        		</c:when>
 			        	        		<c:otherwise>
 											 <a class="float-right btn text-white btn-danger"> <i class="fa fa-heart"></i> Like</a>
