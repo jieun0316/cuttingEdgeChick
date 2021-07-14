@@ -70,9 +70,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		select recipe_no,member_id,recipe_name,write_date,category,recipe_thumbnail
 		from recipe
 	</sql>
-	<select id="getRecipeDetailByRecipeNo" resultMap="recipeRM">
-		<include refid="selectRecipe"/>
-		where recipe_no = #{value}
+	<select id="getRecipeDetailByRecipeNo" resultMap="recipeDetailRM">
+		select r.recipe_no,m.nick,r.recipe_name,r.write_date,r.category,r.recipe_thumbnail
+		from recipe r, member m
+		where r.member_id = m.member_id and  recipe_no = #{value}
 	</select>
 	<!-- recipe 게시물의 ItemList를 조회 -->
 	<select id="getRecipeItemListByRecipeNo" resultType="RecipeItemVO">

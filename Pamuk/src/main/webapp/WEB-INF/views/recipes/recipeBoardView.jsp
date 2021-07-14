@@ -65,8 +65,7 @@ $(document).ready(function () {
 					<div class="row mt-50">
 						<form action="deleteRecipeForm" method="post">
 							<sec:csrfInput />
-							<button type="submit" class="btn btn-outline-success">레시피
-								삭제</button>
+							<button type="submit" class="btn btn-outline-success">레시피 삭제</button>
 							<input type="hidden" name="recipeNo" value="${recipeVO.recipeNo}">
 						</form>
 					</div>
@@ -77,7 +76,7 @@ $(document).ready(function () {
 							<h2>${recipeVO.recipeName}</h2>
 							<div class="receipe-duration">
 								<h3>카테고리: ${recipeVO.category}</h3>
-								<h6>작성자 : ${recipeVO.memberVO.memberId}</h6>
+								<h6>작성자 : ${recipeVO.memberVO.nick}</h6>
 							</div>
 						</div>
 						
