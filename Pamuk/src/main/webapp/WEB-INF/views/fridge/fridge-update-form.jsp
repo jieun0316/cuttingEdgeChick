@@ -37,7 +37,7 @@
 
 <script type="text/javascript">
 let storageName="";
-let storageNo=""         A;
+let storageNo="";         
  function showList (ja) {
 	 	if (ja.length==0){
 			let row="<input type='hidden' name='currentStorageNo' value='"+storageNo+"'>";	 		
@@ -112,7 +112,6 @@ let storageNo=""         A;
 				data:"storageNo="+storageNo,
 				success:function(ja){
 					showList(ja);
-					alert(ja.val());
 				}//callback
 			});//ajax 	
 		}//else

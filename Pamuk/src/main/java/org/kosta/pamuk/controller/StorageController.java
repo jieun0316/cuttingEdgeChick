@@ -70,9 +70,16 @@ public String fridgeUpdateForm(Model model) {
 	String id = pvo.getMemberId();
 	//String id="java";
 	List<StorageVO> myStorage=sm.findStorageByMemberId(id);
-	model.addAttribute("myStorage", myStorage);
-	model.addAttribute("totalItemList", sm.getTotalStoredItemList(myStorage));
-	return "fridge/fridge-update-form.tiles";	
+	System.out.println("******");
+	System.out.println(myStorage);
+	if(!myStorage.isEmpty()) {
+		model.addAttribute("myStorage", myStorage);
+		model.addAttribute("totalItemList", sm.getTotalStoredItemList(myStorage));
+		return "fridge/fridge-update-form.tiles";		
+	} else {
+		return "fridge/fridge-register-form.tiles";
+	}
+	
 }
 @RequestMapping("getTotalStoredItemList")
 @ResponseBody
@@ -147,8 +154,14 @@ public List<StoredItemVO> storeItem(StoredItemVO siv) {
 @ResponseBody
 public List<StoredItemVO> storeItems(String[] itemName, int [] storageNo, String[] qty, String[] storedDate, String[] expiryDate) {
 ArrayList<StoredItemVO> list = new ArrayList<StoredItemVO>();
-   for (int i=0; i<itemName.length;i++) {
+for(int i=0; i<storageNo.length; i++) {	
+	System.out.println("스토리지 넘버를 찾아보자");
+	System.out.println(storageNo[i]);   
+}
+
+for (int i=0; i<itemName.length;i++) {
    StorageVO svo = new StorageVO();
+   svo.setStorageNo(storageNo[i]);
    StoredItemVO vo = new StoredItemVO(itemName[i], svo, expiryDate[i], storedDate[i], qty[i]);
    list.add(vo);
    }
