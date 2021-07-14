@@ -14,7 +14,7 @@ public class CategoryVO {
 			this.categoryName = categoryName;
 		}
 
-
+	
 	public CategoryVO(String categoryName, String storageTime) {
 		super();
 		this.categoryName = categoryName;

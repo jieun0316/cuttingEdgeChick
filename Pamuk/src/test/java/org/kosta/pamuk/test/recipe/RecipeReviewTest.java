@@ -1,9 +1,6 @@
 package org.kosta.pamuk.test.recipe;
 
 import org.junit.jupiter.api.Test;
-import org.kosta.pamuk.model.vo.MemberVO;
-import org.kosta.pamuk.model.vo.RecipeVO;
-import org.kosta.pamuk.model.vo.ReviewVO;
 import org.kosta.pamuk.service.MemberService;
 import org.kosta.pamuk.service.RecipeService;
 import org.springframework.beans.factory.annotation.Autowired;

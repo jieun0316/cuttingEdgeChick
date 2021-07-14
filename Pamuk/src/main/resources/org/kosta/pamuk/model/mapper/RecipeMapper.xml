@@ -21,10 +21,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			select recipe_seq.nextval from dual
 		</selectKey>
 		insert into recipe
-		(recipe_no,member_id,recipe_name,write_date,category)
+		(recipe_no,member_id,recipe_name,write_date,category,recipe_thumbnail)
 		values
-		(#{recipeNo}, #{memberVO.memberId}, #{recipeName}, sysdate,
-		#{category})
+		(#{recipeNo}, #{memberVO.memberId}, #{recipeName}, sysdate, 
+		#{category}, #{recipeThumbnail})
 	</insert>
 	<!-- recipe 게시물의 세부 content(step) 작성 -->
 	<insert id="postRecipeContent" parameterType="recipeContentVO">
@@ -67,7 +67,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<!-- recipe 게시물 Detail 조회 -->
 	<!-- recipe 게시물의 detail을 조회 -->
 	<sql id="selectRecipe">
-		select recipe_no,member_id,recipe_name,write_date,category
+		select recipe_no,member_id,recipe_name,write_date,category,recipe_thumbnail
 		from recipe
 	</sql>
 	<select id="getRecipeDetailByRecipeNo" resultMap="recipeRM">
@@ -82,7 +82,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 	<!-- recipe 게시물 ContentList를 조회 -->
 	<select id="getRecipeContentListByRecipeNoOrderByStepNo" resultType="RecipeContentVO">
-		select step_no, content, image_path, step_title
+		select step_no, content, step_title, image_path
 		from recipe_content
 		where recipe_no = #{value}
 		order by step_no
@@ -95,7 +95,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		FROM (
 			SELECT ROWNUM as rnum, recipe_view.*
 			FROM
-				(SELECT r.recipe_no, m.nick, r.recipe_name, hits, r.category
+				(SELECT r.recipe_no, m.nick, r.recipe_name, hits, r.category, r.recipe_thumbnail
 				FROM RECIPE r, member m
 				WHERE m.member_id = r.member_id ORDER BY recipe_no DESC)recipe_view
 			)rnum_view
@@ -107,7 +107,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		FROM (
 			SELECT ROWNUM as rnum, recipe_view.*
 			FROM
-				(SELECT r.recipe_no, m.nick, r.recipe_name, hits, r.category
+				(SELECT r.recipe_no, m.nick, r.recipe_name, hits, r.category, r.recipe_thumbnail
 				FROM RECIPE r, member m
 				WHERE m.member_id = r.member_id and category=#{category} ORDER BY recipe_no DESC)recipe_view
 			)rnum_view
@@ -116,8 +116,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	
 	<!-- delete !!테스트 아직 안함!! -->
-	<delete id="deleteRecipeByRecipeNo">
-		delete from recipe where recipeNo=#{value}
+	<delete id="deleteRecipeByRecipeNo" parameterType="int">
+		delete from recipe where recipe_no=#{value}
 	</delete>
 	<delete id="deleteRecipeItemByRecipeNoAndRecipeItem">
 		delete from recipe_item where recipe_no=#{recipeNo} and recipe_item=#{recipeItem}
@@ -129,6 +129,63 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		delete from recipe_content where recipe_no=#{recipeNo}
 		and step_no=(SELECT max(step_no) FROM recipe_content where recipe_no=#{recipeNo})
 	</delete>
+	
+	<!-- search -->
+	<!-- 검색 결과 count 관련 -->
+	<select id="getRecipeListByWriterCount" resultType="int">
+		select count(*) 
+		from RECIPE r, member m 
+		where r.member_id = m.member_id 
+		AND m.nick IN (#{keyword})
+	</select>
+	<select id="getRecipeListByItemsCount" resultType="int">
+		select count(*) from RECIPE_ITEM where item_name IN (#{keyword})
+	</select>
+	<select id="getRecipeListByRecipesCount" resultType="int">
+		select count(*)
+		from 
+		(
+			select DISTINCT r.recipe_no ,r.recipe_name, r.category, TO_CHAR(r.write_date, 'YYYY.MM.DD') as write_date
+			from RECIPE r, RECIPE_CONTENT rc
+			where r.recipe_no = rc.recipe_no AND (r.recipe_name LIKE '%' || #{keyword} || '%' OR rc.step_title LIKE '%' || #{keyword} || '%' OR rc.content LIKE '%' || #{keyword} || '%' )
+		)
+	</select>
+	<!-- search 관련 -->
+	<select id="getRecipeListByWriter" resultType="RecipeVO" resultMap="recipeDetailRM">
+		select r.recipe_no ,r.recipe_name, r.category, r.recipe_thumbnail, TO_CHAR(r.write_date, 'YYYY.MM.DD') as write_date 
+		from RECIPE r, member m 
+		where r.member_id = m.member_id 
+		AND m.nick IN (#{keyword})
+	</select>
+	<select id="getRecipeListByItems"  resultType="RecipeVO">
+		select r.recipe_no ,r.recipe_name, r.category, r.recipe_thumbnail, ri.item_name, TO_CHAR(r.write_date, 'YYYY.MM.DD') as write_date
+		from RECIPE r, RECIPE_ITEM ri
+		where r.recipe_no = ri.recipe_no AND ri.item_name IN (#{keyword})
+	</select>
+	<select id="getRecipeListByRecipes"   resultType="RecipeVO">
+ select r.recipe_no, r.recipe_name, r.recipe_thumbnail, r.category, TO_CHAR(r.write_date, 'YYYY.MM.DD') as write_date
+   from RECIPE r 
+   where r.recipe_name LIKE '%' || #{keyword} || '%' 
+   
+   union
+   
+   select r.recipe_no, r.recipe_name, r.recipe_thumbnail, r.category, TO_CHAR(r.write_date, 'YYYY.MM.DD') as write_date
+   from RECIPE r, RECIPE_CONTENT rc
+   where r.recipe_no = rc.recipe_no and 
+         (rc.step_title LIKE '%' || #{keyword} || '%' 
+       OR rc.content LIKE '%' || #{keyword} || '%' )
+	</select>
+	
+	
+	
+	
+	<!-- main page -->
+	<select id="getBestRecipeListForMain" resultType="RecipeVO">
+		select recipe_no ,recipe_name, category, hits, recipe_thumbnail from recipe order by hits desc
+	</select>
+	<select id="getRecentRecipeListForMain" resultType="RecipeVO">
+		select recipe_no ,recipe_name, category, recipe_thumbnail, TO_CHAR(write_date, 'YYYY.MM.DD') as write_date from recipe order by write_date desc
+	</select>
 	
 	<!-- 댓글 -->
 	<insert id="writeReview">
@@ -145,13 +202,4 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		from review where recipe_no=#{recipeNo} order by review_date asc
 	</select>
 </mapper>
-
-
-
-
-
-
-
-
-
 

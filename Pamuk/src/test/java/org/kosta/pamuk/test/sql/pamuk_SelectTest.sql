@@ -1,6 +1,7 @@
 select * from MEMBER;
 select * from RECIPE;
 select * from RECIPE_ITEM;
+
 select * from RECIPE_CONTENT;
 select * from authorities;
 select * from review

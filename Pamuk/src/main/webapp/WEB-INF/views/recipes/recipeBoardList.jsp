@@ -76,9 +76,6 @@
                                 <option value="댓글순">댓글순</option>
                             </select>
                         </div>
-                        <div class="col-12 col-lg-3 text-right">
-                            <button type="submit" class="btn delicious-btn">레시피 작성</button>
-                        </div>
                     </div>
                 </form>
             </div>
@@ -93,7 +90,7 @@
 			<c:forEach var="recipeVO" items="${recipeList}">
 				<div class="col-12 col-sm-6 col-lg-4">
 					<div class="single-best-receipe-area mb-30">
-						<img src="${pageContext.request.contextPath}/img/bg-img/r1.jpg"
+						<img src="${pageContext.request.contextPath}/upload/${recipeVO.recipeThumbnail}"
 							alt="">
 						<div class="receipe-content">
 							<a href="recipeBoardView?recipeNo=${recipeVO.recipeNo}">
@@ -103,10 +100,9 @@
 								<span>작성자 : ${recipeVO.memberVO.nick}&nbsp;&nbsp;|&nbsp;&nbsp;</span>
 								<span>조회수 : ${recipeVO.hits}</span>
 								<br>
-								<i class="fa fa-star" aria-hidden="true"></i> 
-								<i class="fa fa-star" aria-hidden="true"></i> 
-								<i class="fa fa-star" aria-hidden="true"></i> 
-								<i class="fa fa-star" aria-hidden="true"></i>
+								<i class="fa fa-star" aria-hidden="true"></i> <i
+									class="fa fa-star" aria-hidden="true"></i> <i class="fa fa-star"
+									aria-hidden="true"></i> <i class="fa fa-star" aria-hidden="true"></i>
 								<i class="fa fa-star-o" aria-hidden="true"></i>
 							</div>
 						</div>
@@ -141,7 +137,7 @@
 			</c:if>
 		</ul>
 		<!-- /.Pagination -->
-		<div class="row mb-15">
+		<div class="row mt-50">
 			<button type="button" class="btn btn-outline-success" onclick="location.href='recipeBoardWriteForm'">레시피 작성</button>
 		</div>
 	</div>
