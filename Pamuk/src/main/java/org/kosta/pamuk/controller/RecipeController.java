@@ -249,15 +249,32 @@ public class RecipeController {
 	}
 	/**
 	 * 검색 결과 보여주는 page !
+	 * 검색조건 (레시피, 식재료, 작성자)
+	 * @param keyword
 	 * @return
 	 */
 	@RequestMapping("recipeSearchResultPage")
 	public String recipeSearchRsultPage(String keyword, Model model) {
+		model.addAttribute("keyword", keyword);
 		// 레시피
-		
-		// 작성자
+		ArrayList<RecipeVO> ResultByRecipes =  recipeMapper.getRecipeListByRecipes(keyword);
+		int ResultByRecipesCount = recipeMapper.getRecipeListByRecipesCount(keyword);
+		model.addAttribute("ResultByRecipesCount", ResultByRecipesCount);
+		model.addAttribute("ResultByRecipes", ResultByRecipes);
 		
 		// 식재료
+		ArrayList<RecipeVO> ResultByItems =  recipeMapper.getRecipeListByItems(keyword);
+		int ResultByItemsCount = recipeMapper.getRecipeListByItemsCount(keyword);
+		model.addAttribute("ResultByItemsCount", ResultByItemsCount);
+		model.addAttribute("ResultByItems", ResultByItems);
+		
+		// 작성자
+		ArrayList<RecipeVO> ResultByWriter =  recipeMapper.getRecipeListByWriter(keyword);
+		int ResultByWriterCount = recipeMapper.getRecipeListByWriterCount(keyword);
+		model.addAttribute("ResultByWriterCount", ResultByWriterCount);
+		model.addAttribute("ResultByWriter", ResultByWriter);
+		
+		
 		return "recipes/recipeSearchResultPage.tiles"; 
 	}
 }

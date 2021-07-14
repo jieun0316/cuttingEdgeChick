@@ -34,14 +34,17 @@
 							<input type="hidden" name="recipeNo" value="${recipeVO.recipeNo}">
 						</form>
 					</div>
-					<div class="breadcumb-area bg-img bg-overlay receipe-headline my-5"
+					<div class="breadcumb-area recipe bg-img receipe-headline my-5"
 						style="background-image: url(${pageContext.request.contextPath}/upload/${recipeVO.recipeThumbnail});">
-						<span>${recipeVO.writeDate}</span>
-						<h2>${recipeVO.recipeName}</h2>
-						<div class="receipe-duration">
-							<h3>카테고리: ${recipeVO.category}</h3>
-							<h6>작성자 : ${recipeVO.memberVO.memberId}</h6>
+						<div class="recipeTitleWrap">
+							<span>${recipeVO.writeDate}</span>
+							<h2>${recipeVO.recipeName}</h2>
+							<div class="receipe-duration">
+								<h3>카테고리: ${recipeVO.category}</h3>
+								<h6>작성자 : ${recipeVO.memberVO.memberId}</h6>
+							</div>
 						</div>
+						
 					</div>
 				</div>
 
@@ -74,9 +77,19 @@
 										src="${pageContext.request.contextPath}/upload/${content.imagePath}"
 										alt="">
 								</div>
+<<<<<<< HEAD
+=======
+								<h4>${content.stepNo}.</h4>
+								<h5 class="mr-15">${content.stepTitle}</h5>
+								
+>>>>>>> refs/remotes/origin/main
 								<%-- <p>${paramMap.recipeContentVOList}</p> --%>
 							</div>
+<<<<<<< HEAD
 							<p>${content.content}</p>
+=======
+							<p class="mt-15">${content.content}</p>
+>>>>>>> refs/remotes/origin/main
 						</div>
 						<hr>
 					</c:forEach>
@@ -85,7 +98,7 @@
 				<!-- Ingredients -->
 				<div class="col-12 col-lg-4">
 					<div class="ingredients">
-						<h4>Ingredients</h4>
+						<h4>필요한 재료</h4>
 
 						<!-- Custom Checkbox -->
 						<c:forEach items="${recipeVO.recipeItemList}" var="item"

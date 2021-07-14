@@ -18,7 +18,7 @@
                 <c:forEach var="recipeVO" items="${BestRecipeList}" begin="0" end="5" step="1">
                 <div class="col-12 col-sm-6 col-lg-4">
                     <div class="single-best-receipe-area mb-30">
-                        <img src="${pageContext.request.contextPath}/img/bg-img/r1.jpg" alt="">
+                        <img src="${pageContext.request.contextPath}/upload/${recipeVO.recipeThumbnail}" alt="">
                         <div class="receipe-content">
                             <a href="receipe-post.html">
                                 <h5>[${recipeVO.category}] ${recipeVO.recipeName}</h5>

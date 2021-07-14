@@ -25,8 +25,8 @@ public class WebSecurityConfig  extends WebSecurityConfigurerAdapter{
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 			
-		http.authorizeRequests().antMatchers("/","/home","/loginForm","/user/**","/css/**","/fonts/**","/img/**","/js/**","/recipeBoardList","/recipeBoardView","/recipeListByCategory","/recipeListByCategoryAjax", "/recipeCountByCategory", "/fridge/**","/upload/**").permitAll().anyRequest().authenticated();
-		
+		http.authorizeRequests().antMatchers("/","/home","/loginForm","/user/**","/css/**","/fonts/**","/img/**","/js/**","/recipeBoardList","/recipeBoardView","/recipeListByCategory","/recipeListByCategoryAjax", "/recipeCountByCategory", "/fridge/**","/upload/**", "/recipeSearchResultPage").permitAll().anyRequest().authenticated();
+
 		http.formLogin().loginPage("/loginForm")
 			.loginProcessingUrl("/login")
 			.failureUrl("/login_fail")

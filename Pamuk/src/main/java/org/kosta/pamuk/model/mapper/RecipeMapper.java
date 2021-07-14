@@ -19,6 +19,9 @@ public interface RecipeMapper {
 	int getRecipeCountByCategory(String category);
 	int getContentCountByRecipeNo(int recipeNo);
 	int getItemCountByRecipeNo(int recipeNo);
+	int getRecipeListByWriterCount(String keyword);
+	int getRecipeListByItemsCount(String keyword);
+	int getRecipeListByRecipesCount(String keyword);
 	
 	//detail 조회 관련
 	ArrayList<RecipeVO> getAllRecipeListByRowNumber(int startRowNumber,int endRowNumber);
@@ -38,5 +41,7 @@ public interface RecipeMapper {
 	ArrayList<RecipeVO> getRecentRecipeListForMain();
 	
 	// recipe 검색 관련
-	ArrayList<RecipeVO> getRecipeListByWriter(int startRowNumber,int endRowNumber, String keyword);
+	ArrayList<RecipeVO> getRecipeListByWriter(String keyword);
+	ArrayList<RecipeVO> getRecipeListByItems(String keyword);
+	ArrayList<RecipeVO> getRecipeListByRecipes(String keyword);
 }
