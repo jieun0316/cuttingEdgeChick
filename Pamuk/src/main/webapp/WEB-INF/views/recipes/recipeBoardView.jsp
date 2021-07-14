@@ -93,8 +93,10 @@ $(document).ready(function () {
 							<i class="fa fa-star-o" aria-hidden="true"></i>
 						</div>
 					</div>
-					<a class="float-right btn text-white btn-danger saveBtn"> <i class="fa fa-heart"></i> My Recipe Save</a>
-					<a class="float-right btn text-danger btn-outline-danger saveBtn"> <i class="fa fa-heart"></i> My Recipe Save</a>
+					<!-- 저장되기 전 -->
+					<a class="float-right btn text-danger btn-outline-danger saveBtn off"> <i class="fa fa-heart"></i> My Recipe Save</a>
+					<!-- 저장완료 -->
+					<a class="float-right btn text-white btn-danger saveBtn on"> <i class="fa fa-heart"></i> My Recipe Save</a>
 				</div>
 			</div>
 
@@ -122,6 +124,32 @@ $(document).ready(function () {
 						</div>
 						<hr>
 					</c:forEach>
+					
+					<!-- test -->
+					<div class="prepStep">
+							<h4><input type="text" value="1. 오래 끓이기"></h4>
+							<div class="single-preparation-step d-flex">
+								<div class="preImgStep1 img mr-15">
+									<img src="/upload/481d2a42-876c-489f-ab27-16038d6ae319.jpg" alt="">
+								</div>
+								
+							</div>
+
+							<p class="mt-15">
+							<textarea rows="10">돼지고기 김치찌개는 오래 끓여야 더 맛있습니다
+중불로 줄여서 오래 끓여주세요~!!돼지고기 김치찌개는 오래 끓여야 더 맛있습니다
+중불로 줄여서 오래 끓여주세요~!!돼지고기 김치찌개는 오래 끓여야 더 맛있습니다
+중불로 줄여서 오래 끓여주세요~!!돼지고기 김치찌개는 오래 끓여야 더 맛있습니다
+중불로 줄여서 오래 끓여주세요~!!돼지고기 김치찌개는 오래 끓여야 더 맛있습니다
+중불로 줄여서 오래 끓여주세요~!!돼지고기 김치찌개는 오래 끓여야 더 맛있습니다
+중불로 줄여서 오래 끓여주세요~!!">
+						
+							</textarea>
+							</p>
+							<div class="d-flex justify-content-end">
+								<button type="button" class="btn btn-outline-success btn-sm modifyBtn">수정하기</button>
+							</div>
+						</div>
 				</div>
 
 				<!-- Ingredients -->
