@@ -1,6 +1,7 @@
 package org.kosta.pamuk.controller;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -10,8 +11,8 @@ import org.kosta.pamuk.model.mapper.ItemMapper;
 import org.kosta.pamuk.model.mapper.RecipeMapper;
 import org.kosta.pamuk.model.vo.MemberVO;
 import org.kosta.pamuk.model.vo.PagingBean;
-import org.kosta.pamuk.model.vo.RecipeVO;
 import org.kosta.pamuk.model.vo.RecipeContentVO;
+import org.kosta.pamuk.model.vo.RecipeVO;
 import org.kosta.pamuk.model.vo.ReviewVO;
 import org.kosta.pamuk.service.RecipeService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,10 +22,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+
 /**
  * Recipe 게시판에 관련된 비즈니스 로직을 정의합니다
  */
@@ -102,9 +103,6 @@ public class RecipeController {
 		
 		recipeVO.setRecipeThumbnail(savedFileName);
 		
-		
-		
-		
 		//2. step별 이미지 등록
 		List<RecipeContentVO> recipeContentList = recipeVO.getRecipeContentList();
 		for(int i=0; i<recipeContentList.size(); i++) {
@@ -130,7 +128,6 @@ public class RecipeController {
 		return "redirect:recipeBoardList";
 	}
 
-
 	/**
 	 * 레시피 게시판 상세보기(상세)
 	 * 리뷰 리스트
@@ -145,8 +142,10 @@ public class RecipeController {
 		model.addAttribute("reviewList", reviewList);
 		return "recipes/recipeBoardView.tiles";
 	}
+
 	/**
 	 * 카테고리별 게시판 목록 받아오기
+	 * 
 	 * @param category, pageNo, model
 	 * @return
 	 */
@@ -171,9 +170,10 @@ public class RecipeController {
 		model.addAttribute("pagingBean", pagingBean);
 		return "recipes/recipeBoardList.tiles";
 	}
-	
+
 	/**
 	 * 카테고리별 카테고리별 레시피 글 갯수 받아오기
+	 * 
 	 * @param category, model
 	 * @return
 	 */
@@ -181,15 +181,15 @@ public class RecipeController {
 	@ResponseBody
 	public int recipeCountByCategory(String category, Model model) {
 		int totalRecipeCount;
-		if(category.equals("전체")) { // 전체보기
+		if (category.equals("전체")) { // 전체보기
 			totalRecipeCount = recipeMapper.getTotalRecipeCount();
-		}else { // 카테고리별 보기이면
+		} else { // 카테고리별 보기이면
 			totalRecipeCount = recipeMapper.getRecipeCountByCategory(category);
 		}
 		model.addAttribute("totalRecipeCount", totalRecipeCount);
 		return totalRecipeCount;
 	}
-	
+
 	/**
 	 * 카테고리별 게시판 목록 받아오기 (Ajax 사용) ajax 적용하는 jsp로 return 되도록 작성
 	 * 
@@ -230,6 +230,21 @@ public class RecipeController {
 		return "recipes/recipeListAjax";
 	}
 	
+	 // 댓글 작성
+	@Secured("ROLE_MEMBER")
+	@PostMapping("writeReview")
+	public String postReview(ReviewVO reviewVO) {
+		reviewVO.setMemberVO( (MemberVO) SecurityContextHolder.getContext().getAuthentication().getPrincipal());	
+		//System.out.println(reviewVO);
+		recipeService.writeReview(reviewVO);
+		return  "redirect:/recipe/recipeBoardView?recipeNo="+reviewVO.getRecipeVO().getRecipeNo();
+	}
+
+	@RequestMapping("postReviewAjax")
+	public String postReviewAjax() {
+		return null;
+	}
+		
 	/**
 	 * 권한 check 후 레시피 게시글 삭제로 이동
 	 * @param recipeNo
@@ -278,21 +293,5 @@ public class RecipeController {
 		
 		
 		return "recipes/recipeSearchResultPage.tiles"; 
-	}
-	
-	
-	 // 댓글 작성
-	@Secured("ROLE_MEMBER")
-	@PostMapping("writeReview")
-	public String postReview(ReviewVO reviewVO) {
-		reviewVO.setMemberVO( (MemberVO) SecurityContextHolder.getContext().getAuthentication().getPrincipal());	
-		//System.out.println(reviewVO);
-		recipeService.writeReview(reviewVO);
-		return  "redirect:/recipe/recipeBoardView?recipeNo="+reviewVO.getRecipeVO().getRecipeNo();
-	}
-
-	@RequestMapping("postReviewAjax")
-	public String postReviewAjax() {
-		return null;
 	}
 }

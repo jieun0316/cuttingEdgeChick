@@ -22,6 +22,8 @@ import org.springframework.transaction.annotation.Transactional;
 public class RecipeServiceImpl implements RecipeService {
 	@Resource
 	private RecipeMapper recipeMapper;
+	@Resource
+	private MemberMapper memberMapper;
 	
 	/**
 	 * Recipe List 불러오기
@@ -115,7 +117,7 @@ public class RecipeServiceImpl implements RecipeService {
 		// TODO Auto-generated method stub
 		
 	}
-
+	
 	@Override
 	public void writeReview(ReviewVO reviewVO) {
 		String memberId = reviewVO.getMemberVO().getMemberId();

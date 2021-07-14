@@ -6,7 +6,7 @@ public class RecipeContentVO {
 	private String stepTitle;
 	private String content;
 	private String imagePath;
-	
+
 	public RecipeContentVO() {
 		super();
 		// TODO Auto-generated constructor stub
@@ -66,9 +66,5 @@ public class RecipeContentVO {
 		return "RecipeContentVO [recipeNo=" + recipeNo + ", stepNo=" + stepNo + ", stepTitle=" + stepTitle
 				+ ", content=" + content + ", imagePath=" + imagePath + "]";
 	}
-	
-	
-	
-	
-	
+
 }

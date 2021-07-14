@@ -61,20 +61,20 @@
                                     <li><a href="/home">Home</a></li>
                                     <li><a href="/recipe/recipeBoardList">레시피</a>
                                         <ul class="dropdown">
-                                            <li><a href="/recipe/recipeListByCategory?category=한식">한식</a></li>
-                                            <li><a href="/recipe/recipeListByCategory?category=일식">일식</a></li>
-                                            <li><a href="/recipe/recipeListByCategory?category=중식">중식</a></li>
-                                            <li><a href="/recipe/recipeListByCategory?category=양식">양식</a></li>
+                                            <li><a href="/recipeListByCategory?category=한식">한식</a></li>
+                                            <li><a href="/recipeListByCategory?category=일식">일식</a></li>
+                                            <li><a href="/recipeListByCategory?category=중식">중식</a></li>
+                                            <li><a href="/recipeListByCategory?category=양식">양식</a></li>
                                         </ul>
                                     </li>
                                     <li><a href="#">냉장고</a>
                                         <ul class="dropdown">
                                             <li><a href="#">나의 냉장고 관리</a>
                                                 <ul class="dropdown">
-                                                    <li><a href="index.html">냉장고 정보 등록</a></li>
-                                                    <li><a href="about.html">냉장고 정보 수정</a></li>
-                                                    <li><a href="receipe-post.html">재료 검색</a></li>
-                                                    <li><a href="blog-post.html">유통기한 임박재료</a></li>
+                                                    <li><a href="/fridge/fridge-register-form">냉장고 정보 등록</a></li>
+                                                    <li><a href="/fridge/fridge-update-form">냉장고 정보 수정</a></li>
+                                                    <li><a href="/fridge/item-list">재료 검색</a></li>
+                                                    <li><a href="/fridge/blog-post.html">유통기한 임박재료</a></li>
                                                 </ul>
                                             </li>
                                             <li><a href="about.html">재료별 레시피 추천 </a></li>

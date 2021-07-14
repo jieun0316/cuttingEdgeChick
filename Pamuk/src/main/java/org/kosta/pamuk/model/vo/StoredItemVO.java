@@ -24,6 +24,16 @@ public class StoredItemVO extends ItemVO {
 		this.storedDate = storedDate;
 		this.qty = qty;
 	}
+	
+	//추가
+	public StoredItemVO(String itemName, StorageVO storageVO, String expiryDate, String storedDate, String qty) {
+		super(itemName);
+		this.storageVO = storageVO;
+		this.expiryDate = expiryDate;
+		this.storedDate = storedDate;
+		this.qty = qty;
+	}
+
 	public int getStoredItemNo() {
 		return storedItemNo;
 	}
