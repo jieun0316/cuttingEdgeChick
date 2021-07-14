@@ -237,6 +237,7 @@ public class RecipeController {
 	public String postReview(ReviewVO reviewVO) {
 		reviewVO.setMemberVO( (MemberVO) SecurityContextHolder.getContext().getAuthentication().getPrincipal());	
 		//System.out.println(reviewVO);
+		recipeService.writeReview(reviewVO);
 		return  "redirect:/recipe/recipeBoardView?recipeNo="+reviewVO.getRecipeVO().getRecipeNo();
 	}
 

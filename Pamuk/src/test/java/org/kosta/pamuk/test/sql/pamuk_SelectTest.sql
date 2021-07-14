@@ -6,6 +6,8 @@ select * from RECIPE_CONTENT;
 select * from authorities;
 select * from review
 
+truncate table review
+
 SELECT M.name, M.nick, A.authority FROM member M, authorities A	WHERE M.member_id=A.member_id;
 select count(*) from member where member_id='aa'
 
