@@ -20,7 +20,7 @@ public class ItemController {
 	@Resource
 	ItemMapper itemMapper;
 	
-	@RequestMapping(value="itemListByCategoryAjax", method=RequestMethod.GET)
+	@RequestMapping(value="recipe/itemListByCategoryAjax", method=RequestMethod.GET)
 	public @ResponseBody List<ItemVO> itemListByCategoryAjax(String categoryName) {
 		List<ItemVO> itemList = itemMapper.getItemListByCategory(categoryName);
 		
