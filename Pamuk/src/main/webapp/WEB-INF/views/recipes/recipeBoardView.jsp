@@ -1,10 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<<<<<<< HEAD
 <%@taglib prefix="sec"
 	uri="http://www.springframework.org/security/tags"%>
 <sec:authentication var="mvo" property="principal" />
 
+=======
+<%@taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
+<sec:authentication var="mvo" property="principal" /> 
+>>>>>>> refs/remotes/origin/main
 <script type="text/javascript">
 $(document).ready(function () {
 	  function setRating(rating) {
@@ -87,16 +92,28 @@ $(document).ready(function () {
 
 				<div class="col-12 col-md-4">
 					<div class="receipe-ratings text-right my-5">
+<<<<<<< HEAD
 
+=======
+>>>>>>> refs/remotes/origin/main
 						<div class="ratings">
 							<i class="fa fa-star" aria-hidden="true"></i> <i
 								class="fa fa-star" aria-hidden="true"></i> <i class="fa fa-star"
 								aria-hidden="true"></i> <i class="fa fa-star" aria-hidden="true"></i>
 							<i class="fa fa-star-o" aria-hidden="true"></i>
 						</div>
+<<<<<<< HEAD
 
+=======
+>>>>>>> refs/remotes/origin/main
 					</div>
+<<<<<<< HEAD
 
+=======
+					<a class="float-right btn text-white btn-danger saveBtn"> <i class="fa fa-heart"></i> My Recipe Save</a>
+					<a class="float-right btn text-danger btn-outline-danger saveBtn"> <i class="fa fa-heart"></i> My Recipe Save</a>
+					
+>>>>>>> refs/remotes/origin/main
 				</div>
 			</div>
 
@@ -118,7 +135,13 @@ $(document).ready(function () {
 							</div>
 
 							<p class="mt-15">${content.content}</p>
+<<<<<<< HEAD
 
+=======
+							<div class="d-flex justify-content-end">
+								<button type="button" class="btn btn-outline-success btn-sm modifyBtn">수정하기</button>
+							</div>
+>>>>>>> refs/remotes/origin/main
 						</div>
 						<hr>
 					</c:forEach>
@@ -144,8 +167,12 @@ $(document).ready(function () {
 					</div>
 
 				</div>
+<<<<<<< HEAD
 
 			</div>
+=======
+				
+>>>>>>> refs/remotes/origin/main
 			<div class="row col-6 text-left mb-15">
 				<h3>리뷰</h3>
 			</div>
