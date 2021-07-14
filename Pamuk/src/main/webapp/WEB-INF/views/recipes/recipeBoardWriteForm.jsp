@@ -137,7 +137,7 @@
 									<!-- <ul id="item_ul_list" class="list-group list-group-flush"></ul> -->
 								</div>
 
-								<div class="col-6 form-control vertical" id="selectedItemList" name="" style="height: 300px; overflow-y: scroll;">
+								<div class="col-6 form-control" id="selectedItemList" name="" style="height: 300px; overflow-y: scroll;">
 									<table>
 										<thead>
 											<tr>
@@ -149,6 +149,8 @@
 									</table>
 								</div>
 							</div>
+						</div>
+						<div class="row">
 							<div class="col-12" id="recipeStepWrap">
 								<!-- 이 곳에 step이 추가 되고 있어요 -->
 							</div>

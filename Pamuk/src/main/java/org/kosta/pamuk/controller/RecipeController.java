@@ -1,6 +1,7 @@
 package org.kosta.pamuk.controller;
 import java.io.File;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -236,7 +237,6 @@ public class RecipeController {
 	public String postReview(ReviewVO reviewVO) {
 		reviewVO.setMemberVO( (MemberVO) SecurityContextHolder.getContext().getAuthentication().getPrincipal());	
 		//System.out.println(reviewVO);
-		recipeService.writeReview(reviewVO);
 		return  "redirect:/recipe/recipeBoardView?recipeNo="+reviewVO.getRecipeVO().getRecipeNo();
 	}
 
