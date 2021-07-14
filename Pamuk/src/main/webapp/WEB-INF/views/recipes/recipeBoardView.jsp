@@ -3,7 +3,16 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 <sec:authentication var="mvo" property="principal" /> 
-
+<script>
+	$(document).ready( function(){
+		// alert("ok");
+		// 
+		$(".saveBtn").on("click", function(){
+			
+		});
+		
+	});
+</script>
 <!-- 
 	레시피 게시판 목록 보기 페이지
  -->
@@ -55,8 +64,8 @@
 							<i class="fa fa-star-o" aria-hidden="true"></i>
 						</div>
 					</div>
-					<a class="float-right btn text-white btn-danger"> <i class="fa fa-heart"></i> Like</a>
-					<a class="float-right btn text-danger btn-outline-danger"> <i class="fa fa-heart"></i> Like</a>
+					<a class="float-right btn text-white btn-danger saveBtn"> <i class="fa fa-heart"></i> My Recipe Save</a>
+					<a class="float-right btn text-danger btn-outline-danger saveBtn"> <i class="fa fa-heart"></i> My Recipe Save</a>
 					
 				</div>
 			</div>
@@ -79,6 +88,9 @@
 								<%-- <p>${paramMap.recipeContentVOList}</p> --%>
 							</div>
 							<p class="mt-15">${content.content}</p>
+							<div class="d-flex justify-content-end">
+								<button type="button" class="btn btn-outline-success btn-sm modifyBtn">수정하기</button>
+							</div>
 						</div>
                     	<hr>
 					</c:forEach>
