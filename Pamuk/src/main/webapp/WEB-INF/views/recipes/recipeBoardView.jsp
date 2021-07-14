@@ -2,7 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
-<sec:authentication var="mvo" property="principal" /> 
+
 
 <script type="text/javascript">
 $(document).ready(function () {
@@ -38,6 +38,13 @@ $(document).ready(function () {
 	      setRating(rating);
 	    }
 	  });
+	  $("#deleteReviewBtn").click(function() {
+	  	let result = confirm("댓글을 삭제하시겠습니까?");
+	  	if(result){
+	  		$("#deleteReview").submit();
+	  	} 
+	  	return;
+	  })
 	});
 </script>
 
@@ -91,11 +98,8 @@ $(document).ready(function () {
 							<i class="fa fa-star-o" aria-hidden="true"></i>
 						</div>
 					</div>
-<<<<<<< HEAD
-=======
 					<a class="float-right btn text-white btn-danger saveBtn"> <i class="fa fa-heart"></i> My Recipe Save</a>
 					<a class="float-right btn text-danger btn-outline-danger saveBtn"> <i class="fa fa-heart"></i> My Recipe Save</a>
->>>>>>> branch 'main' of https://github.com/jieun0316/cuttingEdgeChick.git
 				</div>
 			</div>
 
@@ -147,7 +151,7 @@ $(document).ready(function () {
 				</div>
 			</div>
 			<div class="row col-6 text-left mb-15">
-				<h3>리뷰</h3>
+				<h3>리뷰( ${countReview}개 )</h3>
 			</div>
 			<!-- 댓글 리스트 -->
 			<c:forEach items="${reviewList}" var="review">
@@ -180,12 +184,18 @@ $(document).ready(function () {
 			        	       <div class="clearfix"></div>
 			        	        <p>${review.reviewComment}</p>
 			        	        <p>
+			        	        	<sec:authorize access="isAuthenticated()">
+			        	        	<sec:authentication var="mvo" property="principal" />
 			        	        	<c:choose>
 			        	        		<c:when test="${review.memberVO.memberId==mvo.memberId}">
-				        	        		<form action="${pageContext.request.contextPath}/recipe/updateReview" method="post" id="updateReview">
-				        	        			<button type="submit" class="float-right btn btn-outline-primary ml-2"><i class="fa fa-trash"></i> 삭제</button>
+				        	        		<form action="${pageContext.request.contextPath}/recipe/deleteReview" method="post" name="deleteReview" id="deleteReview">
+				        	        			<sec:csrfInput />
+				        	        			<input type="hidden" name="recipeVO.recipeNo" value="${recipeVO.recipeNo}" id="recipeNo"/>
+				        	        			<button type="button" id="deleteReviewBtn" class="float-right btn btn-outline-primary ml-2"><i class="fa fa-trash"></i> 삭제</button>
 				        	        		</form>
-				        	        		<form action="">
+				        	        		<form action="${pageContext.request.contextPath}/recipe/updateReview" method="post" id="updateReview">
+				        	        			<sec:csrfInput />
+				        	        			<input type="hidden" name="recipeVO.recipeNo" value="${recipeVO.recipeNo}" id="recipeNo"/>
 				        	          			<button type="submit" class="float-right btn btn-outline-primary ml-2"><i class="fa fa-reply"></i> 수정</button>
 				        	          		</form>
 			        	        		</c:when>
@@ -193,6 +203,7 @@ $(document).ready(function () {
 											 <a class="float-right btn text-white btn-danger"> <i class="fa fa-heart"></i> Like</a>
 			        	        		</c:otherwise>
 			        	        	</c:choose>
+			        	        	</sec:authorize>
 			        	       </p>
 			        	    </div>
 				        </div>
@@ -222,7 +233,7 @@ $(document).ready(function () {
 											<i class="fa fa-star-o fa-2x rating-star" id="rating-5" data-rating="5" tabindex="0" aria-label="Rate as five out of 5 stars" role="radio"></i>
 										</div>
 			        	       <div class="clearfix"></div>
-			        	       	<textarea name="reviewComment" style="width:100%; border:0 none; resize: none;" placeholder="작성해주세요" rows="5"></textarea>
+			        	       	<textarea name="reviewComment" style="width:100%; border:0 none; resize: none;" placeholder="작성해주세요" rows="5" required="required"></textarea>
 			        	       	<button type="submit" class="float-right btn btn-outline-primary ml-2"> <i class="fa fa-reply"></i> 작성 </button>
 			        	    	</form>
 			        	    </div>

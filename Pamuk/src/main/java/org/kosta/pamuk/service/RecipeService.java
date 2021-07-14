@@ -53,6 +53,8 @@ public interface RecipeService {
 	 * @param recipeNo
 	 */
 	void deleteRecipeByRecipeNo(int recipeNo);
-	void writeReview(ReviewVO reviewVO);
+	void writeReview(ReviewVO reviewVO); 
 	ArrayList<ReviewVO> readReview(int recipeNo);
+	void updateReview(ReviewVO reviewVO);
+	void deleteReview(ReviewVO reviewVO);
 }
