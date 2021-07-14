@@ -65,7 +65,8 @@ $(document).ready(function () {
 					<div class="row mt-50">
 						<form action="deleteRecipeForm" method="post">
 							<sec:csrfInput />
-							<button type="submit" class="btn btn-outline-success">레시피 삭제</button>
+							<button type="submit" class="btn btn-outline-success">레시피
+								삭제</button>
 							<input type="hidden" name="recipeNo" value="${recipeVO.recipeNo}">
 						</form>
 					</div>
@@ -79,22 +80,22 @@ $(document).ready(function () {
 								<h6>작성자 : ${recipeVO.memberVO.memberId}</h6>
 							</div>
 						</div>
-						
 					</div>
 				</div>
-
 				<div class="col-12 col-md-4">
 					<div class="receipe-ratings text-right my-5">
-					
 						<div class="ratings">
 							<i class="fa fa-star" aria-hidden="true"></i> <i
 								class="fa fa-star" aria-hidden="true"></i> <i class="fa fa-star"
 								aria-hidden="true"></i> <i class="fa fa-star" aria-hidden="true"></i>
 							<i class="fa fa-star-o" aria-hidden="true"></i>
 						</div>
-						
 					</div>
-					
+<<<<<<< HEAD
+=======
+					<a class="float-right btn text-white btn-danger saveBtn"> <i class="fa fa-heart"></i> My Recipe Save</a>
+					<a class="float-right btn text-danger btn-outline-danger saveBtn"> <i class="fa fa-heart"></i> My Recipe Save</a>
+>>>>>>> branch 'main' of https://github.com/jieun0316/cuttingEdgeChick.git
 				</div>
 			</div>
 
@@ -103,6 +104,8 @@ $(document).ready(function () {
 					<!-- Single Preparation Step -->
 					<c:forEach items="${recipeVO.recipeContentList}" var="content">
 						<div class="prepStep">
+							<h4>${content.stepNo}. ${content.stepTitle}</h4>
+							
 
 							<div class="single-preparation-step d-flex">
 								<div class="preImgStep1 img mr-15">
@@ -110,14 +113,15 @@ $(document).ready(function () {
 										src="${pageContext.request.contextPath}/upload/${content.imagePath}"
 										alt="">
 								</div>
-								<h4>${content.stepNo}.</h4>
-								<h5 class="mr-15">${content.stepTitle}</h5>
-								
 								<%-- <p>${paramMap.recipeContentVOList}</p> --%>
 							</div>
+
 							<p class="mt-15">${content.content}</p>
+							<div class="d-flex justify-content-end">
+								<button type="button" class="btn btn-outline-success btn-sm modifyBtn">수정하기</button>
+							</div>
 						</div>
-                    	<hr>
+						<hr>
 					</c:forEach>
 				</div>
 
@@ -127,19 +131,20 @@ $(document).ready(function () {
 						<h4>필요한 재료</h4>
 
 						<!-- Custom Checkbox -->
-						<c:forEach items="${recipeVO.recipeItemList}" var="item" varStatus="order">
-						<div class="custom-control custom-checkbox">
-							<input type="checkbox" class="custom-control-input"
-								id="customCheck${order.count}"> <label class="custom-control-label"
-								for="customCheck${order.count}">${item.itemName}, ${item.qty}</label>
-						</div>
+						<c:forEach items="${recipeVO.recipeItemList}" var="item"
+							varStatus="order">
+							<div class="custom-control custom-checkbox">
+								<input type="checkbox" class="custom-control-input"
+									id="customCheck${order.count}"> <label
+									class="custom-control-label" for="customCheck${order.count}">${item.itemName},
+									${item.qty}</label>
+							</div>
 						</c:forEach>
 
-						
+
 					</div>
-					
+
 				</div>
-				
 			</div>
 			<div class="row col-6 text-left mb-15">
 				<h3>리뷰</h3>
@@ -177,8 +182,12 @@ $(document).ready(function () {
 			        	        <p>
 			        	        	<c:choose>
 			        	        		<c:when test="${review.memberVO.memberId==mvo.memberId}">
-			        	        			<a class="float-right btn btn-outline-primary ml-2"><i class="fa fa-trash"></i> 삭제</a>
-			        	          			<a class="float-right btn btn-outline-primary ml-2"> <i class="fa fa-reply"></i> 수정</a>
+				        	        		<form action="${pageContext.request.contextPath}/recipe/updateReview" method="post" id="updateReview">
+				        	        			<button type="submit" class="float-right btn btn-outline-primary ml-2"><i class="fa fa-trash"></i> 삭제</button>
+				        	        		</form>
+				        	        		<form action="">
+				        	          			<button type="submit" class="float-right btn btn-outline-primary ml-2"><i class="fa fa-reply"></i> 수정</button>
+				        	          		</form>
 			        	        		</c:when>
 			        	        		<c:otherwise>
 											 <a class="float-right btn text-white btn-danger"> <i class="fa fa-heart"></i> Like</a>
