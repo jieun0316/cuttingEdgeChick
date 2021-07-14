@@ -3,6 +3,7 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 <sec:authentication var="mvo" property="principal" /> 
+
 <script type="text/javascript">
 $(document).ready(function () {
 	  function setRating(rating) {
@@ -64,7 +65,8 @@ $(document).ready(function () {
 					<div class="row mt-50">
 						<form action="deleteRecipeForm" method="post">
 							<sec:csrfInput />
-							<button type="submit" class="btn btn-outline-success">레시피 삭제</button>
+							<button type="submit" class="btn btn-outline-success">레시피
+								삭제</button>
 							<input type="hidden" name="recipeNo" value="${recipeVO.recipeNo}">
 						</form>
 					</div>
@@ -93,7 +95,6 @@ $(document).ready(function () {
 					</div>
 					<a class="float-right btn text-white btn-danger saveBtn"> <i class="fa fa-heart"></i> My Recipe Save</a>
 					<a class="float-right btn text-danger btn-outline-danger saveBtn"> <i class="fa fa-heart"></i> My Recipe Save</a>
-					
 				</div>
 			</div>
 
@@ -102,6 +103,8 @@ $(document).ready(function () {
 					<!-- Single Preparation Step -->
 					<c:forEach items="${recipeVO.recipeContentList}" var="content">
 						<div class="prepStep">
+							<h4>${content.stepNo}. ${content.stepTitle}</h4>
+							
 
 							<div class="single-preparation-step d-flex">
 								<div class="preImgStep1 img mr-15">
@@ -109,17 +112,15 @@ $(document).ready(function () {
 										src="${pageContext.request.contextPath}/upload/${content.imagePath}"
 										alt="">
 								</div>
-								<h4>${content.stepNo}.</h4>
-								<h5 class="mr-15">${content.stepTitle}</h5>
-								
 								<%-- <p>${paramMap.recipeContentVOList}</p> --%>
 							</div>
+
 							<p class="mt-15">${content.content}</p>
 							<div class="d-flex justify-content-end">
 								<button type="button" class="btn btn-outline-success btn-sm modifyBtn">수정하기</button>
 							</div>
 						</div>
-                    	<hr>
+						<hr>
 					</c:forEach>
 				</div>
 
@@ -129,19 +130,21 @@ $(document).ready(function () {
 						<h4>필요한 재료</h4>
 
 						<!-- Custom Checkbox -->
-						<c:forEach items="${recipeVO.recipeItemList}" var="item" varStatus="order">
-						<div class="custom-control custom-checkbox">
-							<input type="checkbox" class="custom-control-input"
-								id="customCheck${order.count}"> <label class="custom-control-label"
-								for="customCheck${order.count}">${item.itemName}, ${item.qty}</label>
-						</div>
+						<c:forEach items="${recipeVO.recipeItemList}" var="item"
+							varStatus="order">
+							<div class="custom-control custom-checkbox">
+								<input type="checkbox" class="custom-control-input"
+									id="customCheck${order.count}"> <label
+									class="custom-control-label" for="customCheck${order.count}">${item.itemName},
+									${item.qty}</label>
+							</div>
 						</c:forEach>
 
-						
+
 					</div>
-					
+
 				</div>
-				
+			</div>
 			<div class="row col-6 text-left mb-15">
 				<h3>리뷰</h3>
 			</div>
