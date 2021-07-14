@@ -3,7 +3,6 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 <sec:authentication var="mvo" property="principal" /> 
-
 <script type="text/javascript">
 $(document).ready(function () {
 	  function setRating(rating) {
@@ -85,15 +84,15 @@ $(document).ready(function () {
 
 				<div class="col-12 col-md-4">
 					<div class="receipe-ratings text-right my-5">
-					
 						<div class="ratings">
 							<i class="fa fa-star" aria-hidden="true"></i> <i
 								class="fa fa-star" aria-hidden="true"></i> <i class="fa fa-star"
 								aria-hidden="true"></i> <i class="fa fa-star" aria-hidden="true"></i>
 							<i class="fa fa-star-o" aria-hidden="true"></i>
 						</div>
-						
 					</div>
+					<a class="float-right btn text-white btn-danger saveBtn"> <i class="fa fa-heart"></i> My Recipe Save</a>
+					<a class="float-right btn text-danger btn-outline-danger saveBtn"> <i class="fa fa-heart"></i> My Recipe Save</a>
 					
 				</div>
 			</div>
@@ -116,6 +115,9 @@ $(document).ready(function () {
 								<%-- <p>${paramMap.recipeContentVOList}</p> --%>
 							</div>
 							<p class="mt-15">${content.content}</p>
+							<div class="d-flex justify-content-end">
+								<button type="button" class="btn btn-outline-success btn-sm modifyBtn">수정하기</button>
+							</div>
 						</div>
                     	<hr>
 					</c:forEach>
@@ -140,7 +142,6 @@ $(document).ready(function () {
 					
 				</div>
 				
-			</div>
 			<div class="row col-6 text-left mb-15">
 				<h3>리뷰</h3>
 			</div>
