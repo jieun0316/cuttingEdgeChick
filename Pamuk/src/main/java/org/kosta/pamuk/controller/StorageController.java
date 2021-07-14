@@ -95,14 +95,7 @@ public List<StoredItemVO> getStoredItemByStorageNoAjax(int storageNo) {
 	return sm.getStoredItemByStorageNo(storageNo);
 }
 
-<<<<<<< HEAD
-=======
-@RequestMapping("getTotalStoredItemList")
-@ResponseBody
-public Map<String, String[]> getTotalStoredItemList(String storageNo){
-	return sm.getTotalStoredItemList(storageNo);
-}
->>>>>>> branch 'KJYE' of https://github.com/jieun0316/cuttingEdgeChick.git
+
 /*
  * 현재수정중
  */
