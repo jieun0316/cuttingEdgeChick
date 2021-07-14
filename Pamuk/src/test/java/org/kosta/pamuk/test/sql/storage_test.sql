@@ -1,4 +1,4 @@
-create table member(
+--create table member(
 	member_id varchar2(100) primary key,
 	password varchar2(100) not null,
 	email varchar2(100) not null unique,
@@ -6,7 +6,21 @@ create table member(
 	nick varchar2(100) not null,
 	status NUMBER default 0,
 	birth DATE not null
-)
+--)
+ALTER TABLE member ADD gender varchar2(2) default 'M' NOT NULL;
+	
+create table member(
+   member_id varchar2(100) primary key,
+   password varchar2(100) not null,
+   email varchar2(100) not null unique,
+   name varchar2(100) not null,
+   nick varchar2(100) not null,
+   status NUMBER default 0,
+   birth DATE not null,
+   gender varchar2(2) not null
+);
+
+
 INSERT INTO member VALUES ('java','a','java@email.com','아이유','자바',0,'19930316')
 
 create table storage(
@@ -20,6 +34,7 @@ create sequence storage_seq;
 INSERT INTO storage VALUES (storage_seq.nextval, 'java', '냉장', 1)
 DELETE FROM storage WHERE member_id='java'
 select * from member;
+select * from AUTHORITIES;
 select * from storage;
 delete from STORAGE
 select * from STORED_ITEM;
@@ -60,4 +75,8 @@ insert into stored_item VALUES(stored_item_seq.nextval,24,'딸기','지은최애
 update STORED_ITEM set QTY = '8알' , STORED_DATE='20210705', EXPIRY_DATE='20210830' where STORAGE_NO=1; 	
 -------------------------------------------------
 
+SELECT TRUNC(SYSDATE - EXPIRY_DATE) FROM stored_item WHERE stored_item_no = 56;
+SELECT TRUNC(SYSDATE - TO_DATE('20210706')) FROM DUAL
+SELECT MONTHS_BETWEEN(EXPIRY_DATE, SYSDATE) FROM stored_item WHERE stored_item_no = 56;
 
+SELECT TO_DATE('20210706') - SYSDATE from dual;

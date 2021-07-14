@@ -1,6 +1,7 @@
 package org.kosta.pamuk.model.mapper;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.kosta.pamuk.model.vo.StorageVO;
@@ -21,4 +22,11 @@ public interface StorageMapper {
 	
 	//추가
 	void storeItem(StoredItemVO siv);
+	
+	int showRemingDay(int stored_item_no);
+	
+	//07-14일
+	  List<Map<String, Object>> getTotalStoredItemList(List<StorageVO> storageVOList);
+	  
+	  String getTotalStoredItemList2(String id);
 }

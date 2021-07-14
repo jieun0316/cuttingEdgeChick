@@ -12,10 +12,10 @@ $(document).ready(function(){
 			alert("아이디 중복확인을 하세요");
 			return false;
 		}
-		if(gender==""){
+		/* if(gender==""){
 			alert("성별을 넣어주세요");
 			return false;
-		}
+		} */
 	});
 		// spring security 적용시 ajax post 방식은 아래와 같이 beforeSend property에서 csrf 값을 셋팅해야 함 
 	$("#idCheck").click(function() {
@@ -95,7 +95,8 @@ $(document).ready(function(){
                                 </div>
                                 <div class="col-12 col-lg-7  ml-auto mr-auto">
                                 	생년월일
-                                    <input type="date" class="form-control" name="birth" placeholder="가입하시는 분의 생년월일을 입력해주세요" required="required">
+                                    <input type="date" class="form-control" name="birth" placeholder="가입하시는 분의 생년월일을 입력해주세요" >
+                                    <!--required="required" ㅂ  -->
                                 </div>
                                 <div class="col-12 col-lg-7 ml-auto mr-auto mb-30">
                                 성별

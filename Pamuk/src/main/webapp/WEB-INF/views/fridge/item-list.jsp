@@ -64,9 +64,12 @@ $(document).ready(function(){
          row+="<td><button type='reset' '>리셋</button></td>";
          row+="<td>"+storageName+"</td>";
          row+="<input type='hidden' name='storageNo' value='"+storageNo+"'>";
-         row+="<td><input type='text' name='qty'  style='width:80px;'></td><td><input type='date' name='storedDate' style='width:100px;'></td><td><input type='date' name='expiryDate' style='width:100px;'></td>"; 
+         row+="<td><input type='text' name='qty' style='width:80px;'></td><td><input type='date' name='storedDate' style='width:100px;'></td><td><input type='date' name='expiryDate'  style='width:100px;'></td>"; 
+
          row+="</tr>";
+      /* if($("td[name='expiryDate']").val()=="") */
       }
+      
       $(opener.document).find("#newItemInfo").append(row);
    });
 });

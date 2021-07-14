@@ -45,7 +45,34 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		values (stored_item_seq.nextval, #{storageVO.storageNo}, #{itemName},
 		#{expiryDate}, #{storedDate}, #{qty})
 	</insert>
+	
+	
+	<!-- 유통기한 임박 재료 표시 -->
+	<select id="showRemingDay" parameterType="int" resultType="int">
+		SELECT TRUNC(EXPIRY_DATE - SYSDATE) from stored_item WHERE stored_item_no = #{value}
+	</select>
+	
+	<!-- 07/14 추가 -->
+	<select id="getTotalStoredItemList" parameterType="list"
+		resultType="map">
+		SELECT DISTINCT storage_no, LISTAGG(item_name, ',') WITHIN GROUP
+		(ORDER BY expiry_date) OVER (PARTITION BY storage_no) AS item_list
+		FROM (SELECT item_name, storage_no, expiry_date FROM stored_item WHERE
+		storage_no IN
+		<foreach collection="storageVOList" item="storage" open="("
+			close=")" separator=",">
+			#{storage.storageNo}
+		</foreach>
+		) ORDER BY storage_no
+	</select>
 
+	<!-- 07/14 추가 -->
+	<select id="getTotalStoredItemList2" parameterType="string"
+		resultType="string">
+		SELECT DISTINCT LISTAGG(item_name, ',') WITHIN GROUP (ORDER BY item_name)
+		FROM (SELECT DISTINCT item_name FROM stored_item WHERE storage_no IN
+		(SELECT storage_no FROM storage WHERE member_id=#{value} ))
+	</select>   
 </mapper>
  
  
