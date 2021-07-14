@@ -1394,11 +1394,13 @@ textarea:focus {
     font-size: 18px; }
 
 /* Features Area */
-.single-feature-area {
+.rating .rating-star {
+	display: inline-block;
   position: relative;
-  z-index: 1; }
-  .single-feature-area h5 {
-    margin-bottom: 0;
-    padding-left: 30px; }
-
-/*# sourceMappingURL=style.css.map */
+  padding-right: 5px;
+  margin-left: -5px;
+  color: #e3cf7a;
+}
+.rating .selected:before {
+  content: '\f005';
+}

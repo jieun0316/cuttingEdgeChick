@@ -124,7 +124,7 @@ drop sequence storage_seq;
 drop table stored_item;
 drop sequence stored_item_seq;
 
-<<<<<<< HEAD
+
 SELECT rnum_view.*
 FROM (
 	SELECT ROWNUM as rnum, recipe_view.*
@@ -134,9 +134,9 @@ FROM (
 		WHERE m.member_id = r.member_id ORDER BY recipe_no DESC)recipe_view
 	)rnum_view
 WHERE rnum between '1' and '6'
-=======
+
 select member_id, name, email, to_char(birth, 'yyyy-mm-dd') as birth from member where member_id='sukuon' and status=0
->>>>>>> refs/heads/WaterPunch
+
 
 
 

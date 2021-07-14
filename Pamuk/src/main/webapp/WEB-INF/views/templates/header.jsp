@@ -59,7 +59,7 @@
                             <div class="classynav">
                                 <ul>
                                     <li><a href="/home">Home</a></li>
-                                    <li><a href="/recipeBoardList">레시피</a>
+                                    <li><a href="/recipe/recipeBoardList">레시피</a>
                                         <ul class="dropdown">
                                             <li><a href="/recipeListByCategory?category=한식">한식</a></li>
                                             <li><a href="/recipeListByCategory?category=일식">일식</a></li>
@@ -127,7 +127,7 @@
 								</sec:authorize>
 								<sec:authorize access="isAuthenticated()">
 								<div>
-									<sec:authentication property="principal.name" />님 안녕하세용&nbsp;&nbsp;&nbsp;
+									<sec:authentication property="principal.nick" />님 안녕하세용&nbsp;&nbsp;&nbsp;
 								</div>
 								<div class="logout-btn">
                                     <a href="#" id="logoutAction">Logout&nbsp;&nbsp;<i class="fa fa-user" aria-hidden="true"></i></a>

@@ -72,6 +72,7 @@ create table review(
 	constraint fk_review_recipe foreign key(recipe_no) references recipe(recipe_no) ON DELETE CASCADE,
 	constraint pk_member_review primary key(member_id, recipe_no)
 );
+alter table review rename column grade to rating
 
 --5
 create table recipe_content(

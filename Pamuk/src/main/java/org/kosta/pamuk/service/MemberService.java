@@ -16,4 +16,9 @@ public interface MemberService {
 	public MemberVO findMemberById(String memberId);
 	List<AuthoritiesVO> selectAuthorityById(String memberId);
 	String idCheck(String memberId);
+	List<MemberVO> adminList();
+	void disaccreditAdmin(String memberId);
+	List<MemberVO> findMemberAll();
+	List<MemberVO> findMemberByNick(String nick);
+	void authorizeAdmin(String memberId);
 }

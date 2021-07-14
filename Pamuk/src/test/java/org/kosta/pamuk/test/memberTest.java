@@ -2,7 +2,6 @@ package org.kosta.pamuk.test;
 
 import org.junit.jupiter.api.Test;
 import org.kosta.pamuk.model.mapper.MemberMapper;
-import org.kosta.pamuk.model.vo.MemberVO;
 import org.kosta.pamuk.service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -36,7 +35,16 @@ class memberTest {
 		//ms.registerMember(a);
 		System.out.println(ms.findMemberById("aa"));
 		*/
-		System.out.println(ms.idCheck("sukuon"));
+		//System.out.println(ms.idCheck("sukuon"));
+		
+		/*
+		System.out.println(ms.adminList());
+		ms.authorizeAdmin("java");
+		System.out.println(ms.adminList());
+		*/
+		String nick = ms.findMemberById("sukuon").getNick();
+		System.out.println(nick);
+		
 	}
 
 }
