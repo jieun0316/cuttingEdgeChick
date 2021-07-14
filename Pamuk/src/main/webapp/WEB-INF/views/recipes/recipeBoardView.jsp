@@ -77,19 +77,11 @@
 										src="${pageContext.request.contextPath}/upload/${content.imagePath}"
 										alt="">
 								</div>
-<<<<<<< HEAD
-=======
-								<h4>${content.stepNo}.</h4>
-								<h5 class="mr-15">${content.stepTitle}</h5>
-								
->>>>>>> refs/remotes/origin/main
 								<%-- <p>${paramMap.recipeContentVOList}</p> --%>
 							</div>
-<<<<<<< HEAD
-							<p>${content.content}</p>
-=======
+
 							<p class="mt-15">${content.content}</p>
->>>>>>> refs/remotes/origin/main
+
 						</div>
 						<hr>
 					</c:forEach>

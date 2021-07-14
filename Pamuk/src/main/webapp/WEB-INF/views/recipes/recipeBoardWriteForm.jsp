@@ -21,7 +21,7 @@
 				data : { "categoryName" : $(this).attr('value') },
 				success : function(responseData){	
 					$("#ajax").remove();
-					$("#item_ul_list").html("");
+					$("#ItemList").html("");
 					$.each(responseData, function(index) {
 						console.log($(this)[0].itemName);
 						//얘를 목록에 뿌려주면 됩니다!!
@@ -34,7 +34,7 @@
 						//let itemForm = '<li>'+$(this)[0].itemName+'</li>';
 						
 						let itemForm = '<input type="button" value="'+$(this)[0].itemName+'" onclick="selectItem(this)"></input>';
-						$("#item_ul_list").append(itemForm);
+						$("#ItemList").append(itemForm);
 					});
 				}
 			}); 
@@ -58,7 +58,7 @@
 				+ ' 제목을 입력해주세요"></div>';
 		recipeStepForm += '<div class="row">';
  		recipeStepForm += '<input type="file" class="form-control" name="recipeStepImgs"';
-		recipeStepForm += 'placeholder="레시피 step' + stepNo + ' 에 따른 이미지파일을 업로드해주세요!" required="required">'; 
+		recipeStepForm += 'placeholder="레시피 step' + stepNo + ' 에 따른 이미지파일을 업로드해주세요!">'; 
 		recipeStepForm += '<textarea class="form-control" name="recipeContentList['
 				+ (stepNo - 1)
 				+ '].content" cols="30" rows="10" placeholder="레시피 step'
@@ -119,62 +119,46 @@
                          		    <option value="양식">양식</option>
                             	</select>
 							</div>
+							
 							<div class="col-12">
 								<input type="text" class="form-control" name="recipeName" placeholder="레시피 제목을 입력해주세요" required="required">
-							</div>
-							<div class="col-12">
+
 								<h6>레시피 대표 이미지</h6>
 								<input type="file" class="form-control" name="recipeThumbnailImg" placeholder="레시피 대표 이미지파일을 업로드해주세요!" required="required">
 							</div>
+						</div>
+						<div class="row">
 							<div class="col-12" id="recipeItemWrap">
-								<div class="form-control recipeCategoryList" id="" name=""
-									style="height: 90px;">
-
-									<div class="btn-group" role="group">
-										<c:forEach items="${categoryList}" var="category">
+								<div class="col-3 form-control btn-group-vertical" id="recipeCategoryList" name="" style="height: 300px;">
+									<c:forEach items="${categoryList}" var="category">
 											<button type="button" name="categoryBtn" class="btn btn-success" value="${category.categoryName}">${category.categoryName}</button>
-										</c:forEach>
-									</div>
+									</c:forEach>
+								</div>
+								<div class="col-3 form-control btn-group-vertical" id="ItemList" name="" style="height: 300px; overflow-y: scroll;">
+									<!-- Default panel contents -->
+									<!-- <ul id="item_ul_list" class="list-group list-group-flush"></ul> -->
 								</div>
 
-								<div class="form-control recipeItemList" id="" name=""
-									style="height: 300px; overflow-y: scroll;">
-									<div class="card" style="margin: 50px 0">
-										<!-- Default panel contents -->
-										<ul id="item_ul_list" class="list-group list-group-flush">
-											
-										
-										</ul>
-									</div>
+								<div class="col-6 form-control vertical" id="selectedItemList" name="" style="height: 300px; overflow-y: scroll;">
+									<table>
+										<thead>
+											<tr>
+												<td>품목</td><td>수량</td>
+											</tr>
+										</thead>
+										<tbody id="selectedItemList">
+										</tbody>
+									</table>
 								</div>
-								<div class="form-control recipeItemList" id="" name=""
-									style="height: 300px; overflow-y: scroll;">
-									<div class="card" style="margin: 50px 0">
-										<!-- Default panel contents -->
-										<table>
-											<thead>
-												<tr>
-													<td>품목</td><td>수량</td>
-												</tr>
-											</thead>
-											<tbody id="selectedItemList">
-											</tbody>
-										</table>
-									</div>
-								</div>
-
 							</div>
 							<div class="col-12" id="recipeStepWrap">
-								
 								<!-- 이 곳에 step이 추가 되고 있어요 -->
-
-
 							</div>
 							<div class="col-12 recipePlusBtn mt-50">
 								<i class="fa fa-plus-circle fa-3x" aria-hidden="true"></i>
 								<h6 class="mt-15">버튼을 클릭하면 레시피 step 을 증가시킬 수 있어요 !</h6>
 							</div>
-							<div class="col-12 text-right mt-100">
+							<div class="col-12 text-right">
 								<button class="btn delicious-btn mt-30" type="submit">작성</button>
 							</div>
 						</div>

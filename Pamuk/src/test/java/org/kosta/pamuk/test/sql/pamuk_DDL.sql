@@ -79,7 +79,7 @@ create table recipe_content(
 	step_no NUMBER not null,
 	content clob not null,
 	image_path varchar2(1000),
-	step_title clob not null,
+	step_titletetteT clob not null,
 	constraint fk_recipe_content foreign key(recipe_no) references recipe(recipe_no) ON DELETE CASCADE,
 	constraint pk_recipe_step primary key(recipe_no,step_no)
 );
