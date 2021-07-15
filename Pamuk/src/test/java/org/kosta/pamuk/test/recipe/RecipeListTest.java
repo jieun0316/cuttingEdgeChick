@@ -1,7 +1,10 @@
 package org.kosta.pamuk.test.recipe;
 
+import java.util.ArrayList;
+
 import org.junit.jupiter.api.Test;
 import org.kosta.pamuk.model.mapper.RecipeMapper;
+import org.kosta.pamuk.model.vo.RecipeVO;
 import org.kosta.pamuk.service.RecipeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -16,7 +19,7 @@ public class RecipeListTest {
 
 	@Test
 	public void getBestRecipeListForMain() {
-		int testCase = 4;
+		int testCase = 5;
 
 		// Main page Best recipe list
 		if (testCase == 1) {
@@ -43,6 +46,10 @@ public class RecipeListTest {
 			
 			// 레시피 검색
 			System.out.println(rm.getRecipeListByRecipes("검색"));
+		} else if(testCase==5) {
+			ArrayList<RecipeVO> list = rm.getSavedRecipeListById("java");
+			for(RecipeVO srvo : list)
+				System.out.println(srvo);
 		}
 
 	}

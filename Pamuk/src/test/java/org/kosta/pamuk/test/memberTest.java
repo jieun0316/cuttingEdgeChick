@@ -25,7 +25,7 @@ class memberTest {
 
 		// 회원가입 테스트
 		/*
-<<<<<<< HEAD
+//<<<<<<< HEAD
 		MemberVO a = new MemberVO();
 		a.setMemberId("aa");
 		a.setPassword("aaa");
@@ -49,22 +49,22 @@ class memberTest {
 		String nick = ms.findMemberById("sukuon").getNick();
 		System.out.println(nick);
 		
-=======
-		 * MemberVO a = new MemberVO(); a.setMemberId("aa"); a.setPassword("aaa");
-		 * a.setEmail("bb@naver.com"); a.setName("팍"); a.setNick("찬호"); a.setStatus(0);
-		 * a.setBirth("2000-10-11"); a.setGender("M"); System.out.println(a);
-		 * //ms.registerMember(a); System.out.println(ms.findMemberById("aa"));
-		 */
-//		MemberVO mv = mm.findMemberById("yang");
-//		System.out.println(mv);
-//		mv.setNick("good");
-//		mm.updateMemberInfo(mv);
-//		System.out.println(mv);
-		
-//		mm.updateMemberStatus("yang");
-//		mm.updateAuthority("su");
-		ms.quitMember("bro");
->>>>>>> refs/heads/givemebro
+//=======
+//		 * MemberVO a = new MemberVO(); a.setMemberId("aa"); a.setPassword("aaa");
+//		 * a.setEmail("bb@naver.com"); a.setName("팍"); a.setNick("찬호"); a.setStatus(0);
+//		 * a.setBirth("2000-10-11"); a.setGender("M"); System.out.println(a);
+//		 * //ms.registerMember(a); System.out.println(ms.findMemberById("aa"));
+//		 */
+////		MemberVO mv = mm.findMemberById("yang");
+////		System.out.println(mv);
+////		mv.setNick("good");
+////		mm.updateMemberInfo(mv);
+////		System.out.println(mv);
+//		
+////		mm.updateMemberStatus("yang");
+////		mm.updateAuthority("su");
+//		ms.quitMember("bro");
+//>>>>>>> refs/heads/givemebro
 	}
 
 }

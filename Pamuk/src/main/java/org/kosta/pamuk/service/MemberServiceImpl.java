@@ -122,7 +122,7 @@ public class MemberServiceImpl implements MemberService {
 		MemberVO mvo = memberMapper.findMemberById(memberVO.getMemberId());
 		System.out.println(mvo);
 		mvo.setNick(memberVO.getNick());
-		memberMapper.updateMemberInfo(mvo);
+//		memberMapper.updateMemberInfo(mvo);
 	}
 
 //	@Transactional

@@ -5,74 +5,103 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.kosta.pamuk.model.mapper.MemberMapper">
 	<insert id="registerMember" parameterType="memberVO">
-		insert into MEMBER(member_id,password,email,name, nick, birth, gender) 
-		values(#{memberId},#{password},#{email},#{name},#{nick},#{birth}, #{gender})
+		insert into
+		MEMBER(member_id,password,email,name, nick, birth, gender)
+		values(#{memberId},#{password},#{email},#{name},#{nick},#{birth},
+		#{gender})
 	</insert>
 	<insert id="registerRole" parameterType="authoritiesVO">
-		INSERT INTO authorities(member_id,authority) VALUES(#{memberId},#{authority})
+		INSERT INTO
+		authorities(member_id,authority) VALUES(#{memberId},#{authority})
 	</insert>
-	<select id="findMemberInfo" parameterType="string" resultType="memberVO">
-		select member_id, password, email, name, nick, to_char(birth,'YYYY-MM-DD') as birth, gender from member where member_id=#{value}
+	<select id="findMemberInfo" parameterType="string"
+		resultType="memberVO">
+		select member_id, password, email, name, nick,
+		to_char(birth,'YYYY-MM-DD') as birth, gender from member where
+		member_id=#{value}
 	</select>
 	<select id="findMemberId" resultType="memberVO">
-		select member_id, name, email, to_char(birth, 'yyyy-mm-dd') as birth from member where name=#{name} and email=#{email} and birth=#{birth}
+		select member_id, name,
+		email, to_char(birth, 'yyyy-mm-dd') as birth from member where
+		name=#{name} and email=#{email} and birth=#{birth}
 	</select>
 
 	<!-- Security에서 사용 -->
 	<select id="findMemberById" resultType="memberVO">
-		select member_id, password, name, email, to_char(birth, 'yyyy-mm-dd') as birth, status, nick, gender from member where member_id=#{memberId} and status=0
+		select member_id,
+		password, name, email, to_char(birth, 'yyyy-mm-dd') as birth, status,
+		nick, gender from member where member_id=#{memberId} and status=0
 	</select>
 	<select id="selectAuthorityById" resultType="authoritiesVO">
-		select member_id, authority from authorities where member_id=#{memberId}
+		select member_id,
+		authority from authorities where member_id=#{memberId}
 	</select>
 	<!-- Security에서 사용 끝 -->
-	
+
 	<select id="findMemberPassword" resultType="memberVO">
-		select member_id, password, name, email from member where member_id=#{memberId} and name=#{name} and email=#{email}
+		select member_id,
+		password, name, email from member where member_id=#{memberId} and
+		name=#{name} and email=#{email}
 	</select>
 	<select id="identifyMemberPassword" resultType="memberVO">
-		select member_id, password from member where member_id=#{memberId} and password=#{password}
+		select member_id,
+		password from member where member_id=#{memberId} and
+		password=#{password}
 	</select>
 	<update id="updateMemberPassword" parameterType="string">
-		update member set password=#{password} where member_id=#{memberId}
+		update member
+		set password=#{password} where member_id=#{memberId}
 	</update>
 	<update id="updateNick" parameterType="string">
-		update member set nick=#{nick} where member_id=#{memberId}
+		update member set
+		nick=#{nick} where member_id=#{memberId}
 	</update>
 	<select id="idCheck" resultType="int">
-		select count(*) from member where member_id=#{value}
+		select count(*) from member
+		where member_id=#{value}
 	</select>
-<<<<<<< HEAD
-	
+
 	<!-- 관리자 관련 -->
 	<select id="adminList" resultType="memberVO">
-		select au.authority, m.member_id, m.email, m.nick, to_char(m.birth, 'yyyy-mm-dd') as birth from member m, authorities au where au.authority='ROLE_ADMIN' and m.member_id = au.member_id and m.member_id  not in ('sukuon')
+		select au.authority,
+		m.member_id, m.email, m.nick, to_char(m.birth, 'yyyy-mm-dd') as birth
+		from member m, authorities au where au.authority='ROLE_ADMIN' and
+		m.member_id = au.member_id and m.member_id not in ('sukuon')
 	</select>
-	<delete id="disaccreditAdmin" >
-		delete from AUTHORITIES where member_id=#{memberId} and authority='ROLE_ADMIN'
+	<delete id="disaccreditAdmin">
+		delete from AUTHORITIES where
+		member_id=#{memberId} and authority='ROLE_ADMIN'
 	</delete>
 	<select id="findMemberAll" resultType="memberVO">
-		select au.authority, m.member_id, m.email, m.nick, to_char(m.birth, 'yyyy-mm-dd') as birth 
-		from member m, authorities au 
-		where m.member_id = au.member_id and m.member_id not in (select member_id from AUTHORITIES where authority='ROLE_ADMIN' or authority='ROLE_MASTER')
+		select au.authority,
+		m.member_id, m.email, m.nick, to_char(m.birth, 'yyyy-mm-dd') as birth
+		from member m, authorities au
+		where m.member_id = au.member_id and m.member_id not in (select member_id
+		from AUTHORITIES where authority='ROLE_ADMIN' or
+		authority='ROLE_MASTER')
 	</select>
 	<select id="findMemberByNick" resultType="memberVO">
-		select au.authority, m.member_id, m.email, m.nick, to_char(m.birth, 'yyyy-mm-dd') as birth 
-		from member m, authorities au 
-		where m.nick=#{nick} and m.member_id = au.member_id and m.member_id not in (select member_id from AUTHORITIES where authority='ROLE_ADMIN' or authority='ROLE_MASTER')
+		select au.authority,
+		m.member_id, m.email, m.nick, to_char(m.birth, 'yyyy-mm-dd') as birth
+		from member m, authorities au
+		where m.nick=#{nick} and m.member_id = au.member_id and m.member_id not in
+		(select member_id from AUTHORITIES where authority='ROLE_ADMIN' or
+		authority='ROLE_MASTER')
 	</select>
 	<insert id="authorizeAdmin">
-		insert into authorities(member_id, authority) values(#{value}, 'ROLE_ADMIN')
+		insert into authorities(member_id, authority)
+		values(#{value}, 'ROLE_ADMIN')
 	</insert>
-=======
 	<update id="updateMemberInfo" parameterType="memberVO">
-		update member set nick=#{nick} where member_id=#{memberId}		
+		update member set
+		nick=#{nick} where member_id=#{memberId}
 	</update>
-	<update id="updateMemberStatus" >
-		update member set status='1' where member_id=#{memberId}
+	<update id="updateMemberStatus">
+		update member set status='1'
+		where member_id=#{memberId}
 	</update>
 	<update id="updateAuthority">
-		update authorities set authority = 'quit' where member_id=#{memberId}
+		update authorities set authority = 'quit' where
+		member_id=#{memberId}
 	</update>
->>>>>>> refs/heads/givemebro
 </mapper>
