@@ -14,6 +14,7 @@ import org.kosta.pamuk.model.vo.PagingBean;
 import org.kosta.pamuk.model.vo.RecipeContentVO;
 import org.kosta.pamuk.model.vo.RecipeVO;
 import org.kosta.pamuk.model.vo.ReviewVO;
+import org.kosta.pamuk.model.vo.SavedRecipeVO;
 import org.kosta.pamuk.service.RecipeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
@@ -22,6 +23,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
@@ -135,10 +137,13 @@ public class RecipeController {
 	 */
 	@RequestMapping("recipeBoardView")
 	public String recipeBoardView(int recipeNo, Model model) {
+		MemberVO pvo = (MemberVO) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		RecipeVO recipeVO = recipeService.viewRecipeDetail(recipeNo);
 		ArrayList<ReviewVO> reviewList = recipeService.readReview(recipeNo);
 		int countReview = recipeMapper.countReview(recipeNo);
+		int isSaved = recipeMapper.isSavedRecipe(pvo.getMemberId(),recipeVO.getRecipeNo());
 		
+		model.addAttribute("isSaved", isSaved);
 		model.addAttribute("recipeVO", recipeVO);
 		model.addAttribute("reviewList", reviewList);
 		model.addAttribute("countReview", countReview);
@@ -291,6 +296,7 @@ public class RecipeController {
 		
 		return "recipes/recipeSearchResultPage.tiles"; 
 	}
+
 	@Secured("ROLE_MEMBER")
 	@PostMapping("deleteReview")
 	public String deleteReview(ReviewVO reviewVO) {
@@ -299,4 +305,33 @@ public class RecipeController {
 		return "redirect:/recipe/recipeBoardView?recipeNo="+reviewVO.getRecipeVO().getRecipeNo();
 	}
 	
+	@Secured("ROLE_MEMBER")
+	@RequestMapping(value="saveRecipe", method=RequestMethod.POST)
+	@ResponseBody
+	public int saveRecipe(int recipeNo) {
+		MemberVO pvo = (MemberVO) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		SavedRecipeVO savedRecipeVO = new SavedRecipeVO();
+		savedRecipeVO.setMemberVO(pvo);
+		RecipeVO recipeVO = new RecipeVO();
+		recipeVO.setRecipeNo(recipeNo);
+		savedRecipeVO.setRecipeVO(recipeVO);
+		recipeMapper.saveRecipe(savedRecipeVO);
+		
+		return recipeMapper.isSavedRecipe(pvo.getMemberId(),recipeVO.getRecipeNo());
+	}
+	
+	@Secured("ROLE_MEMBER")
+	@RequestMapping(value="deleteSaveRecipe", method=RequestMethod.POST)
+	@ResponseBody
+	public int deleteSaveRecipe(int recipeNo) {
+		MemberVO pvo = (MemberVO) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		SavedRecipeVO savedRecipeVO = new SavedRecipeVO();
+		savedRecipeVO.setMemberVO(pvo);
+		RecipeVO recipeVO = new RecipeVO();
+		recipeVO.setRecipeNo(recipeNo);
+		savedRecipeVO.setRecipeVO(recipeVO);
+		recipeMapper.deleteSavedRecipe(savedRecipeVO);
+		
+		return recipeMapper.isSavedRecipe(pvo.getMemberId(),recipeVO.getRecipeNo());
+	}
 }

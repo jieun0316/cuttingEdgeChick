@@ -60,6 +60,15 @@
 .recipeTitleWrap h3, .recipeTitleWrap h6{
 	color:#F5F5F5
 }
+.saveBtn.off {
+	display: block;
+}
+.saveBtn.on{
+	display: none;
+}
+.prepStep input:focus,.prepStep textarea:focus  {
+	outline: solid 1px dimgray;
+}
 /* main header font size  */
 .classynav ul li a , .classy-nav-container a, .classy-nav-container a:focus, .classy-nav-container a:hover{
 	font-size:16px;

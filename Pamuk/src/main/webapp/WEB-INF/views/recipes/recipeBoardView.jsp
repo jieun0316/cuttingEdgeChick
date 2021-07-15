@@ -2,10 +2,67 @@
 	pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
+<sec:authentication var="mvo" property="principal" /> 
 
 
 <script type="text/javascript">
+$.ajaxPrefilter(function(options) {
+
+    let headerName = '${_csrf.headerName}';
+
+    let token = '${_csrf.token}';
+
+    if (options.type.toLowerCase() === 'post') {
+       options.headers = {};
+       options.headers[headerName] = token;
+    }
+ });
 $(document).ready(function () {
+	var isSaved = "<c:out value='${isSaved}'/>";
+	if(isSaved == 1) {
+		//저장된것은 1
+		$(".saveBtn.off").hide();
+		$(".saveBtn.on").show(); 
+	}
+	
+	// recipe 수정 버튼
+	// 레시피 저장 X -> 저장 O
+	$(".saveBtn.off").on("click", function() {
+		$.ajax({
+			type: "post",
+			url: "saveRecipe",
+			data: {"recipeNo": $("#recipeNo").val()},
+			dataType:"json",
+			async: false,
+			success: function(result) {
+				$(".saveBtn.off").hide();
+				$(".saveBtn.on").show(); 
+			},
+			error: function(err){
+				console.log(err);    //에러가 발생하면 콘솔 로그를 찍어준다. 
+			}
+		});
+		
+	});
+	
+	// 레시피 저장 O -> 저장 x
+	$(".saveBtn.on").on("click", function() {
+		$.ajax({
+			type: "post",
+			url: "deleteSaveRecipe",
+			data: {"recipeNo": $("#recipeNo").val()},
+			dataType:"json",
+			success: function(result) {
+				$(".saveBtn.on").hide();
+				$(".saveBtn.off").show();
+			},
+			error: function(err){
+				console.log(err);    //에러가 발생하면 콘솔 로그를 찍어준다. 
+			}
+		});
+		
+	});
+	
 	  function setRating(rating) {
 	    $('#rating-input').val(rating);
 	    // fill all the stars assigning the '.selected' class
@@ -97,8 +154,10 @@ $(document).ready(function () {
 							<i class="fa fa-star-o" aria-hidden="true"></i>
 						</div>
 					</div>
-					<a class="float-right btn text-white btn-danger saveBtn"> <i class="fa fa-heart"></i> My Recipe Save</a>
-					<a class="float-right btn text-danger btn-outline-danger saveBtn"> <i class="fa fa-heart"></i> My Recipe Save</a>
+										<!-- 저장되기 전 -->
+					<button class="float-right btn text-danger btn-outline-danger saveBtn off" type="button"> <i class="fa fa-heart"></i> My Recipe Save</button>
+					<!-- 저장완료 -->
+					<button class="float-right btn text-white btn-danger saveBtn on" type="button"> <i class="fa fa-heart"></i> My Recipe Save</button>
 				</div>
 			</div>
 
