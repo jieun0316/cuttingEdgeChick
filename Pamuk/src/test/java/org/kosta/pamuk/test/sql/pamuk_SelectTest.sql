@@ -19,6 +19,7 @@ SELECT ROWNUM rn, r.recipe_no, m.nick, r.recipe_name, to_char(r.write_date,'YYYY
 FROM RECIPE r, member m
 WHERE m.member_id = r.member_id and category='한식' ORDER BY recipe_no DESC)
 x WHERE rn BETWEEN 1 AND 2
+<<<<<<< HEAD
 
 
 
@@ -53,3 +54,7 @@ select member_id, recipe_no, review_comment, rating, to_char(review_date, 'yyyy-
 
 select * from review where recipe_no='6'
 update review set review_comment='인재야 사랑한다!' where member_id='sukuon' and recipe_no='6'
+=======
+select * from member;
+select * from authorities;
+>>>>>>> refs/heads/givemebro

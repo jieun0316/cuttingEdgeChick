@@ -42,6 +42,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="idCheck" resultType="int">
 		select count(*) from member where member_id=#{value}
 	</select>
+<<<<<<< HEAD
 	
 	<!-- 관리자 관련 -->
 	<select id="adminList" resultType="memberVO">
@@ -63,4 +64,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<insert id="authorizeAdmin">
 		insert into authorities(member_id, authority) values(#{value}, 'ROLE_ADMIN')
 	</insert>
+=======
+	<update id="updateMemberInfo" parameterType="memberVO">
+		update member set nick=#{nick} where member_id=#{memberId}		
+	</update>
+	<update id="updateMemberStatus" >
+		update member set status='1' where member_id=#{memberId}
+	</update>
+	<update id="updateAuthority">
+		update authorities set authority = 'quit' where member_id=#{memberId}
+	</update>
+>>>>>>> refs/heads/givemebro
 </mapper>

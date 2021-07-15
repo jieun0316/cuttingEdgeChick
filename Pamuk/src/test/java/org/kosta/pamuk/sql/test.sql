@@ -135,6 +135,7 @@ FROM (
 		FROM RECIPE r, member m
 		WHERE m.member_id = r.member_id ORDER BY recipe_no DESC)recipe_view
 	)rnum_view
+<<<<<<< HEAD
 WHERE rnum between '1' and '6'
 
 select member_id, name, email, to_char(birth, 'yyyy-mm-dd') as birth from member where member_id='sukuon' and status=0
@@ -144,3 +145,11 @@ select member_id, name, email, to_char(birth, 'yyyy-mm-dd') as birth from member
 
 
 se
+=======
+WHERE rnum between '1' and '6'
+=======
+select member_id, name, email, to_char(birth, 'yyyy-mm-dd') as birth from member where member_id='sukuon' and status=0
+>>>>>>> refs/heads/WaterPunch
+
+select * from member;
+>>>>>>> refs/heads/givemebro
