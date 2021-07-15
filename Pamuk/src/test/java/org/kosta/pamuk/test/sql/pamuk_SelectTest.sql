@@ -53,13 +53,12 @@ select * from recipe
 select member_id, recipe_no, review_comment, rating, to_char(review_date, 'yyyy-mm-dd hh24:mi') as review_date from review where recipe_no='6' order by review_date asc;
 
 select * from review where recipe_no='6'
-<<<<<<< HEAD
+
 update review set review_comment='인재야 사랑한다!' where member_id='sukuon' and recipe_no='6'
-=======
+
 select * from member;
 select * from authorities;
->>>>>>> refs/heads/givemebro
-=======
+
 update review set review_comment='인재야 사랑한다!' where member_id='sukuon' and recipe_no='6'
 
 
