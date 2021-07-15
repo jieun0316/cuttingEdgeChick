@@ -12,6 +12,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  	<resultMap type="recipeVO" id="recipeDetailRM" extends="recipeRM">
  		<result column="nick" property="memberVO.nick"/>
  	</resultMap>
+ 	<resultMap type="savedRecipeVO" id="savedRecipeRM">
+ 		<result column="nick" property="memberVO.nick"/>
+ 	</resultMap>
+ 	
 	
 	<!-- recipe 관련 insert문 -->
 	<!-- recipe 게시물 작성 -->
@@ -217,11 +221,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<!-- savedRecipeVO -->
 	<insert id="saveRecipe" parameterType="savedRecipeVO">
 		insert into saved_recipe (member_id, recipe_no, saved_date)
-		values (#{memberVO.memberId}, #{recipeVO.recipeNo}, sysdate)
+		values (#{memberVO.memberId}, #{recipeNo}, sysdate)
 	</insert>
 	<delete id="deleteSavedRecipe" parameterType="savedRecipeVO">
 		delete from saved_recipe
-		where member_id=#{memberVO.memberId} and recipe_no=#{recipeVO.recipeNo}
+		where member_id=#{memberVO.memberId} and recipe_no=#{recipeNo}
 	</delete>
 	<select id="isSavedRecipe" resultType="int">
 		select count(*) from saved_recipe
@@ -230,8 +234,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	
 	<!-- savedRecipeList -->
-	<select id="getSavedRecipeListById" resultMap="recipeDetailRM">
-		select sr.recipe_no, m.nick, r.recipe_name, r.hits, r.category, r.recipe_thumbnail
+	<select id="getSavedRecipeListById" resultMap="savedRecipeRM">
+		select sr.recipe_no, sr.saved_date, m.nick, r.recipe_name, r.hits, r.category, r.recipe_thumbnail
 		from saved_recipe sr, recipe r, member m
 		where sr.recipe_no = r.recipe_no and r.member_id = m.member_id
 			and sr.member_id=#{value}

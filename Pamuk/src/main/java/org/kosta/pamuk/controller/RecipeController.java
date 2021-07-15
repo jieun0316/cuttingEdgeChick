@@ -313,8 +313,7 @@ public class RecipeController {
 		SavedRecipeVO savedRecipeVO = new SavedRecipeVO();
 		savedRecipeVO.setMemberVO(pvo);
 		RecipeVO recipeVO = new RecipeVO();
-		recipeVO.setRecipeNo(recipeNo);
-		savedRecipeVO.setRecipeVO(recipeVO);
+		savedRecipeVO.setRecipeNo(recipeNo);
 		recipeMapper.saveRecipe(savedRecipeVO);
 		
 		return recipeMapper.isSavedRecipe(pvo.getMemberId(),recipeVO.getRecipeNo());
@@ -328,10 +327,22 @@ public class RecipeController {
 		SavedRecipeVO savedRecipeVO = new SavedRecipeVO();
 		savedRecipeVO.setMemberVO(pvo);
 		RecipeVO recipeVO = new RecipeVO();
-		recipeVO.setRecipeNo(recipeNo);
-		savedRecipeVO.setRecipeVO(recipeVO);
+		savedRecipeVO.setRecipeNo(recipeNo);
 		recipeMapper.deleteSavedRecipe(savedRecipeVO);
 		
 		return recipeMapper.isSavedRecipe(pvo.getMemberId(),recipeVO.getRecipeNo());
 	}
+	
+	@Secured("ROLE_MEMBER")
+	@RequestMapping("mySavedRecipe")
+	public String mySavedRecipe(Model model) {
+		MemberVO pvo = (MemberVO) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		ArrayList<SavedRecipeVO> savedRecipes =  recipeMapper.getSavedRecipeListById(pvo.getMemberId());
+		
+		model.addAttribute("savedRecipes", savedRecipes);
+		
+		return "recipes/savedRecipePage.tiles"; 
+	}
+	
+	
 }
