@@ -302,7 +302,7 @@ public class RecipeController {
 	 * @return
 	 */
 	// @Secured("ROLE_MEMBER")
-	@RequestMapping("recipeModifyByAjax")
+	@RequestMapping("recipeUpdate")
 	@ResponseBody
 	public RecipeContentVO recipeModifyForm(RecipeContentVO recipeContentVO, Model model) {
 		System.out.println(recipeContentVO);

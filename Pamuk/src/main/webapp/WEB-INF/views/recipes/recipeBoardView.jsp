@@ -5,9 +5,23 @@
 <sec:authentication var="mvo" property="principal" /> 
 
 <script type="text/javascript">
+//모든 Ajax Post 요청에 대해 Http 헤더에 CSRF 토큰을 설정
+
+$.ajaxPrefilter(function(options) {
+
+   let headerName = '${_csrf.headerName}';
+
+   let token = '${_csrf.token}';
+
+   if (options.type.toLowerCase() === 'post') {
+      options.headers = {};
+      options.headers[headerName] = token;
+   }
+});
 $(document).ready(function () {
 	let $step;
 	let $index;
+	// 수정 버튼 클릭
 	$('.prepStep').on('click', ".modifyBtn", function() {
 		console.log($('.prepStep').children() );
 		// 여러개 한번에 수정하는거 방지
@@ -18,12 +32,23 @@ $(document).ready(function () {
 		AddModifyForm(this);
 		
 	}); // modifyBtn on
+	// 완료 버튼 클릭
 	$('.prepStep').on("click", ".modifyOkBtn", function(){
+		// ajax 처리
+		$.ajax({
+			type:"post",
+			url:"recipeModifyForm",
+			data:{},
+			dataType :"json", 
+			success:function(ja){
+				showList(ja);
+			},//callback
+			error:function(request,status,error){
+			       console.log("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+			}// error
+		});//ajax 	
 		ModifyOkAction(this);
 	});
-	
-	
-	
 	  function setRating(rating) {
 	    $('#rating-input').val(rating);
 	    // fill all the stars assigning the '.selected' class
@@ -57,6 +82,7 @@ $(document).ready(function () {
 	    }
 	  });
 	}); // ready
+	// 수정하기 버튼
 	function AddModifyForm($this){
 		alert("ok~");
 		// step별 값 들고오기
@@ -78,10 +104,10 @@ $(document).ready(function () {
 		modifyForm += '<button type="submit" class="btn btn-success btn-sm modifyOkBtn">수정완료</button>';
 		modifyForm += '</div></div>';
 		
-		// 수정폼 add !
+		// 수정폼 add
 		$($this).parents(".prepStep").html(modifyForm);
 	}
-	
+	// 수정 완료 버튼
 	function ModifyOkAction($this){
 		let modifyOkForm = '<div class="prepStep">';
 		modifyOkForm += '<h4>' + $step +'. 검색 테스트 스탭2</h4>';
@@ -94,10 +120,8 @@ $(document).ready(function () {
 		modifyOkForm += '<button type="submit" class="btn btn-outline-success btn-sm modifyBtn">수정하기</button>';
 		modifyOkForm += '</div></div>';
 		
-		// 완료폼 add !
-		//console.log(modifyOkForm);
+		// 완료폼 add
 		$($this).parents(".prepStep").html(modifyOkForm);
-		// alert("okok modify");
 	}
 </script>
 
