@@ -5,7 +5,66 @@
 <sec:authentication var="mvo" property="principal" /> 
 
 <script type="text/javascript">
+$.ajaxPrefilter(function(options) {
+
+    let headerName = '${_csrf.headerName}';
+
+    let token = '${_csrf.token}';
+
+    if (options.type.toLowerCase() === 'post') {
+       options.headers = {};
+       options.headers[headerName] = token;
+    }
+ });
 $(document).ready(function () {
+	var isSaved = "<c:out value='${isSaved}'/>";
+	if(isSaved == 1) {
+		//저장된것은 1
+		$(".saveBtn.off").hide();
+		$(".saveBtn.on").show(); 
+	}
+	
+	// recipe 수정 버튼
+	// 레시피 저장 X -> 저장 O
+	$(".saveBtn.off").on("click", function() {
+		$.ajax({
+			type: "post",
+			url: "saveRecipe",
+			data: {"recipeNo": $("#recipeNo").val()},
+			dataType:"json",
+			async: false,
+			success: function(result) {
+				$(".saveBtn.off").hide();
+				$(".saveBtn.on").show(); 
+			},
+			error: function(err){
+				console.log(err);    //에러가 발생하면 콘솔 로그를 찍어준다. 
+			}
+		});
+		
+	});
+	
+	// 레시피 저장 O -> 저장 x
+	$(".saveBtn.on").on("click", function() {
+		$.ajax({
+			type: "post",
+			url: "deleteSaveRecipe",
+			data: {"recipeNo": $("#recipeNo").val()},
+			dataType:"json",
+			success: function(result) {
+				$(".saveBtn.on").hide();
+				$(".saveBtn.off").show();
+			},
+			error: function(err){
+				console.log(err);    //에러가 발생하면 콘솔 로그를 찍어준다. 
+			}
+		});
+		
+	});
+
+	
+	
+	
 	  function setRating(rating) {
 	    $('#rating-input').val(rating);
 	    // fill all the stars assigning the '.selected' class
@@ -67,7 +126,7 @@ $(document).ready(function () {
 							<sec:csrfInput />
 							<button type="submit" class="btn btn-outline-success">레시피
 								삭제</button>
-							<input type="hidden" name="recipeNo" value="${recipeVO.recipeNo}">
+							<input type="hidden" id="recipeNo" value="${recipeVO.recipeNo}">
 						</form>
 					</div>
 					<div class="breadcumb-area recipe bg-img receipe-headline my-5"
@@ -94,9 +153,9 @@ $(document).ready(function () {
 						</div>
 					</div>
 					<!-- 저장되기 전 -->
-					<a class="float-right btn text-danger btn-outline-danger saveBtn off"> <i class="fa fa-heart"></i> My Recipe Save</a>
+					<button class="float-right btn text-danger btn-outline-danger saveBtn off" type="button"> <i class="fa fa-heart"></i> My Recipe Save</button>
 					<!-- 저장완료 -->
-					<a class="float-right btn text-white btn-danger saveBtn on"> <i class="fa fa-heart"></i> My Recipe Save</a>
+					<button class="float-right btn text-white btn-danger saveBtn on" type="button"> <i class="fa fa-heart"></i> My Recipe Save</button>
 				</div>
 			</div>
 
@@ -124,32 +183,6 @@ $(document).ready(function () {
 						</div>
 						<hr>
 					</c:forEach>
-					
-					<!-- test -->
-					<div class="prepStep">
-							<h4><input type="text" value="1. 오래 끓이기"></h4>
-							<div class="single-preparation-step d-flex">
-								<div class="preImgStep1 img mr-15">
-									<img src="/upload/481d2a42-876c-489f-ab27-16038d6ae319.jpg" alt="">
-								</div>
-								
-							</div>
-
-							<p class="mt-15">
-							<textarea rows="10">돼지고기 김치찌개는 오래 끓여야 더 맛있습니다
-중불로 줄여서 오래 끓여주세요~!!돼지고기 김치찌개는 오래 끓여야 더 맛있습니다
-중불로 줄여서 오래 끓여주세요~!!돼지고기 김치찌개는 오래 끓여야 더 맛있습니다
-중불로 줄여서 오래 끓여주세요~!!돼지고기 김치찌개는 오래 끓여야 더 맛있습니다
-중불로 줄여서 오래 끓여주세요~!!돼지고기 김치찌개는 오래 끓여야 더 맛있습니다
-중불로 줄여서 오래 끓여주세요~!!돼지고기 김치찌개는 오래 끓여야 더 맛있습니다
-중불로 줄여서 오래 끓여주세요~!!">
-						
-							</textarea>
-							</p>
-							<div class="d-flex justify-content-end">
-								<button type="button" class="btn btn-outline-success btn-sm modifyBtn">수정하기</button>
-							</div>
-						</div>
 				</div>
 
 				<!-- Ingredients -->

@@ -42,6 +42,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		values (#{itemName},
 		#{recipeNo}, #{qty})
 	</insert>
+	
 
 	<!-- recipe 관련 select문 -->
 	<!-- count 개수 조회 -->
@@ -200,6 +201,25 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="readReview" resultMap="reviewRM">
 		select member_id, recipe_no, review_comment, rating, to_char(review_date, 'yyyy-mm-dd hh24:mi') as review_date 
 		from review where recipe_no=#{recipeNo} order by review_date asc
+	</select>
+	
+	<!-- savedRecipeVO -->
+	<insert id="saveRecipe" parameterType="savedRecipeVO">
+		insert into saved_recipe (member_id, recipe_no, saved_date)
+		values (#{memberVO.memberId}, #{recipeVO.recipeNo}, sysdate)
+	</insert>
+	<delete id="deleteSavedRecipe" parameterType="savedRecipeVO">
+		delete from saved_recipe
+		where member_id=#{memberVO.memberId} and recipe_no=#{recipeVO.recipeNo}
+	</delete>
+	<select id="isSavedRecipe" resultType="int">
+		select count(*) from saved_recipe
+		where member_id=#{memberId} and recipe_no=#{recipeNo}
+	</select>
+	<select id="getSavedRecipeListById" resultType="savedRecipeVO">
+		select member_id, recipe_no, saved_date
+		from saved_recipe
+		where member_id=#{value}
 	</select>
 </mapper>
 

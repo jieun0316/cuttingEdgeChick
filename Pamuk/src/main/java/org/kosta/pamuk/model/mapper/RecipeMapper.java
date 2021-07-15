@@ -7,6 +7,7 @@ import org.kosta.pamuk.model.vo.RecipeContentVO;
 import org.kosta.pamuk.model.vo.RecipeItemVO;
 import org.kosta.pamuk.model.vo.RecipeVO;
 import org.kosta.pamuk.model.vo.ReviewVO;
+import org.kosta.pamuk.model.vo.SavedRecipeVO;
 
 @Mapper
 public interface RecipeMapper {
@@ -49,4 +50,10 @@ public interface RecipeMapper {
 	//review 관련
 	void writeReview(String memberId, int recipeNo, String reviewComment, int rating);
 	ArrayList<ReviewVO> readReview(int recipeNo);
+	
+	//recipe save 저장
+	void saveRecipe(SavedRecipeVO savedRecipeVO);
+	void deleteSavedRecipe(SavedRecipeVO savedRecipeVO);
+	int isSavedRecipe(String memberId, int recipeNo);
+	ArrayList<SavedRecipeVO> getSavedRecipeListById(String id);
 }
