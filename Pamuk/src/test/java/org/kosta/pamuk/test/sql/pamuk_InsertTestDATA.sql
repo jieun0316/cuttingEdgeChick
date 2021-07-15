@@ -41,3 +41,5 @@ select * from review
 insert into review(member_id, recipe_no, review_comment, rating, review_date) values('yang', '6', '해먹어봤는데 정말 맛있어요!', 5, sysdate)
 
 truncate table REVIEW
+delete from review where member_id='sukuon' and recipe_no='6'
+select count(*) from review where  recipe_no='6'

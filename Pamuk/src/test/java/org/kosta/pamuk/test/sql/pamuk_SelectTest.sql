@@ -6,6 +6,8 @@ select * from RECIPE_CONTENT;
 select * from authorities;
 select * from review
 
+truncate table review
+
 SELECT M.name, M.nick, A.authority FROM member M, authorities A	WHERE M.member_id=A.member_id;
 select count(*) from member where member_id='aa'
 
@@ -47,3 +49,5 @@ x WHERE rn BETWEEN 1 AND 2
 select * from recipe
 select member_id, recipe_no, review_comment, rating, to_char(review_date, 'yyyy-mm-dd hh24:mi') as review_date from review where recipe_no='6' order by review_date asc;
 
+select * from review where recipe_no='6'
+update review set review_comment='인재야 사랑한다!' where member_id='sukuon' and recipe_no='6'

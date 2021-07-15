@@ -1,7 +1,6 @@
 package org.kosta.pamuk.controller;
 import java.io.File;
 import java.io.IOException;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -138,9 +137,11 @@ public class RecipeController {
 	public String recipeBoardView(int recipeNo, Model model) {
 		RecipeVO recipeVO = recipeService.viewRecipeDetail(recipeNo);
 		ArrayList<ReviewVO> reviewList = recipeService.readReview(recipeNo);
+		int countReview = recipeMapper.countReview(recipeNo);
 		
 		model.addAttribute("recipeVO", recipeVO);
 		model.addAttribute("reviewList", reviewList);
+		model.addAttribute("countReview", countReview);
 		return "recipes/recipeBoardView.tiles";
 	}
 
@@ -236,13 +237,9 @@ public class RecipeController {
 	@PostMapping("writeReview")
 	public String postReview(ReviewVO reviewVO) {
 		reviewVO.setMemberVO( (MemberVO) SecurityContextHolder.getContext().getAuthentication().getPrincipal());	
-		//System.out.println(reviewVO);
+		System.out.println(reviewVO);
+		recipeService.writeReview(reviewVO);
 		return  "redirect:/recipe/recipeBoardView?recipeNo="+reviewVO.getRecipeVO().getRecipeNo();
-	}
-
-	@RequestMapping("postReviewAjax")
-	public String postReviewAjax() {
-		return null;
 	}
 		
 	/**
@@ -294,4 +291,12 @@ public class RecipeController {
 		
 		return "recipes/recipeSearchResultPage.tiles"; 
 	}
+	@Secured("ROLE_MEMBER")
+	@PostMapping("deleteReview")
+	public String deleteReview(ReviewVO reviewVO) {
+		reviewVO.setMemberVO( (MemberVO) SecurityContextHolder.getContext().getAuthentication().getPrincipal());
+		recipeService.deleteReview(reviewVO);
+		return "redirect:/recipe/recipeBoardView?recipeNo="+reviewVO.getRecipeVO().getRecipeNo();
+	}
+	
 }

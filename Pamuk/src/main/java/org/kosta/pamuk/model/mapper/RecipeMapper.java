@@ -49,4 +49,7 @@ public interface RecipeMapper {
 	//review 관련
 	void writeReview(String memberId, int recipeNo, String reviewComment, int rating);
 	ArrayList<ReviewVO> readReview(int recipeNo);
+	void updateReview(String memberId, int recipeNo, String reviewComment);
+	void deleteReview(String memberId, int recipeNo);
+	int countReview(int recipeNo);
 }
