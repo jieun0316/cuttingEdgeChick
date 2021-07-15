@@ -20,7 +20,7 @@
     <!-- ##### Contact Form Area Start ##### -->
     <div class="contact-area section-padding-0-80">
         <div class="container">
-
+	
             <div class="row mt-100">
                 <div class="col-12">
                     <div class="contact-form-area">
@@ -56,9 +56,16 @@
 							</form>
 							<div class="row" style="margin:0 auto">
 							<sec:authorize access="hasRole('ROLE_MASTER') and hasRole('ROLE_ADMIN') and hasRole('ROLE_MEMBER')">
-							<form action="#" method="get">
+							<form action="/master/findMemberAll" method="post">
+							<sec:csrfInput />
 								<div class="col-6 text-center">
 									<button class="btn delicious-btn mt-30" type="submit">관리자 권한부여</button>
+								</div>
+							</form>
+							<form action="/master/adminList" method="post">
+							<sec:csrfInput />
+								<div class="col-6 text-center">
+									<button class="btn delicious-btn mt-30" type="submit">관리자 리스트조회</button>
 								</div>
 							</form>
 							</sec:authorize> 

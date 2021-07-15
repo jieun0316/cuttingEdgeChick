@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 <script>
 	$(document).ready( function(){
 		$("#category").change( function(){
@@ -22,9 +23,9 @@
 			$.ajax({
 				type:"get",
 				url:"recipeListByCategoryAjax",
-				dataType:"text",
 				data:"category=" + $category,
 				success:function(result){
+					console.log(result);
 					$("#recipeListAjax").html(result);
 				},// success
 				error:function(request,status,error){
@@ -40,7 +41,7 @@
  -->
 <!-- ##### Breadcumb Area Start ##### -->
 <div class="breadcumb-area bg-img bg-overlay"
-	style="background-image: url(img/bg-img/breadcumb3.jpg);">
+	style="background-image: url(/img/bg-img/breadcumb3.jpg);">
 	<div class="container h-100">
 		<div class="row h-100 align-items-center">
 			<div class="col-12">
@@ -75,12 +76,6 @@
                                 <option value="댓글순">댓글순</option>
                             </select>
                         </div>
-                        <div class="col-12 col-lg-3">
-                            <input type="search" name="search" placeholder="검색어를 입력하세요">
-                        </div>
-                        <div class="col-12 col-lg-3 text-right">
-                            <button type="submit" class="btn delicious-btn">검색</button>
-                        </div>
                     </div>
                 </form>
             </div>
@@ -95,7 +90,7 @@
 			<c:forEach var="recipeVO" items="${recipeList}">
 				<div class="col-12 col-sm-6 col-lg-4">
 					<div class="single-best-receipe-area mb-30">
-						<img src="${pageContext.request.contextPath}/img/bg-img/r1.jpg"
+						<img src="${pageContext.request.contextPath}/upload/${recipeVO.recipeThumbnail}"
 							alt="">
 						<div class="receipe-content">
 							<a href="recipeBoardView?recipeNo=${recipeVO.recipeNo}">
@@ -121,28 +116,28 @@
 			<%--  이전 pageGroup 이 있으면 (<< 표시될 것이 있으면 ) --%>
 			<c:if test="${pb.previousPageGroup}">
 				<li class="page-item"><a class="page-link"
-					href="${pageContext.request.contextPath}/recipeBoardList?pageNo=${pb.startPageOfPageGroup-1}">&laquo;</a></li>
+					href="${pageContext.request.contextPath}/recipe/recipeBoardList?pageNo=${pb.startPageOfPageGroup-1}">&laquo;</a></li>
 			</c:if>
 			<c:forEach var="page" begin="${pb.startPageOfPageGroup}" end="${pb.endPageOfPageGroup}">
 				<c:choose>
 					<%-- 현재 페이지 표시 --%>
 					<c:when test="${pb.nowPage==page }">
 						<li class="page-item active"><a class="page-link"
-							href="${pageContext.request.contextPath}/recipeBoardList?pageNo=${page}">${page}</a></li>
+							href="${pageContext.request.contextPath}/recipe/recipeBoardList?pageNo=${page}">${page}</a></li>
 					</c:when>
 					<c:otherwise>
 						<li><a class="page-link"
-							href="${pageContext.request.contextPath}/recipeBoardList?pageNo=${page}">${page}</a></li>
+							href="${pageContext.request.contextPath}/recipe/recipeBoardList?pageNo=${page}">${page}</a></li>
 					</c:otherwise>
 				</c:choose>
 			</c:forEach>
 			<c:if test="${pb.nextPageGroup}">
 				<li><a class="page-link"
-					href="${pageContext.request.contextPath}/recipeBoardList?pageNo=${pb.endPageOfPageGroup+1}">&raquo;</a></li>
+					href="${pageContext.request.contextPath}/recipe/recipeBoardList?pageNo=${pb.endPageOfPageGroup+1}">&raquo;</a></li>
 			</c:if>
 		</ul>
 		<!-- /.Pagination -->
-		<div class="row mb-15">
+		<div class="row mt-50">
 			<button type="button" class="btn btn-outline-success" onclick="location.href='recipeBoardWriteForm'">레시피 작성</button>
 		</div>
 	</div>

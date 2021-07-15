@@ -55,10 +55,11 @@ create table recipe(
 	write_date DATE default sysdate,
 	modify_date DATE,
 	category varchar2(100) not null,
-	
+	recipe_thumbnail varchar2(1000),
 	hits NUMBER default 0,
 	constraint fk_recipe foreign key(member_id) references member(member_id)
 );
+ALTER TABLE recipe ADD (recipe_thumbnail varchar2(1000));
 
 --4
 create table review(
@@ -71,6 +72,7 @@ create table review(
 	constraint fk_review_recipe foreign key(recipe_no) references recipe(recipe_no) ON DELETE CASCADE,
 	constraint pk_member_review primary key(member_id, recipe_no)
 );
+alter table review rename column grade to rating
 
 --5
 create table recipe_content(
@@ -78,12 +80,14 @@ create table recipe_content(
 	step_title clob not null,
 	step_no NUMBER not null,
 	content clob not null,
-	image_path clob,
+	image_path varchar2(1000),
+	step_titletetteT clob not null,
 	constraint fk_recipe_content foreign key(recipe_no) references recipe(recipe_no) ON DELETE CASCADE,
 	constraint pk_recipe_step primary key(recipe_no,step_no)
 );
-drop table recipe_content
-alter table recipe_content add column step_title clob not null
+
+alter table recipe_content add (step_title clob not null)
+
 --6
 create table saved_recipe(
 	member_id varchar2(100) not null,
