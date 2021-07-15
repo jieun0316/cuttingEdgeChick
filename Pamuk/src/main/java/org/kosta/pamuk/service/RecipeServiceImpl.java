@@ -139,4 +139,11 @@ public class RecipeServiceImpl implements RecipeService {
 		}
 		return reviewList;
 	}
+
+	@Override
+	@Transactional
+	public void updateRecipeContentByRecipeNo(RecipeContentVO recipeContentVO) {
+		// TODO Auto-generated method stub
+		recipeMapper.updateRecipeContentByRecipeNo(recipeContentVO);
+	}
 }

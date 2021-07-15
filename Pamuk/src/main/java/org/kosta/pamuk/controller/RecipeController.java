@@ -23,6 +23,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
@@ -302,11 +303,28 @@ public class RecipeController {
 	 * @return
 	 */
 	// @Secured("ROLE_MEMBER")
-	@RequestMapping("recipeUpdate")
+	@RequestMapping(value="recipeUpdateByRecipeContent", method=RequestMethod.POST)
 	@ResponseBody
-	public RecipeContentVO recipeModifyForm(RecipeContentVO recipeContentVO, Model model) {
-		System.out.println(recipeContentVO);
-		return recipeContentVO;
+	public RecipeContentVO recipeUpdateByRecipeContent(int recipeNo, int stepNo, String stepTitle, String content, Model model) {
+		RecipeContentVO rContentVO = new RecipeContentVO();
+		rContentVO.setRecipeNo(recipeNo);
+		rContentVO.setStepNo(stepNo);
+		rContentVO.setStepTitle(stepTitle);
+		rContentVO.setContent(content);
+		recipeService.updateRecipeContentByRecipeNo(rContentVO);
+		rContentVO = recipeMapper.getRecipeStepContentListByRecipeNo(recipeNo, stepNo);
+		System.out.println(rContentVO);
+		return rContentVO;
 	}
+	/*
+	@RequestMapping(value="recipeModifyForm", method=RequestMethod.POST)
+	@ResponseBody
+	public RecipeContentVO recipeModifyForm(int recipeNo, int stepNo, String stepTitle, String content, Model model) {
+		System.out.println(recipeNo +  stepNo + stepTitle + content);
+		RecipeContentVO rContntVO = null;
+		System.out.println(rContntVO);
+		return rContntVO;
+	}
+	*/
 	
 }

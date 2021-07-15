@@ -18,12 +18,15 @@ $.ajaxPrefilter(function(options) {
       options.headers[headerName] = token;
    }
 });
+// 다른 곳에서 사용하기 위해 전역변수로 선언
+let $step;
+let $index;
+let $stepTitle;
+let $recipeContent;
 $(document).ready(function () {
-	let $step;
-	let $index;
 	// 수정 버튼 클릭
 	$('.prepStep').on('click', ".modifyBtn", function() {
-		console.log($('.prepStep').children() );
+		//console.log($('.prepStep').children() );
 		// 여러개 한번에 수정하는거 방지
 		if( $('.prepStep').find('.btn').hasClass('modifyOkBtn') ){
 			alert("한번에 한 스탭만 수정 할 수 있습니다!");
@@ -34,20 +37,23 @@ $(document).ready(function () {
 	}); // modifyBtn on
 	// 완료 버튼 클릭
 	$('.prepStep').on("click", ".modifyOkBtn", function(){
+		$stepTitle = $("input[name='recipeContentList[" + $index +"].stepTitle']").val();
+		$recipeContent = $("textarea[name='recipeContentList[" + $index +"].content']").val();
+		// 현재 수정중인 step 을 바꾸기 위해 this 객체 넘겨주기
+		let $this = this;
 		// ajax 처리
 		$.ajax({
 			type:"post",
-			url:"recipeModifyForm",
-			data:{},
+			url:"recipeUpdateByRecipeContent",
+			data:{'recipeNo':${recipeVO.recipeNo},'stepNo':$step, 'index':$index, 'stepTitle':$stepTitle, 'content':$recipeContent},
 			dataType :"json", 
-			success:function(ja){
-				showList(ja);
+			success:function(recipeContentVO){
+				ModifyOkAction(recipeContentVO, $this);
 			},//callback
 			error:function(request,status,error){
-			       console.log("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+			    console.log("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
 			}// error
-		});//ajax 	
-		ModifyOkAction(this);
+		});//ajax
 	});
 	  function setRating(rating) {
 	    $('#rating-input').val(rating);
@@ -82,23 +88,22 @@ $(document).ready(function () {
 	    }
 	  });
 	}); // ready
-	// 수정하기 버튼
+	// 수정하기 버튼 (수정폼 생성)
 	function AddModifyForm($this){
-		alert("ok~");
-		// step별 값 들고오기
-		let $stepTitle = $($this).parents(".prepStep").children("h4").html();
+		// 값 받아오기
+		$stepTitle = $($this).parents(".prepStep").children("h4").html();
 		$step = parseInt($stepTitle.substring(0, 1));
 		$stepTitle = $stepTitle.substring(3, $stepTitle.length);
 		$index = $step-1;
-		let $recipeContentList = $($this).parents(".prepStep").children("p").html();
+		$recipeContent  = $($this).parents(".prepStep").children("p").html();
 		
 		// 수정폼으로 바꾸기
 		let modifyForm = '<div class="prepStep">';
 		modifyForm += '<h4><input type="text" name="recipeContentList['+ $index +'].stepTitle" style="padding:10px;box-sizing:border-box;border: 1px solid #40ba37;border-radius: 15px; color:#40ba37" value="';
-		modifyForm += $stepTitle + ' " required="required"></h4>';
+		modifyForm += $stepTitle + '" required="required"></h4>';
 		modifyForm += '<p class="mt-15">';
 		modifyForm += '<textarea rows="5" name="recipeContentList['+ $index +'].content" style="width:100%;padding:10px;box-sizing:border-box;border: 1px solid #40ba37;border-radius: 15px; color:#40ba37" required="required">';
-		modifyForm += $recipeContentList ;
+		modifyForm += $recipeContent ;
 		modifyForm += '</textarea></p>';
 		modifyForm += '<div class="d-flex justify-content-end">';
 		modifyForm += '<button type="submit" class="btn btn-success btn-sm modifyOkBtn">수정완료</button>';
@@ -107,19 +112,19 @@ $(document).ready(function () {
 		// 수정폼 add
 		$($this).parents(".prepStep").html(modifyForm);
 	}
-	// 수정 완료 버튼
-	function ModifyOkAction($this){
+	// 수정 완료 버튼 (수정완료 처리)
+	function ModifyOkAction(recipeContentVO, $this){
 		let modifyOkForm = '<div class="prepStep">';
-		modifyOkForm += '<h4>' + $step +'. 검색 테스트 스탭2</h4>';
+		modifyOkForm += '<h4>' + $step +'. ' + recipeContentVO.stepTitle + '</h4>';
 		modifyOkForm += '<div class="single-preparation-step d-flex">';
-		modifyOkForm += '<div class="preImgStep1 img mr-15">';
-		modifyOkForm += '<img src="/upload/83874fe6-be75-43ca-b5a4-296a75274e1e.jpg" alt="">';
+		modifyOkForm += '<div class="preImgStep1 img mr-15"><img src="/upload/' + recipeContentVO.imagePath + '" alt="">';
 		modifyOkForm += '</div></div>';
-		modifyOkForm += '<p class="mt-15">검색 테스트 스탭2</p>';
+		modifyOkForm += '<p class="mt-15">' + recipeContentVO.content + '</p>';
 		modifyOkForm += '<div class="d-flex justify-content-end">';
 		modifyOkForm += '<button type="submit" class="btn btn-outline-success btn-sm modifyBtn">수정하기</button>';
 		modifyOkForm += '</div></div>';
 		
+		//console.log(modifyOkForm);
 		// 완료폼 add
 		$($this).parents(".prepStep").html(modifyOkForm);
 	}
