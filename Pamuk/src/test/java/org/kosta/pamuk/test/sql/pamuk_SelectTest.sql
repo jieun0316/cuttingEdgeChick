@@ -53,3 +53,12 @@ select member_id, recipe_no, review_comment, rating, to_char(review_date, 'yyyy-
 
 select * from review where recipe_no='6'
 update review set review_comment='인재야 사랑한다!' where member_id='sukuon' and recipe_no='6'
+
+
+
+
+select sr.recipe_no, m.nick, r.recipe_name, r.hits, r.category, r.recipe_thumbnail
+from saved_recipe sr, recipe r, member m
+where sr.recipe_no = r.recipe_no and r.member_id = m.member_id
+	and sr.member_id='java'
+order by sr.saved_date

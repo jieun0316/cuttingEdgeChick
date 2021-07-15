@@ -227,10 +227,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		select count(*) from saved_recipe
 		where member_id=#{memberId} and recipe_no=#{recipeNo}
 	</select>
-	<select id="getSavedRecipeListById" resultType="savedRecipeVO">
-		select member_id, recipe_no, saved_date
-		from saved_recipe
-		where member_id=#{value}
+	
+	
+	<!-- savedRecipeList -->
+	<select id="getSavedRecipeListById" resultMap="recipeDetailRM">
+		select sr.recipe_no, m.nick, r.recipe_name, r.hits, r.category, r.recipe_thumbnail
+		from saved_recipe sr, recipe r, member m
+		where sr.recipe_no = r.recipe_no and r.member_id = m.member_id
+			and sr.member_id=#{value}
+		order by sr.saved_date
 	</select>
 </mapper>
 
