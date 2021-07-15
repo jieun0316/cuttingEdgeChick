@@ -295,4 +295,18 @@ public class RecipeController {
 		
 		return "recipes/recipeSearchResultPage.tiles"; 
 	}
+	/**
+	 * 
+	 * @param rvo
+	 * @param model
+	 * @return
+	 */
+	// @Secured("ROLE_MEMBER")
+	@RequestMapping("recipeModifyByAjax")
+	@ResponseBody
+	public RecipeContentVO recipeModifyForm(RecipeContentVO recipeContentVO, Model model) {
+		System.out.println(recipeContentVO);
+		return recipeContentVO;
+	}
+	
 }

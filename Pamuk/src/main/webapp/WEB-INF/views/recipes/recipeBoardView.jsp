@@ -6,6 +6,24 @@
 
 <script type="text/javascript">
 $(document).ready(function () {
+	let $step;
+	let $index;
+	$('.prepStep').on('click', ".modifyBtn", function() {
+		console.log($('.prepStep').children() );
+		// 여러개 한번에 수정하는거 방지
+		if( $('.prepStep').find('.btn').hasClass('modifyOkBtn') ){
+			alert("한번에 한 스탭만 수정 할 수 있습니다!");
+			return;
+		}
+		AddModifyForm(this);
+		
+	}); // modifyBtn on
+	$('.prepStep').on("click", ".modifyOkBtn", function(){
+		ModifyOkAction(this);
+	});
+	
+	
+	
 	  function setRating(rating) {
 	    $('#rating-input').val(rating);
 	    // fill all the stars assigning the '.selected' class
@@ -38,7 +56,49 @@ $(document).ready(function () {
 	      setRating(rating);
 	    }
 	  });
-	});
+	}); // ready
+	function AddModifyForm($this){
+		alert("ok~");
+		// step별 값 들고오기
+		let $stepTitle = $($this).parents(".prepStep").children("h4").html();
+		$step = parseInt($stepTitle.substring(0, 1));
+		$stepTitle = $stepTitle.substring(3, $stepTitle.length);
+		$index = $step-1;
+		let $recipeContentList = $($this).parents(".prepStep").children("p").html();
+		
+		// 수정폼으로 바꾸기
+		let modifyForm = '<div class="prepStep">';
+		modifyForm += '<h4><input type="text" name="recipeContentList['+ $index +'].stepTitle" style="padding:10px;box-sizing:border-box;border: 1px solid #40ba37;border-radius: 15px; color:#40ba37" value="';
+		modifyForm += $stepTitle + ' " required="required"></h4>';
+		modifyForm += '<p class="mt-15">';
+		modifyForm += '<textarea rows="5" name="recipeContentList['+ $index +'].content" style="width:100%;padding:10px;box-sizing:border-box;border: 1px solid #40ba37;border-radius: 15px; color:#40ba37" required="required">';
+		modifyForm += $recipeContentList ;
+		modifyForm += '</textarea></p>';
+		modifyForm += '<div class="d-flex justify-content-end">';
+		modifyForm += '<button type="submit" class="btn btn-success btn-sm modifyOkBtn">수정완료</button>';
+		modifyForm += '</div></div>';
+		
+		// 수정폼 add !
+		$($this).parents(".prepStep").html(modifyForm);
+	}
+	
+	function ModifyOkAction($this){
+		let modifyOkForm = '<div class="prepStep">';
+		modifyOkForm += '<h4>' + $step +'. 검색 테스트 스탭2</h4>';
+		modifyOkForm += '<div class="single-preparation-step d-flex">';
+		modifyOkForm += '<div class="preImgStep1 img mr-15">';
+		modifyOkForm += '<img src="/upload/83874fe6-be75-43ca-b5a4-296a75274e1e.jpg" alt="">';
+		modifyOkForm += '</div></div>';
+		modifyOkForm += '<p class="mt-15">검색 테스트 스탭2</p>';
+		modifyOkForm += '<div class="d-flex justify-content-end">';
+		modifyOkForm += '<button type="submit" class="btn btn-outline-success btn-sm modifyBtn">수정하기</button>';
+		modifyOkForm += '</div></div>';
+		
+		// 완료폼 add !
+		//console.log(modifyOkForm);
+		$($this).parents(".prepStep").html(modifyOkForm);
+		// alert("okok modify");
+	}
 </script>
 
 <!-- 
@@ -119,37 +179,11 @@ $(document).ready(function () {
 
 							<p class="mt-15">${content.content}</p>
 							<div class="d-flex justify-content-end">
-								<button type="button" class="btn btn-outline-success btn-sm modifyBtn">수정하기</button>
+								<button type="submit" class="btn btn-outline-success btn-sm modifyBtn">수정하기</button>
 							</div>
 						</div>
 						<hr>
 					</c:forEach>
-					
-					<!-- test -->
-					<div class="prepStep">
-							<h4><input type="text" value="1. 오래 끓이기"></h4>
-							<div class="single-preparation-step d-flex">
-								<div class="preImgStep1 img mr-15">
-									<img src="/upload/481d2a42-876c-489f-ab27-16038d6ae319.jpg" alt="">
-								</div>
-								
-							</div>
-
-							<p class="mt-15">
-							<textarea rows="10">돼지고기 김치찌개는 오래 끓여야 더 맛있습니다
-중불로 줄여서 오래 끓여주세요~!!돼지고기 김치찌개는 오래 끓여야 더 맛있습니다
-중불로 줄여서 오래 끓여주세요~!!돼지고기 김치찌개는 오래 끓여야 더 맛있습니다
-중불로 줄여서 오래 끓여주세요~!!돼지고기 김치찌개는 오래 끓여야 더 맛있습니다
-중불로 줄여서 오래 끓여주세요~!!돼지고기 김치찌개는 오래 끓여야 더 맛있습니다
-중불로 줄여서 오래 끓여주세요~!!돼지고기 김치찌개는 오래 끓여야 더 맛있습니다
-중불로 줄여서 오래 끓여주세요~!!">
-						
-							</textarea>
-							</p>
-							<div class="d-flex justify-content-end">
-								<button type="button" class="btn btn-outline-success btn-sm modifyBtn">수정하기</button>
-							</div>
-						</div>
 				</div>
 
 				<!-- Ingredients -->
