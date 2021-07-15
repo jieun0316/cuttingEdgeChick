@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import org.junit.jupiter.api.Test;
 import org.kosta.pamuk.model.mapper.RecipeMapper;
 import org.kosta.pamuk.model.vo.RecipeVO;
+import org.kosta.pamuk.model.vo.SavedRecipeVO;
 import org.kosta.pamuk.service.RecipeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -47,8 +48,8 @@ public class RecipeListTest {
 			// 레시피 검색
 			System.out.println(rm.getRecipeListByRecipes("검색"));
 		} else if(testCase==5) {
-			ArrayList<RecipeVO> list = rm.getSavedRecipeListById("java");
-			for(RecipeVO srvo : list)
+			ArrayList<SavedRecipeVO> list = rm.getSavedRecipeListById("java");
+			for(SavedRecipeVO srvo : list)
 				System.out.println(srvo);
 		}
 

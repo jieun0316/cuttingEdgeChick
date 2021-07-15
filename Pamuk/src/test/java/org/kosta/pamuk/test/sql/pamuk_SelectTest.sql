@@ -62,3 +62,34 @@ from saved_recipe sr, recipe r, member m
 where sr.recipe_no = r.recipe_no and r.member_id = m.member_id
 	and sr.member_id='java'
 order by sr.saved_date
+
+
+SELECT rnum_view.*
+      FROM 
+         SELECT ROWNUM as rnum, recipe_view.*
+         FROM (
+	            SELECT r.recipe_no, m.nick, r.recipe_name, hits, r.category, r.recipe_thumbnail, avg(re.rating)
+	            FROM RECIPE r, member m, review re
+	            WHERE m.member_id = r.member_id 
+	            	and re.recipe_no(+) = r.recipe_no
+            	group by r.recipe_no, m.nick, r.recipe_name, hits, r.category, r.recipe_thumbnail
+	        	ORDER BY r.recipe_no DESC
+            )recipe_view
+      )rnum_view
+WHERE rnum between 1 and 4
+
+
+
+SELECT rnum_view.*
+      FROM (
+         SELECT ROWNUM as rnum, recipe_view.*
+         FROM
+            (SELECT r.recipe_no, m.nick, r.recipe_name, hits, r.category, r.recipe_thumbnail, avg(re.rating) as rating
+	            FROM RECIPE r, member m, review re
+	            WHERE m.member_id = r.member_id 
+	            	and re.recipe_no(+) = r.recipe_no
+            	group by r.recipe_no, m.nick, r.recipe_name, hits, r.category, r.recipe_thumbnail
+	        	ORDER BY r.recipe_no DESC
+            )recipe_view
+         )rnum_view
+      WHERE rnum between 1 and 4

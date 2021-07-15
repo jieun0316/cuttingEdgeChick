@@ -65,6 +65,7 @@
                                             <li><a href="/recipe/recipeListByCategory?category=일식">일식</a></li>
                                             <li><a href="/recipe/recipeListByCategory?category=중식">중식</a></li>
                                             <li><a href="/recipe/recipeListByCategory?category=양식">양식</a></li>
+                                            <li><a href="/recipe/mySavedRecipe">저장한 레시피</a></li>
                                         </ul>
                                     </li>
                                     <li><a href="#">냉장고</a>

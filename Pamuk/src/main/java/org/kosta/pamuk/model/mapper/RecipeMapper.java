@@ -59,5 +59,5 @@ public interface RecipeMapper {
 	void saveRecipe(SavedRecipeVO savedRecipeVO);
 	void deleteSavedRecipe(SavedRecipeVO savedRecipeVO);
 	int isSavedRecipe(String memberId, int recipeNo);
-	ArrayList<RecipeVO> getSavedRecipeListById(String id);
+	ArrayList<SavedRecipeVO> getSavedRecipeListById(String id);
 }
