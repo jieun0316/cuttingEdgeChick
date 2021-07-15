@@ -31,11 +31,15 @@ class memberTest {
 		 * a.setBirth("2000-10-11"); a.setGender("M"); System.out.println(a);
 		 * //ms.registerMember(a); System.out.println(ms.findMemberById("aa"));
 		 */
-		MemberVO mv = mm.findMemberById("yang");
-		System.out.println(mv);
-		mv.setNick("good");
-		mm.updateMemberInfo(mv);
-		System.out.println(mv);
+//		MemberVO mv = mm.findMemberById("yang");
+//		System.out.println(mv);
+//		mv.setNick("good");
+//		mm.updateMemberInfo(mv);
+//		System.out.println(mv);
+		
+//		mm.updateMemberStatus("yang");
+//		mm.updateAuthority("su");
+		ms.quitMember("bro");
 	}
 
 }

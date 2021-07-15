@@ -27,6 +27,7 @@ public class MemberServiceImpl implements MemberService {
 	public void registerMember(MemberVO memberVO) {
 		String encodedPwd = passwordEncoder.encode(memberVO.getPassword()); // MemberVO에서 받아온 패스워드를 인코딩(암호화)
 		memberVO.setPassword(encodedPwd);
+		System.out.println("Service" + memberVO);
 		memberMapper.registerMember(memberVO);
 		// 권한 부여, 맨 마지막 "user"는 권한명
 		AuthoritiesVO authority = new AuthoritiesVO(memberVO.getMemberId(), "ROLE_MEMBER");
@@ -94,10 +95,20 @@ public class MemberServiceImpl implements MemberService {
 
 	@Override
 	public void updateMemberInfo(MemberVO memberVO) {
-		MemberVO mvo=memberMapper.findMemberById(memberVO.getMemberId());
+		MemberVO mvo = memberMapper.findMemberById(memberVO.getMemberId());
 		System.out.println(mvo);
 		mvo.setNick(memberVO.getNick());
 		memberMapper.updateMemberInfo(mvo);
+	}
+
+//	@Transactional
+	@Override
+	public void quitMember(String memberId) {
+		System.out.println(memberId);
+		// 1. member_status를 변경한다.(->1)
+		memberMapper.updateMemberStatus(memberId);
+		// 2. 관련 role을 제거한다.(->quit)
+		memberMapper.updateAuthority(memberId);
 	}
 
 }

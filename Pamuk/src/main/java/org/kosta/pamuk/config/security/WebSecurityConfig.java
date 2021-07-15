@@ -13,34 +13,39 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true)
-public class WebSecurityConfig  extends WebSecurityConfigurerAdapter{
+public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	@Autowired
 	private MemberAuthenticationProvider authenticationProvider;
+
 	@Bean
 	public BCryptPasswordEncoder passwordEncoder() {
 		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 		return encoder;
 	}
-	
+
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-			
-		http.authorizeRequests().antMatchers("/","/home","/loginForm","/user/**","/css/**","/fonts/**","/img/**","/js/**").permitAll().anyRequest().authenticated();
-		
-		http.formLogin().loginPage("/loginForm")
-			.loginProcessingUrl("/login")
-			.failureUrl("/login_fail")
-			.defaultSuccessUrl("/home",true)
-			.usernameParameter("memberId").passwordParameter("password").and()
-			.formLogin().permitAll();
-		
-		http.logout().permitAll().logoutUrl("/logout")
-			.logoutSuccessUrl("/home").invalidateHttpSession(true)
-			.and().exceptionHandling().accessDeniedPage("/accessDeniendView").authenticationEntryPoint(new AjaxAuthenticationEntryPoint("home"));
+
+		http.authorizeRequests()
+				.antMatchers("/", "/home", "/loginForm", "/user/**", "/css/**", "/fonts/**", "/img/**", "/js/**")
+				.permitAll().anyRequest().authenticated();
+
+		http.formLogin().loginPage("/loginForm").loginProcessingUrl("/login").failureUrl("/login_fail")
+				.defaultSuccessUrl("/home", true).usernameParameter("memberId").passwordParameter("password").and()
+				.formLogin().permitAll();
+
+		http.logout().permitAll().logoutUrl("/logout").logoutSuccessUrl("/home").invalidateHttpSession(true).and()
+				.exceptionHandling().accessDeniedPage("/accessDeniendView")
+				.authenticationEntryPoint(new AjaxAuthenticationEntryPoint("home"));
+		// 회원 탈퇴의 로그아웃을 위한 설정
+//		http.logout().permitAll().logoutUrl("/logout").logoutSuccessUrl("/home").invalidateHttpSession(true).and()
+//				.exceptionHandling().accessDeniedPage("/accessDeniedView")
+//				.authenticationEntryPoint(new AjaxAuthenticationEntryPoint("/home"));
+
 	}
-	
+
 	protected void configure(AuthenticationManagerBuilder auth) {
 		auth.authenticationProvider(authenticationProvider);
 	}
-	
+
 }

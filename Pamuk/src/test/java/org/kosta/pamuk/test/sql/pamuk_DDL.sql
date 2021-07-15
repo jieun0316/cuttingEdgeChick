@@ -34,6 +34,7 @@ create table member(
 	name varchar2(100) not null,
 	nick varchar2(100) not null,
 	status NUMBER default 0,
+	-- 0: user / 1: 탈퇴
 	birth DATE not null,
 	gender varchar2(2) not null
 );

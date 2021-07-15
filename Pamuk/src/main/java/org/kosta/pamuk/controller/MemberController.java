@@ -122,4 +122,12 @@ public class MemberController {
 		return "member/memberInfo.tiles";
 	}
 
+	@RequestMapping(value = "user/quitMember", method = RequestMethod.POST)
+	public String quitMember() {
+		MemberVO pvo = (MemberVO) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		memberService.quitMember(pvo.getMemberId());
+		return "member/quitResult";
+	}
+	// alert <회원 탈퇴가 되었습니다> ->(아래에다는 폼 서브밋) 확인 (스크립트 아래 폼(scfg 토큰 , 로그아웃 폼)->
+
 }

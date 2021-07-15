@@ -26,5 +26,15 @@ public interface MemberService {
 
 	String idCheck(String memberId);
 
+	/**
+	 * 회원 정보를 수정합니다.(nick)
+	 * 
+	 * @param memberVO
+	 */
 	public void updateMemberInfo(MemberVO memberVO);
+	/**
+	 * 회원 탈퇴
+	 * @param memberVO
+	 */
+	public void quitMember(String memberId);
 }

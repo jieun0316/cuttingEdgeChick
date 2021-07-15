@@ -29,4 +29,9 @@ public interface MemberMapper {
 	List<AuthoritiesVO> selectAuthorityById(String memberId);
 	// 회원정보 수정
 	void updateMemberInfo(MemberVO memberVO);
+	
+	// 회원 상태 수정
+	void updateMemberStatus(String memberId);
+	// 회원 role 수정
+	void updateAuthority(String memberId);
 }

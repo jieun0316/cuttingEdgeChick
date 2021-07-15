@@ -68,15 +68,31 @@
 							</c:choose>
 						</div>
 						<div class="col-12 col-lg-7 ml-auto mr-auto mb-30">
-						<sec:authorize access="hasRole('ROLE_MEMBER')">
-						
-							<form action="${pageContext.request.contextPath}/user/updateMemberInfoForm" method="post">
-								<div class="col-6 text-center">
-								<sec:csrfInput/>
-									<button class="btn delicious-btn mt-30" type="submit">닉네임 수정하러가기</button>
-								</div>
-							</form>
-						</sec:authorize> 
+							<sec:authorize access="hasRole('ROLE_MEMBER')">
+
+								<form
+									action="${pageContext.request.contextPath}/user/updateMemberInfoForm"
+									method="post">
+									<div class="col-6 text-center">
+										<sec:csrfInput />
+										<button class="btn delicious-btn mt-30" type="submit">닉네임
+											수정하러가기</button>
+									</div>
+								</form>
+							</sec:authorize>
+							<sec:authorize access="hasRole('ROLE_MEMBER')">
+
+								<form
+									action="${pageContext.request.contextPath}/user/quitMember"
+									method="post">
+									<%-- /<input type="hidden" value="${mvo.memberId}" id="memberId" --%>
+									<div class="col-10 text-center">
+										<sec:csrfInput />
+										<button class="btn delicious-btn mt-30" type="submit">회원
+											탈퇴</button>
+									</div>
+								</form>
+							</sec:authorize>
 						</div>
 					</div>
 				</div>
