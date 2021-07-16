@@ -20,13 +20,8 @@
 					</div>
 					<!-- Receipe Content -->
 					<div class="receipe-content">
-<<<<<<< HEAD
 						<span>${recipeVO.writeDate}</span> <a href="${pageContext.request.contextPath}/recipe/recipeBoardView?recipeNo=${recipeVO.recipeNo}">
 							<h6>[${recipeVO.category}] ${recipeVO.recipeName}</h6>
-=======
-						<span>${recipeVO.writeDate}</span> <a href="recipe/recipeBoardView?recipeNo=${recipeVO.recipeNo}">
-							<h5>${recipeVO.recipeName}</h5>
->>>>>>> branch 'main' of https://github.com/jieun0316/cuttingEdgeChick.git
 						</a>
 						<div class="ratings">
 							<%-- 게시물 별점 평균 별 아이콘 갯수 지정 --%>
