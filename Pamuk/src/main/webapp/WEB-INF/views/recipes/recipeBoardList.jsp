@@ -137,9 +137,11 @@
 			</c:if>
 		</ul>
 		<!-- /.Pagination -->
+		<sec:authorize access="isAuthenticated()">
 		<div class="row mt-50">
 			<button type="button" class="btn btn-outline-success" onclick="location.href='recipeBoardWriteForm'">레시피 작성</button>
 		</div>
+		</sec:authorize>
 	</div>
 </section>
 <!-- ##### Best Receipe Area End ##### -->
