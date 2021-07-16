@@ -56,16 +56,16 @@
 				+ (stepNo - 1)
 				+ '].stepTitle" placeholder="step'
 				+ stepNo
-				+ ' 제목을 입력해주세요"></div>';
+				+ ' 제목을 입력해주세요" required="required"></div>';
 		recipeStepForm += '<div class="row">';
  		recipeStepForm += '<input type="file" class="form-control" name="recipeStepImgs"';
-		recipeStepForm += 'placeholder="레시피 step' + stepNo + ' 에 따른 이미지파일을 업로드해주세요!">'; 
+		recipeStepForm += 'placeholder="레시피 step' + stepNo + ' 에 따른 이미지파일을 업로드해주세요!" required="required">'; 
 		recipeStepForm += '<textarea class="form-control" name="recipeContentList['
 				+ (stepNo - 1)
 				+ '].content" cols="30" rows="10" placeholder="레시피 step'
-				+ stepNo + ' 에 따른 설명을 넣어주세요!"></textarea>';
+				+ stepNo + ' 에 따른 설명을 넣어주세요!" required="required"></textarea>';
 		recipeStepForm += '<input type="hidden" name="recipeContentList['
-				+ (stepNo - 1) + '].stepNo" value="' + stepNo + '"/>';
+				+ (stepNo - 1) + '].stepNo" value="' + stepNo + '" required="required" />';
 		recipeStepForm += '</div>';
 		recipeStepForm += '</div>';
 		// 현재 스탭 뒤에 append
@@ -162,7 +162,7 @@
 								<h6 class="mt-15">버튼을 클릭하면 레시피 step 을 증가시킬 수 있어요 !</h6>
 							</div>
 							<div class="col-12 text-right">
-								<button class="btn delicious-btn mt-30" type="submit">작성</button>
+								<button class="btn delicious-btn mt-100" type="submit">작성</button>
 							</div>
 						</div>
 					</form>

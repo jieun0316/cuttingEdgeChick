@@ -60,6 +60,7 @@ create table recipe(
 	hits NUMBER default 0,
 	constraint fk_recipe foreign key(member_id) references member(member_id)
 );
+select * from recipe
 ALTER TABLE recipe ADD (recipe_thumbnail varchar2(1000));
 
 --4
