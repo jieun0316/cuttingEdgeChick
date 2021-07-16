@@ -28,13 +28,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 		http.authorizeRequests().antMatchers("/", "/home", "/loginForm", "/user/**", "/css/**", "/fonts/**", "/img/**",
 				"/js/**", "/recipe/**", "/upload/**").permitAll().anyRequest().authenticated();
+		
 		http.formLogin().loginPage("/loginForm").loginProcessingUrl("/login").failureUrl("/login_fail")
 				.defaultSuccessUrl("/home", true).usernameParameter("memberId").passwordParameter("password").and()
 				.formLogin().permitAll();
 
 		http.logout().permitAll().logoutUrl("/logout").logoutSuccessUrl("/home").invalidateHttpSession(true).and()
-				.exceptionHandling().accessDeniedPage("/accessDeniendView")
-				.authenticationEntryPoint(new AjaxAuthenticationEntryPoint("home"));
+				.exceptionHandling().accessDeniedPage("/accessDeniedView")
+				.authenticationEntryPoint(new AjaxAuthenticationEntryPoint("/home"));
 	}
 
 	protected void configure(AuthenticationManagerBuilder auth) {
