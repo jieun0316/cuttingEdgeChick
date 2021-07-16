@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 <sec:authentication var="mvo" property="principal" /> 
 
@@ -136,6 +137,7 @@ $(document).ready(function () {
 	    }
 	  });
 	  $("#deleteReviewBtn").click(function() {
+<<<<<<< HEAD
 		 let result = confirm("댓글을 삭제하시겠습니까?");
 		 if(result){
 		 	$("#deleteReview").submit();
@@ -183,6 +185,15 @@ $(document).ready(function () {
 		// 완료폼 add
 		$($this).parents(".prepStep").html(modifyOkForm);
 	}
+=======
+	  	let result = confirm("댓글을 삭제하시겠습니까?");
+	  	if(result){
+	  		$("#deleteReview").submit();
+	  	} 
+	  	return;
+	  });
+	});
+>>>>>>> refs/heads/WaterPunch
 </script>
 
 <!-- 
@@ -226,13 +237,36 @@ $(document).ready(function () {
 					</div>
 				</div>
 				<div class="col-12 col-md-4">
+					<%-- 게시물 별점 평균 --%>
 					<div class="receipe-ratings text-right my-5">
-						<div class="ratings">
-							<i class="fa fa-star" aria-hidden="true"></i> <i
-								class="fa fa-star" aria-hidden="true"></i> <i class="fa fa-star"
-								aria-hidden="true"></i> <i class="fa fa-star" aria-hidden="true"></i>
-							<i class="fa fa-star-o" aria-hidden="true"></i>
-						</div>
+						<c:set var="total" value="0"/>
+						<c:forEach items="${reviewList}" var="review" varStatus="status">
+							<c:set var="total" value="${total + review.rating}"/>
+							<c:set var="avgrating" value="${total / status.count }"/>
+						</c:forEach>
+						<fmt:formatNumber value="${avgrating}" pattern=".0"/>
+						<fmt:formatNumber  var="roundavgrating" value="${avgrating}" pattern="0" />
+						<%-- 게시물 별점 평균 별 아이콘 갯수 지정 --%>
+						<c:choose>
+						<%-- 만점(5개)일때 --%>
+							<c:when test="${roundavgrating == 5}">
+								<c:forEach begin="1" end="${roundavgrating}" step="1">
+									<span class="float"><i class="text-warning fa fa-star"></i></span>
+								</c:forEach>
+							</c:when>
+						<%-- 1~4점 --%>
+							<c:when test="${roundavgrating < 5 and roundavgrating >=1}"> 
+								<c:forEach begin="1" end="${roundavgrating}" step="1">
+									<span class="float"><i class="text-warning fa fa-star"></i></span>
+								</c:forEach>
+								<c:forEach begin="1" end="${5-roundavgrating}" step="1">
+									<span class="float"><i class="text-warning fa fa-star-o"></i></span>
+								</c:forEach>
+							</c:when>
+							<c:otherwise>
+								<p>등록된 리뷰가 없습니다</p>
+							</c:otherwise>
+						</c:choose>
 					</div>
 										<!-- 저장되기 전 -->
 					<button class="float-right btn text-danger btn-outline-danger saveBtn off" type="button"> <i class="fa fa-heart"></i> My Recipe Save</button>
@@ -282,18 +316,14 @@ $(document).ready(function () {
 									${item.qty}</label>
 							</div>
 						</c:forEach>
-
-
 					</div>
-
 				</div>
 			</div>
 			<div class="row col-6 text-left mb-15">
 				<h3>리뷰( ${countReview}개 )</h3>
 			</div>
 			<!-- 댓글 리스트 -->
-			<c:forEach items="${reviewList}" var="review">
-			
+			<c:forEach items="${reviewList}" var="review" varStatus="status">
 			<div class="container">
 				<div class="card">
 				    <div class="card-body">
@@ -317,11 +347,12 @@ $(document).ready(function () {
 				        	        		 <span class="float"><i class="text-warning fa fa-star-o"></i></span>
 				        	        		</c:forEach>
 										</c:otherwise>
-										</c:choose>
+									</c:choose>
 			        	       </p>
 			        	       <div class="clearfix"></div>
 			        	        <p>${review.reviewComment}</p>
 			        	        <p>
+			        	        <%-- 타인의 댓글은 좋아요가 보이고,  본인의 댓글은 수정, 삭제버튼이 보임 --%>
 			        	        	<sec:authorize access="isAuthenticated()">
 			        	        	<sec:authentication var="mvo" property="principal" />
 			        	        	<c:choose>
@@ -338,10 +369,18 @@ $(document).ready(function () {
 				        	          		</form>
 			        	        		</c:when>
 			        	        		<c:otherwise>
-											 <a class="float-right btn text-white btn-danger"> <i class="fa fa-heart"></i> Like</a>
+											 <a class="float-right btn text-white btn-danger"> <i class="fa fa-heart"></i> 깐지용버튼</a>
 			        	        		</c:otherwise>
 			        	        	</c:choose>
 			        	        	</sec:authorize>
+			        	        	<sec:authorize access="hasRole('ROLE_ADMIN')">
+										<form action="${pageContext.request.contextPath}/recipe/deleteReviewByAdmin" method="post" class="deleteReviewByAdmin">
+				        	        		<sec:csrfInput />
+				        	        		<input type="hidden" name="memberId" value="${review.memberVO.memberId}">
+				        	        		<input type="hidden" name="recipeNo" value="${recipeVO.recipeNo}"/>
+				        	        		<button type="submit" class="float-right btn btn-outline-primary ml-2"><i class="fa fa-trash"></i> 관리자 삭제</button>
+				        	        	</form>				        	        	
+									</sec:authorize> 
 			        	       </p>
 			        	    </div>
 				        </div>
@@ -350,6 +389,14 @@ $(document).ready(function () {
 			</div>
 			<hr>
 			</c:forEach>
+			<script type="text/javascript">
+				$(document).ready(function() {
+					$(".deleteReviewByAdmin").submit(function() {
+						return confirm("관리자 영역 : 삭제하시겠습니까?");
+					});
+				});
+			</script>
+			
 			<!-- 댓글 작성 -->
 			<section class="write-review-area">
 			<sec:authorize access="hasRole('ROLE_MEMBER')">

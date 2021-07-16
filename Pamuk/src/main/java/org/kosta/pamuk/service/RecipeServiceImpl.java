@@ -158,9 +158,14 @@ public class RecipeServiceImpl implements RecipeService {
 	}
 
 	@Override
+<<<<<<< HEAD
 	@Transactional
 	public void updateRecipeContentByRecipeNo(RecipeContentVO recipeContentVO) {
 		// TODO Auto-generated method stub
 		recipeMapper.updateRecipeContentByRecipeNo(recipeContentVO);
+=======
+	public void deleteReviewByAdmin(String memberId, int recipeNo) {
+		recipeMapper.deleteReview(memberId, recipeNo);
+>>>>>>> refs/heads/WaterPunch
 	}
 }
