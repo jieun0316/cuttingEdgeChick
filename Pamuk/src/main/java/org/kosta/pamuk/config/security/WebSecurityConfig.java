@@ -36,7 +36,12 @@ public class WebSecurityConfig  extends WebSecurityConfigurerAdapter{
 		
 		http.logout().permitAll().logoutUrl("/logout")
 			.logoutSuccessUrl("/home").invalidateHttpSession(true)
-			.and().exceptionHandling().accessDeniedPage("/accessDeniendView").authenticationEntryPoint(new AjaxAuthenticationEntryPoint("home"));
+			.and().exceptionHandling().accessDeniedPage("/accessDeniendView").authenticationEntryPoint(new AjaxAuthenticationEntryPoint("/user/loginForm"));
+		
+		http.sessionManagement()
+		.maximumSessions(1)
+		.maxSessionsPreventsLogin(true)
+		.expiredUrl("/login");
 	}
 	
 	protected void configure(AuthenticationManagerBuilder auth) {

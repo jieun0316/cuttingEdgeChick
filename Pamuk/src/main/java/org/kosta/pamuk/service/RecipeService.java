@@ -57,4 +57,5 @@ public interface RecipeService {
 	ArrayList<ReviewVO> readReview(int recipeNo);
 	void updateReview(ReviewVO reviewVO);
 	void deleteReview(ReviewVO reviewVO);
+	void deleteReviewByAdmin(String memberId, int recipeNo);
 }

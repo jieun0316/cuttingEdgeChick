@@ -158,4 +158,8 @@ public class RecipeServiceImpl implements RecipeService {
 		recipeMapper.deleteReview(memberId, recipeNo);
 	}
 
+	@Override
+	public void deleteReviewByAdmin(String memberId, int recipeNo) {
+		recipeMapper.deleteReview(memberId, recipeNo);
+	}
 }

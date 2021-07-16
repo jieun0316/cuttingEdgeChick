@@ -13,6 +13,7 @@ public class RecipeVO {
 	private List<RecipeContentVO> recipeContentList;
 	private List<RecipeItemVO> recipeItemList;
 	private String recipeThumbnail;
+	private float rating;
 
 	
 	public RecipeVO() {
@@ -41,6 +42,16 @@ public class RecipeVO {
 		this.recipeContentList = recipeContentList;
 		this.recipeItemList = recipeItemList;
 		this.recipeThumbnail = recipeThumbnail;
+	}
+
+
+	public float getRating() {
+		return rating;
+	}
+
+
+	public void setRating(float rating) {
+		this.rating = rating;
 	}
 
 
@@ -148,8 +159,11 @@ public class RecipeVO {
 		return "RecipeVO [recipeNo=" + recipeNo + ", memberVO=" + memberVO + ", recipeName=" + recipeName
 				+ ", writeDate=" + writeDate + ", modifyDate=" + modifyDate + ", category=" + category + ", hits="
 				+ hits + ", recipeContentList=" + recipeContentList + ", recipeItemList=" + recipeItemList
-				+ ", recipeThumbnail=" + recipeThumbnail + "]";
+				+ ", recipeThumbnail=" + recipeThumbnail + ", rating=" + rating + "]";
 	}
+
+
+
 
 
 

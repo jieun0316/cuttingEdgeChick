@@ -58,11 +58,13 @@ public class RecipeController {
 			pagingBean = new PagingBean(totalRecipeCount, Integer.parseInt(pageNo));
 		}
 
-		// view All Recipe List
+		// view All Recipe List, 
 		ArrayList<RecipeVO> recipeList = recipeService.getAllRecipeListByRowNumber(pagingBean.getStartRowNumber(),
 				pagingBean.getEndRowNumber());
+
 		model.addAttribute("recipeList", recipeList);
 		model.addAttribute("pagingBean", pagingBean);
+
 		return "recipes/recipeBoardList.tiles";
 	}
 
@@ -232,15 +234,7 @@ public class RecipeController {
 		return "recipes/recipeListAjax";
 	}
 	
-	 // 댓글 작성
-	@Secured("ROLE_MEMBER")
-	@PostMapping("writeReview")
-	public String postReview(ReviewVO reviewVO) {
-		reviewVO.setMemberVO( (MemberVO) SecurityContextHolder.getContext().getAuthentication().getPrincipal());	
-		System.out.println(reviewVO);
-		recipeService.writeReview(reviewVO);
-		return  "redirect:/recipe/recipeBoardView?recipeNo="+reviewVO.getRecipeVO().getRecipeNo();
-	}
+	
 		
 	/**
 	 * 권한 check 후 레시피 게시글 삭제로 이동
@@ -288,9 +282,18 @@ public class RecipeController {
 		model.addAttribute("ResultByWriterCount", ResultByWriterCount);
 		model.addAttribute("ResultByWriter", ResultByWriter);
 		
-		
 		return "recipes/recipeSearchResultPage.tiles"; 
 	}
+	 // 댓글 작성
+	@Secured("ROLE_MEMBER")
+	@PostMapping("writeReview")
+	public String postReview(ReviewVO reviewVO) {
+		reviewVO.setMemberVO( (MemberVO) SecurityContextHolder.getContext().getAuthentication().getPrincipal());	
+		System.out.println(reviewVO);
+		recipeService.writeReview(reviewVO);
+		return  "redirect:/recipe/recipeBoardView?recipeNo="+reviewVO.getRecipeVO().getRecipeNo();
+	}
+	
 	@Secured("ROLE_MEMBER")
 	@PostMapping("deleteReview")
 	public String deleteReview(ReviewVO reviewVO) {
@@ -298,5 +301,13 @@ public class RecipeController {
 		recipeService.deleteReview(reviewVO);
 		return "redirect:/recipe/recipeBoardView?recipeNo="+reviewVO.getRecipeVO().getRecipeNo();
 	}
-	
+	@Secured("ROLE_ADMIN")
+	@PostMapping("deleteReviewByAdmin")
+	public String deleteReviewByAdmin(String memberId, int recipeNo) {
+		//System.out.println(1);
+		//System.out.println("멤버아이디 : "+ memberId);
+		//System.out.println("레시피번호 : "+ recipeNo);
+		recipeService.deleteReviewByAdmin(memberId, recipeNo);
+		return "redirect:/recipe/recipeBoardView?recipeNo="+recipeNo;
+	}
 }
