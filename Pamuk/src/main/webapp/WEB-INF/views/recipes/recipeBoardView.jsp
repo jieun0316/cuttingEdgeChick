@@ -260,10 +260,14 @@ $(document).ready(function () {
 							</c:otherwise>
 						</c:choose>
 					</div>
-										<!-- 저장되기 전 -->
+					<sec:authorize access="hasRole('ROLE_MEMBER')">					<!-- 저장되기 전 -->
 					<button class="float-right btn text-danger btn-outline-danger saveBtn off" type="button"> <i class="fa fa-heart"></i> My Recipe Save</button>
 					<!-- 저장완료 -->
 					<button class="float-right btn text-white btn-danger saveBtn on" type="button"> <i class="fa fa-heart"></i> My Recipe Save</button>
+					</sec:authorize>
+					<sec:authorize access="isAnonymous()">
+					<a class="float-right btn text-danger btn-outline-danger saveBtn off" href="/user/loginForm"> <i class="fa fa-heart"></i> My Recipe Save</a>
+					</sec:authorize>
 					<button class="float-right btn text-white btn-danger reportBtn" type="button" onclick="showPopup()"> <i class="fa fa-flag"></i> 신고하기</button>
 				</div>
 			</div>

@@ -138,13 +138,19 @@ public class RecipeController {
 	 */
 	@RequestMapping("recipeBoardView")
 	public String recipeBoardView(int recipeNo, Model model) {
-		MemberVO pvo = (MemberVO) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		RecipeVO recipeVO = recipeService.viewRecipeDetail(recipeNo);
 		ArrayList<ReviewVO> reviewList = recipeService.readReview(recipeNo);
 		int countReview = recipeMapper.countReview(recipeNo);
-		int isSaved = recipeMapper.isSavedRecipe(pvo.getMemberId(), recipeVO.getRecipeNo());
-
-		model.addAttribute("isSaved", isSaved);
+		
+		Object object = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		
+		//로그인 된지 확인
+		if(!object.toString().equals("anonymousUser")) {
+			MemberVO pvo = (MemberVO) SecurityContextHolder.getContext().getAuthentication().getPrincipal();	
+			int isSaved = recipeMapper.isSavedRecipe(pvo.getMemberId(),recipeVO.getRecipeNo());
+			model.addAttribute("isSaved", isSaved);
+		}
+		
 		model.addAttribute("recipeVO", recipeVO);
 		model.addAttribute("reviewList", reviewList);
 		model.addAttribute("countReview", countReview);

@@ -22,7 +22,11 @@
                     <div class="single-best-receipe-area mb-30">
                         <img src="${pageContext.request.contextPath}/upload/${recipeVO.recipeThumbnail}" alt="">
                         <div class="receipe-content">
+<<<<<<< HEAD
                             <a href="${pageContext.request.contextPath}/recipe/recipeBoardView?recipeNo=${recipeVO.recipeNo}">
+=======
+                            <a href="recipe/recipeBoardView?recipeNo=${recipeVO.recipeNo}">
+>>>>>>> branch 'main' of https://github.com/jieun0316/cuttingEdgeChick.git
                                 <h5>[${recipeVO.category}] ${recipeVO.recipeName}</h5>
                             </a>
                             <div class="ratings">

@@ -192,7 +192,6 @@ $(document).ready(function(){
 	</c:forTokens>
     </p>
   </div>
-   <br>	
 	<input type="button" id="addBtn" value="추가">
 </div>
 <hr>

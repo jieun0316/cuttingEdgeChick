@@ -7,7 +7,13 @@
 
 
 <script>
-
+	//recipe step 을 증가위한 no
+	let stepNo = 0;
+	let itemNo = 0;
+	// 현재 recipeWriteStep 번호를 받기 위한 no
+	let stepCurForm = "";
+	// 선택한 아이템 리스트 (중복 방지)
+	let items = [];
 	$(document).ready(function() {
 		newStepForm();
 		$(".recipePlusBtn").on({
@@ -34,18 +40,14 @@
 						
 						//let itemForm = '<li>'+$(this)[0].itemName+'</li>';
 						
-						let itemForm = '<input type="button" value="'+$(this)[0].itemName+'" onclick="selectItem(this)"></input>';
+						let itemForm = '<input type="button" class="btn btn-success" value="'+$(this)[0].itemName+'" onclick="selectItem(this)"></input>';
 						$("#ItemList").append(itemForm);
 					});
 				}
 			}); 
 		});
 	}); //ready
-	// recipe step 을 증가위한 no
-	let stepNo = 0;
-	let itemNo = 0;
-	// 현재 recipeWriteStep 번호를 받기 위한 no
-	let stepCurForm = "";
+	
 	function newStepForm() {
 		stepNo++;
 		let recipeStepForm = '<div class="recipeWriteStep">';
@@ -56,27 +58,43 @@
 				+ (stepNo - 1)
 				+ '].stepTitle" placeholder="step'
 				+ stepNo
-				+ ' 제목을 입력해주세요"></div>';
+				+ ' 제목을 입력해주세요" required="required"></div>';
 		recipeStepForm += '<div class="row">';
  		recipeStepForm += '<input type="file" class="form-control" name="recipeStepImgs"';
-		recipeStepForm += 'placeholder="레시피 step' + stepNo + ' 에 따른 이미지파일을 업로드해주세요!">'; 
+		recipeStepForm += 'placeholder="레시피 step' + stepNo + ' 에 따른 이미지파일을 업로드해주세요!" required="required">'; 
 		recipeStepForm += '<textarea class="form-control" name="recipeContentList['
 				+ (stepNo - 1)
 				+ '].content" cols="30" rows="10" placeholder="레시피 step'
-				+ stepNo + ' 에 따른 설명을 넣어주세요!"></textarea>';
+				+ stepNo + ' 에 따른 설명을 넣어주세요!" required="required"></textarea>';
 		recipeStepForm += '<input type="hidden" name="recipeContentList['
-				+ (stepNo - 1) + '].stepNo" value="' + stepNo + '"/>';
+				+ (stepNo - 1) + '].stepNo" value="' + stepNo + '" required="required" />';
 		recipeStepForm += '</div>';
 		recipeStepForm += '</div>';
 		// 현재 스탭 뒤에 append
 		$("#recipeStepWrap").append(recipeStepForm);
 	};
+	
 	function selectItem(item) {
 		itemNo++;
-		let selectedItemForm = '<tr><td>' + $(item).attr('value') + '<input type="hidden" name="recipeItemList[' + (itemNo - 1) + '].itemName" value="'+ $(item).attr('value') +'"/>';
-		selectedItemForm += '</td> <td><input type="text" name="recipeItemList[' + (itemNo - 1) + '].qty"></td></tr>';
 		
-		$("#selectedItemList").append(selectedItemForm);
+		const table = document.getElementById('selectedItemListTable');
+		//중복 X - 추가
+		var value = $(item).attr('value');
+		if($.inArray(value, items) == -1) {
+			items.push(value);
+		 	 // 새 행(Row) 추가
+			const newRow = table.insertRow();
+			  
+			  // 새 행(Row)에 Cell 추가
+			  const newCell1 = newRow.insertCell(0);
+			  const newCell2 = newRow.insertCell(1);
+			  
+			  // Cell에 텍스트 추가
+			  newCell1.innerHTML = $(item).attr('value') + '<input type="hidden" name="recipeItemList[' + (itemNo - 1) + '].itemName" value="'+ $(item).attr('value') +'"/>';
+			  newCell2.innerHTML = '<input type="text" name="recipeItemList[' + (itemNo - 1) + '].qty"></td>';
+		}else {
+			alert("이미 추가한 재료입니다");
+		}
 	};
 </script>
 <!-- 
@@ -130,24 +148,23 @@
 						</div>
 						<div class="row">
 							<div class="col-12" id="recipeItemWrap">
-								<div class="col-md-2 form-control btn-group-vertical" id="recipeCategoryList" style="height: 300px;">
+								<div class="form-control btn-group-vertical" id="recipeCategoryList" style="height: 300px; overflow-y:scroll; float: left;  width: 30%;">
 									<c:forEach items="${categoryList}" var="category">
 											<button type="button" name="categoryBtn" class="btn btn-success" value="${category.categoryName}">${category.categoryName}</button>
 									</c:forEach>
 								</div>
-								<div class="col-md-2 form-control btn-group-vertical" id="ItemList" style="height: 300px; ">
+								<div class="form-control btn-group-vertical" id="ItemList" style="height: 300px; overflow-y:scroll; width: 25%; float: left; ">
 									<!-- Default panel contents -->
 									<!-- <ul id="item_ul_list" class="list-group list-group-flush"></ul> -->
 								</div>
-
-								<div class="col-md-4 form-control" id="selectedItemList" style="height: 300px; ">
-									<table>
+								<div class="form-control" id="selectedItemList" style="height: 300px; overflow-y:scroll; width: 45%; float: left; ">
+									<table class="table table-hover" id="selectedItemListTable">
 										<thead>
 											<tr>
 												<td>품목</td><td>수량</td>
 											</tr>
 										</thead>
-										<tbody id="selectedItemList">
+										<tbody>
 										</tbody>
 									</table>
 								</div>
@@ -162,7 +179,7 @@
 								<h6 class="mt-15">버튼을 클릭하면 레시피 step 을 증가시킬 수 있어요 !</h6>
 							</div>
 							<div class="col-12 text-right">
-								<button class="btn delicious-btn mt-30" type="submit">작성</button>
+								<button class="btn delicious-btn mt-100" type="submit">작성</button>
 							</div>
 						</div>
 					</form>
