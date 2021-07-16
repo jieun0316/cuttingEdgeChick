@@ -18,7 +18,7 @@
 					</div>
 					<!-- Receipe Content -->
 					<div class="receipe-content">
-						<span>${recipeVO.writeDate}</span> <a href="receipe-post.html">
+						<span>${recipeVO.writeDate}</span> <a href="recipe/recipeBoardView?recipeNo=${recipeVO.recipeNo}">
 							<h5>${recipeVO.recipeName}</h5>
 						</a>
 						<div class="ratings">
