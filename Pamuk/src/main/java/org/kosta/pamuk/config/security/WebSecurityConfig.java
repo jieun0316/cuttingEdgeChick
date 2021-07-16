@@ -35,7 +35,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 		http.logout().permitAll().logoutUrl("/logout").logoutSuccessUrl("/home").invalidateHttpSession(true).and()
 				.exceptionHandling().accessDeniedPage("/accessDeniedView")
-				.authenticationEntryPoint(new AjaxAuthenticationEntryPoint("/home"));
+				.authenticationEntryPoint(new AjaxAuthenticationEntryPoint("/user/loginForm"));
 	}
 
 	protected void configure(AuthenticationManagerBuilder auth) {
