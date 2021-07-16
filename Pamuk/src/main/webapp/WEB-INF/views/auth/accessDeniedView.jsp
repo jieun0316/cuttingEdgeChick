@@ -15,6 +15,10 @@
 <title>권한이 없는 페이지</title>
 </head>
 <body>
-	<h3>권한이 없습니다.</h3>
+	<div class="row">
+		<div style="text-align : center;">
+			<img src="/img/core-img/denied.jpg" style="display:block; margin:auto;">
+		</div>
+	</div>
 </body>
 </html>
