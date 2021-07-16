@@ -8,6 +8,21 @@
 	<i class="circle-preloader"></i> <img
 		src="${pageContext.request.contextPath}/img/core-img/salad.png" alt="">
 </div>
+<!-- 냉장고 버튼 누르면 재료 리스트 alert-->
+<script type="text/javascript">
+	$(document).ready(function() {
+		$("#scrollBanner").on("click", function() {
+			$.ajax({
+				type : "get",
+				url : "fridge/getTotalStoredItemList2",
+				//dataType:"json",
+				success : function(ja) {
+					alert("<보유중인 재료>\n" + ja);
+				}//callback
+			});//ajax
+		});
+	});
+</script>
 <!-- Scroll Banner -->
 <div id="scrollBanner">
 	<a href="#"><img
@@ -22,31 +37,12 @@
 	<div class="close-btn">
 		<i class="fa fa-times" aria-hidden="true"></i>
 	</div>
-<!-- 냉장고 버튼 누르면 재료 리스트 alert-->
-<script type="text/javascript">
-	$(document).ready(function() {
-		$("#scrollBanner").on("click", function() {
-			$.ajax({
-				type : "get",
-				url : "fridge/getTotalStoredItemList2",
-				//dataType:"json",
-				success : function(ja) {
-					alert("<보유중인 재료>\n"+ja);
-				}//callback
-			});//ajax
-		});
-	});
-</script>
-<!-- Search Wrapper -->
-    <div class="search-wrapper">
-        <!-- Close Btn -->
-        <div class="close-btn"><i class="fa fa-times" aria-hidden="true"></i></div>
 
 	<div class="container">
 		<div class="row">
 			<div class="col-12">
-				<form action="/recipe/recipeSearchResultPage" method="get">
-					<input type="search" name="keyword" placeholder="검색입력">
+				<form action="/recipeSearchResultPage" method="get">
+					<input type="search" name="keyword" placeholder="검색어를 입력해주세요">
 					<button type="submit">
 						<i class="fa fa-search" aria-hidden="true"></i>
 					</button>
@@ -85,34 +81,32 @@
 						</div>
 
 
-                            <!-- Nav Start -->
-                            <div class="classynav">
-                                <ul>
-                                    <li><a href="/home">Home</a></li>
-                                    <li><a href="/recipe/recipeBoardList">레시피</a>
-                                        <ul class="dropdown">
-                                            <li><a href="/recipe/recipeListByCategory?category=한식">한식</a></li>
-                                            <li><a href="/recipe/recipeListByCategory?category=일식">일식</a></li>
-                                            <li><a href="/recipe/recipeListByCategory?category=중식">중식</a></li>
-                                            <li><a href="/recipe/recipeListByCategory?category=양식">양식</a></li>
-                                            <li><a href="/recipe/mySavedRecipe">저장한 레시피</a></li>
-                                        </ul>
-                                    </li>
-                                    <li><a href="#">냉장고</a>
-                                        <ul class="dropdown">
-                                            <li><a href="#">나의 냉장고 관리</a>
-                                                <ul class="dropdown">
-                                                    <li><a href="/fridge/fridge-register-form">냉장고 정보 등록</a></li>
-                                                    <li><a href="/fridge/fridge-update-form">냉장고 정보 수정</a></li>
-                                                    <li><a href="/fridge/item-list">재료 검색</a></li>
-                                                    <li><a href="/fridge/blog-post.html">유통기한 임박재료</a></li>
-                                                </ul>
-                                            </li>
-                                            <li><a href="about.html">재료별 레시피 추천 </a></li>
-                                        </ul>
-                                    </li>
-                                    <li><a href="${pageContext.request.contextPath}/user/myInfo">내정보</a>
-                                        <!-- <ul class="dropdown">
+						<!-- Nav Start -->
+						<div class="classynav">
+							<ul>
+								<li><a href="/home">Home</a></li>
+								<li><a href="/recipe/recipeBoardList">레시피</a>
+									<ul class="dropdown">
+										<li><a href="/recipe/recipeListByCategory?category=한식">한식</a></li>
+										<li><a href="/recipe/recipeListByCategory?category=일식">일식</a></li>
+										<li><a href="/recipe/recipeListByCategory?category=중식">중식</a></li>
+										<li><a href="/recipe/recipeListByCategory?category=양식">양식</a></li>
+										<li><a href="/recipe/mySavedRecipe">저장한 레시피</a></li>
+									</ul></li>
+								<li><a href="#">냉장고</a>
+									<ul class="dropdown">
+										<li><a href="#">나의 냉장고 관리</a>
+											<ul class="dropdown">
+												<li><a href="/fridge/fridge-register-form">냉장고 정보
+														등록</a></li>
+												<li><a href="/fridge/fridge-update-form">냉장고 정보 수정</a></li>
+												<li><a href="/fridge/item-list">재료 검색</a></li>
+												<li><a href="/fridge/blog-post.html">유통기한 임박재료</a></li>
+											</ul></li>
+										<li><a href="about.html">재료별 레시피 추천 </a></li>
+									</ul></li>
+								<li><a
+									href="${pageContext.request.contextPath}/user/myInfo">내정보</a> <!-- <ul class="dropdown">
                                             <li><a href="index.html">내정보수정</a></li>
                                             <li><a href="blog-post.html">일식</a></li>
                                             <li><a href="about.html">중식</a></li>
