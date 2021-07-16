@@ -4,33 +4,24 @@
 <%@taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 <script type="text/javascript">
 $(document).ready(function(){
-	let checkResultId="";
-	
+	let checkResultId="";	
 	$("#regForm").submit(function(){
 		if(checkResultId==""){
 			alert("아이디 중복확인을 하세요");
 			return false;
 		}
-<<<<<<< HEAD
-		else if(checkResultNick==""){
-			alert("닉네임 중복확인을 하세요!");
-			return false;
-		}
-=======
-
-		/* if(gender==""){
-			alert("성별을 넣어주세요");
-			return false;
-		} */
->>>>>>> branch 'main' of https://github.com/jieun0316/cuttingEdgeChick.git
 	});
 		// spring security 적용시 ajax post 방식은 아래와 같이 beforeSend property에서 csrf 값을 셋팅해야 함 
-
+	$("#idCheck").click(function() {
+		let memberId=$("#memberId").val().trim();
+		if(memberId==""){
+			alert("아이디를 넣어주세요");
+			return;
+		}
 		$.ajax({
 			type:"post",
 			url:"${pageContext.request.contextPath}/user/idCheckAjax",				
 			data:"memberId="+memberId,
-			async: false,
 			beforeSend : function(xhr){   /*데이터를 전송하기 전에 헤더에 csrf값을 설정한다*/
 		        xhr.setRequestHeader("${_csrf.headerName}", "${_csrf.token}");
 	    },
@@ -42,34 +33,6 @@ $(document).ready(function(){
 				$("#idCheckView").text("사용가능!").css(
 					"background","green");		
 				checkResultId="1";
-			}//else					
-		} // success		
-		});//ajax
-	}) //click
-
-	let checkResultNick="";
-	$("#nickCheck").click(function() {
-		let memberNick=$("#memberNIck").val().trim();
-		if(memberNick==""){
-			alert(" 닉네임을 넣어주세요");
-			return;
-		}
-		$.ajax({
-			type:"post",
-			url:"${pageContext.request.contextPath}/user/nickCheckAjax",				
-			data:"memberNick="+memberNick,
-			async: false,
-			beforeSend : function(xhr){   /*데이터를 전송하기 전에 헤더에 csrf값을 설정한다*/
-		        xhr.setRequestHeader("${_csrf.headerName}", "${_csrf.token}");
-	    },
-		success:function(data){						
-			if(data=="fail"){
-			$("#NickCheckView").text("사용불가!").css("background","red");
-				checkResultId="";
-			}else {						
-				$("#NickCheckView").text("사용가능!").css(
-					"background","green");		
-				checkResultNick="1";
 				}	//else					
 			} // success		
 		});//ajax
@@ -122,8 +85,6 @@ $(document).ready(function(){
                                 <div class="col-12 col-lg-7  ml-auto mr-auto">
                                 	닉네임
                                     <input type="text" class="form-control" name="nick" placeholder="사용하실 닉네임을 입력해주세요" required="required">
-                                    <button id="nickCheck" class="btn btn-outline-success" type="button" style="width:80%">중복확인</button>
-                                    	<span id="nickCheckView" class="ml-15"></span>
                                 </div>
                                 <div class="col-12 col-lg-7  ml-auto mr-auto">
                                 	생년월일
@@ -131,7 +92,7 @@ $(document).ready(function(){
                                 </div>
                                 <div class="col-12 col-lg-7 ml-auto mr-auto mb-30">
                                 성별
-                            		<select name="gender" required="required" >
+                            		<select name="gender" required="required">
                               			<option value="">성별</option>
                                			<option value="M">남자</option>
                          		    	<option value="F">여자</option>
