@@ -20,7 +20,7 @@
                     <div class="single-best-receipe-area mb-30">
                         <img src="${pageContext.request.contextPath}/upload/${recipeVO.recipeThumbnail}" alt="">
                         <div class="receipe-content">
-                            <a href="receipe-post.html">
+                            <a href="recipe/recipeBoardView?recipeNo=${recipeVO.recipeNo}">
                                 <h5>[${recipeVO.category}] ${recipeVO.recipeName}</h5>
                             </a>
                             <div class="ratings">
