@@ -1,4 +1,5 @@
 package org.kosta.pamuk.controller;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -60,7 +61,7 @@ public class RecipeController {
 			pagingBean = new PagingBean(totalRecipeCount, Integer.parseInt(pageNo));
 		}
 
-		// view All Recipe List, 
+		// view All Recipe List,
 		ArrayList<RecipeVO> recipeList = recipeService.getAllRecipeListByRowNumber(pagingBean.getStartRowNumber(),
 				pagingBean.getEndRowNumber());
 
@@ -84,57 +85,55 @@ public class RecipeController {
 
 	@Secured("ROLE_MEMBER")
 	@RequestMapping("recipeBoardWrite")
-	public String recipeBoardWrite(
-			RecipeVO recipeVO,
+	public String recipeBoardWrite(RecipeVO recipeVO,
 			@RequestParam("recipeThumbnailImg") MultipartFile recipeThumbnailImg,
-			@RequestParam("recipeStepImgs") MultipartFile[] recipeStepImgs,
-			HttpServletRequest request
-			) throws IOException {
-		 
-		//1. 섬네일 등록
-		//저장될 경로
+			@RequestParam("recipeStepImgs") MultipartFile[] recipeStepImgs, HttpServletRequest request)
+			throws IOException {
+
+		// 1. 섬네일 등록
+		// 저장될 경로
 		String filePath = request.getServletContext().getRealPath("upload/");
-		//파일명
-        String originalFile = recipeThumbnailImg.getOriginalFilename();
-        //파일명 중 확장자만 추출                                                //lastIndexOf(".") - 뒤에 있는 . 의 index번호
+		// 파일명
+		String originalFile = recipeThumbnailImg.getOriginalFilename();
+		// 파일명 중 확장자만 추출 //lastIndexOf(".") - 뒤에 있는 . 의 index번호
 		String originalFileExtension = originalFile.substring(originalFile.lastIndexOf("."));
-		//저장될 파일명 - 파일명이 같은 사진이 있을 수 있으므로 파일명 변경
+		// 저장될 파일명 - 파일명이 같은 사진이 있을 수 있으므로 파일명 변경
 		String savedFileName = UUID.randomUUID() + originalFileExtension;
-		
+
 		File file = new File(filePath + savedFileName);
-        //파일 저장
+		// 파일 저장
 		recipeThumbnailImg.transferTo(file);
-		
+
 		recipeVO.setRecipeThumbnail(savedFileName);
-		
-		//2. step별 이미지 등록
+
+		// 2. step별 이미지 등록
 		List<RecipeContentVO> recipeContentList = recipeVO.getRecipeContentList();
-		for(int i=0; i<recipeContentList.size(); i++) {
+		for (int i = 0; i < recipeContentList.size(); i++) {
 			MultipartFile recipeStepImg = recipeStepImgs[i];
-			//파일명
+			// 파일명
 			originalFile = recipeStepImg.getOriginalFilename();
-	        //파일명 중 확장자만 추출                                                //lastIndexOf(".") - 뒤에 있는 . 의 index번호
+			// 파일명 중 확장자만 추출 //lastIndexOf(".") - 뒤에 있는 . 의 index번호
 			originalFileExtension = originalFile.substring(originalFile.lastIndexOf("."));
-			//저장될 파일명 - 파일명이 같은 사진이 있을 수 있으므로 파일명 변경
+			// 저장될 파일명 - 파일명이 같은 사진이 있을 수 있으므로 파일명 변경
 			savedFileName = UUID.randomUUID() + originalFileExtension;
-			
+
 			file = new File(filePath + savedFileName);
-			
+
 			recipeStepImg.transferTo(file);
 			recipeVO.getRecipeContentList().get(i).setImagePath(savedFileName);
 		}
-		
+
 		// 세션에서 세선 정보를 mvo에 넣는다
-		recipeVO.setMemberVO( (MemberVO) SecurityContextHolder.getContext().getAuthentication().getPrincipal());
+		recipeVO.setMemberVO((MemberVO) SecurityContextHolder.getContext().getAuthentication().getPrincipal());
 		System.out.println(recipeVO);
 		recipeService.postRecipe(recipeVO);
-		
+
 		return "redirect:recipeBoardList";
 	}
 
 	/**
-	 * 레시피 게시판 상세보기(상세)
-	 * 리뷰 리스트
+	 * 레시피 게시판 상세보기(상세) 리뷰 리스트
+	 * 
 	 * @return
 	 */
 	@RequestMapping("recipeBoardView")
@@ -143,8 +142,8 @@ public class RecipeController {
 		RecipeVO recipeVO = recipeService.viewRecipeDetail(recipeNo);
 		ArrayList<ReviewVO> reviewList = recipeService.readReview(recipeNo);
 		int countReview = recipeMapper.countReview(recipeNo);
-		int isSaved = recipeMapper.isSavedRecipe(pvo.getMemberId(),recipeVO.getRecipeNo());
-		
+		int isSaved = recipeMapper.isSavedRecipe(pvo.getMemberId(), recipeVO.getRecipeNo());
+
 		model.addAttribute("isSaved", isSaved);
 		model.addAttribute("recipeVO", recipeVO);
 		model.addAttribute("reviewList", reviewList);
@@ -238,28 +237,10 @@ public class RecipeController {
 		// System.out.println(recipeList);
 		return "recipes/recipeListAjax";
 	}
-	
-<<<<<<< HEAD
-	 // 댓글 작성
-	@Secured("ROLE_MEMBER")
-	@PostMapping("writeReview")
-	public String postReview(ReviewVO reviewVO) {
-		reviewVO.setMemberVO( (MemberVO) SecurityContextHolder.getContext().getAuthentication().getPrincipal());	
-		System.out.println(reviewVO);
-		recipeService.writeReview(reviewVO);
-		return  "redirect:/recipe/recipeBoardView?recipeNo="+reviewVO.getRecipeVO().getRecipeNo();
-	}
 
-	@RequestMapping("postReviewAjax")
-	public String postReviewAjax() {
-		return null;
-	}
-=======
-	
->>>>>>> refs/heads/WaterPunch
-		
 	/**
 	 * 권한 check 후 레시피 게시글 삭제로 이동
+	 * 
 	 * @param recipeNo
 	 * @return
 	 */
@@ -270,6 +251,7 @@ public class RecipeController {
 		// System.out.println("deleteRecipeForm");
 		return "redirect:deleteRecipeByRecipeNo?recipeNo=" + recipeNo;
 	}
+
 	@Secured("ROLE_MEMBER")
 	@RequestMapping("deleteRecipeByRecipeNo")
 	public String deleteRecipeByRecipeNo(int recipeNo, Model model) {
@@ -277,10 +259,10 @@ public class RecipeController {
 		recipeMapper.deleteRecipeByRecipeNo(recipeNo);
 		return "redirect:recipeBoardList";
 	}
-	
+
 	/**
-	 * 검색 결과 보여주는 page !
-	 * 검색조건 (레시피, 식재료, 작성자)
+	 * 검색 결과 보여주는 page ! 검색조건 (레시피, 식재료, 작성자)
+	 * 
 	 * @param keyword
 	 * @return
 	 */
@@ -288,36 +270,38 @@ public class RecipeController {
 	public String recipeSearchRsultPage(String keyword, Model model) {
 		model.addAttribute("keyword", keyword);
 		// 레시피
-		ArrayList<RecipeVO> ResultByRecipes =  recipeMapper.getRecipeListByRecipes(keyword);
+		ArrayList<RecipeVO> ResultByRecipes = recipeMapper.getRecipeListByRecipes(keyword);
 		int ResultByRecipesCount = recipeMapper.getRecipeListByRecipesCount(keyword);
 		model.addAttribute("ResultByRecipesCount", ResultByRecipesCount);
 		model.addAttribute("ResultByRecipes", ResultByRecipes);
-		
+
 		// 식재료
-		ArrayList<RecipeVO> ResultByItems =  recipeMapper.getRecipeListByItems(keyword);
+		ArrayList<RecipeVO> ResultByItems = recipeMapper.getRecipeListByItems(keyword);
 		int ResultByItemsCount = recipeMapper.getRecipeListByItemsCount(keyword);
 		model.addAttribute("ResultByItemsCount", ResultByItemsCount);
 		model.addAttribute("ResultByItems", ResultByItems);
-		
+
 		// 작성자
-		ArrayList<RecipeVO> ResultByWriter =  recipeMapper.getRecipeListByWriter(keyword);
+		ArrayList<RecipeVO> ResultByWriter = recipeMapper.getRecipeListByWriter(keyword);
 		int ResultByWriterCount = recipeMapper.getRecipeListByWriterCount(keyword);
 		model.addAttribute("ResultByWriterCount", ResultByWriterCount);
 		model.addAttribute("ResultByWriter", ResultByWriter);
-		
-		return "recipes/recipeSearchResultPage.tiles"; 
+
+		return "recipes/recipeSearchResultPage.tiles";
 	}
-<<<<<<< HEAD
+
 	/**
 	 * 레시피 update method!
+	 * 
 	 * @param rvo
 	 * @param model
 	 * @return
 	 */
 	// @Secured("ROLE_MEMBER")
-	@RequestMapping(value="recipeUpdateByRecipeContent", method=RequestMethod.POST)
+	@RequestMapping(value = "recipeUpdateByRecipeContent", method = RequestMethod.POST)
 	@ResponseBody
-	public RecipeContentVO recipeUpdateByRecipeContent(int recipeNo, int stepNo, String stepTitle, String content, Model model) {
+	public RecipeContentVO recipeUpdateByRecipeContent(int recipeNo, int stepNo, String stepTitle, String content,
+			Model model) {
 		RecipeContentVO rContentVO = new RecipeContentVO();
 		rContentVO.setRecipeNo(recipeNo);
 		rContentVO.setStepNo(stepNo);
@@ -327,29 +311,28 @@ public class RecipeController {
 		rContentVO = recipeMapper.getRecipeStepContentListByRecipeNo(recipeNo, stepNo);
 		System.out.println(rContentVO);
 		return rContentVO;
-=======
-	 // 댓글 작성
+	}
+
+	// 댓글 작성
 	@Secured("ROLE_MEMBER")
 	@PostMapping("writeReview")
 	public String postReview(ReviewVO reviewVO) {
-		reviewVO.setMemberVO( (MemberVO) SecurityContextHolder.getContext().getAuthentication().getPrincipal());	
+		reviewVO.setMemberVO((MemberVO) SecurityContextHolder.getContext().getAuthentication().getPrincipal());
 		System.out.println(reviewVO);
 		recipeService.writeReview(reviewVO);
-		return  "redirect:/recipe/recipeBoardView?recipeNo="+reviewVO.getRecipeVO().getRecipeNo();
+		return "redirect:/recipe/recipeBoardView?recipeNo=" + reviewVO.getRecipeVO().getRecipeNo();
 	}
-	
+
 	@Secured("ROLE_MEMBER")
 	@PostMapping("deleteReview")
 	public String deleteReview(ReviewVO reviewVO) {
-		reviewVO.setMemberVO( (MemberVO) SecurityContextHolder.getContext().getAuthentication().getPrincipal());
+		reviewVO.setMemberVO((MemberVO) SecurityContextHolder.getContext().getAuthentication().getPrincipal());
 		recipeService.deleteReview(reviewVO);
-		return "redirect:/recipe/recipeBoardView?recipeNo="+reviewVO.getRecipeVO().getRecipeNo();
->>>>>>> refs/heads/WaterPunch
+		return "redirect:/recipe/recipeBoardView?recipeNo=" + reviewVO.getRecipeVO().getRecipeNo();
 	}
-<<<<<<< HEAD
-	
+
 	@Secured("ROLE_MEMBER")
-	@RequestMapping(value="saveRecipe", method=RequestMethod.POST)
+	@RequestMapping(value = "saveRecipe", method = RequestMethod.POST)
 	@ResponseBody
 	public int saveRecipe(int recipeNo) {
 		MemberVO pvo = (MemberVO) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -358,12 +341,12 @@ public class RecipeController {
 		RecipeVO recipeVO = new RecipeVO();
 		savedRecipeVO.setRecipeNo(recipeNo);
 		recipeMapper.saveRecipe(savedRecipeVO);
-		
-		return recipeMapper.isSavedRecipe(pvo.getMemberId(),recipeVO.getRecipeNo());
+
+		return recipeMapper.isSavedRecipe(pvo.getMemberId(), recipeVO.getRecipeNo());
 	}
-	
+
 	@Secured("ROLE_MEMBER")
-	@RequestMapping(value="deleteSaveRecipe", method=RequestMethod.POST)
+	@RequestMapping(value = "deleteSaveRecipe", method = RequestMethod.POST)
 	@ResponseBody
 	public int deleteSaveRecipe(int recipeNo) {
 		MemberVO pvo = (MemberVO) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -372,32 +355,28 @@ public class RecipeController {
 		RecipeVO recipeVO = new RecipeVO();
 		savedRecipeVO.setRecipeNo(recipeNo);
 		recipeMapper.deleteSavedRecipe(savedRecipeVO);
-		
-		return recipeMapper.isSavedRecipe(pvo.getMemberId(),recipeVO.getRecipeNo());
+
+		return recipeMapper.isSavedRecipe(pvo.getMemberId(), recipeVO.getRecipeNo());
 	}
-	
+
 	@Secured("ROLE_MEMBER")
 	@RequestMapping("mySavedRecipe")
 	public String mySavedRecipe(Model model) {
 		MemberVO pvo = (MemberVO) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		ArrayList<SavedRecipeVO> savedRecipes =  recipeMapper.getSavedRecipeListById(pvo.getMemberId());
-		
+		ArrayList<SavedRecipeVO> savedRecipes = recipeMapper.getSavedRecipeListById(pvo.getMemberId());
+
 		model.addAttribute("savedRecipes", savedRecipes);
-		
-		return "recipes/savedRecipePage.tiles"; 
+
+		return "recipes/savedRecipePage.tiles";
 	}
-	
-	
-	
-=======
+
 	@Secured("ROLE_ADMIN")
 	@PostMapping("deleteReviewByAdmin")
 	public String deleteReviewByAdmin(String memberId, int recipeNo) {
-		//System.out.println(1);
-		//System.out.println("멤버아이디 : "+ memberId);
-		//System.out.println("레시피번호 : "+ recipeNo);
+		// System.out.println(1);
+		// System.out.println("멤버아이디 : "+ memberId);
+		// System.out.println("레시피번호 : "+ recipeNo);
 		recipeService.deleteReviewByAdmin(memberId, recipeNo);
-		return "redirect:/recipe/recipeBoardView?recipeNo="+recipeNo;
+		return "redirect:/recipe/recipeBoardView?recipeNo=" + recipeNo;
 	}
->>>>>>> refs/heads/WaterPunch
 }
