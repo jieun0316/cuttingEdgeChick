@@ -148,17 +148,16 @@
 						</div>
 						<div class="row">
 							<div class="col-12" id="recipeItemWrap">
-								<div class="col-md-5 form-control btn-group-vertical" id="recipeCategoryList" style="height: 300px; overflow-y:scroll;">
+								<div class="form-control btn-group-vertical" id="recipeCategoryList" style="height: 300px; overflow-y:scroll; float: left;  width: 30%;">
 									<c:forEach items="${categoryList}" var="category">
 											<button type="button" name="categoryBtn" class="btn btn-success" value="${category.categoryName}">${category.categoryName}</button>
 									</c:forEach>
 								</div>
-								<div class="col-md-6 form-control btn-group-vertical" id="ItemList" style="height: 300px; overflow-y:scroll;">
+								<div class="form-control btn-group-vertical" id="ItemList" style="height: 300px; overflow-y:scroll; width: 25%; float: left; ">
 									<!-- Default panel contents -->
 									<!-- <ul id="item_ul_list" class="list-group list-group-flush"></ul> -->
 								</div>
-
-								<div class="col-md-12 form-control" id="selectedItemList" style="height: 300px; overflow-y:scroll;">
+								<div class="form-control" id="selectedItemList" style="height: 300px; overflow-y:scroll; width: 45%; float: left; ">
 									<table class="table table-hover" id="selectedItemListTable">
 										<thead>
 											<tr>
