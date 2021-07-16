@@ -41,7 +41,7 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-12">
-				<form action="/recipeSearchResultPage" method="get">
+				<form action="/recipe/recipeSearchResultPage" method="get">
 					<input type="search" name="keyword" placeholder="검색어를 입력해주세요">
 					<button type="submit">
 						<i class="fa fa-search" aria-hidden="true"></i>
