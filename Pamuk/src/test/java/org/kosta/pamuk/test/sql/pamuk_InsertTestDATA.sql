@@ -2,9 +2,10 @@
 insert into MEMBER (member_id, password, email, name, nick, birth, gender) values ('java','a','a@ab.com','아이유','IU','2010-10-10', 'F');
 
 --회원 권한 관련 테스트 데이터
-insert into authorities(member_id, authority) values('sukuon', 'ROLE_MEMBER');
-insert into authorities(member_id, authority) values('sukuon', 'ROLE_ADMIN');
-insert into authorities(member_id, authority) values('sukuon', 'ROLE_MASTER');
+
+insert into authorities(member_id, authority) values('javaKing', 'ROLE_MEMBER');
+insert into authorities(member_id, authority) values('javaKing', 'ROLE_ADMIN');
+insert into authorities(member_id, authority) values('javaKing', 'ROLE_MASTER');
 select * from authorities
 --카테고리
 insert into CATEGORY (category_name, storage_time) values ('계란류','30');
@@ -41,3 +42,5 @@ select * from review
 insert into review(member_id, recipe_no, review_comment, rating, review_date) values('yang', '6', '해먹어봤는데 정말 맛있어요!', 5, sysdate)
 
 truncate table REVIEW
+delete from review where member_id='sukuon' and recipe_no='6'
+select count(*) from review where  recipe_no='6'

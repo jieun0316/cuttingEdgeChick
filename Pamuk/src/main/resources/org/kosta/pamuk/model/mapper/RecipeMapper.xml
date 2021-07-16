@@ -12,6 +12,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  	<resultMap type="recipeVO" id="recipeDetailRM" extends="recipeRM">
  		<result column="nick" property="memberVO.nick"/>
  	</resultMap>
+ 	<resultMap type="savedRecipeVO" id="savedRecipeRM">
+ 		<result column="nick" property="memberVO.nick"/>
+ 	</resultMap>
+ 	
 	
 	<!-- recipe 관련 insert문 -->
 	<!-- recipe 게시물 작성 -->
@@ -42,6 +46,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		values (#{itemName},
 		#{recipeNo}, #{qty})
 	</insert>
+	
 
 	<!-- recipe 관련 select문 -->
 	<!-- count 개수 조회 -->
@@ -70,9 +75,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		select recipe_no,member_id,recipe_name,write_date,category,recipe_thumbnail
 		from recipe
 	</sql>
-	<select id="getRecipeDetailByRecipeNo" resultMap="recipeRM">
-		<include refid="selectRecipe"/>
-		where recipe_no = #{value}
+	<select id="getRecipeDetailByRecipeNo" resultMap="recipeDetailRM">
+		select r.recipe_no,m.nick,r.recipe_name,r.write_date,r.category,r.recipe_thumbnail
+		from recipe r, member m
+		where r.member_id = m.member_id and  recipe_no = #{value}
 	</select>
 	<!-- recipe 게시물의 ItemList를 조회 -->
 	<select id="getRecipeItemListByRecipeNo" resultType="RecipeItemVO">
@@ -214,6 +220,40 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="readReview" resultMap="reviewRM">
 		select member_id, recipe_no, review_comment, rating, to_char(review_date, 'yyyy-mm-dd hh24:mi') as review_date 
 		from review where recipe_no=#{recipeNo} order by review_date asc
+	</select>
+
+	<update id="updateReview">
+		update review set review_comment=#{reviewComment} where member_id=#{memberId} and recipe_no=#{recipeNo}
+	</update>
+	<delete id="deleteReview">
+		delete from review where member_id=#{memberId} and recipe_no=#{recipeNo}
+	</delete>
+	<select id="countReview" resultType="int">
+		select count(*) from review where  recipe_no=#{recipeNo}
+	</select>
+	
+	<!-- savedRecipeVO -->
+	<insert id="saveRecipe" parameterType="savedRecipeVO">
+		insert into saved_recipe (member_id, recipe_no, saved_date)
+		values (#{memberVO.memberId}, #{recipeNo}, sysdate)
+	</insert>
+	<delete id="deleteSavedRecipe" parameterType="savedRecipeVO">
+		delete from saved_recipe
+		where member_id=#{memberVO.memberId} and recipe_no=#{recipeNo}
+	</delete>
+	<select id="isSavedRecipe" resultType="int">
+		select count(*) from saved_recipe
+		where member_id=#{memberId} and recipe_no=#{recipeNo}
+	</select>
+	
+	
+	<!-- savedRecipeList -->
+	<select id="getSavedRecipeListById" resultMap="savedRecipeRM">
+		select sr.recipe_no, sr.saved_date, m.nick, r.recipe_name, r.hits, r.category, r.recipe_thumbnail
+		from saved_recipe sr, recipe r, member m
+		where sr.recipe_no = r.recipe_no and r.member_id = m.member_id
+			and sr.member_id=#{value}
+		order by sr.saved_date
 	</select>
 </mapper>
 

@@ -117,7 +117,9 @@ public class RecipeServiceImpl implements RecipeService {
 		// TODO Auto-generated method stub
 		
 	}
-	
+	/**
+	 * 댓글 작성
+	 */	
 	@Override
 	public void writeReview(ReviewVO reviewVO) {
 		String memberId = reviewVO.getMemberVO().getMemberId();
@@ -138,6 +140,21 @@ public class RecipeServiceImpl implements RecipeService {
 			reviewList.get(i).getMemberVO().setNick(memberMapper.findMemberById(memberId).getNick());
 		}
 		return reviewList;
+	}
+	
+	@Override
+	public void updateReview(ReviewVO reviewVO) {
+		String memberId = reviewVO.getMemberVO().getMemberId();
+		int recipeNo = reviewVO.getRecipeVO().getRecipeNo(); 
+		String reviewComment = reviewVO.getReviewComment();
+		recipeMapper.updateReview(memberId, recipeNo, reviewComment);
+	}
+
+	@Override
+	public void deleteReview(ReviewVO reviewVO) {
+		String memberId = reviewVO.getMemberVO().getMemberId();
+		int recipeNo = reviewVO.getRecipeVO().getRecipeNo();
+		recipeMapper.deleteReview(memberId, recipeNo);
 	}
 
 	@Override

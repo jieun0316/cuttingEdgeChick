@@ -47,7 +47,6 @@ public class MemberAuthenticationProvider implements AuthenticationProvider {
 			authorities.add(new SimpleGrantedAuthority(au.getAuthority()));
 		}
 		Authentication auth = new UsernamePasswordAuthenticationToken(member, password, authorities);
-		System.out.println("MemberAuthenticationProvider 로그인 성공" + auth);
 		return auth;
 	}
 	@Override

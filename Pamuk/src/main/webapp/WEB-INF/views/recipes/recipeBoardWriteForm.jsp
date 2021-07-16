@@ -3,6 +3,9 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 <sec:authentication var="mvo" property="principal" /> 
+
+
+
 <script>
 
 	$(document).ready(function() {
@@ -127,17 +130,17 @@
 						</div>
 						<div class="row">
 							<div class="col-12" id="recipeItemWrap">
-								<div class="col-3 form-control btn-group-vertical" id="recipeCategoryList" name="" style="height: 300px;">
+								<div class="col-md-2 form-control btn-group-vertical" id="recipeCategoryList" style="height: 300px;">
 									<c:forEach items="${categoryList}" var="category">
 											<button type="button" name="categoryBtn" class="btn btn-success" value="${category.categoryName}">${category.categoryName}</button>
 									</c:forEach>
 								</div>
-								<div class="col-3 form-control btn-group-vertical" id="ItemList" name="" style="height: 300px; overflow-y: scroll;">
+								<div class="col-md-2 form-control btn-group-vertical" id="ItemList" style="height: 300px; ">
 									<!-- Default panel contents -->
 									<!-- <ul id="item_ul_list" class="list-group list-group-flush"></ul> -->
 								</div>
 
-								<div class="col-6 form-control" id="selectedItemList" name="" style="height: 300px; overflow-y: scroll;">
+								<div class="col-md-4 form-control" id="selectedItemList" style="height: 300px; ">
 									<table>
 										<thead>
 											<tr>

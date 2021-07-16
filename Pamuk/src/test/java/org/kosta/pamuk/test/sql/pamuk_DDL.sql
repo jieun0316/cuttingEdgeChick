@@ -34,6 +34,7 @@ create table member(
 	name varchar2(100) not null,
 	nick varchar2(100) not null,
 	status NUMBER default 0,
+	-- 0: user / 1: 탈퇴
 	birth DATE not null,
 	gender varchar2(2) not null
 );
@@ -77,6 +78,7 @@ alter table review rename column grade to rating
 --5
 create table recipe_content(
 	recipe_no NUMBER not null,	
+	step_title clob not null,
 	step_no NUMBER not null,
 	content clob not null,
 	image_path varchar2(1000),

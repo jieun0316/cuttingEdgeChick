@@ -11,6 +11,7 @@ import org.kosta.pamuk.model.mapper.StorageMapper;
 import org.kosta.pamuk.model.vo.MemberVO;
 import org.kosta.pamuk.model.vo.StorageVO;
 import org.kosta.pamuk.model.vo.StoredItemVO;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -37,9 +38,12 @@ public String fridgeRegisterForm() {
 @RequestMapping("registerStorage") //등록이라 Post로 바꾸어주어야
 public String registerStorage(int fridge, int freezer, int room) {
 	StorageVO svo = new StorageVO();
-	MemberVO mvo = new MemberVO(); //원래는 세션에서 가져와야할 memberVO 임시로 넣어놓음
-	mvo.setMemberId("java");
-	svo.setMemberVO(mvo); 
+	MemberVO pvo = (MemberVO) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+	//연습중
+	//MemberVO mvo = new MemberVO(); //원래는 세션에서 가져와야할 memberVO 임시로 넣어놓음
+	//mvo.setMemberId("java");
+	svo.setMemberVO(pvo);
+	
 	//냉장
 	svo.setType("냉장");
 	for(int i=0;i<fridge;i++) {
@@ -61,12 +65,30 @@ public String registerStorage(int fridge, int freezer, int room) {
 	return "redirect:fridge-update-form";
 }
 @RequestMapping("fridge-update-form")
-public String fridgeUpdateForm(String id, Model model) {
-	id="java";//원래는 세션에서 가져올 것
+public String fridgeUpdateForm(Model model) {
+	MemberVO pvo = (MemberVO) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+	String id = pvo.getMemberId();
+	//String id="java";
 	List<StorageVO> myStorage=sm.findStorageByMemberId(id);
-	model.addAttribute("myStorage", myStorage);
-	return "fridge/fridge-update-form.tiles";	
+	System.out.println("******");
+	System.out.println(myStorage);
+	if(!myStorage.isEmpty()) {
+		model.addAttribute("myStorage", myStorage);
+		model.addAttribute("totalItemList", sm.getTotalStoredItemList(myStorage));
+		return "fridge/fridge-update-form.tiles";		
+	} else {
+		return "fridge/fridge-register-form.tiles";
+	}
+	
 }
+@RequestMapping("getTotalStoredItemList")
+@ResponseBody
+public List<Map<String, Object>> getTotalStoredItemList(Model model){
+   List<StorageVO> storageVOList = (List<StorageVO>) model.getAttribute("myStorage");
+   return sm.getTotalStoredItemList(storageVOList);
+}  
+
+
 @RequestMapping("item-list")
 public String itemList() {
 	return "fridge/item-list";
@@ -76,16 +98,20 @@ public String itemList() {
 @RequestMapping("getStoredItemByStorageNo")
 @ResponseBody
 public List<StoredItemVO> getStoredItemByStorageNoAjax(int storageNo) {
+	System.out.println(sm.getStoredItemByStorageNo(storageNo));
 	return sm.getStoredItemByStorageNo(storageNo);
 }
+
+
 /*
  * 현재수정중
  */
-@PostMapping("getStoredItemByStorageNoUpdate")
+//@PostMapping("getStoredItemByStorageNoUpdate")
+@RequestMapping(value="getStoredItemByStorageNoUpdate", method=RequestMethod.POST)
 @ResponseBody
-public StoredItemVO getStoredItemBystoredItemNoUpdate (StoredItemVO storedItemVO) {
+public List<StoredItemVO> getStoredItemBystoredItemNoUpdate (StoredItemVO storedItemVO) {
 	sm.getStoredItemBystoredItemNoUpdate(storedItemVO);
-	return storedItemVO;
+	return sm.getStoredItemByStorageNo(storedItemVO.getStorageVO().getStorageNo());
 }
 
 
@@ -118,7 +144,6 @@ public List<StoredItemVO> checkboxDelete(@RequestBody Map<String,Object> map ) {
 @RequestMapping(value="storeItem", method=RequestMethod.POST)
 @ResponseBody
 public List<StoredItemVO> storeItem(StoredItemVO siv) {
-   System.out.println("넘어는 옴");
     sm.storeItem(siv);
     int storageNo = siv.getStorageVO().getStorageNo();
    //return  "getStoredItemByStorageNo?storageNo="+storageNo;
@@ -129,13 +154,15 @@ public List<StoredItemVO> storeItem(StoredItemVO siv) {
 @ResponseBody
 public List<StoredItemVO> storeItems(String[] itemName, int [] storageNo, String[] qty, String[] storedDate, String[] expiryDate) {
 ArrayList<StoredItemVO> list = new ArrayList<StoredItemVO>();
-   for (int i=0; i<itemName.length;i++) {
+for(int i=0; i<storageNo.length; i++) {	
+	System.out.println("스토리지 넘버를 찾아보자");
+	System.out.println(storageNo[i]);   
+}
+
+for (int i=0; i<itemName.length;i++) {
    StorageVO svo = new StorageVO();
    svo.setStorageNo(storageNo[i]);
-   System.out.println(storageNo[i]);
-   System.out.println(svo);
    StoredItemVO vo = new StoredItemVO(itemName[i], svo, expiryDate[i], storedDate[i], qty[i]);
-   System.out.println(vo);
    list.add(vo);
    }
    for (StoredItemVO vo : list) {
@@ -145,6 +172,21 @@ ArrayList<StoredItemVO> list = new ArrayList<StoredItemVO>();
    return sm.getStoredItemByStorageNo(storageNo[0]);
 }
 
+@RequestMapping("showRemingDay")
+@ResponseBody
+public int showRemingDay(int storedItemNo) {
+	System.out.println("나는 배고파요");
+	return sm.showRemingDay(storedItemNo); 
+}
+
+/* 07-14추가 */
+@ResponseBody
+@RequestMapping("getTotalStoredItemList2")
+public String getTotalStoredItemList2() {
+   MemberVO pvo = (MemberVO) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+   String id=pvo.getMemberId();
+   return sm.getTotalStoredItemList2(id);
+}
 
 
 

@@ -1,8 +1,9 @@
 package org.kosta.pamuk.model.vo;
 
-public class SavedRecipeVO {
-	private MemberVO memberVO;
-	private RecipeVO recipeVO;
+import java.util.List;
+
+public class SavedRecipeVO extends RecipeVO {
+	private MemberVO savedMemberVO;
 	private String savedDate;
 	
 	public SavedRecipeVO() {
@@ -10,27 +11,32 @@ public class SavedRecipeVO {
 		// TODO Auto-generated constructor stub
 	}
 
-	public SavedRecipeVO(MemberVO memberVO, RecipeVO recipeVO, String savedDate) {
+	public SavedRecipeVO(MemberVO savedMemberVO, String savedDate) {
 		super();
-		this.memberVO = memberVO;
-		this.recipeVO = recipeVO;
+		this.savedMemberVO = savedMemberVO;
+		this.savedDate = savedDate;
+	}
+	
+	public SavedRecipeVO(int recipeNo, MemberVO savedMemberVO, String savedDate) {
+		super(recipeNo);
+		this.savedMemberVO = savedMemberVO;
+		this.savedDate = savedDate;
+	}
+	
+	public SavedRecipeVO(int recipeNo, MemberVO memberVO, String recipeName, String writeDate, String modifyDate,
+			String category, int hits, List<RecipeContentVO> recipeContentList, List<RecipeItemVO> recipeItemList,
+			String recipeThumbnail, MemberVO savedMemberVO, String savedDate) {
+		super(recipeNo, memberVO, recipeName, writeDate, modifyDate, category, hits, recipeContentList, recipeItemList, recipeThumbnail);
+		this.savedMemberVO = savedMemberVO;
 		this.savedDate = savedDate;
 	}
 
-	public MemberVO getMemberVO() {
-		return memberVO;
+	public MemberVO getSavedMemberVO() {
+		return savedMemberVO;
 	}
 
-	public void setMemberVO(MemberVO memberVO) {
-		this.memberVO = memberVO;
-	}
-
-	public RecipeVO getRecipeVO() {
-		return recipeVO;
-	}
-
-	public void setRecipeVO(RecipeVO recipeVO) {
-		this.recipeVO = recipeVO;
+	public void setSavedMemberVO(MemberVO savedMemberVO) {
+		this.savedMemberVO = savedMemberVO;
 	}
 
 	public String getSavedDate() {
@@ -43,8 +49,12 @@ public class SavedRecipeVO {
 
 	@Override
 	public String toString() {
-		return "SavedRecipeVO [memberVO=" + memberVO + ", recipeVO=" + recipeVO + ", savedDate=" + savedDate + "]";
+		return "SavedRecipeVO ["+ super.toString() +", savedMemberVO=" + savedMemberVO + ", savedDate=" + savedDate + "]";
 	}
+	
+	
+
+	
 	
 	
 }
