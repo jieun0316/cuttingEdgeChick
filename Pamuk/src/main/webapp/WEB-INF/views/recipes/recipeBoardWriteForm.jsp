@@ -21,6 +21,15 @@
 				newStepForm();
 			}
 		}); // on
+		$(document).on("click", "button[name=delItemBtn]", function(){
+            let clickedRow = $(this).parent().parent();
+            var td = clickedRow.children();
+            let itemName = td.eq(0).text();
+            alert(itemName);
+            items.splice(items.indexOf(itemName),1); 
+            clickedRow.remove();
+        }); //on
+		
 		$("button[name=categoryBtn]").on("click",function(){
 			$.ajax({
 				url : "itemListByCategoryAjax",
@@ -31,14 +40,6 @@
 					$("#ItemList").html("");
 					$.each(responseData, function(index) {
 						console.log($(this)[0].itemName);
-						//얘를 목록에 뿌려주면 됩니다!!
-						
-						/*let itemForm = '<li class="list-group-item">'+$(this)[0].itemName+'&nbsp;&nbsp;<label class="switch ">';
-						itemForm += '<input type="checkbox" class="success"> <span ';
-						itemForm += 'class="slider round"></span>';
-						itemForm += '</label> <input type="text" placeholder="수량"> </li>';*/
-						
-						//let itemForm = '<li>'+$(this)[0].itemName+'</li>';
 						
 						let itemForm = '<input type="button" class="btn btn-success" value="'+$(this)[0].itemName+'" onclick="selectItem(this)"></input>';
 						$("#ItemList").append(itemForm);
@@ -88,10 +89,13 @@
 			  // 새 행(Row)에 Cell 추가
 			  const newCell1 = newRow.insertCell(0);
 			  const newCell2 = newRow.insertCell(1);
+			  const newCell3 = newRow.insertCell(2);
 			  
 			  // Cell에 텍스트 추가
 			  newCell1.innerHTML = $(item).attr('value') + '<input type="hidden" name="recipeItemList[' + (itemNo - 1) + '].itemName" value="'+ $(item).attr('value') +'"/>';
 			  newCell2.innerHTML = '<input type="text" name="recipeItemList[' + (itemNo - 1) + '].qty"></td>';
+			newCell3.innerHTML = '<button name="delItemBtn">X</button>';
+
 		}else {
 			alert("이미 추가한 재료입니다");
 		}
@@ -161,7 +165,7 @@
 									<table class="table table-hover" id="selectedItemListTable">
 										<thead>
 											<tr>
-												<td>품목</td><td>수량</td>
+												<td style="width: 35%;">품목</td><td style="width: 55%;">수량</td><td style="width: 10%;"></td>
 											</tr>
 										</thead>
 										<tbody>

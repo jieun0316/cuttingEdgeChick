@@ -68,12 +68,16 @@ public class RecipeServiceImpl implements RecipeService {
 		  
 		 for(RecipeContentVO recipeContentVO : recipeContentList) 
 		 {	
-			 recipeContentVO.setRecipeNo(recipeVO.getRecipeNo());
-			 recipeMapper.postRecipeContent(recipeContentVO); 
+		
+			recipeContentVO.setRecipeNo(recipeVO.getRecipeNo());
+			recipeMapper.postRecipeContent(recipeContentVO); 
+			 
 		 }
 		 for(RecipeItemVO recipeItemVO : recipeItemList) {
-			 recipeItemVO.setRecipeNo(recipeVO.getRecipeNo());
-			 recipeMapper.postRecipeItem(recipeItemVO);
+			 if(recipeItemVO.getItemName() != null) {
+				 recipeItemVO.setRecipeNo(recipeVO.getRecipeNo());
+				 recipeMapper.postRecipeItem(recipeItemVO);
+			 }
 		 }
 	}
 	/**
