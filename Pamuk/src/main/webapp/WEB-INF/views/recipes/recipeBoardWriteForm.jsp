@@ -41,7 +41,7 @@
 					$.each(responseData, function(index) {
 						console.log($(this)[0].itemName);
 						
-						let itemForm = '<input type="button" class="btn btn-success" value="'+$(this)[0].itemName+'" onclick="selectItem(this)"></input>';
+						let itemForm = '<input type="button" class="btn btn-light" value="'+$(this)[0].itemName+'" onclick="selectItem(this)"></input>';
 						$("#ItemList").append(itemForm);
 					});
 				}
@@ -154,7 +154,7 @@
 							<div class="col-12" id="recipeItemWrap">
 								<div class="form-control btn-group-vertical" id="recipeCategoryList" style="height: 300px; overflow-y:scroll; float: left;  width: 30%;">
 									<c:forEach items="${categoryList}" var="category">
-											<button type="button" name="categoryBtn" class="btn btn-success" value="${category.categoryName}">${category.categoryName}</button>
+											<button type="button" name="categoryBtn" class="btn btn-light" value="${category.categoryName}">${category.categoryName}</button>
 									</c:forEach>
 								</div>
 								<div class="form-control btn-group-vertical" id="ItemList" style="height: 300px; overflow-y:scroll; width: 25%; float: left; ">

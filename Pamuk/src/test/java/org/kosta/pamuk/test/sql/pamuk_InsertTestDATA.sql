@@ -15,8 +15,8 @@ insert into category values ('조미료장류/양념/가루/오일','180일');
 select * from CATEGORY
 truncate table CATEGORY
 
-insert into category VALUES ('우유/유제품','');
-insert into category VALUES ('과자/간식/시리얼/빙과','');
+insert into category VALUES ('우유/유제품','14일');
+insert into category VALUES ('과자/간식/시리얼/빙과','1년');
 insert into category VALUES ('','');
 insert into category VALUES ('','');
 insert into category VALUES ('','');
@@ -32,6 +32,18 @@ insert into item VALUES ('감자','채소');
 insert into item VALUES ('당근','채소');
 insert into item VALUES ('수박','과일');
 insert into item VALUES ('딸기','과일');
+
+insert into item VALUES ('상추','채소');
+insert into item VALUES ('양상추','채소');
+insert into item VALUES ('복숭아','과일');
+insert into item VALUES ('사과','과일');
+insert into item VALUES ('깻잎','채소');
+insert into item VALUES ('명이','채소');
+insert into item VALUES ('고구마','채소');
+insert into item VALUES ('고추','채소');
+insert into item VALUES ('미나리','채소');
+insert into item VALUES ('파','채소');
+
 insert into item VALUES ('설탕', '조미료장류/양념/가루/오일');
 insert into item values ('간장', '조미료장류/양념/가루/오일');
 
