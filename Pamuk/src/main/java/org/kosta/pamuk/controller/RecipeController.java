@@ -266,6 +266,7 @@ public class RecipeController {
 		recipeMapper.deleteRecipeByRecipeNo(recipeNo);
 		return "redirect:recipeBoardList";
 	}
+	
 	/**
 	 * 검색 결과 보여주는 page !
 	 * 검색조건 (레시피, 식재료, 작성자)
@@ -297,7 +298,7 @@ public class RecipeController {
 		return "recipes/recipeSearchResultPage.tiles"; 
 	}
 	/**
-	 * 
+	 * 레시피 update method!
 	 * @param rvo
 	 * @param model
 	 * @return
@@ -316,15 +317,5 @@ public class RecipeController {
 		System.out.println(rContentVO);
 		return rContentVO;
 	}
-	/*
-	@RequestMapping(value="recipeModifyForm", method=RequestMethod.POST)
-	@ResponseBody
-	public RecipeContentVO recipeModifyForm(int recipeNo, int stepNo, String stepTitle, String content, Model model) {
-		System.out.println(recipeNo +  stepNo + stepTitle + content);
-		RecipeContentVO rContntVO = null;
-		System.out.println(rContntVO);
-		return rContntVO;
-	}
-	*/
 	
 }

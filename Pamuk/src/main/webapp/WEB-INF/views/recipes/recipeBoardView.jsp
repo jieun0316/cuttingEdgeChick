@@ -47,6 +47,7 @@ $(document).ready(function () {
 			url:"recipeUpdateByRecipeContent",
 			data:{'recipeNo':${recipeVO.recipeNo},'stepNo':$step, 'index':$index, 'stepTitle':$stepTitle, 'content':$recipeContent},
 			dataType :"json", 
+			async: false,
 			success:function(recipeContentVO){
 				ModifyOkAction(recipeContentVO, $this);
 			},//callback
@@ -99,7 +100,7 @@ $(document).ready(function () {
 		
 		// 수정폼으로 바꾸기
 		let modifyForm = '<div class="prepStep">';
-		modifyForm += '<h4><input type="text" name="recipeContentList['+ $index +'].stepTitle" style="padding:10px;box-sizing:border-box;border: 1px solid #40ba37;border-radius: 15px; color:#40ba37" value="';
+		modifyForm += '<h4><input type="text" name="recipeContentList['+ $index +'].stepTitle" style="padding:10px;box-sizing:border-box;border: 1px solid #40ba37;border-radius: 15px; color:#40ba37; width:100%" value="';
 		modifyForm += $stepTitle + '" required="required"></h4>';
 		modifyForm += '<p class="mt-15">';
 		modifyForm += '<textarea rows="5" name="recipeContentList['+ $index +'].content" style="width:100%;padding:10px;box-sizing:border-box;border: 1px solid #40ba37;border-radius: 15px; color:#40ba37" required="required">';
