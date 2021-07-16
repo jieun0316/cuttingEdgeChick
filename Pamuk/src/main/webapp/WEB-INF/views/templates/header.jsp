@@ -14,10 +14,9 @@
 		$("#scrollBanner").on("click", function() {
 			$.ajax({
 				type : "get",
-				url : "fridge/getTotalStoredItemList2",
-				//dataType:"json",
-				success : function(ja) {
-					alert("<보유중인 재료>\n" + ja);
+				url : "/fridge/getTotalStoredItemList2",
+				success : function(data) {
+					alert("<보유중인 재료>\n" + data);
 				}//callback
 			});//ajax
 		});
