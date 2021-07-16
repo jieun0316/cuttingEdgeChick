@@ -22,7 +22,25 @@
 	<div class="close-btn">
 		<i class="fa fa-times" aria-hidden="true"></i>
 	</div>
-
+<!-- 냉장고 버튼 누르면 재료 리스트 alert-->
+<script type="text/javascript">
+	$(document).ready(function() {
+		$("#scrollBanner").on("click", function() {
+			$.ajax({
+				type : "get",
+				url : "fridge/getTotalStoredItemList2",
+				//dataType:"json",
+				success : function(ja) {
+					alert("<보유중인 재료>\n"+ja);
+				}//callback
+			});//ajax
+		});
+	});
+</script>
+<!-- Search Wrapper -->
+    <div class="search-wrapper">
+        <!-- Close Btn -->
+        <div class="close-btn"><i class="fa fa-times" aria-hidden="true"></i></div>
 
 	<div class="container">
 		<div class="row">
