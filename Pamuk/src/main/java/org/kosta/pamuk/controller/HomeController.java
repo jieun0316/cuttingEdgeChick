@@ -19,16 +19,27 @@ public class HomeController {
 	@Autowired
 	RecipeMapper recipeMapper;
 	@Autowired
-	ItemMapper itemMapper;	
-	@RequestMapping(value={"/","home"})
+	ItemMapper itemMapper;
+
+	@RequestMapping(value = { "/", "home" })
 	public String home(Model model) {
 		// Best Recipes
 		ArrayList<RecipeVO> BestRecipeList = recipeService.getBestRecipeListForMain();
 		model.addAttribute("BestRecipeList", BestRecipeList);
-		
+
 		// Recent Recipes
 		ArrayList<RecipeVO> RecentRecipeList = recipeService.getRecentRecipeListForMain();
 		model.addAttribute("RecentRecipeList", RecentRecipeList);
 		return "home.tiles";
+	}
+
+	/*
+	 * 로그인 하였으나 권한이 없는 요청을 하였을 경우 보여지는 페이지를 지정 <security:access-denied-handler
+	 * error-page="/accessDeniedView"/>
+	 */
+	@RequestMapping("accessDeniedView")
+	public String accessDeniedView() {
+		System.out.println("denied");
+		return "auth/accessDeniedView.tiles";
 	}
 }

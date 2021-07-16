@@ -97,6 +97,7 @@ public class MemberController {
 	/*
 	 * 회원정보 조회
 	 */
+	@Secured("ROLE_MEMBER")
 	@RequestMapping("user/myInfo")
 	public String myInfo(String memberId) {
 		return "member/memberInfo.tiles";
@@ -113,6 +114,7 @@ public class MemberController {
 		return "member/updateMemberInfoForm.tiles";
 	}
 
+	@Secured("ROLE_MEMBER")
 	@RequestMapping(value = "user/updateMemberInfo", method = RequestMethod.POST)
 	public String updateMemberInfo(MemberVO memberVO) {
 		MemberVO pvo = (MemberVO) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -121,7 +123,8 @@ public class MemberController {
 		System.out.println(memberVO + "수정");
 		return "member/memberInfo.tiles";
 	}
-
+	
+	@Secured("ROLE_MEMBER")
 	@RequestMapping(value = "user/quitMember", method = RequestMethod.POST)
 	public String quitMember() {
 		MemberVO pvo = (MemberVO) SecurityContextHolder.getContext().getAuthentication().getPrincipal();

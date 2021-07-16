@@ -322,6 +322,21 @@ public class RecipeController {
 		System.out.println(rContentVO);
 		return rContentVO;
 	}
+	
+	@Secured("ROLE_MEMBER")
+	@RequestMapping(value="saveRecipe", method=RequestMethod.POST)
+	@ResponseBody
+	public int saveRecipe(int recipeNo) {
+		MemberVO pvo = (MemberVO) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		SavedRecipeVO savedRecipeVO = new SavedRecipeVO();
+		savedRecipeVO.setMemberVO(pvo);
+		RecipeVO recipeVO = new RecipeVO();
+		savedRecipeVO.setRecipeNo(recipeNo);
+		recipeMapper.saveRecipe(savedRecipeVO);
+		
+		return recipeMapper.isSavedRecipe(pvo.getMemberId(),recipeVO.getRecipeNo());
+	}
+	
 	@Secured("ROLE_MEMBER")
 	@RequestMapping(value="deleteSaveRecipe", method=RequestMethod.POST)
 	@ResponseBody
