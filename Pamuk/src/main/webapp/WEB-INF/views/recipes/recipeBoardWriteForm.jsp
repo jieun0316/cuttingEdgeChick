@@ -152,6 +152,7 @@
 						</div>
 						<div class="row">
 							<div class="col-12" id="recipeItemWrap">
+								<h6>레시피 사용 재료</h6>
 								<div class="form-control btn-group-vertical" id="recipeCategoryList" style="height: 300px; overflow-y:scroll; float: left;  width: 30%;">
 									<c:forEach items="${categoryList}" var="category">
 											<button type="button" name="categoryBtn" class="btn btn-light" value="${category.categoryName}">${category.categoryName}</button>
