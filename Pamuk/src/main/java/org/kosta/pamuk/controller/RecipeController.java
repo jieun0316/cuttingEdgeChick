@@ -246,6 +246,11 @@ public class RecipeController {
 		recipeService.writeReview(reviewVO);
 		return  "redirect:/recipe/recipeBoardView?recipeNo="+reviewVO.getRecipeVO().getRecipeNo();
 	}
+
+	@RequestMapping("postReviewAjax")
+	public String postReviewAjax() {
+		return null;
+	}
 		
 	/**
 	 * 권한 check 후 레시피 게시글 삭제로 이동
@@ -266,6 +271,7 @@ public class RecipeController {
 		recipeMapper.deleteRecipeByRecipeNo(recipeNo);
 		return "redirect:recipeBoardList";
 	}
+	
 	/**
 	 * 검색 결과 보여주는 page !
 	 * 검색조건 (레시피, 식재료, 작성자)
@@ -296,13 +302,25 @@ public class RecipeController {
 		
 		return "recipes/recipeSearchResultPage.tiles"; 
 	}
-
-	@Secured("ROLE_MEMBER")
-	@PostMapping("deleteReview")
-	public String deleteReview(ReviewVO reviewVO) {
-		reviewVO.setMemberVO( (MemberVO) SecurityContextHolder.getContext().getAuthentication().getPrincipal());
-		recipeService.deleteReview(reviewVO);
-		return "redirect:/recipe/recipeBoardView?recipeNo="+reviewVO.getRecipeVO().getRecipeNo();
+	/**
+	 * 레시피 update method!
+	 * @param rvo
+	 * @param model
+	 * @return
+	 */
+	// @Secured("ROLE_MEMBER")
+	@RequestMapping(value="recipeUpdateByRecipeContent", method=RequestMethod.POST)
+	@ResponseBody
+	public RecipeContentVO recipeUpdateByRecipeContent(int recipeNo, int stepNo, String stepTitle, String content, Model model) {
+		RecipeContentVO rContentVO = new RecipeContentVO();
+		rContentVO.setRecipeNo(recipeNo);
+		rContentVO.setStepNo(stepNo);
+		rContentVO.setStepTitle(stepTitle);
+		rContentVO.setContent(content);
+		recipeService.updateRecipeContentByRecipeNo(rContentVO);
+		rContentVO = recipeMapper.getRecipeStepContentListByRecipeNo(recipeNo, stepNo);
+		System.out.println(rContentVO);
+		return rContentVO;
 	}
 	
 	@Secured("ROLE_MEMBER")
@@ -343,6 +361,7 @@ public class RecipeController {
 		
 		return "recipes/savedRecipePage.tiles"; 
 	}
+	
 	
 	
 }

@@ -11,10 +11,18 @@ $(document).ready(function(){
 			alert("아이디 중복확인을 하세요");
 			return false;
 		}
+<<<<<<< HEAD
 		else if(checkResultNick==""){
 			alert("닉네임 중복확인을 하세요!");
 			return false;
 		}
+=======
+
+		/* if(gender==""){
+			alert("성별을 넣어주세요");
+			return false;
+		} */
+>>>>>>> branch 'main' of https://github.com/jieun0316/cuttingEdgeChick.git
 	});
 		// spring security 적용시 ajax post 방식은 아래와 같이 beforeSend property에서 csrf 값을 셋팅해야 함 
 

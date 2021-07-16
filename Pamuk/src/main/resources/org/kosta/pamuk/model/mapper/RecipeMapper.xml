@@ -93,6 +93,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		where recipe_no = #{value}
 		order by step_no
 	</select>
+	<!-- recipeContent step별 RecipeContentVO 조회( param : recipeNo, stepNo  -->
+	<select id="getRecipeStepContentListByRecipeNo" resultType="RecipeContentVO">
+		select *
+		from recipe_content
+		where recipe_no = #{recipeNo} AND step_no = #{stepNo}
+	</select>
 
 	<!-- recipe 게시물의 리스트 조회 -->
 	<!-- recipe 게시물의 List를 rowNumber로 조회 -->
@@ -192,6 +198,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="getRecentRecipeListForMain" resultType="RecipeVO">
 		select recipe_no ,recipe_name, category, recipe_thumbnail, TO_CHAR(write_date, 'YYYY.MM.DD') as write_date from recipe order by write_date desc
 	</select>
+	
+	<!-- 레시피 수정 -->
+	<update id="updateRecipeContentByRecipeNo">
+		update RECIPE_CONTENT 
+		set content=#{content}
+		, step_title=#{stepTitle}
+		where recipe_no=#{recipeNo} AND step_no=#{stepNo}
+	</update>
 	
 	<!-- 댓글 -->
 	<insert id="writeReview">

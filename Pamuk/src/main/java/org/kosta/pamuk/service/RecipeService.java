@@ -2,6 +2,7 @@ package org.kosta.pamuk.service;
 
 import java.util.ArrayList;
 
+import org.kosta.pamuk.model.vo.RecipeContentVO;
 import org.kosta.pamuk.model.vo.RecipeVO;
 import org.kosta.pamuk.model.vo.ReviewVO;
 
@@ -52,6 +53,11 @@ public interface RecipeService {
 	 * @author 조수빈
 	 * @param recipeNo
 	 */
+	/**
+	 * recipe update (수정)
+	 * @param recipeContentVO
+	 */
+	void updateRecipeContentByRecipeNo(RecipeContentVO recipeContentVO);
 	void deleteRecipeByRecipeNo(int recipeNo);
 	void writeReview(ReviewVO reviewVO); 
 	ArrayList<ReviewVO> readReview(int recipeNo);

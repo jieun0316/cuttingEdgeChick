@@ -42,23 +42,6 @@ select DISTINCT count(*)
 from RECIPE r, RECIPE_CONTENT rc
 where r.recipe_no = rc.recipe_no AND (r.recipe_name LIKE '%' || '계란' || '%' OR rc.step_title LIKE '%' || '계란' || '%' OR rc.content LIKE '%' || '계란' || '%' )
 
--- 레시피 검색
-select 
-from
-(
-	select r.recipe_no, r.recipe_name, r.recipe_thumbnail, r.category, TO_CHAR(r.write_date, 'YYYY.MM.DD') as write_date
-	from RECIPE r, RECIPE_CONTENT rc
-	where r.recipe_no = rc.recipe_no 
-	AND 
-	(r.recipe_name LIKE '%' || '검색' || '%' 
-	OR 
-	rc.step_title LIKE '%' || '검색' || '%' 
-	OR 
-	rc.content LIKE '%' || '검색' || '%' )
-)
-
-
-
 
 -- MAIN page BEST Recipe 
 select recipe_no ,recipe_name, category, hits from recipe order by hits desc;
@@ -77,7 +60,7 @@ FROM RECIPE r, member m
 WHERE r.member_id = m.member_id AND m.nick = 'kove' ORDER BY recipe_no DESC)
 x WHERE rn BETWEEN 1 AND 2
 
-
+-- recipe 검색
  select r.recipe_no, r.recipe_name, r.recipe_thumbnail, r.category, TO_CHAR(r.write_date, 'YYYY.MM.DD') as write_date
    from RECIPE r 
    where r.recipe_name LIKE '%' || '검색' || '%' 
@@ -89,4 +72,19 @@ x WHERE rn BETWEEN 1 AND 2
    where r.recipe_no = rc.recipe_no and 
          (rc.step_title LIKE '%' || '검색' || '%' 
        OR rc.content LIKE '%' || '검색' || '%' )
-   
+       
+-- recipe 수정 관련
+update RECIPE_CONTENT 
+set content = '레시피 수정 sql content - sb'
+, step_title = '레시피 수정 sql title - sb'
+where recipe_no = '2' AND step_no = '2';
+       
+-- recipe step
+select *
+from recipe_content
+where recipe_no = '4' AND step_no = '2'
+
+
+
+       
+       

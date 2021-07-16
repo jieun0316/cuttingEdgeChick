@@ -31,6 +31,7 @@ public interface RecipeMapper {
 	RecipeVO getRecipeDetailByRecipeNo(int recipeNo);
 	ArrayList<RecipeItemVO> getRecipeItemListByRecipeNo(int recipeNo);
 	ArrayList<RecipeContentVO> getRecipeContentListByRecipeNoOrderByStepNo(int recipeNo);
+	RecipeContentVO getRecipeStepContentListByRecipeNo(int recipeNo, int stepNo);
 
 	//recipe 삭제 관련
 	void deleteRecipeByRecipeNo(int recipeNo);
@@ -46,6 +47,9 @@ public interface RecipeMapper {
 	ArrayList<RecipeVO> getRecipeListByWriter(String keyword);
 	ArrayList<RecipeVO> getRecipeListByItems(String keyword);
 	ArrayList<RecipeVO> getRecipeListByRecipes(String keyword);
+	
+	// recipe update(수정) 관련
+	void updateRecipeContentByRecipeNo(RecipeContentVO recipeContentVO);
 	
 	//review 관련
 	void writeReview(String memberId, int recipeNo, String reviewComment, int rating);

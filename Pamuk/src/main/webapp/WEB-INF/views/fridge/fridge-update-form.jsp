@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%> <!-- JSTL 사용 가능  -->
+<%@taglib prefix="sec" uri="http://www.springframework.org/security/tags"%> <!--시큐리티  -->
 <!DOCTYPE html>
 <html>
 <head>
@@ -12,34 +13,98 @@
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script> -->
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	
 <title>Insert title here</title>
 
-<script type="text/javascript">
+<!-- Security MemberId 적용중 -->
+<sec:authentication var="mvo" property="principal" /> <!-- 세션값을 MVO로  -->
 
+<script type="text/javascript">
+	//모든 Ajax Post 요청에 대해 Http 헤더에 CSRF 토큰을 설정
+
+	$.ajaxPrefilter(function(options) {
+
+		let headerName = '${_csrf.headerName}';
+
+		let token = '${_csrf.token}';
+
+		if (options.type.toLowerCase() === 'post') {
+			options.headers = {};
+			options.headers[headerName] = token;
+		}
+	});
+</script>
+
+<script type="text/javascript">
 let storageName="";
-let storageNo="";
+let storageNo="";         
  function showList (ja) {
+	 	if (ja.length==0){
+			let row="<input type='hidden' name='currentStorageNo' value='"+storageNo+"'>";	 		
+			row+="<input type='hidden' name='currentStorageName' value='"+storageName+"'>";
+			$("#storedItemInfo").html(row);
+	 	} else {
 		let row="<input type='hidden' name='currentStorageNo' value='"+storageNo+"'>";
 		row+="<input type='hidden' name='currentStorageName' value='"+storageName+"'>";
 		for (let i=0;i<ja.length;i++){
-		row+="<tr><td><input type='checkbox' value='"+ja[i].storedItemNo+"' name='delete'></td>";
+		row+="<tr name='tableTr' value='Hello'><td><input type='checkbox' value='"+ja[i].storedItemNo+"' name='delete'></td>";
 		row+="<td>"+ja[i].itemName+"</td>";
 		row+="<td><input name='update' type='button' value='수정'/></td>";
 		row+="<td>"+storageName+"</td>";
-		row+="<td name='td2'>"+ja[i].qty+"</td><td name='td3'>"+ja[i].storedDate+"</td><td name='td4'>"+ja[i].expiryDate+"</td></tr>";
+		row+="<td name='td2'>"+ja[i].qty+"</td><td name='td3'>"+ja[i].storedDate+"</td><td name='td4'>"+ja[i].expiryDate+"</td>";
 		row+="<input type='hidden' name='storedItemNo' value='"+ja[i].storedItemNo+"'>";
-		
-		}
-		$("#storedItemInfo").html(row);
-		}
+		$.ajax({
+			type:"get",
+			url :"showRemingDay",
+			dataType:"json",
+			data:"storedItemNo="+ja[i].storedItemNo,
+			async:false,
+		/* 	error:function(error){
+				alert("error!");
+				//$("#storedItemInfo").html(row);	
+			}, */
+			success:function(ga){
+				
+				if(ga<0) {
+					row+="<td bgcolor='132012'></td></tr>";
+				} else if(ga<8)  {
+					row+="<td bgcolor='E49A17'></td></tr>";
+				} else{
+					row+="<td bgcolor='40CC0C'></td></tr>";
+				} //2-else
+				$("#storedItemInfo").html(row);	
 
-	$(document).ready(function(){
-		
+					} // ga function
+					
+				}); //ajax		
+
+			} //for
+	 	  } //1-else  
+		} //showList
+
+
+	$(document).ready(function(){	
 		/* 냉장고 칸 탭 눌렀을 때 */
 		$("li").on("click",function(){
+			$("#storedItemInfo").html('');
 			$("#newItemInfo").html('');
 			storageNo=$(this).children('input').val();
 			storageName=$(this).children('a').text();
+			if (storageName=="전체보기"){
+				alert("storage_no별 보관된 아이템 목록 유통기한임박순으로 한줄에 출력");
+				/* let storageArray=new Array();
+				<c:forEach items='${myStorage}' var='s'>
+				storageArray.push(${s.storageNo});
+				</c:forEach> */
+				$.ajax({
+					type:"get",
+					url:"getTotalStoredItemList",
+					dataType:"json",
+					data:storageArray,
+					
+				});
+				}
+			else{
 			$.ajax({
 				type:"get",
 				url:"getStoredItemByStorageNo",
@@ -49,6 +114,7 @@ let storageNo="";
 					showList(ja);
 				}//callback
 			});//ajax 	
+		}//else
 		});//click
 		
 		/*재료 삭제버튼 클릭시 */
@@ -103,9 +169,10 @@ let storageNo="";
 					dataType :"json", 
 					success : function(kj){
 						updateBtn.val("수정");		
-						btnTr.find("td[name='td2']").html(kj.qty);
+/* 						btnTr.find("td[name='td2']").html(kj.qty);
 						btnTr.find("td[name='td3']").html(kj.storedDate);
-						btnTr.find("td[name='td4']").html(kj.expiryDate);
+						btnTr.find("td[name='td4']").html(kj.expiryDate); */
+						showList(kj); //
 						}
 				}); 
 			}			
@@ -121,7 +188,10 @@ let storageNo="";
 		
 		//전체등록 버튼 누를시
 		$("#storeAllBtn").click(function(){
-			$.ajax({
+	       /*   if($("input[name='expiryDate']").val()==undefined){
+	        	 alert("값을 넣어줘용");
+	         } */
+				$.ajax({
 					type:"post",
 					url:"storeItems",
 					data:$("#storeItemForm").serialize(),
@@ -130,9 +200,9 @@ let storageNo="";
 					success:function(ja){
 						$("#newItemInfo").html('');
 						showList(ja);
-					}//callback
-				}); 
-				});
+						}//callback
+					}); //ajax
+				}); // storeAllBtn
 
 		//
 		
@@ -157,6 +227,7 @@ let storageNo="";
   <!-- 냉장고칸별탭 -->
   	<ul class="nav nav-tabs">
    	 <li class="active"><a data-toggle="tab" href="#all">전체보기</a></li>
+   	 
     	<c:forEach items="${myStorage}" var="s">
     		<li>
     		<a data-toggle="tab" href="#fridge">${s.type}${s.locationNo}</a>
@@ -165,13 +236,19 @@ let storageNo="";
    	 	</c:forEach>
     </ul>
   	</div>
-
 	
 	
 	
 	<div class="tab-content col-sm-8">
 	<div id="all" class="tab-pane fade in active">
-	냉장고 모든 재료만? + 이름과 수량/위치만?
+	   <h4>칸별 재료 목록(유통기한 순)</h4><hr>
+   <c:forEach items="${totalItemList}" var="storage">
+      <c:forEach items="${myStorage}" var="s">
+            <c:if test="${storage.STORAGE_NO == s.storageNo}">
+               ${s.type}${s.locationNo} : ${storage.ITEM_LIST} <hr>
+            </c:if>
+          </c:forEach>
+   </c:forEach>
 	</div>
 	
 	<div id="fridge" class="tab-pane fade"> <!-- class 에 in active  -->
@@ -184,11 +261,12 @@ let storageNo="";
 	  <col width="10%" /> 
 	  <col width="15%" />
 	  <c:forEach begin="0" end="2">
-      <col width="20%" />
+      <col width="15%" />
       </c:forEach>
+      <col width="10%" />
   	  </colgroup>
 	<thead style="background-color: Lavender;">
-	<tr><th>선택</th><th>식재료명</th><th>수정</th><th>위치</th><th>수량</th><th>보관날짜</th><th>유통기한</th></tr>
+	<tr><th>선택</th><th>식재료명</th><th>수정</th><th>위치</th><th>수량</th><th>보관날짜</th><th>유통기한</th><th>신선도</th></tr>
 	</thead>
 	<tbody id="storedItemInfo" style="background-color: LightCyan;">
 	</tbody>
@@ -202,9 +280,8 @@ let storageNo="";
 	  <col width="10%" />
 	  <col width="10%" /> 
 	  <col width="15%" />
-	  <c:forEach begin="0" end="2">
-      <col width="20%" />
-      </c:forEach>
+      <col width="15%" />
+      <col width="25%" />
   	  </colgroup>
 	<tbody id="newItemInfo" style="background-color: PapayaWhip;">
 	</tbody>
@@ -223,6 +300,5 @@ let storageNo="";
 	</div>
 	</div>
 	</div>
-	
 </body>
 </html>

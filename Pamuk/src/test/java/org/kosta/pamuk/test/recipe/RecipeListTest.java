@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import org.junit.jupiter.api.Test;
 import org.kosta.pamuk.model.mapper.RecipeMapper;
+import org.kosta.pamuk.model.vo.RecipeContentVO;
 import org.kosta.pamuk.model.vo.RecipeVO;
 import org.kosta.pamuk.model.vo.SavedRecipeVO;
 import org.kosta.pamuk.service.RecipeService;
@@ -51,6 +52,20 @@ public class RecipeListTest {
 			ArrayList<SavedRecipeVO> list = rm.getSavedRecipeListById("java");
 			for(SavedRecipeVO srvo : list)
 				System.out.println(srvo);
+		}
+		else if (testCase == 5) {
+			System.out.println(rm.getRecipeContentListByRecipeNoOrderByStepNo(2));
+			RecipeContentVO rContentVO = new RecipeContentVO();
+			rContentVO.setRecipeNo(2);
+			rContentVO.setStepNo(1);
+			rContentVO.setStepTitle("레시피 타이틀 수정 단위테스트 step1 - 세번째");
+			rContentVO.setContent("레시피 내용 수정 단위테스트 step1 - 세번째");		
+			System.out.println(rContentVO);
+			rm.updateRecipeContentByRecipeNo(rContentVO);
+			System.out.println(rm.getRecipeContentListByRecipeNoOrderByStepNo(2));
+			System.out.println(rm.getRecipeStepContentListByRecipeNo(2, 1));
+			;
+			
 		}
 
 	}
