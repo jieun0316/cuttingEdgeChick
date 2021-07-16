@@ -162,25 +162,6 @@
 										href="${pageContext.request.contextPath}/admin/main">관리자모드</a>
 								</sec:authorize>
 							</div>
-							<script type="text/javascript">
-								$(document).ready(function() {
-									$(".logout-btn").click(function() {
-										$("#logoutForm").submit();
-									});
-								})
-							</script>
-							<form id="logoutForm"
-								action="${pageContext.request.contextPath}/logout" method="post"
-								style="display: none">
-								<sec:csrfInput />
-							</form>
-							<div class="adminPage">
-								<sec:authorize
-									access="hasRole('ROLE_ADMIN') and hasRole('ROLE_MEMBER')">
-									&nbsp;&nbsp;&nbsp;<a
-										href="${pageContext.request.contextPath}/admin/main">관리자모드</a>
-								</sec:authorize>
-							</div>
 						</div>
 						<!-- Nav End -->
 					</div>

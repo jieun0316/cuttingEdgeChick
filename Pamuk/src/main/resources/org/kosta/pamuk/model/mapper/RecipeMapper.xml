@@ -332,5 +332,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		and sr.member_id=#{value}
 		order by sr.saved_date
 	</select>
+	
+	
 </mapper>
 

@@ -137,7 +137,6 @@ $(document).ready(function () {
 	    }
 	  });
 	  $("#deleteReviewBtn").click(function() {
-<<<<<<< HEAD
 		 let result = confirm("댓글을 삭제하시겠습니까?");
 		 if(result){
 		 	$("#deleteReview").submit();
@@ -145,6 +144,7 @@ $(document).ready(function () {
 		  return;
 		});
 	}); // ready
+	
 	// 수정하기 버튼 (수정폼 생성)
 	function AddModifyForm($this){
 		// 값 받아오기
@@ -185,15 +185,7 @@ $(document).ready(function () {
 		// 완료폼 add
 		$($this).parents(".prepStep").html(modifyOkForm);
 	}
-=======
-	  	let result = confirm("댓글을 삭제하시겠습니까?");
-	  	if(result){
-	  		$("#deleteReview").submit();
-	  	} 
-	  	return;
-	  });
-	});
->>>>>>> refs/heads/WaterPunch
+
 </script>
 
 <!-- 
@@ -272,6 +264,7 @@ $(document).ready(function () {
 					<button class="float-right btn text-danger btn-outline-danger saveBtn off" type="button"> <i class="fa fa-heart"></i> My Recipe Save</button>
 					<!-- 저장완료 -->
 					<button class="float-right btn text-white btn-danger saveBtn on" type="button"> <i class="fa fa-heart"></i> My Recipe Save</button>
+					<button class="float-right btn text-white btn-danger reportBtn" type="button" onclick="showPopup()"> <i class="fa fa-flag"></i> 신고하기</button>
 				</div>
 			</div>
 
