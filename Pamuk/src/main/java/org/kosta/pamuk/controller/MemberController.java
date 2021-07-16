@@ -50,11 +50,25 @@ public class MemberController {
 		MemberVO memberVO = memberService.findMemberById(memberId);
 		return new ModelAndView("member/register_result.tiles", "memberVO", memberVO);
 	}
-
+	/**
+	 * id 중복 확인
+	 * @param memberId
+	 * @return
+	 */
 	@RequestMapping("user/idCheckAjax")
 	@ResponseBody
 	public String idCheckAjax(String memberId) {
 		return memberService.idCheck(memberId);
+	}
+	/**
+	 * nick 중복 확인
+	 * @param memberNick
+	 * @return
+	 */
+	@RequestMapping("user/nickCheckAjax")
+	@ResponseBody
+	public String nickCheckAjax(String memberNick) {
+		return memberService.nickCheck(memberNick);
 	}
 
 	/*

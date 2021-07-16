@@ -94,6 +94,12 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
+	public String nickCheck(String memberNick) {
+		int count = memberMapper.nickCheck(memberNick);
+		return (count == 0) ? "ok" : "fail";
+	}
+
+	@Override
 	public List<MemberVO> adminList() {
 		return memberMapper.adminList();
 	}
