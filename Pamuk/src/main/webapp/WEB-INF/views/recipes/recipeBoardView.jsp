@@ -135,6 +135,16 @@ $(document).ready(function () {
 	      setRating(rating);
 	    }
 	  });
+	  // 리뷰 작성시 별 check
+	  $(".card").on("click", ".reviewPostBtn", function(){
+		  console.log($(".rating").children());
+		  console.log(($(".rating").children().hasClass("selected") ));
+		  if(! $(".rating").children().hasClass("selected") ){
+			  alert("별점은 1점 이상 선택하셔야 합니다 !");
+			  return false;
+		  }
+		  $("#postReview").submit();
+	  }),
 	  
 	  // 리뷰 수정하기 form 생성
 	  $(".card").on("click",".reviewModifyBtn", function(){
@@ -320,7 +330,7 @@ $(document).ready(function () {
 							<c:choose>
 								<c:when test="${recipeVO.memberVO.memberId==mvo.memberId}">
 								<div class="d-flex justify-content-end">
-									<button type="submit" class="btn btn-outline-success btn-sm modifyBtn">수정하기</button>
+									<button type="button" class="btn btn-outline-success btn-sm modifyBtn">수정하기</button>
 								</div>
 								</c:when>
 							</c:choose>
@@ -435,7 +445,7 @@ $(document).ready(function () {
 										</div>
 			        	       <div class="clearfix"></div>
 			        	       	<textarea name="reviewComment" style="width:100%; border:0 none; resize: none;" placeholder="작성해주세요" rows="5" required="required"></textarea>
-			        	       	<button type="submit" class="float-right btn btn-outline-primary ml-2"> <i class="fa far fa-edit"></i> 작성 </button>
+			        	       	<button type="submit" class="float-right btn btn-outline-primary ml-2 reviewPostBtn"> <i class="fa far fa-edit"></i> 작성 </button>
 			        	    	</form>
 			        	    </div>
 				        </div>
