@@ -76,7 +76,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		from recipe
 	</sql>
 	<select id="getRecipeDetailByRecipeNo" resultMap="recipeDetailRM">
-		select r.recipe_no,m.nick,r.recipe_name,r.write_date,r.category,r.recipe_thumbnail
+		select r.recipe_no,m.nick,r.member_id, r.recipe_name,r.write_date,r.category,r.recipe_thumbnail
 		from recipe r, member m
 		where r.member_id = m.member_id and  recipe_no = #{value}
 	</select>

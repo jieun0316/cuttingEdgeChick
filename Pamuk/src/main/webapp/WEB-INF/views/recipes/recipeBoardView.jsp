@@ -252,13 +252,20 @@ $(document).ready(function () {
 		<div class="container">
 			<div class="row">
 				<div class="col-12 col-md-8">
-					<div class="row mt-50">
-						<form action="deleteRecipeForm" method="post">
-							<sec:csrfInput />
-							<button type="submit" class="btn btn-outline-success">레시피 삭제</button>
-							<input type="hidden" name="recipeNo" value="${recipeVO.recipeNo}">
-						</form>
-					</div>
+				<sec:authorize access="isAuthenticated()">
+				<sec:authentication var="mvo" property="principal" />
+					<c:choose>
+						<c:when test="${recipeVO.memberVO.memberId==mvo.memberId}">
+						<div class="row mt-50">
+							<form action="deleteRecipeForm" method="post">
+								<sec:csrfInput />
+								<button type="submit" class="btn btn-outline-success">레시피 삭제</button>
+								<input type="hidden" name="recipeNo" value="${recipeVO.recipeNo}">
+							</form>
+						</div>
+						</c:when>
+					</c:choose>
+					</sec:authorize>
 					<div class="breadcumb-area recipe bg-img receipe-headline my-5"
 						style="background-image: url(${pageContext.request.contextPath}/upload/${recipeVO.recipeThumbnail});">
 						<div class="recipeTitleWrap">
@@ -308,9 +315,16 @@ $(document).ready(function () {
 							</div>
 
 							<p class="mt-15">${content.content}</p>
-							<div class="d-flex justify-content-end">
-								<button type="submit" class="btn btn-outline-success btn-sm modifyBtn">수정하기</button>
-							</div>
+							<sec:authorize access="isAuthenticated()">
+							<sec:authentication var="mvo" property="principal" />
+							<c:choose>
+								<c:when test="${recipeVO.memberVO.memberId==mvo.memberId}">
+								<div class="d-flex justify-content-end">
+									<button type="submit" class="btn btn-outline-success btn-sm modifyBtn">수정하기</button>
+								</div>
+								</c:when>
+							</c:choose>
+							</sec:authorize>
 						</div>
 						<hr>
 					</c:forEach>
