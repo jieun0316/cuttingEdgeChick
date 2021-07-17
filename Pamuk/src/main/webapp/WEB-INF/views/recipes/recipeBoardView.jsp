@@ -403,9 +403,6 @@ $(document).ready(function () {
 				        	        		</form>
 				        	        		
 			        	        		</c:when>
-			        	        		<c:otherwise>
-											 <a class="float-right btn text-white btn-danger"> <i class="fa fa-heart"></i> Like</a>
-			        	        		</c:otherwise>
 			        	        	</c:choose>
 			        	        	</sec:authorize>
 			        	        
