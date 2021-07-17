@@ -53,14 +53,35 @@ public interface RecipeService {
 	 * @author 조수빈
 	 * @param recipeNo
 	 */
+	void deleteRecipeByRecipeNo(int recipeNo);
 	/**
 	 * recipe update (수정)
+	 * @author 조수빈
 	 * @param recipeContentVO
 	 */
 	void updateRecipeContentByRecipeNo(RecipeContentVO recipeContentVO);
-	void deleteRecipeByRecipeNo(int recipeNo);
+	/**
+	 * 리뷰 등록
+	 * @author 김수권
+	 * @param reviewVO
+	 */
 	void writeReview(ReviewVO reviewVO); 
+	/**
+	 * 리뷰 조회
+	 * @author 김수권
+	 * @param reviewVO
+	 */
 	ArrayList<ReviewVO> readReview(int recipeNo);
+	/**
+	 * 리뷰 업데이트(수정)
+	 * @author 조수빈
+	 * @param reviewVO
+	 */
 	void updateReview(ReviewVO reviewVO);
+	/**
+	 * 리뷰 삭제
+	 * @author 김수권
+	 * @param reviewVO
+	 */
 	void deleteReview(ReviewVO reviewVO);
 }

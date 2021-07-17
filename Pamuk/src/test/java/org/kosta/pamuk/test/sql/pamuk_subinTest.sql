@@ -4,6 +4,7 @@ select * from MEMBER;
 select * from RECIPE;
 select * from RECIPE_ITEM;
 select * from RECIPE_CONTENT;
+select * from review;
 
 -- 레시피 검색
 select * from RECIPE_ITEM where item_name LIKE '%설%';
@@ -82,7 +83,11 @@ where recipe_no = '2' AND step_no = '2';
 -- recipe step
 select *
 from recipe_content
-where recipe_no = '4' AND step_no = '2'
+where recipe_no = '4' AND step_no = '2'4
+
+-- review 
+-- readEachReview [ ReviewVO readEachReview(String memberId, int recipeNo) ]
+select * from review where member_id = 'java' AND recipe_no='3';
 
 
 

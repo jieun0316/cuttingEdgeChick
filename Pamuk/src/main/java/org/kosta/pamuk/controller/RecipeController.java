@@ -243,7 +243,11 @@ public class RecipeController {
 		return "recipes/recipeListAjax";
 	}
 	
-	 // 댓글 작성
+	/**
+	 * 댓글 작성
+	 * @param reviewVO
+	 * @return
+	 */
 	@Secured("ROLE_MEMBER")
 	@PostMapping("writeReview")
 	public String postReview(ReviewVO reviewVO) {
@@ -251,6 +255,33 @@ public class RecipeController {
 		System.out.println(reviewVO);
 		recipeService.writeReview(reviewVO);
 		return  "redirect:/recipe/recipeBoardView?recipeNo="+reviewVO.getRecipeVO().getRecipeNo();
+	}
+	/**
+	 * 댓글 업데이트
+	 * @return
+	 */
+	@Secured("ROLE_MEMBER")
+	@RequestMapping(value="updateReview", method=RequestMethod.POST)
+	@ResponseBody
+	public ReviewVO updateReview(String memberId, int recipeNo, String reviewComment) {
+		// 생성
+		ReviewVO reviewVO = new ReviewVO();
+		MemberVO memberVO = new MemberVO();
+		RecipeVO recipeVO = new RecipeVO();
+		
+		// set member, recipe
+		memberVO.setMemberId(memberId);
+		recipeVO.setRecipeNo(recipeNo);
+		
+		// set review
+		reviewVO.setMemberVO(memberVO);
+		reviewVO.setRecipeVO(recipeVO);
+		reviewVO.setReviewComment(reviewComment);
+		
+		// review update & read
+		recipeService.updateReview(reviewVO);
+		reviewVO = recipeMapper.readEachReview(memberId, recipeNo);
+		return reviewVO;
 	}
 
 	@RequestMapping("postReviewAjax")

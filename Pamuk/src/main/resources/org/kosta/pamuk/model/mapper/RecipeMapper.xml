@@ -231,6 +231,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="countReview" resultType="int">
 		select count(*) from review where  recipe_no=#{recipeNo}
 	</select>
+	<select id="readEachReview" resultType="ReviewVO">
+		select * from review where member_id = #{memberId} AND recipe_no=#{recipeNo}
+	</select>
 	
 	<!-- savedRecipeVO -->
 	<insert id="saveRecipe" parameterType="savedRecipeVO">
