@@ -163,6 +163,7 @@ public class RecipeServiceImpl implements RecipeService {
 	}
 
 	@Override
+	@Transactional
 	public void updateReview(ReviewVO reviewVO) {
 		String memberId = reviewVO.getMemberVO().getMemberId();
 		int recipeNo = reviewVO.getRecipeVO().getRecipeNo();

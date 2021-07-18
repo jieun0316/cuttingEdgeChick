@@ -51,6 +51,7 @@ $(document).ready(function () {
 			dataType :"json", 
 			async: false,
 			success:function(recipeContentVO){
+				alert("레시피를 수정완료했습니다!");
 				ModifyOkAction(recipeContentVO, $this);
 			},//callback
 			error:function(request,status,error){
@@ -97,9 +98,9 @@ $(document).ready(function () {
 				$(".saveBtn.on").hide();
 				$(".saveBtn.off").show();
 			},
-			error: function(err){
-				console.log(err);    //에러가 발생하면 콘솔 로그를 찍어준다. 
-			}
+			error:function(request,status,error){
+			    console.log("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+			}// error
 		});
 		
 	});
@@ -136,16 +137,71 @@ $(document).ready(function () {
 	      setRating(rating);
 	    }
 	  });
+	  // 리뷰 작성시 별 check
+	  $(".card").on("click", ".reviewPostBtn", function(){
+		  console.log($(".rating").children());
+		  console.log(($(".rating").children().hasClass("selected") ));
+		  if(! $(".rating").children().hasClass("selected") ){
+			  alert("별점은 1점 이상 선택하셔야 합니다 !");
+			  return false;
+		  }
+	  }),
+	  
+	  // 리뷰 수정하기 form 생성
+	  $(".card").on("click",".reviewModifyBtn", function(){
+		  // 현재 review text 받아오기
+		  let $reviewCurText = $(this).parents('.reviewBox').find('.reviewText p').html();
+		  
+		  // 수정폼
+		  let reviewModifyForm ="";
+		  reviewModifyForm += '<textarea name="reviewComment" style="width:100%;padding:10px;box-sizing:border-box;border: 1px solid #40ba37; color:#40ba37">'+ $reviewCurText +'</textarea>';
+		  
+		  // add review modify form
+		  $(this).parents('.reviewBox').find('.reviewText').html(reviewModifyForm);
+		  
+		  // 버튼 교체
+		  $(this).removeClass('reviewModifyBtn').addClass('reviewModifyOkBtn');;
+		  
+	  } );
+	  // 리뷰 수정 완료 처리
+	  $(".card").on("click",".reviewModifyOkBtn", function(){
+		  // update text 받아오기
+		  let $reviewUpdateText = $(this).parents('.reviewBox').find('textarea[name="reviewComment"]').val();
+		  // memberId 받아오기
+		  let $reviewMemberId = $("input[name='reviewMemberId']").val();
+		  // 버튼 변경할 위치 전달
+		  let $this = this;
+		  
+		  $.ajax({
+			type: "post",
+			url: "updateReview",
+			data: {"recipeNo": ${recipeVO.recipeNo}, "memberId": $reviewMemberId, "reviewComment":$reviewUpdateText},
+			dataType:"json",
+			success: function(reviewVO) {
+				alert("댓글을 수정완료했습니다!");
+				let reviewUpdateForm = "<p class='reviewText'>" + reviewVO.reviewComment + "</p>";
+				// add review modify form
+				$($this).parents('.reviewBox').find('.reviewText').html(reviewUpdateForm);
+				  
+				// 버튼 교체
+				$($this).removeClass('reviewModifyOkBtn').addClass('reviewModifyBtn');
+			},
+			error: function(err){
+				console.log(err);    //에러가 발생하면 콘솔 로그를 찍어준다. 
+			}
+			})
+
+	  });
+	  // 리뷰 삭제
 	  $("#deleteReviewBtn").click(function() {
-		 let result = confirm("댓글을 삭제하시겠습니까?");
+		 let result = confirm("리뷰를 삭제하시겠습니까?");
 		 if(result){
 		 	$("#deleteReview").submit();
 		 } 
 		  return;
 		});
 	}); // ready
-	
-	// 수정하기 버튼 (수정폼 생성)
+	// 레시피 수정하기 버튼 (수정폼 생성)
 	function AddModifyForm($this){
 		// 값 받아오기
 		$stepTitle = $($this).parents(".prepStep").children("h4").html();
@@ -169,7 +225,7 @@ $(document).ready(function () {
 		// 수정폼 add
 		$($this).parents(".prepStep").html(modifyForm);
 	}
-	// 수정 완료 버튼 (수정완료 처리)
+	// 레시피 수정 완료 버튼 (수정완료 처리)
 	function ModifyOkAction(recipeContentVO, $this){
 		let modifyOkForm = '<div class="prepStep">';
 		modifyOkForm += '<h4>' + $step +'. ' + recipeContentVO.stepTitle + '</h4>';
@@ -185,7 +241,6 @@ $(document).ready(function () {
 		// 완료폼 add
 		$($this).parents(".prepStep").html(modifyOkForm);
 	}
-
 </script>
 
 <!-- 
@@ -209,13 +264,20 @@ $(document).ready(function () {
 		<div class="container">
 			<div class="row">
 				<div class="col-12 col-md-8">
-					<div class="row mt-50">
-						<form action="deleteRecipeForm" method="post">
-							<sec:csrfInput />
-							<button type="submit" class="btn btn-outline-success">레시피 삭제</button>
-							<input type="hidden" name="recipeNo" value="${recipeVO.recipeNo}">
-						</form>
-					</div>
+				<sec:authorize access="isAuthenticated()">
+				<sec:authentication var="mvo" property="principal" />
+					<c:choose>
+						<c:when test="${recipeVO.memberVO.memberId==mvo.memberId}">
+						<div class="row mt-50">
+							<form action="deleteRecipeForm" method="post">
+								<sec:csrfInput />
+								<button type="submit" class="btn btn-outline-success">레시피 삭제</button>
+								<input type="hidden" name="recipeNo" value="${recipeVO.recipeNo}">
+							</form>
+						</div>
+						</c:when>
+					</c:choose>
+					</sec:authorize>
 					<div class="breadcumb-area recipe bg-img receipe-headline my-5"
 						style="background-image: url(${pageContext.request.contextPath}/upload/${recipeVO.recipeThumbnail});">
 						<div class="recipeTitleWrap">
@@ -278,8 +340,6 @@ $(document).ready(function () {
 					<c:forEach items="${recipeVO.recipeContentList}" var="content">
 						<div class="prepStep">
 							<h4>${content.stepNo}. ${content.stepTitle}</h4>
-							
-
 							<div class="single-preparation-step d-flex">
 								<div class="preImgStep1 img mr-15">
 									<img
@@ -290,9 +350,16 @@ $(document).ready(function () {
 							</div>
 
 							<p class="mt-15">${content.content}</p>
-							<div class="d-flex justify-content-end">
-								<button type="submit" class="btn btn-outline-success btn-sm modifyBtn">수정하기</button>
-							</div>
+							<sec:authorize access="isAuthenticated()">
+							<sec:authentication var="mvo" property="principal" />
+							<c:choose>
+								<c:when test="${recipeVO.memberVO.memberId==mvo.memberId}">
+								<div class="d-flex justify-content-end">
+									<button type="button" class="btn btn-outline-success btn-sm modifyBtn">수정하기</button>
+								</div>
+								</c:when>
+							</c:choose>
+							</sec:authorize>
 						</div>
 						<hr>
 					</c:forEach>
@@ -320,12 +387,12 @@ $(document).ready(function () {
 				<h3>리뷰( ${countReview}개 )</h3>
 			</div>
 			<!-- 댓글 리스트 -->
-			<c:forEach items="${reviewList}" var="review" varStatus="status">
+			<c:forEach items="${reviewList}" var="review">
 			<div class="container">
 				<div class="card">
 				    <div class="card-body">
 				        <div class="row">
-			        	    <div class="col-md-12">
+			        	    <div class="col-md-12 reviewBox">
 			        	        <p>
 			        	        	<strong>${review.memberVO.nick}</strong>&nbsp;&nbsp;&nbsp;${review.reviewDate}&nbsp;&nbsp;&nbsp;
 			        	        	<c:choose>
@@ -344,12 +411,12 @@ $(document).ready(function () {
 				        	        		 <span class="float"><i class="text-warning fa fa-star-o"></i></span>
 				        	        		</c:forEach>
 										</c:otherwise>
-									</c:choose>
+										</c:choose>
 			        	       </p>
 			        	       <div class="clearfix"></div>
-			        	        <p>${review.reviewComment}</p>
-			        	        <p>
-			        	        <%-- 타인의 댓글은 좋아요가 보이고,  본인의 댓글은 수정, 삭제버튼이 보임 --%>
+			        	        <div class="reviewText">
+			        	        	<p>${review.reviewComment}</p>
+			        	       	</div>
 			        	        	<sec:authorize access="isAuthenticated()">
 			        	        	<sec:authentication var="mvo" property="principal" />
 			        	        	<c:choose>
@@ -359,15 +426,13 @@ $(document).ready(function () {
 				        	        			<input type="hidden" name="recipeVO.recipeNo" value="${recipeVO.recipeNo}" id="recipeNo"/>
 				        	        			<button type="button" id="deleteReviewBtn" class="float-right btn btn-outline-primary ml-2"><i class="fa fa-trash"></i> 삭제</button>
 				        	        		</form>
-				        	        		<form action="${pageContext.request.contextPath}/recipe/updateReview" method="post" id="updateReview">
+				        	        		<form action="${pageContext.request.contextPath}/recipe/updateReview" method="post" name="updateReview" id="updateReview">
 				        	        			<sec:csrfInput />
 				        	        			<input type="hidden" name="recipeVO.recipeNo" value="${recipeVO.recipeNo}" id="recipeNo"/>
-				        	          			<button type="submit" class="float-right btn btn-outline-primary ml-2"><i class="fa fa-reply"></i> 수정</button>
-				        	          		</form>
+				        	        			<input type="hidden" name="reviewMemberId" value="${review.memberVO.memberId}" id="memberId"/>
+				        	        			<button type="button" class="float-right btn btn-outline-primary ml-2 reviewModifyBtn"><i class="fa far fa-edit"></i> 수정</button>
+				        	        		</form>
 			        	        		</c:when>
-			        	        		<c:otherwise>
-											 <a class="float-right btn text-white btn-danger"> <i class="fa fa-heart"></i> 깐지용버튼</a>
-			        	        		</c:otherwise>
 			        	        	</c:choose>
 			        	        	</sec:authorize>
 			        	        	<sec:authorize access="hasRole('ROLE_ADMIN')">
@@ -378,7 +443,6 @@ $(document).ready(function () {
 				        	        		<button type="submit" class="float-right btn btn-outline-primary ml-2"><i class="fa fa-trash"></i> 관리자 삭제</button>
 				        	        	</form>				        	        	
 									</sec:authorize> 
-			        	       </p>
 			        	    </div>
 				        </div>
 				    </div>
@@ -393,7 +457,6 @@ $(document).ready(function () {
 					});
 				});
 			</script>
-			
 			<!-- 댓글 작성 -->
 			<section class="write-review-area">
 			<sec:authorize access="hasRole('ROLE_MEMBER')">
@@ -416,7 +479,7 @@ $(document).ready(function () {
 										</div>
 			        	       <div class="clearfix"></div>
 			        	       	<textarea name="reviewComment" style="width:100%; border:0 none; resize: none;" placeholder="작성해주세요" rows="5" required="required"></textarea>
-			        	       	<button type="submit" class="float-right btn btn-outline-primary ml-2"> <i class="fa fa-reply"></i> 작성 </button>
+			        	       	<button type="submit" class="float-right btn btn-outline-primary ml-2 reviewPostBtn"> <i class="fa far fa-edit"></i> 작성 </button>
 			        	    	</form>
 			        	    </div>
 				        </div>
