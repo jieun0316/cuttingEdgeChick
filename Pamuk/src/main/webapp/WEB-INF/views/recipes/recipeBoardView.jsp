@@ -143,6 +143,10 @@ $(document).ready(function () {
 		 } 
 		  return;
 		});
+	  
+	  $("#report").on("click",function(){
+		window.open("/recipe/report-recipe?recipeNo="+${recipeVO.recipeNo}, 'report',"width = 600, height = 580, toolbar=0, top = 300, left = 700, location = no")
+		});
 	}); // ready
 	
 	// 수정하기 버튼 (수정폼 생성)
@@ -215,6 +219,10 @@ $(document).ready(function () {
 							<button type="submit" class="btn btn-outline-success">레시피 삭제</button>
 							<input type="hidden" name="recipeNo" value="${recipeVO.recipeNo}">
 						</form>
+						<!--<form action="#">  -->
+							<button class="float-right btn text-white btn-danger reportBtn" type="button" id="report"> <i class="fa fa-flag"></i> 신고하기</button>
+							<!--  <input type="hidden" name="reportRecipeNo" value="${recipeVO.recipeNo}">
+						</form>-->
 					</div>
 					<div class="breadcumb-area recipe bg-img receipe-headline my-5"
 						style="background-image: url(${pageContext.request.contextPath}/upload/${recipeVO.recipeThumbnail});">
@@ -268,7 +276,6 @@ $(document).ready(function () {
 					<sec:authorize access="isAnonymous()">
 					<a class="float-right btn text-danger btn-outline-danger saveBtn off" href="/user/loginForm"> <i class="fa fa-heart"></i> My Recipe Save</a>
 					</sec:authorize>
-					<button class="float-right btn text-white btn-danger reportBtn" type="button" onclick="showPopup()"> <i class="fa fa-flag"></i> 신고하기</button>
 				</div>
 			</div>
 

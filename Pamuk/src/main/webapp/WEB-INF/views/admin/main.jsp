@@ -34,9 +34,9 @@
 									<button class="btn delicious-btn mt-30" type="submit">유저 관리</button>
 								</div>
 							</form>
-							<form action="#" method="get">
+							<form action="/admin/starChefList" method="get">
 								<div class="col-6 text-center">
-									<button class="btn delicious-btn mt-30" type="submit">권한 관리</button>
+									<button class="btn delicious-btn mt-30" type="submit">스타쉐프 관리</button>
 								</div>
 							</form>
 							<form action="#" method="get">

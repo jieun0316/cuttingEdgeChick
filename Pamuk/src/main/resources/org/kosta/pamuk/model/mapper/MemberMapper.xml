@@ -78,7 +78,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		from member m, authorities au
 		where m.member_id = au.member_id and m.member_id not in (select member_id
 		from AUTHORITIES where authority='ROLE_ADMIN' or
-		authority='ROLE_MASTER')
+		authority='ROLE_MASTER' or authority='ROLE_STARCHEF')
 	</select>
 	<select id="findMemberByNick" resultType="memberVO">
 		select au.authority,
@@ -104,4 +104,27 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		update authorities set authority = 'quit' where
 		member_id=#{memberId}
 	</update>
+	
+	<!-- 스타쉐프 -->
+	<insert id="authorizeStarChef">
+		insert into authorities(member_id, authority)
+		values(#{value}, 'ROLE_STARCHEF')
+	</insert>
+	<select id="findMemberAllForAdmin" resultType="memberVO">
+		select au.authority, m.member_id, m.email, m.nick, to_char(m.birth, 'yyyy-mm-dd') as birth
+		from member m, authorities au
+		where m.member_id = au.member_id and m.member_id not in (select member_id
+		from AUTHORITIES where authority= 'ROLE_STARCHEF' or authority= 'ROLE_ADMIN' or
+		authority='ROLE_MASTER')
+	</select>
+	<select id="starChefList" resultType="memberVO">
+		select au.authority,
+		m.member_id, m.email, m.nick, to_char(m.birth, 'yyyy-mm-dd') as birth
+		from member m, authorities au where au.authority='ROLE_STARCHEF' and
+		m.member_id = au.member_id
+	</select>
+	<delete id="disaccreditStarChef">
+		delete from AUTHORITIES where
+		member_id=#{memberId} and authority='ROLE_STARCHEF'
+	</delete>
 </mapper>

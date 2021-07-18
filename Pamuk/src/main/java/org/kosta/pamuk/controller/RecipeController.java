@@ -385,4 +385,13 @@ public class RecipeController {
 		recipeService.deleteReviewByAdmin(memberId, recipeNo);
 		return "redirect:/recipe/recipeBoardView?recipeNo=" + recipeNo;
 	}
+	@Secured("ROLE_MEMBER")
+	@RequestMapping("report-recipe")
+	public String reportRecipeForm(int recipeNo, Model model) {
+		//System.out.println("신고버튼 레시피 넘버 : "+recipeNo);
+		RecipeVO recipeVO = recipeService.viewRecipeDetail(recipeNo);
+		System.out.println("신고버튼 : "+ recipeVO);
+		model.addAttribute("recipeVO", recipeVO);
+		return "recipes/report-recipe";
+	}
 }

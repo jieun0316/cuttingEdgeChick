@@ -135,4 +135,24 @@ public class MemberServiceImpl implements MemberService {
 		memberMapper.updateAuthority(memberId);
 	}
 
+	@Override
+	public void authorizeStarChef(String memberId) {
+		memberMapper.authorizeStarChef(memberId);
+	}
+
+	@Override
+	public List<MemberVO> findMemberAllForAdmin() {
+		return memberMapper.findMemberAllForAdmin();
+	}
+
+	@Override
+	public List<MemberVO> starChefList() {
+		return memberMapper.starChefList();
+	}
+
+	@Override
+	public void disaccreditStarChef(String memberId) {
+		memberMapper.disaccreditStarChef(memberId);
+	}
+
 }

@@ -161,3 +161,9 @@ SELECT rnum_view.*
                group by r.recipe_no, m.nick, r.recipe_name, hits, r.category, r.recipe_thumbnail, write_date
               ORDER BY hits, rating DESC
 >>>>>>> refs/heads/WaterPunch
+
+select au.authority, m.member_id, m.email, m.nick, to_char(m.birth, 'yyyy-mm-dd') as birth
+		from member m, authorities au
+		where m.member_id = au.member_id and m.member_id not in (select member_id
+		from AUTHORITIES where authority= 'ROLE_STARCHEF' or authority= 'ROLE_ADMIN' or
+		authority='ROLE_MASTER')

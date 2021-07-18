@@ -41,16 +41,20 @@ public interface MemberMapper {
 	// 관리자 관련
 	// 권한 박탈
 	List<MemberVO> adminList();
-
+	List<MemberVO> starChefList();
 	void disaccreditAdmin(String memberId);
-
+	void disaccreditStarChef(String memberId);
 	// 권한 부여
 	List<MemberVO> findMemberAll();
+	List<MemberVO> findMemberAllForAdmin();
 
 	List<MemberVO> findMemberByNick(String nick);
 
 	void authorizeAdmin(String memberId);
 
+	void authorizeStarChef(String memberId);
+	
+	
 //	// 회원정보 수정
 //	void updateMemberInfo(MemberVO memberVO);
 
@@ -59,4 +63,6 @@ public interface MemberMapper {
 
 	// 회원 role 수정
 	void updateAuthority(String memberId);
+	
+	
 }

@@ -46,9 +46,10 @@ class memberTest {
 		ms.authorizeAdmin("java");
 		System.out.println(ms.adminList());
 		*/
+		/*
 		String nick = ms.findMemberById("sukuon").getNick();
 		System.out.println(nick);
-		
+		*/
 //=======
 //		 * MemberVO a = new MemberVO(); a.setMemberId("aa"); a.setPassword("aaa");
 //		 * a.setEmail("bb@naver.com"); a.setName("팍"); a.setNick("찬호"); a.setStatus(0);
@@ -65,6 +66,8 @@ class memberTest {
 ////		mm.updateAuthority("su");
 //		ms.quitMember("bro");
 //>>>>>>> refs/heads/givemebro
+		//ms.authorizeStarChef("chanjae");
+		System.out.println(ms.findMemberAllForAdmin());
 	}
 
 }
