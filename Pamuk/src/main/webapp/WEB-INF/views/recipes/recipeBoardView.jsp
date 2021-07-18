@@ -50,6 +50,7 @@ $(document).ready(function () {
 			dataType :"json", 
 			async: false,
 			success:function(recipeContentVO){
+				alert("레시피를 수정완료했습니다!");
 				ModifyOkAction(recipeContentVO, $this);
 			},//callback
 			error:function(request,status,error){
@@ -143,7 +144,6 @@ $(document).ready(function () {
 			  alert("별점은 1점 이상 선택하셔야 합니다 !");
 			  return false;
 		  }
-		  $("#postReview").submit();
 	  }),
 	  
 	  // 리뷰 수정하기 form 생성
@@ -177,6 +177,7 @@ $(document).ready(function () {
 			data: {"recipeNo": ${recipeVO.recipeNo}, "memberId": $reviewMemberId, "reviewComment":$reviewUpdateText},
 			dataType:"json",
 			success: function(reviewVO) {
+				alert("댓글을 수정완료했습니다!");
 				let reviewUpdateForm = "<p class='reviewText'>" + reviewVO.reviewComment + "</p>";
 				// add review modify form
 				$($this).parents('.reviewBox').find('.reviewText').html(reviewUpdateForm);

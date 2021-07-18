@@ -69,6 +69,7 @@
                                 <option value="양식">양식</option>
                             </select>
                         </div>
+                        <!--  
                         <div class="col-12 col-lg-3">
                             <select name="sort" id="sort">
                                 <option value="추천순">추천순</option>
@@ -76,6 +77,7 @@
                                 <option value="댓글순">댓글순</option>
                             </select>
                         </div>
+                        -->
                     </div>
                 </form>
             </div>
@@ -97,8 +99,8 @@
 								<h5>[${recipeVO.category}] ${recipeVO.recipeName}</h5>
 							</a>
 							<div class="ratings">
-								<span>작성자 : ${recipeVO.memberVO.nick}&nbsp;&nbsp;|&nbsp;&nbsp;</span>
-								<span>조회수 : ${recipeVO.hits}</span>
+								<span>작성자 : ${recipeVO.memberVO.nick}<!-- <i class="fas fa fa-heart" style="color:tomato"></i>--><!--&nbsp;&nbsp;|&nbsp;&nbsp; </span>
+								  <span>조회수 : ${recipeVO.hits}</span>-->
 								<br>
 								<i class="fa fa-star" aria-hidden="true"></i> <i
 									class="fa fa-star" aria-hidden="true"></i> <i class="fa fa-star"
