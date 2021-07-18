@@ -147,6 +147,13 @@ create table recipe_item(
 	constraint fk_recipe_item_recipe foreign key(recipe_no) references recipe(recipe_no) ON DELETE CASCADE,
 	constraint pk_item_recipe primary key(item_name,recipe_no)
 );
+
+--12
+create table report_recipe (
+   recipe_no number not null,
+   report_content varchar2(100) not null,
+   constraint fk_recipe_report foreign key(recipe_no) references recipe(recipe_no)
+)
 -------------------------------------------------------------------------------
 
 select member_id, name, email, to_char(birth, 'yyyy-mm-dd') as birth from member where name='김수권' and email='kaiosuku@naver.com' and birth='1994-01-03'

@@ -7,14 +7,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<!-- resultMap setting -->
 	<resultMap type="recipeVO" id="recipeRM">
- 		<result column="member_id" property="memberVO.memberId"/>
- 	</resultMap>
- 	<resultMap type="recipeVO" id="recipeDetailRM" extends="recipeRM">
- 		<result column="nick" property="memberVO.nick"/>
- 	</resultMap>
- 	<resultMap type="savedRecipeVO" id="savedRecipeRM">
- 		<result column="nick" property="memberVO.nick"/>
- 	</resultMap>
+		<result column="member_id" property="memberVO.memberId" />
+	</resultMap>
+	<resultMap type="recipeVO" id="recipeDetailRM"
+		extends="recipeRM">
+		<result column="nick" property="memberVO.nick" />
+	</resultMap>
+	<resultMap type="savedRecipeVO" id="savedRecipeRM">
+		<result column="nick" property="memberVO.nick" />
+	</resultMap>
  	
 	
 	<!-- recipe 관련 insert문 -->
@@ -255,5 +256,26 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			and sr.member_id=#{value}
 		order by sr.saved_date
 	</select>
+	
+	<!-- 신고 글 관련 -->
+	<!-- 기존 신고글 조회 -->
+	<select id="findRecipeByNoAndContent" resultType="int">
+		select count(*)
+		from report_recipe
+		where recipe_no=#{recipeNo} and report_content=#{reportContent}
+	</select>
+	
+	 <!-- 신고글 등록 -->
+	<insert id="addReportedRecipe" >
+		insert into report_recipe(recipe_no, report_content)
+		values (#{recipeNo},#{reportContent})
+	</insert>
+	
+	<!-- 신고글 리스트를 반환 -->
+	<select id="getReportedRecipeList" resultType="reportVO">
+		select *
+		from report_recipe 
+	</select>
+	
 </mapper>
 

@@ -1,14 +1,10 @@
 package org.kosta.pamuk.test;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 import org.junit.jupiter.api.Test;
 import org.kosta.pamuk.model.mapper.RecipeMapper;
-import org.kosta.pamuk.model.vo.MemberVO;
-import org.kosta.pamuk.model.vo.RecipeContentVO;
-import org.kosta.pamuk.model.vo.RecipeItemVO;
-import org.kosta.pamuk.model.vo.RecipeVO;
+import org.kosta.pamuk.model.vo.ReportVO;
 import org.kosta.pamuk.service.RecipeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -23,19 +19,27 @@ public class RecipeTest {
 
 	@Test
 	public void postRecipe() {
-		int testCase = 6;
 
-		// recipe Insert test
-		if (testCase == 1) {
-			RecipeVO recipeVO = new RecipeVO();
-			MemberVO memberVO = new MemberVO();
-			memberVO.setMemberId("java");
-			recipeVO.setMemberVO(memberVO);
-			recipeVO.setCategory("한식");
-			recipeVO.setRecipeName("계란장");
-			rm.postRecipe(recipeVO);
-			System.out.println(recipeVO);
+		ReportVO rvo = new ReportVO(1, "11test");
+		rs.addReportedRecipe(rvo);
+		System.out.println(rm.findRecipeByNoAndContent(1, "11test"));
+		
+		ArrayList<ReportVO> list=rm.getReportedRecipeList();
+		for(int i =0;i<list.size();i++) {
+			System.out.println(list.get(i));
 		}
+		
+//		// recipe Insert test
+//		if (testCase == 1) {
+//			RecipeVO recipeVO = new RecipeVO();
+//			MemberVO memberVO = new MemberVO();
+//			memberVO.setMemberId("java");
+//			recipeVO.setMemberVO(memberVO);
+//			recipeVO.setCategory("한식");
+//			recipeVO.setRecipeName("계란장");
+//			rm.postRecipe(recipeVO);
+//			System.out.println(recipeVO);
+//		}
 
 		// recipe content Insert Test
 //		else if (testCase == 2) {
@@ -123,4 +127,5 @@ public class RecipeTest {
 //		
 //		}
 
-}}
+	}
+}
