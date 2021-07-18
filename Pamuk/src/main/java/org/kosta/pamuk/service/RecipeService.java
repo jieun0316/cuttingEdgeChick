@@ -84,4 +84,5 @@ public interface RecipeService {
 	 * @param reviewVO
 	 */
 	void deleteReview(ReviewVO reviewVO);
+	void deleteReviewByAdmin(String memberId, int recipeNo);
 }

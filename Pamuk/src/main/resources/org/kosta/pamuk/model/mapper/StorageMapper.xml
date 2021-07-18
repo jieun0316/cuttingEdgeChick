@@ -27,14 +27,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 
 	<!-- 작성한 "getStoredItemByStorageNo"에서 작성한 것 불러와서 Update문 -->
-	<update id="getStoredItemBystoredItemNoUpdate"
+	<update id="updateStoredItem"
 		parameterType="storedItemVO">
 		update STORED_ITEM set QTY= #{qty}, STORED_DATE=#{storedDate},
 		EXPIRY_DATE=#{expiryDate} where stored_item_no=#{storedItemNo}
 	</update>
 
 	<!-- 체크박스에서 선택한 목록 삭제 Delete문 -->
-	<delete id="checkboxDelete" parameterType="int">
+	<delete id="deleteStoredItem" parameterType="int">
 		delete from stored_item where stored_item_no=#{value}
 	</delete>
 
@@ -48,8 +48,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	
 	<!-- 유통기한 임박 재료 표시 -->
-	<select id="showRemingDay" parameterType="int" resultType="int">
-		SELECT TRUNC(EXPIRY_DATE - SYSDATE) from stored_item WHERE stored_item_no = #{value}
+	<select id="daysRemaining" parameterType="int" resultType="int">
+		SELECT TRUNC(EXPIRY_DATE - SYSDATE) AS days from stored_item WHERE stored_item_no = #{value}
 	</select>
 	
 	<!-- 07/14 추가 -->

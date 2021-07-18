@@ -90,6 +90,8 @@ where recipe_no = '4' AND step_no = '2'4
 select * from review where member_id = 'java' AND recipe_no='3';
 
 
-
+select count(*) 
+      from report_recipe 
+      where recipe_no=#{recipe_no} and report_content=#{report_content}
        
        

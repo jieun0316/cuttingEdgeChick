@@ -55,14 +55,10 @@ let storageNo="";
 		row+="<input type='hidden' name='storedItemNo' value='"+ja[i].storedItemNo+"'>";
 		$.ajax({
 			type:"get",
-			url :"showRemingDay",
+			url :"daysBeforeExpiry",
 			dataType:"json",
 			data:"storedItemNo="+ja[i].storedItemNo,
 			async:false,
-		/* 	error:function(error){
-				alert("error!");
-				//$("#storedItemInfo").html(row);	
-			}, */
 			success:function(ga){
 				
 				if(ga<0) {
@@ -142,7 +138,7 @@ let storageNo="";
 					let params={"deleteArray":deleteArray, "storageNo" : storageNo};
 		             $.ajax({
 							type:"post",
-							url:"checkboxDelete",
+							url:"deleteStoredItem",
 							data: JSON.stringify(params), 
 							dataType: 'json',
 							//배열을 json 형태로 보내주기 떄문에, 스프링 부트에서 컨텐트 타입 명시가 필요 
@@ -163,7 +159,7 @@ let storageNo="";
 			if ($(this).val()=="수정완료"){
 				$.ajax({
 					type:"post",
-					url:"getStoredItemByStorageNoUpdate",
+					url:"updateStoredItem",
 					data:{'storedItemNo':$("input[name='storedItemNo']").val(), 'qty':$("input[name='qty']").val(), 'storageVO.storageNo': storageNo,
 						'storedDate':$("input[name='storedDate']").val(),'expiryDate':$("input[name='expiryDate']").val()},
 					dataType :"json", 
@@ -209,7 +205,7 @@ let storageNo="";
 		
 		//새로만들기 버튼 클릭 - 재료 선택 팝업창 띄우기
 		$("#new").on("click",function(){
-			window.open("item-list","popuptest","width = 500, height = 500, top = 100, left = 200, location = no")
+			window.open("item-list","popuptest","width = 500, height = 800, top = 100, left = 200, location = no")
 		});
 		
 	})

@@ -16,14 +16,14 @@ public interface StorageMapper {
 
 	List<StoredItemVO> getStoredItemByStorageNo(int storageNo); //메서드명에 list붙여야하나?
 
-	void getStoredItemBystoredItemNoUpdate(StoredItemVO storedItemVO);
+	void updateStoredItem(StoredItemVO storedItemVO);
 	
-	void checkboxDelete(int stored_item_no);
+	void deleteStoredItem(int stored_item_no);
 	
 	//추가
 	void storeItem(StoredItemVO siv);
 	
-	int showRemingDay(int stored_item_no);
+	int daysRemaining(int stored_item_no);
 	
 	//07-14일
 	  List<Map<String, Object>> getTotalStoredItemList(List<StorageVO> storageVOList);

@@ -283,11 +283,16 @@ public class RecipeController {
 		reviewVO = recipeMapper.readEachReview(memberId, recipeNo);
 		return reviewVO;
 	}
-
-	@RequestMapping("postReviewAjax")
-	public String postReviewAjax() {
-		return null;
+	@Secured("ROLE_ADMIN")
+	@PostMapping("deleteReviewByAdmin")
+	public String deleteReviewByAdmin(String memberId, int recipeNo) {
+		// System.out.println(1);
+		// System.out.println("멤버아이디 : "+ memberId);
+		// System.out.println("레시피번호 : "+ recipeNo);
+		recipeService.deleteReviewByAdmin(memberId, recipeNo);
+		return "redirect:/recipe/recipeBoardView?recipeNo=" + recipeNo;
 	}
+}
 		
 	/**
 	 * 권한 check 후 레시피 게시글 삭제로 이동
@@ -335,7 +340,6 @@ public class RecipeController {
 		int ResultByWriterCount = recipeMapper.getRecipeListByWriterCount(keyword);
 		model.addAttribute("ResultByWriterCount", ResultByWriterCount);
 		model.addAttribute("ResultByWriter", ResultByWriter);
-		
 		
 		return "recipes/recipeSearchResultPage.tiles"; 
 	}
@@ -398,7 +402,4 @@ public class RecipeController {
 		
 		return "recipes/savedRecipePage.tiles"; 
 	}
-	
-	
-	
 }

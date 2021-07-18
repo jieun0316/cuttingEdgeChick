@@ -65,4 +65,7 @@ public interface RecipeMapper {
 	void deleteSavedRecipe(SavedRecipeVO savedRecipeVO);
 	int isSavedRecipe(String memberId, int recipeNo);
 	ArrayList<SavedRecipeVO> getSavedRecipeListById(String id);
+	
+	//게시글 신고
+	int findRecipeByNoAndContent(int recipe_no, String report_content);
 }

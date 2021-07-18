@@ -52,52 +52,65 @@ x WHERE rn BETWEEN 1 AND 2
 select * from recipe
 select member_id, recipe_no, review_comment, rating, to_char(review_date, 'yyyy-mm-dd hh24:mi') as review_date from review where recipe_no='6' order by review_date asc;
 
+select * from member;
+select * from authorities;
 select * from review where recipe_no='6'
 
 update review set review_comment='인재야 사랑한다!' where member_id='sukuon' and recipe_no='6'
 
-select * from member;
-select * from authorities;
+select r.recipe_no, r.category, avg(re.rating) from review re,  recipe r where re.recipe_no(+) = r.recipe_no and r.category='한식'
 
-update review set review_comment='인재야 사랑한다!' where member_id='sukuon' and recipe_no='6'
-
-
-
-
-select sr.recipe_no, m.nick, r.recipe_name, r.hits, r.category, r.recipe_thumbnail
-from saved_recipe sr, recipe r, member m
-where sr.recipe_no = r.recipe_no and r.member_id = m.member_id
-	and sr.member_id='java'
-order by sr.saved_date
 
 
 
 SELECT rnum_view.*
-      FROM 
-         SELECT ROWNUM as rnum, recipe_view.*
-         FROM (
-	            SELECT r.recipe_no, m.nick, r.recipe_name, hits, r.category, r.recipe_thumbnail, avg(re.rating)
-	            FROM RECIPE r, member m, review re
-	            WHERE m.member_id = r.member_id 
-	            	and re.recipe_no(+) = r.recipe_no
-            	group by r.recipe_no, m.nick, r.recipe_name, hits, r.category, r.recipe_thumbnail
-	        	ORDER BY r.recipe_no DESC
-            )recipe_view
-      )rnum_view
-WHERE rnum between 1 and 4
-
-
-
-SELECT rnum_view.*
+		FROM (
+			SELECT ROWNUM as rnum, recipe_view.*
+			FROM
+				(SELECT r.recipe_no, m.nick, r.recipe_name, hits, r.category, r.recipe_thumbnail,  avg(re.rating)
+				FROM RECIPE r, member m, review re
+				WHERE m.member_id = r.member_id and re.recipe_no(+) = r.recipe_no
+				group by r.recipe_no 
+				ORDER BY recipe_no DESC
+				)recipe_view
+			)rnum_view
+		WHERE rnum between 1 and 4
+		
+		
+		
+		
+		SELECT rnum_view.*
+		FROM (
+			SELECT ROWNUM as rnum, recipe_view.*
+			FROM
+				(SELECT r.recipe_no, m.nick, r.recipe_name, hits, r.category, r.recipe_thumbnail,  avg(re.rating) as rating
+				FROM RECIPE r, member m,  review re
+				WHERE m.member_id = r.member_id
+				 and re.recipe_no(+) = r.recipe_no
+				 and category='한식'
+				 group by r.recipe_no, m.nick, r.recipe_name, hits, r.category, r.recipe_thumbnail
+				 ORDER BY recipe_no DESC)recipe_view
+			)rnum_view
+		WHERE rnum between '1' and' 1'
+		
+		SELECT rnum_view.*
       FROM (
          SELECT ROWNUM as rnum, recipe_view.*
          FROM
-            (SELECT r.recipe_no, m.nick, r.recipe_name, hits, r.category, r.recipe_thumbnail, avg(re.rating) as rating
-	            FROM RECIPE r, member m, review re
-	            WHERE m.member_id = r.member_id 
-	            	and re.recipe_no(+) = r.recipe_no
-            	group by r.recipe_no, m.nick, r.recipe_name, hits, r.category, r.recipe_thumbnail
-	        	ORDER BY r.recipe_no DESC
+            (SELECT r.recipe_no, m.nick, r.recipe_name, hits, r.category, r.recipe_thumbnail,  to_char(write_date, 'yyyy-mm-dd hh24:mi') as write_date, avg(re.rating) as rating
+               FROM RECIPE r, member m, review re
+               WHERE m.member_id = r.member_id 
+                  and re.recipe_no(+) = r.recipe_no
+               group by r.recipe_no, m.nick, r.recipe_name, hits, r.category, r.recipe_thumbnail, write_date
+              ORDER BY r.recipe_no DESC
             )recipe_view
          )rnum_view
-      WHERE rnum between 1 and 4
+		WHERE rnum between '1' and '9'
+		
+		SELECT r.recipe_no, m.nick, r.recipe_name, hits, r.category, r.recipe_thumbnail, to_char(write_date, 'yyyy-mm-dd hh24:mi') as write_date, avg(re.rating) as rating
+               FROM RECIPE r, member m, review re
+               WHERE m.member_id = r.member_id 
+                  and re.recipe_no = r.recipe_no and sysdate - write_date <= 30 
+               group by r.recipe_no, m.nick, r.recipe_name, hits, r.category, r.recipe_thumbnail, write_date
+              ORDER BY hits, rating DESC
+
