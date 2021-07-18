@@ -362,7 +362,7 @@ $(document).ready(function () {
                         <%-- <p>${paramMap.recipeContentVOList}</p> --%>
                      </div>
 
-                     <p class="mt-15">${content.content}</p>
+                     <pre class="mt-15">${content.content}</pre>
                      <sec:authorize access="isAuthenticated()">
                      <sec:authentication var="mvo" property="principal" />
                      <c:choose>
