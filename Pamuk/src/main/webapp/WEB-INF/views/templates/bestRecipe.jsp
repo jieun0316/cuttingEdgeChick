@@ -46,7 +46,7 @@
 										<p>등록된 리뷰가 없습니다</p>
 									</c:otherwise>
 								</c:choose>
-								<br><span>조회수 : ${recipeVO.hits}</span>
+								<!--  <br><span>조회수 : ${recipeVO.hits}</span>-->
 							</div>
                         </div>
                     </div>

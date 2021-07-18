@@ -79,7 +79,7 @@ public interface RecipeMapper {
 	void updateReview(String memberId, int recipeNo, String reviewComment);
 
 	void deleteReview(String memberId, int recipeNo);
-
+	ReviewVO readEachReview(String memberId, int recipeNo);
 	int countReview(int recipeNo);
 
 	// recipe save 저장

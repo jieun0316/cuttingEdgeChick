@@ -27,11 +27,11 @@ $(document).ready(function(){
 	    },
 		success:function(data){						
 			if(data=="fail"){
-			$("#idCheckView").text("사용불가!").css("background","red");
+			$("#idCheckView").text("사용불가!").css({background :"red", color:"white", padding:"8px 14px"});
 				checkResultId="";
 			}else {						
 				$("#idCheckView").text("사용가능!").css(
-					"background","green");		
+					{ background:"green", color:"white", padding:"8px 14px"});		
 				checkResultId="1";
 				}	//else					
 			} // success		
