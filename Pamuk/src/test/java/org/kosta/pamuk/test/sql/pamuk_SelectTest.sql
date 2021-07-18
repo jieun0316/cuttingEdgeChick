@@ -1,10 +1,12 @@
 select * from MEMBER;
 select * from RECIPE;
 select * from RECIPE_ITEM;
+select * from ITEM;
 select * from SAVED_RECIPE;
 select * from RECIPE_CONTENT;
 select * from authorities;
 select * from review
+select * from category;
 
 delete from SAVED_RECIPE
 
