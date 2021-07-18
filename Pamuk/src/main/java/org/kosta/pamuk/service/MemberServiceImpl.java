@@ -94,6 +94,12 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
+	public String nickCheck(String memberNick) {
+		int count = memberMapper.nickCheck(memberNick);
+		return (count == 0) ? "ok" : "fail";
+	}
+
+	@Override
 	public List<MemberVO> adminList() {
 		return memberMapper.adminList();
 	}
@@ -122,7 +128,7 @@ public class MemberServiceImpl implements MemberService {
 		MemberVO mvo = memberMapper.findMemberById(memberVO.getMemberId());
 		System.out.println(mvo);
 		mvo.setNick(memberVO.getNick());
-//		memberMapper.updateMemberInfo(mvo);
+		memberMapper.updateNick(mvo.getMemberId(),mvo.getNick());
 	}
 
 //	@Transactional

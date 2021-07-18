@@ -21,7 +21,7 @@ public class RecipeListTest {
 
 	@Test
 	public void getBestRecipeListForMain() {
-		int testCase = 5;
+		int testCase = 7;
 
 		// Main page Best recipe list
 		if (testCase == 1) {
@@ -53,7 +53,7 @@ public class RecipeListTest {
 			for(SavedRecipeVO srvo : list)
 				System.out.println(srvo);
 		}
-		else if (testCase == 5) {
+		else if (testCase == 6) {
 			System.out.println(rm.getRecipeContentListByRecipeNoOrderByStepNo(2));
 			RecipeContentVO rContentVO = new RecipeContentVO();
 			rContentVO.setRecipeNo(2);
@@ -64,8 +64,12 @@ public class RecipeListTest {
 			rm.updateRecipeContentByRecipeNo(rContentVO);
 			System.out.println(rm.getRecipeContentListByRecipeNoOrderByStepNo(2));
 			System.out.println(rm.getRecipeStepContentListByRecipeNo(2, 1));
-			;
 			
+			
+		}
+		else if (testCase == 7) {
+			rm.updateReview("java", 3, "팀 인재 워라벨~~");
+			System.out.println(rm.readEachReview("java",3));
 		}
 
 	}

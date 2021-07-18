@@ -34,6 +34,9 @@ public interface MemberMapper {
 	// Ajax 아이디 중복확인
 	int idCheck(String memberId);
 
+	// Ajax nick 중복확인
+	int nickCheck(String memberNick);
+
 	MemberVO findMemberById(String memberId);
 
 	List<AuthoritiesVO> selectAuthorityById(String memberId);

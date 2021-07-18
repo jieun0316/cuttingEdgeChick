@@ -10,6 +10,7 @@ import org.kosta.pamuk.model.mapper.RecipeMapper;
 import org.kosta.pamuk.model.vo.RecipeContentVO;
 import org.kosta.pamuk.model.vo.RecipeItemVO;
 import org.kosta.pamuk.model.vo.RecipeVO;
+import org.kosta.pamuk.model.vo.ReportVO;
 import org.kosta.pamuk.model.vo.ReviewVO;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -67,24 +68,23 @@ public class RecipeServiceImpl implements RecipeService {
 	@Transactional
 	@Override
 	public void postRecipe(RecipeVO recipeVO) {
-		 recipeMapper.postRecipe(recipeVO);
-		
-		 List<RecipeContentVO> recipeContentList = recipeVO.getRecipeContentList();
-		 List<RecipeItemVO> recipeItemList = recipeVO.getRecipeItemList();
-		  
-		 for(RecipeContentVO recipeContentVO : recipeContentList) 
-		 {	
-		
+		recipeMapper.postRecipe(recipeVO);
+
+		List<RecipeContentVO> recipeContentList = recipeVO.getRecipeContentList();
+		List<RecipeItemVO> recipeItemList = recipeVO.getRecipeItemList();
+
+		for (RecipeContentVO recipeContentVO : recipeContentList) {
+
 			recipeContentVO.setRecipeNo(recipeVO.getRecipeNo());
-			recipeMapper.postRecipeContent(recipeContentVO); 
-			 
-		 }
-		 for(RecipeItemVO recipeItemVO : recipeItemList) {
-			 if(recipeItemVO.getItemName() != null) {
-				 recipeItemVO.setRecipeNo(recipeVO.getRecipeNo());
-				 recipeMapper.postRecipeItem(recipeItemVO);
-			 }
-		 }
+			recipeMapper.postRecipeContent(recipeContentVO);
+
+		}
+		for (RecipeItemVO recipeItemVO : recipeItemList) {
+			if (recipeItemVO.getItemName() != null) {
+				recipeItemVO.setRecipeNo(recipeVO.getRecipeNo());
+				recipeMapper.postRecipeItem(recipeItemVO);
+			}
+		}
 	}
 
 	/**
@@ -163,6 +163,7 @@ public class RecipeServiceImpl implements RecipeService {
 	}
 
 	@Override
+	@Transactional
 	public void updateReview(ReviewVO reviewVO) {
 		String memberId = reviewVO.getMemberVO().getMemberId();
 		int recipeNo = reviewVO.getRecipeVO().getRecipeNo();
@@ -183,6 +184,21 @@ public class RecipeServiceImpl implements RecipeService {
 		// TODO Auto-generated method stub
 		recipeMapper.updateRecipeContentByRecipeNo(recipeContentVO);
 	}
+
+	@Override
+	public void addReportedRecipe(ReportVO reportVO) {
+		int flag = recipeMapper.findRecipeByNoAndContent(reportVO.getRecipeNo(), reportVO.getReportContent());
+		if (flag == 0) {
+			recipeMapper.addReportedRecipe(reportVO.getRecipeNo(), reportVO.getReportContent());
+		}
+
+	}
+
+	@Override
+	public ArrayList<ReportVO> getReportedRecipeList() {
+		return recipeMapper.getReportedRecipeList();
+	}
+
 	@Override
 	public void deleteReviewByAdmin(String memberId, int recipeNo) {
 		recipeMapper.deleteReview(memberId, recipeNo);

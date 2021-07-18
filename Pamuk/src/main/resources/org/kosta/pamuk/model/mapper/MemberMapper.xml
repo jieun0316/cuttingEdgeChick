@@ -60,6 +60,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		select count(*) from member
 		where member_id=#{value}
 	</select>
+	<select id="nickCheck" resultType="int">
+		select count(*)
+		from member
+		where member_nick={value}
+	</select>
 
 	<!-- 관리자 관련 -->
 	<select id="adminList" resultType="memberVO">

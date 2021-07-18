@@ -26,6 +26,8 @@ public interface MemberService {
 
 	String idCheck(String memberId);
 
+	public String nickCheck(String memberNick);
+
 	List<MemberVO> adminList();
 	List<MemberVO> starChefList();
 	void disaccreditAdmin(String memberId);
@@ -51,4 +53,5 @@ public interface MemberService {
 	 * @param memberVO
 	 */
 	public void quitMember(String memberId);
+
 }
