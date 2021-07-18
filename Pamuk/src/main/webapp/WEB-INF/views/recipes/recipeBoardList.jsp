@@ -101,8 +101,8 @@
 								<h5>[${recipeVO.category}] ${recipeVO.recipeName}</h5>
 							</a>
 							<div class="ratings">
-								<span>작성자 : ${recipeVO.memberVO.nick}<!-- <i class="fas fa fa-heart" style="color:tomato"></i>--><!--&nbsp;&nbsp;|&nbsp;&nbsp; </span>
-								  <span>조회수 : ${recipeVO.hits}</span>-->
+								<span>작성자 : ${recipeVO.memberVO.nick}<%-- <i class="fas fa fa-heart" style="color:tomato"></i>--><!--&nbsp;&nbsp;|&nbsp;&nbsp; </span>
+								  <span>조회수 : ${recipeVO.hits}</span>--%>
 								<br>
 								<%-- 게시물 별점 평균 별 아이콘 갯수 지정 --%>
 								<c:choose>
