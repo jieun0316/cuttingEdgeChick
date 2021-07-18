@@ -41,7 +41,6 @@ public class MemberController {
 
 	@RequestMapping(value = "/user/registerMember", method = RequestMethod.POST)
 	public String register(MemberVO memberVO) {
-		System.out.println(memberVO);
 		memberService.registerMember(memberVO);
 		return "redirect:/user/registerResultView?memberId=" + memberVO.getMemberId();
 	}
@@ -50,6 +49,26 @@ public class MemberController {
 	public ModelAndView registerResultView(String memberId) {
 		MemberVO memberVO = memberService.findMemberById(memberId);
 		return new ModelAndView("member/register_result.tiles", "memberVO", memberVO);
+	}
+	/**
+	 * id 중복 확인
+	 * @param memberId
+	 * @return
+	 */
+	@RequestMapping("user/idCheckAjax")
+	@ResponseBody
+	public String idCheckAjax(String memberId) {
+		return memberService.idCheck(memberId);
+	}
+	/**
+	 * nick 중복 확인
+	 * @param memberNick
+	 * @return
+	 */
+	@RequestMapping("user/nickCheckAjax")
+	@ResponseBody
+	public String nickCheckAjax(String memberNick) {
+		return memberService.nickCheck(memberNick);
 	}
 
 	/*
@@ -78,12 +97,6 @@ public class MemberController {
 			model.addAttribute("memberVO", mvo);
 			return "member/findMemberId_ok.tiles";
 		}
-	}
-
-	@RequestMapping("user/idCheckAjax")
-	@ResponseBody
-	public String idCheckAjax(String memberId) {
-		return memberService.idCheck(memberId);
 	}
 
 	/*

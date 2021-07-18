@@ -63,7 +63,6 @@ public class RecipeController {
 		// view All Recipe List
 		ArrayList<RecipeVO> recipeList = recipeService.getAllRecipeListByRowNumber(pagingBean.getStartRowNumber(),
 				pagingBean.getEndRowNumber());
-		System.out.println(recipeList);
 		model.addAttribute("recipeList", recipeList);
 		model.addAttribute("pagingBean", pagingBean);
 		return "recipes/recipeBoardList.tiles";
@@ -125,7 +124,6 @@ public class RecipeController {
 		
 		// 세션에서 세선 정보를 mvo에 넣는다
 		recipeVO.setMemberVO( (MemberVO) SecurityContextHolder.getContext().getAuthentication().getPrincipal());
-		System.out.println(recipeVO);
 		recipeService.postRecipe(recipeVO);
 		
 		return "redirect:recipeBoardList";
@@ -240,7 +238,6 @@ public class RecipeController {
 		}
 		model.addAttribute("recipeList", recipeList);
 		model.addAttribute("pagingBean", pagingBean);
-		// System.out.println(recipeList);
 		return "recipes/recipeListAjax";
 	}
 	
@@ -253,7 +250,6 @@ public class RecipeController {
 	@PostMapping("writeReview")
 	public String postReview(ReviewVO reviewVO) {
 		reviewVO.setMemberVO( (MemberVO) SecurityContextHolder.getContext().getAuthentication().getPrincipal());	
-		System.out.println(reviewVO);
 		recipeService.writeReview(reviewVO);
 		return  "redirect:/recipe/recipeBoardView?recipeNo="+reviewVO.getRecipeVO().getRecipeNo();
 	}
@@ -284,12 +280,17 @@ public class RecipeController {
 		reviewVO = recipeMapper.readEachReview(memberId, recipeNo);
 		return reviewVO;
 	}
+	@Secured("ROLE_MEMBER")
+	@RequestMapping("deleteReview")
+	public String deleteReview(ReviewVO reviewVO) {
+		//System.out.println(reviewVO);
+		recipeService.deleteReview(reviewVO);
+		return "redirect:/recipe/recipeBoardView?recipeNo=" +reviewVO.getRecipeVO().getRecipeNo();
+	}
+	
 	@Secured("ROLE_ADMIN")
 	@PostMapping("deleteReviewByAdmin")
 	public String deleteReviewByAdmin(String memberId, int recipeNo) {
-		// System.out.println(1);
-		// System.out.println("멤버아이디 : "+ memberId);
-		// System.out.println("레시피번호 : "+ recipeNo);
 		recipeService.deleteReviewByAdmin(memberId, recipeNo);
 		return "redirect:/recipe/recipeBoardView?recipeNo=" + recipeNo;
 	}
@@ -303,13 +304,11 @@ public class RecipeController {
 	@RequestMapping("deleteRecipeForm")
 	public String deleteRecipeForm(int recipeNo) {
 		// session 체크 해줘야함.
-		// System.out.println("deleteRecipeForm");
 		return "redirect:deleteRecipeByRecipeNo?recipeNo=" + recipeNo;
 	}
 	@Secured("ROLE_MEMBER")
 	@RequestMapping("deleteRecipeByRecipeNo")
 	public String deleteRecipeByRecipeNo(int recipeNo, Model model) {
-		// System.out.println("deleteRecipeByRecipeNo");
 		recipeMapper.deleteRecipeByRecipeNo(recipeNo);
 		return "redirect:recipeBoardList";
 	}
@@ -360,7 +359,6 @@ public class RecipeController {
 		rContentVO.setContent(content);
 		recipeService.updateRecipeContentByRecipeNo(rContentVO);
 		rContentVO = recipeMapper.getRecipeStepContentListByRecipeNo(recipeNo, stepNo);
-		System.out.println(rContentVO);
 		return rContentVO;
 	}
 	
@@ -401,5 +399,12 @@ public class RecipeController {
 		model.addAttribute("savedRecipes", savedRecipes);
 		
 		return "recipes/savedRecipePage.tiles"; 
+	}
+	@Secured("ROLE_MEMBER")
+	@RequestMapping("report-recipe")
+	public String reportRecipeForm(int recipeNo, Model model) {
+		RecipeVO recipeVO = recipeService.viewRecipeDetail(recipeNo);
+		model.addAttribute("recipeVO", recipeVO);
+		return "recipes/report-recipe";
 	}
 }

@@ -94,6 +94,12 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
+	public String nickCheck(String memberNick) {
+		int count = memberMapper.nickCheck(memberNick);
+		return (count == 0) ? "ok" : "fail";
+	}
+
+	@Override
 	public List<MemberVO> adminList() {
 		return memberMapper.adminList();
 	}
@@ -122,7 +128,7 @@ public class MemberServiceImpl implements MemberService {
 		MemberVO mvo = memberMapper.findMemberById(memberVO.getMemberId());
 		System.out.println(mvo);
 		mvo.setNick(memberVO.getNick());
-//		memberMapper.updateMemberInfo(mvo);
+		memberMapper.updateNick(mvo.getMemberId(),mvo.getNick());
 	}
 
 //	@Transactional
@@ -133,6 +139,26 @@ public class MemberServiceImpl implements MemberService {
 		memberMapper.updateMemberStatus(memberId);
 		// 2. 관련 role을 제거한다.(->quit)
 		memberMapper.updateAuthority(memberId);
+	}
+
+	@Override
+	public void authorizeStarChef(String memberId) {
+		memberMapper.authorizeStarChef(memberId);
+	}
+
+	@Override
+	public List<MemberVO> findMemberAllForAdmin() {
+		return memberMapper.findMemberAllForAdmin();
+	}
+
+	@Override
+	public List<MemberVO> starChefList() {
+		return memberMapper.starChefList();
+	}
+
+	@Override
+	public void disaccreditStarChef(String memberId) {
+		memberMapper.disaccreditStarChef(memberId);
 	}
 
 }

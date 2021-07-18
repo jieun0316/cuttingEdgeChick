@@ -4,24 +4,16 @@
 <%@taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 <script type="text/javascript">
 $(document).ready(function(){
-	let checkResultId="";
-	let gender=$("select[name=gender]").val();
-	
+	let checkResultId="";	
 	$("#regForm").submit(function(){
 		if(checkResultId==""){
 			alert("아이디 중복확인을 하세요");
 			return false;
 		}
-
-		/* if(gender==""){
-			alert("성별을 넣어주세요");
-			return false;
-		} */
 	});
 		// spring security 적용시 ajax post 방식은 아래와 같이 beforeSend property에서 csrf 값을 셋팅해야 함 
 	$("#idCheck").click(function() {
 		let memberId=$("#memberId").val().trim();
-		
 		if(memberId==""){
 			alert("아이디를 넣어주세요");
 			return;
@@ -100,7 +92,7 @@ $(document).ready(function(){
                                 </div>
                                 <div class="col-12 col-lg-7 ml-auto mr-auto mb-30">
                                 성별
-                            		<select name="gender">
+                            		<select name="gender" required="required">
                               			<option value="">성별</option>
                                			<option value="M">남자</option>
                          		    	<option value="F">여자</option>

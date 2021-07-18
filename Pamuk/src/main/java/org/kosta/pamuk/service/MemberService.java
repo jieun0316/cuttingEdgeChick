@@ -26,15 +26,19 @@ public interface MemberService {
 
 	String idCheck(String memberId);
 
+	public String nickCheck(String memberNick);
+
 	List<MemberVO> adminList();
-
+	List<MemberVO> starChefList();
 	void disaccreditAdmin(String memberId);
-
+	void disaccreditStarChef(String memberId);
 	List<MemberVO> findMemberAll();
+	List<MemberVO> findMemberAllForAdmin();
 
 	List<MemberVO> findMemberByNick(String nick);
 
 	void authorizeAdmin(String memberId);
+	void authorizeStarChef(String memberId);
 
 	/**
 	 * 회원 정보를 수정합니다.(nick)
@@ -49,4 +53,5 @@ public interface MemberService {
 	 * @param memberVO
 	 */
 	public void quitMember(String memberId);
+
 }

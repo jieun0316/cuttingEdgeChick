@@ -25,7 +25,6 @@
             let clickedRow = $(this).parent().parent();
             var td = clickedRow.children();
             let itemName = td.eq(0).text();
-            alert(itemName);
             items.splice(items.indexOf(itemName),1); 
             clickedRow.remove();
         }); //on

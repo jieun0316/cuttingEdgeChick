@@ -2,6 +2,15 @@
     pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
+
+<script type="text/javascript">
+	$(document).ready(function() {
+		$("#findMemberPassword").click(function() {
+			alert("아직 미구현된 기능입니다");
+			return;
+		});
+	});
+</script>
 <!-- ##### Breadcumb Area Start ##### -->
 <div class="breadcumb-area bg-img bg-overlay"
 	style="background-image: url(/img/bg-img/breadcumb4.jpg);">
@@ -42,7 +51,7 @@
 								<div class="col-12 col-lg-12 mt-30" align="center">
 									<a href="registerForm">회원가입</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
 									<a href="findMemberIdForm">아이디 찾기</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
-									<a href="findMemberPasswordForm">비밀번호 찾기</a>
+									<a href="#" id="findMemberPassword">비밀번호 찾기</a>
 								</div>
 							</div>
 							</form>

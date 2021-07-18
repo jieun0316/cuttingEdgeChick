@@ -7,16 +7,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<!-- resultMap setting -->
 	<resultMap type="recipeVO" id="recipeRM">
- 		<result column="member_id" property="memberVO.memberId"/>
- 	</resultMap>
- 	<resultMap type="recipeVO" id="recipeDetailRM" extends="recipeRM">
- 		<result column="nick" property="memberVO.nick"/>
- 	</resultMap>
- 	<resultMap type="savedRecipeVO" id="savedRecipeRM">
- 		<result column="nick" property="memberVO.nick"/>
- 	</resultMap>
- 	
-	
+		<result column="member_id" property="memberVO.memberId" />
+	</resultMap>
+	<resultMap type="recipeVO" id="recipeDetailRM"
+		extends="recipeRM">
+		<result column="nick" property="memberVO.nick" />
+	</resultMap>
+	<resultMap type="savedRecipeVO" id="savedRecipeRM">
+		<result column="nick" property="memberVO.nick" />
+	</resultMap>
 	<!-- recipe 관련 insert문 -->
 	<!-- recipe 게시물 작성 -->
 	<insert id="postRecipe" parameterType="RecipeVO">
@@ -114,44 +113,53 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<!-- recipe 게시물의 리스트 조회 -->
 	<!-- recipe 게시물의 List를 rowNumber로 조회 -->
 	<select id="getAllRecipeListByRowNumber"
-      resultMap="recipeDetailRM">
-      SELECT rnum_view.*
-      FROM (
-      SELECT ROWNUM as rnum, recipe_view.*
-      FROM
-      (SELECT r.recipe_no, m.nick, r.recipe_name, hits, r.category,
-      r.recipe_thumbnail, avg(re.rating) as rating
-      FROM RECIPE r, member m, review re
-      WHERE m.member_id = r.member_id
-      and re.recipe_no(+) = r.recipe_no
-      group by r.recipe_no, m.nick, r.recipe_name, hits, r.category,
-      r.recipe_thumbnail
-      ORDER BY r.recipe_no DESC
-      )recipe_view
-      )rnum_view
-      WHERE rnum between #{startRowNumber} and #{endRowNumber}
-   </select>
-<!-- category별 recipe 게시물의 List를 rowNumber로 조회 -->
-   <select id="getRecipeListByCategory" resultMap="recipeDetailRM">
-      SELECT
-      rnum_view.*
-      FROM (
-      SELECT ROWNUM as rnum, recipe_view.*
-      FROM
-      (SELECT r.recipe_no, m.nick, r.recipe_name, hits, r.category,
-      r.recipe_thumbnail, avg(re.rating) as rating
-      FROM RECIPE r, member m, review re
-      WHERE m.member_id = r.member_id
-      and re.recipe_no(+) = r.recipe_no
-      and category=#{category}
-      group by r.recipe_no, m.nick, r.recipe_name, hits, r.category,
-      r.recipe_thumbnail
-      ORDER BY recipe_no DESC)recipe_view
-      )rnum_view
-      WHERE rnum between #{startRowNumber} and #{endRowNumber}
-   </select>
-	
-	
+		resultMap="recipeDetailRM">
+		SELECT rnum_view.*
+		FROM (
+		SELECT ROWNUM as rnum, recipe_view.*
+		FROM
+		(SELECT r.recipe_no, m.nick, r.recipe_name, hits, r.category,
+		r.recipe_thumbnail, avg(re.rating) as rating
+		FROM RECIPE r, member m,
+		review re
+		WHERE m.member_id = r.member_id
+		and re.recipe_no(+) =
+		r.recipe_no
+		group by r.recipe_no, m.nick, r.recipe_name, hits,
+		r.category,
+		r.recipe_thumbnail
+		ORDER BY r.recipe_no DESC
+		)recipe_view
+		)rnum_view
+		WHERE rnum between #{startRowNumber} and #{endRowNumber}
+	</select>
+	<!-- category별 recipe 게시물의 List를 rowNumber로 조회 -->
+	<select id="getRecipeListByCategory" resultMap="recipeDetailRM">
+		SELECT
+		rnum_view.*
+		FROM (
+		SELECT ROWNUM as rnum, recipe_view.*
+		FROM
+		(SELECT
+		r.recipe_no, m.nick, r.recipe_name, hits, r.category,
+		r.recipe_thumbnail, avg(re.rating) as rating
+		FROM RECIPE r, member m,
+		review re
+		WHERE m.member_id = r.member_id
+		and re.recipe_no(+) =
+		r.recipe_no
+		and category=#{category}
+		group by r.recipe_no, m.nick,
+		r.recipe_name, hits, r.category,
+		r.recipe_thumbnail
+		ORDER BY recipe_no
+		DESC)recipe_view
+		)rnum_view
+		WHERE rnum between #{startRowNumber} and
+		#{endRowNumber}
+	</select>
+
+
 	<!-- delete !!테스트 아직 안함!! -->
 	<delete id="deleteRecipeByRecipeNo" parameterType="int">
 		delete from 
@@ -174,11 +182,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<!-- search -->
 	<!-- 검색 결과 count 관련 -->
 	<select id="getRecipeListByWriterCount" resultType="int">
-		select 
-		count(*) 
-		from RECIPE r, member m 
-		where r.member_id = m.member_id 
-		AND m.nick IN (#{keyword})
+		select
+		count(*)
+		from RECIPE r, member m
+		where r.member_id = m.member_id
+		AND
+		m.nick IN (#{keyword})
 	</select>
 	<select id="getRecipeListByItemsCount" resultType="int">
 		select 
@@ -189,36 +198,52 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		count(*)
 		from 
 		(
-			select DISTINCT r.recipe_no ,r.recipe_name, r.category, TO_CHAR(r.write_date, 'YYYY.MM.DD') as write_date
-			from RECIPE r, RECIPE_CONTENT rc
-			where r.recipe_no = rc.recipe_no AND (r.recipe_name LIKE '%' || #{keyword} || '%' OR rc.step_title LIKE '%' || #{keyword} || '%' OR rc.content LIKE '%' || #{keyword} || '%' )
+		select DISTINCT r.recipe_no ,r.recipe_name, r.category,
+		TO_CHAR(r.write_date, 'YYYY.MM.DD') as write_date
+		from RECIPE r,
+		RECIPE_CONTENT rc
+		where r.recipe_no = rc.recipe_no AND (r.recipe_name
+		LIKE '%' || #{keyword}
+		|| '%' OR rc.step_title LIKE '%' || #{keyword}
+		|| '%' OR rc.content
+		LIKE '%' || #{keyword} || '%' )
 		)
 	</select>
 	<!-- search 관련 -->
-	<select id="getRecipeListByWriter" 
-		resultType="RecipeVO" resultMap="recipeDetailRM">
-		select r.recipe_no ,r.recipe_name, r.category, r.recipe_thumbnail, TO_CHAR(r.write_date, 'YYYY.MM.DD') as write_date 
-		from RECIPE r, member m 
-		where r.member_id = m.member_id 
-		AND m.nick IN (#{keyword})
+	<select id="getRecipeListByWriter" resultType="RecipeVO"
+		resultMap="recipeDetailRM">
+		select r.recipe_no ,r.recipe_name, r.category,
+		r.recipe_thumbnail, TO_CHAR(r.write_date, 'YYYY.MM.DD') as write_date
+		from RECIPE r, member m
+		where r.member_id = m.member_id
+		AND m.nick IN
+		(#{keyword})
 	</select>
 	<select id="getRecipeListByItems"  resultType="RecipeVO">
 		select r.recipe_no ,r.recipe_name, r.category, r.recipe_thumbnail, ri.item_name, TO_CHAR(r.write_date, 'YYYY.MM.DD') as write_date
 		from RECIPE r, RECIPE_ITEM ri
 		where r.recipe_no = ri.recipe_no AND ri.item_name IN (#{keyword})
 	</select>
-	<select id="getRecipeListByRecipes"   resultType="RecipeVO">
- select r.recipe_no, r.recipe_name, r.recipe_thumbnail, r.category, TO_CHAR(r.write_date, 'YYYY.MM.DD') as write_date
-   from RECIPE r 
-   where r.recipe_name LIKE '%' || #{keyword} || '%' 
-   
-   union
-   
-   select r.recipe_no, r.recipe_name, r.recipe_thumbnail, r.category, TO_CHAR(r.write_date, 'YYYY.MM.DD') as write_date
-   from RECIPE r, RECIPE_CONTENT rc
-   where r.recipe_no = rc.recipe_no and 
-         (rc.step_title LIKE '%' || #{keyword} || '%' 
-       OR rc.content LIKE '%' || #{keyword} || '%' )
+	<select id="getRecipeListByRecipes" resultType="RecipeVO">
+		select
+		r.recipe_no, r.recipe_name, r.recipe_thumbnail, r.category,
+		TO_CHAR(r.write_date, 'YYYY.MM.DD') as write_date
+		from RECIPE r
+		where
+		r.recipe_name LIKE '%' || #{keyword} || '%'
+
+		union
+
+		select r.recipe_no,
+		r.recipe_name, r.recipe_thumbnail, r.category,
+		TO_CHAR(r.write_date,
+		'YYYY.MM.DD') as write_date
+		from RECIPE r, RECIPE_CONTENT rc
+		where
+		r.recipe_no = rc.recipe_no and
+		(rc.step_title LIKE '%' || #{keyword} ||
+		'%'
+		OR rc.content LIKE '%' || #{keyword} || '%' )
 	</select>
 	
 	
@@ -231,7 +256,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		write_date, avg(re.rating) as rating
 		FROM RECIPE r, member m, review re
 		WHERE m.member_id = r.member_id
-		and re.recipe_no = r.recipe_no and sysdate - write_date <![CDATA[<=]]>
+		and re.recipe_no = r.recipe_no and
+		sysdate - write_date <![CDATA[<=]]>
 		30
 		group by r.recipe_no, m.nick, r.recipe_name, hits, r.category,
 		r.recipe_thumbnail, write_date
@@ -245,7 +271,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		FROM RECIPE r, member m, review re
 		WHERE m.member_id = r.member_id
 		and re.recipe_no(+) = r.recipe_no
-		group by r.recipe_no, m.nick, r.recipe_name, hits, r.category,
+		group
+		by r.recipe_no, m.nick, r.recipe_name, hits, r.category,
 		r.recipe_thumbnail, write_date
 		ORDER BY r.recipe_no DESC
 	</select>
@@ -254,14 +281,19 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<update id="updateRecipeContentByRecipeNo">
 		update RECIPE_CONTENT 
 		set content=#{content}
-		, step_title=#{stepTitle}
-		where recipe_no=#{recipeNo} AND step_no=#{stepNo}
+		,
+		step_title=#{stepTitle}
+		where
+		recipe_no=#{recipeNo} AND
+		step_no=#{stepNo}
 	</update>
 	
 	<!-- 댓글 -->
 	<insert id="writeReview">
-		insert into review(member_id, recipe_no, review_comment, rating, review_date) 
-		values(#{memberId}, #{recipeNo}, #{reviewComment}, #{rating}, sysdate)
+		insert into review(member_id, recipe_no,
+		review_comment, rating, review_date)
+		values(#{memberId}, #{recipeNo},
+		#{reviewComment}, #{rating}, sysdate)
 	</insert>
 	
 	<resultMap type="reviewVO" id="reviewRM">
@@ -269,8 +301,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  		<result column="recipe_no" property="recipeVO.recipeNo"/>
  	</resultMap>
 	<select id="readReview" resultMap="reviewRM">
-		select member_id, recipe_no, review_comment, rating, to_char(review_date, 'yyyy-mm-dd hh24:mi') as review_date 
-		from review where recipe_no=#{recipeNo} order by review_date asc
+		select member_id, recipe_no,
+		review_comment, rating, to_char(review_date, 'yyyy-mm-dd hh24:mi') as
+		review_date
+		from review where recipe_no=#{recipeNo} order by
+		review_date asc
 	</select>
 
 	<update id="updateReview">
@@ -306,8 +341,33 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		select sr.recipe_no, sr.saved_date, m.nick, r.recipe_name, r.hits, r.category, r.recipe_thumbnail
 		from saved_recipe sr, recipe r, member m
 		where sr.recipe_no = r.recipe_no and r.member_id = m.member_id
-			and sr.member_id=#{value}
+		and
+		sr.member_id=#{value}
 		order by sr.saved_date
+	</select>
+
+	<!-- 신고 글 관련 -->
+	<!-- 기존 신고글 조회 -->
+	<select id="findRecipeByNoAndContent" resultType="int">
+		select count(*)
+		from report_recipe
+		where recipe_no=#{recipeNo} and
+		report_content=#{reportContent}
+	</select>
+
+	<!-- 신고글 등록 -->
+	<insert id="addReportedRecipe">
+		insert into
+		report_recipe(recipe_no, report_content)
+		values
+		(#{recipeNo},#{reportContent})
+	</insert>
+
+	<!-- 신고글 리스트를 반환 -->
+	<select id="getReportedRecipeList" resultType="reportVO">
+		select *
+		from
+		report_recipe
 	</select>
 </mapper>
 
