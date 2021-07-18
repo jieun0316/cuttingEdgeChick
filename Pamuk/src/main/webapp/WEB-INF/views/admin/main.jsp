@@ -4,6 +4,23 @@
 <%@taglib prefix="sec"  uri="http://www.springframework.org/security/tags"%> 
 <sec:authorize access="hasRole('ROLE_ADMIN')">
 <sec:authentication var="mvo" property="principal" /> 
+
+<script type="text/javascript">
+	$(document).ready(function() {
+		$("#manageMember").click(function() {
+			alert("아직 미구현된 항목입니다.");
+			return;
+		});
+		$("#manageBoard").click(function() {
+			alert("아직 미구현된 항목입니다.");
+			return;
+		});
+		$("#manageCategory").click(function() {
+			alert("아직 미구현된 항목입니다.");
+			return;
+		});
+	});
+</script>
 <div class="breadcumb-area bg-img bg-overlay"
 	style="background-image: url(/img/bg-img/breadcumb4.jpg);">
 	<div class="container h-100">
@@ -31,7 +48,7 @@
 							<div class="row" style="margin:0 auto">
 							<form action="#" method="get">
 								<div class="col-6 text-center">
-									<button class="btn delicious-btn mt-30" type="submit">유저 관리</button>
+									<button class="btn delicious-btn mt-30" type="submit" id="manageMember">유저 관리</button>
 								</div>
 							</form>
 							<form action="/admin/starChefList" method="get">
@@ -41,7 +58,7 @@
 							</form>
 							<form action="#" method="get">
 								<div class="col-6 text-center">
-									<button class="btn delicious-btn mt-30" type="submit">게시글 관리</button>
+									<button class="btn delicious-btn mt-30" type="submit" id="manageBoard">게시글 관리</button>
 								</div>
 							</form>
 							<form action="#" method="get">
@@ -51,7 +68,7 @@
 							</form>
 							<form action="#" method="get">
 								<div class="col-6 text-center">
-									<button class="btn delicious-btn mt-30" type="submit">카테고리 관리</button>
+									<button class="btn delicious-btn mt-30" type="submit" id="manageCategory">재료 카테고리 관리</button>
 								</div>
 							</form>
 							<div class="row" style="margin:0 auto">

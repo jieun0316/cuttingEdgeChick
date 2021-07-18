@@ -41,15 +41,7 @@ public class AdminController {
 			return "redirect:starChefList";
 		}
 		
-		// 스타쉐프 권한 부여
-		/*
-		@Secured("ROLE_ADMIN")
-		@RequestMapping("findMemberAllForAdmin")
-		public String findMemberFormForStarChef(Model model) {
-			
-			return "admin/findMemberFormForAdmin.tiles";
-		}
-		*/
+
 		@Secured("ROLE_ADMIN")
 		@RequestMapping(value = "/authorizeStarChef", method = RequestMethod.POST)
 		public String authorizeStarChef(String memberId) {
