@@ -34,7 +34,8 @@ class RecipeReviewTest {
 
 		System.out.println(rs.readReview(6));
 		*/
-		System.out.println(rm.countReview(6));
+		//System.out.println(rm.countReview(6));
+		System.out.println(rs.getBestRecipeListForMain());
 	}
 
 }

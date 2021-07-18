@@ -68,6 +68,7 @@ public class RecipeServiceImpl implements RecipeService {
 	@Transactional
 	@Override
 	public void postRecipe(RecipeVO recipeVO) {
+<<<<<<< HEAD
 		recipeMapper.postRecipe(recipeVO);
 
 		List<RecipeContentVO> recipeContentList = recipeVO.getRecipeContentList();
@@ -81,6 +82,26 @@ public class RecipeServiceImpl implements RecipeService {
 			recipeItemVO.setRecipeNo(recipeVO.getRecipeNo());
 			recipeMapper.postRecipeItem(recipeItemVO);
 		}
+=======
+		 recipeMapper.postRecipe(recipeVO);
+		
+		 List<RecipeContentVO> recipeContentList = recipeVO.getRecipeContentList();
+		 List<RecipeItemVO> recipeItemList = recipeVO.getRecipeItemList();
+		  
+		 for(RecipeContentVO recipeContentVO : recipeContentList) 
+		 {	
+		
+			recipeContentVO.setRecipeNo(recipeVO.getRecipeNo());
+			recipeMapper.postRecipeContent(recipeContentVO); 
+			 
+		 }
+		 for(RecipeItemVO recipeItemVO : recipeItemList) {
+			 if(recipeItemVO.getItemName() != null) {
+				 recipeItemVO.setRecipeNo(recipeVO.getRecipeNo());
+				 recipeMapper.postRecipeItem(recipeItemVO);
+			 }
+		 }
+>>>>>>> branch 'main' of https://github.com/jieun0316/cuttingEdgeChick.git
 	}
 
 	/**
@@ -194,4 +215,8 @@ public class RecipeServiceImpl implements RecipeService {
 		return recipeMapper.getReportedRecipeList();
 	}
 
+	@Override
+	public void deleteReviewByAdmin(String memberId, int recipeNo) {
+		recipeMapper.deleteReview(memberId, recipeNo);
+	}
 }

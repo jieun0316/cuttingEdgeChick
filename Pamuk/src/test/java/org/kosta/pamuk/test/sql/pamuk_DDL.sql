@@ -150,9 +150,9 @@ create table recipe_item(
 
 --12
 create table report_recipe (
-   recipe_no number not null,
-   report_content varchar2(100) not null,
-   constraint fk_recipe_report foreign key(recipe_no) references recipe(recipe_no)
+	recipe_no number not null,
+	report_content varchar2(100) not null,
+	constraint fk_recipe_report foreign key(recipe_no) references recipe(recipe_no)
 )
 -------------------------------------------------------------------------------
 

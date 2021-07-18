@@ -85,6 +85,8 @@ from recipe_content
 where recipe_no = '4' AND step_no = '2'
 
 
-
+select count(*) 
+      from report_recipe 
+      where recipe_no=#{recipe_no} and report_content=#{report_content}
        
        

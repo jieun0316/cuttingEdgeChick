@@ -16,14 +16,14 @@
 
 <style type="text/css">
 .bgImage {background-image: url(/img/fridge1.jpg); padding: 100px;}
-div{text-align: center;font-size: 32px; color:white; }
-input[type=number]{width:100px;height:70px;color:black;text-align: center}/
+.bigText {text-align: center;font-size: 32px; color:white; }
+ input[type=number]{width:100px;height:70px;color:black;text-align: center}/
 
 </style>
 </head>
 <body>
 	<div class="container bgImage">
-	 <div id="left" class="col-sm-4 "  >
+	 <div id="left" class="col-sm-4 bigText"  >
     	<h1>냉장고 등록</h1><br>
     	<form action="registerStorage">
 	냉장 <input type="number" name="fridge" value="1"> 칸<br> 

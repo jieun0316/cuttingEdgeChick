@@ -86,15 +86,19 @@ public interface RecipeService {
 
 	/**
 	 * 신고글을 등록합니다.
+	 * 
 	 * @author broth and water
 	 * @param recipe_no
 	 * @param report_content
 	 */
 	void addReportedRecipe(ReportVO reportVO);
-	
+
 	/**
 	 * 신고글을 조회합니다.
+	 * 
 	 * @return
 	 */
 	ArrayList<ReportVO> getReportedRecipeList();
+
+	void deleteReviewByAdmin(String memberId, int recipeNo);
 }
