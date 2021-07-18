@@ -46,7 +46,7 @@
 									</c:otherwise>
 								</c:choose>
 						</div>
-						<p>조회수</p>
+						<!--  <p>조회수</p> -->
 					</div>
 				</div>
 			</div>

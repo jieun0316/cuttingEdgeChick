@@ -113,30 +113,43 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 	<!-- recipe 게시물의 리스트 조회 -->
 	<!-- recipe 게시물의 List를 rowNumber로 조회 -->
-	<select id="getAllRecipeListByRowNumber" 
-		resultMap="recipeDetailRM">
-		SELECT rnum_view.*
-		FROM (
-			SELECT ROWNUM as rnum, recipe_view.*
-			FROM
-				(SELECT r.recipe_no, m.nick, r.recipe_name, hits, r.category, r.recipe_thumbnail
-				FROM RECIPE r, member m
-				WHERE m.member_id = r.member_id ORDER BY recipe_no DESC)recipe_view
-			)rnum_view
-		WHERE rnum between #{startRowNumber} and #{endRowNumber}
-	</select>
-	<!-- category별 recipe 게시물의 List를 rowNumber로 조회 -->
-	<select id="getRecipeListByCategory"  resultMap="recipeDetailRM">
-		SELECT rnum_view.*
-		FROM (
-			SELECT ROWNUM as rnum, recipe_view.*
-			FROM
-				(SELECT r.recipe_no, m.nick, r.recipe_name, hits, r.category, r.recipe_thumbnail
-				FROM RECIPE r, member m
-				WHERE m.member_id = r.member_id and category=#{category} ORDER BY recipe_no DESC)recipe_view
-			)rnum_view
-		WHERE rnum between #{startRowNumber} and #{endRowNumber}
-	</select>
+	<select id="getAllRecipeListByRowNumber"
+      resultMap="recipeDetailRM">
+      SELECT rnum_view.*
+      FROM (
+      SELECT ROWNUM as rnum, recipe_view.*
+      FROM
+      (SELECT r.recipe_no, m.nick, r.recipe_name, hits, r.category,
+      r.recipe_thumbnail, avg(re.rating) as rating
+      FROM RECIPE r, member m, review re
+      WHERE m.member_id = r.member_id
+      and re.recipe_no(+) = r.recipe_no
+      group by r.recipe_no, m.nick, r.recipe_name, hits, r.category,
+      r.recipe_thumbnail
+      ORDER BY r.recipe_no DESC
+      )recipe_view
+      )rnum_view
+      WHERE rnum between #{startRowNumber} and #{endRowNumber}
+   </select>
+<!-- category별 recipe 게시물의 List를 rowNumber로 조회 -->
+   <select id="getRecipeListByCategory" resultMap="recipeDetailRM">
+      SELECT
+      rnum_view.*
+      FROM (
+      SELECT ROWNUM as rnum, recipe_view.*
+      FROM
+      (SELECT r.recipe_no, m.nick, r.recipe_name, hits, r.category,
+      r.recipe_thumbnail, avg(re.rating) as rating
+      FROM RECIPE r, member m, review re
+      WHERE m.member_id = r.member_id
+      and re.recipe_no(+) = r.recipe_no
+      and category=#{category}
+      group by r.recipe_no, m.nick, r.recipe_name, hits, r.category,
+      r.recipe_thumbnail
+      ORDER BY recipe_no DESC)recipe_view
+      )rnum_view
+      WHERE rnum between #{startRowNumber} and #{endRowNumber}
+   </select>
 	
 	
 	<!-- delete !!테스트 아직 안함!! -->

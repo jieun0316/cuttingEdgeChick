@@ -63,6 +63,7 @@ public class RecipeController {
 		// view All Recipe List
 		ArrayList<RecipeVO> recipeList = recipeService.getAllRecipeListByRowNumber(pagingBean.getStartRowNumber(),
 				pagingBean.getEndRowNumber());
+		System.out.println(recipeList);
 		model.addAttribute("recipeList", recipeList);
 		model.addAttribute("pagingBean", pagingBean);
 		return "recipes/recipeBoardList.tiles";
@@ -292,7 +293,6 @@ public class RecipeController {
 		recipeService.deleteReviewByAdmin(memberId, recipeNo);
 		return "redirect:/recipe/recipeBoardView?recipeNo=" + recipeNo;
 	}
-}
 		
 	/**
 	 * 권한 check 후 레시피 게시글 삭제로 이동
