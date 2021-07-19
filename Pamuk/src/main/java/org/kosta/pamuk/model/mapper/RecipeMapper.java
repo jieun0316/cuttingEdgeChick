@@ -1,6 +1,8 @@
 package org.kosta.pamuk.model.mapper;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.kosta.pamuk.model.vo.RecipeContentVO;
@@ -115,5 +117,11 @@ public interface RecipeMapper {
 	 * @return
 	 */
 	ArrayList<ReportVO> getReportedRecipeList();
+	
+	//냉장고 재료와 겹치는 식재료 사용하는 레시피 찾기 - 레시피 번호와 필요한 총 식재료 갯수, 그 중 회원이 가지고 있는 갯수, 일치율 반환 
+	List<Map<String, Object>> getMatchingRecipeNoAndCount(String id);
+	//컨트롤러에서 for문을 사용하는 대신 레시피번호 리스트 배열 파라미터로 넘겨 myBatis에서 처리
+	List <RecipeVO> getMatchingRecipeListByRecipeNo(List<Integer> matchingRecipeNoList);
+	
 
 }

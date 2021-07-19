@@ -3,6 +3,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
@@ -406,5 +407,23 @@ public class RecipeController {
 		RecipeVO recipeVO = recipeService.viewRecipeDetail(recipeNo);
 		model.addAttribute("recipeVO", recipeVO);
 		return "recipes/report-recipe";
+	}
+	
+	//레시피에 필요한 재료와 회원이 보유한 재료의 일치율이 높은 레시피 목록 가져오기
+	@RequestMapping("matchingRecipeBoardList")
+	public String getMatchingRecipeBoardList(Model model) {
+		MemberVO pvo = (MemberVO) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		String id = pvo.getMemberId();
+		List<Map<String, Object>> mapList = recipeMapper.getMatchingRecipeNoAndCount(id);
+		model.addAttribute("noAndCount", mapList);
+		List<Integer> matchingRecipeNoList = new ArrayList<Integer>();
+		for (int i = 0; i < mapList.size(); i++) {
+			matchingRecipeNoList.add(Integer.parseInt(String.valueOf(mapList.get(i).get("RECIPE_NO"))));
+		}
+
+		List<RecipeVO> recipeList = recipeMapper.getMatchingRecipeListByRecipeNo(matchingRecipeNoList);
+		model.addAttribute("recipeList", recipeList);
+
+		return "recipes/recipeBoardList2.tiles";
 	}
 }
