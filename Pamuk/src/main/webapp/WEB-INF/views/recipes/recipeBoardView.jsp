@@ -213,7 +213,7 @@ $(document).ready(function () {
       $step = parseInt($stepTitle.substring(0, 1));
       $stepTitle = $stepTitle.substring(3, $stepTitle.length);
       $index = $step-1;
-      $recipeContent  = $($this).parents(".prepStep").children("p").html();
+      $recipeContent  = $($this).parents(".prepStep").children("pre").html();
       
       // 수정폼으로 바꾸기
       let modifyForm = '<div class="prepStep">';
@@ -237,7 +237,7 @@ $(document).ready(function () {
       modifyOkForm += '<div class="single-preparation-step d-flex">';
       modifyOkForm += '<div class="preImgStep1 img mr-15"><img src="/upload/' + recipeContentVO.imagePath + '" alt="">';
       modifyOkForm += '</div></div>';
-      modifyOkForm += '<p class="mt-15">' + recipeContentVO.content + '</p>';
+      modifyOkForm += '<pre class="mt-15">' + recipeContentVO.content + '</pre>';
       modifyOkForm += '<div class="d-flex justify-content-end">';
       modifyOkForm += '<button type="submit" class="btn btn-outline-success btn-sm modifyBtn">수정하기</button>';
       modifyOkForm += '</div></div>';
