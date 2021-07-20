@@ -53,7 +53,7 @@
 												<tbody>
 												<c:forEach items="${requestScope.rlist }" var="rvo" varStatus="status">
 													<tr>
-														<td><input type="radio" name="memberId" value="${rvo.recipeNo}"></td>
+														<td><input type="radio" name="recipeNo" value="${rvo.recipeNo}"></td>
 														<td><img src="${pageContext.request.contextPath}/upload/${rvo.recipeThumbnail}"	alt="" style="width:150px"></td>
 														<td><a href="${pageContext.request.contextPath}/recipe/recipeBoardView?recipeNo=${rvo.recipeNo}">${rvo.recipeName}</a></td>
 														<td>${rvo.memberId }</td>
