@@ -207,7 +207,7 @@ $(document).ready(function () {
 	  
 	  // 레시피 삭제
 	  $(document).on("click", ".recipeDelBtn", function(){
-		  if( !confirm("리뷰를 삭제하시겠습니까?")){
+		  if( !confirm("레시피를 삭제하시겠습니까?")){
 			  return false;
 		  }
 	  })
@@ -292,9 +292,17 @@ $(document).ready(function () {
                   <c:otherwise>
                    <div class="row mt-50">
 					   <form action="#">
-							<button class="float-right btn text-white btn-danger reportBtn" type="button" id="report"><i class="fa fa-flag"></i> 신고하기</button>
+							<button class="float-right btn text-white btn-danger reportBtn" type="button" id="report"><i class="fa fa-flag"></i> 신고하기</button>&nbsp;
 							<input type="hidden" name="reportRecipeNo" value="${recipeVO.recipeNo}">
-						</form>     
+						</form>
+						 <sec:authorize access="hasRole('ROLE_ADMIN')">
+						 &nbsp;
+						<form action="deleteRecipeForm" method="post">
+                       		<sec:csrfInput />
+                      		<button type="submit" class="btn btn-outline-success recipeDelBtn">관리자 레시피삭제</button>
+                        	<input type="hidden" name="recipeNo" value="${recipeVO.recipeNo}">
+                     	</form>
+                     	</sec:authorize>     
 						</div>
                   </c:otherwise>
                </c:choose>
