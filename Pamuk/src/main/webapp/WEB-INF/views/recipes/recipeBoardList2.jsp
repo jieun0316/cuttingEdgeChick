@@ -108,7 +108,7 @@
 								</c:forEach></span>
 							</a>
 							<div class="ratings">
-								<span>작성자 : ${recipeVO.memberVO.nick}&nbsp;&nbsp;|&nbsp;&nbsp;</span>
+								<span>작성자 : ${recipeVO.memberVO.nick}</span>
 								<br>
 								<%-- 게시물 별점 평균 별 아이콘 갯수 지정 --%>
 								<c:choose>
