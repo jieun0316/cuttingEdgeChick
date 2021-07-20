@@ -5,6 +5,7 @@ select * from SAVED_RECIPE;
 select * from RECIPE_CONTENT;
 select * from authorities;
 select * from review
+delete table report_recipe;
 select * from report_recipe;
 delete from SAVED_RECIPE
 
@@ -16,6 +17,7 @@ select rr.recipe_no, rr.report_content, r.recipe_thumbnail, r.recipe_name, r.mem
 		group by rr.recipe_no, rr.report_content, r.recipe_thumbnail, r.recipe_name, r.member_id
 		order by report_time asc
 
+		
 truncate table review
 
 SELECT M.name, M.nick, A.authority FROM member M, authorities A	WHERE M.member_id=A.member_id;

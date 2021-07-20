@@ -41,7 +41,12 @@ class RecipeReviewTest {
 		reportVO.setRecipeNo(6);
 		reportVO.setReportContent("홍보");
 		rs.reportRecipe(reportVO);*/
+		ReportVO reportVO = new ReportVO();
+		reportVO.setRecipeNo(6);
+		reportVO.setReportContent("기타");
+		rs.reportRecipe(reportVO);
 		System.out.println(rs.reportedRecipeList());
+		
 	}
 
 }

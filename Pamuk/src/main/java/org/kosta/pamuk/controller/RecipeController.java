@@ -13,6 +13,7 @@ import org.kosta.pamuk.model.vo.MemberVO;
 import org.kosta.pamuk.model.vo.PagingBean;
 import org.kosta.pamuk.model.vo.RecipeContentVO;
 import org.kosta.pamuk.model.vo.RecipeVO;
+import org.kosta.pamuk.model.vo.ReportVO;
 import org.kosta.pamuk.model.vo.ReviewVO;
 import org.kosta.pamuk.model.vo.SavedRecipeVO;
 import org.kosta.pamuk.service.RecipeService;
@@ -406,5 +407,12 @@ public class RecipeController {
 		RecipeVO recipeVO = recipeService.viewRecipeDetail(recipeNo);
 		model.addAttribute("recipeVO", recipeVO);
 		return "recipes/report-recipe";
+	}
+	
+	@Secured("ROLE_MEMBER")
+	@RequestMapping("reportRecipe")
+	public String reportRecipe(ReportVO reportVO) {
+		recipeService.reportRecipe(reportVO);
+		return "recipes/reportSuccess";
 	}
 }

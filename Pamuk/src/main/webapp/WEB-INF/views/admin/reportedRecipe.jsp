@@ -13,7 +13,7 @@
 		<div class="row h-100 align-items-center">
 			<div class="col-12">
 				<div class="breadcumb-text text-center">
-					<h2>신고된 글</h2>
+					<h2>신고된 글목록</h2>
 				</div>
 			</div>
 		</div>
@@ -28,14 +28,12 @@
 			<div class="col-12">
 				<div class="delicious-tabs-content">
 					<div class="tab-content mb-80" id="myTabContent">
-						<!-- 탭 -->
 							<div class="delicious-tab-content">
 								<div class="resultWrap">
 									<div id="totalCount">
 										신고된 결과를 보여드립니다
 									</div>
 									<div class="row">
-										<!-- Small Receipe Area -->
 										<div class="col-12">
 											<form action="/admin/deleteRecipeByRecipeNo" method="post">
 											 <sec:csrfInput />
@@ -51,12 +49,12 @@
 													</tr>
 												</thead>
 												<tbody>
-												<c:forEach items="${requestScope.rlist }" var="rvo" varStatus="status">
+												<c:forEach items="${requestScope.rlist }" var="rvo">
 													<tr>
-														<td><input type="radio" name="memberId" value="${rvo.recipeNo}"></td>
+														<td><input type="radio" name="recipeNo" value="${rvo.recipeNo}"></td>
 														<td><img src="${pageContext.request.contextPath}/upload/${rvo.recipeThumbnail}"	alt="" style="width:150px"></td>
 														<td><a href="${pageContext.request.contextPath}/recipe/recipeBoardView?recipeNo=${rvo.recipeNo}">${rvo.recipeName}</a></td>
-														<td>${rvo.memberId }</td>
+														<td>${rvo.memberId } </td>
 														<td>${rvo.reportContent }</td>
 														<td>${rvo.reportTime }</td>
 													</tr>
@@ -72,8 +70,6 @@
 								</div>
 							</div>
 						</div>
-						<!-- !탭 -->
-						<!-- 여기에다 탭 추가 -->
 					</div>
 				</div>
 			</div>
