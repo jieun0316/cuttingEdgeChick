@@ -57,7 +57,20 @@ table{border-spacing:10px;}
 </script>
 </head>
 <body>
-	<div class="container">
+<div class="breadcumb-area bg-img bg-overlay"
+	style="background-image: url(/img/bg-img/breadcumb3.jpg);">
+	<div class="container h-100">
+		<div class="row h-100 align-items-center">
+			<div class="col-12">
+				<div class="breadcumb-text text-center">
+					<h2>Fridge</h2>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- ##### Breadcumb Area End ##### -->
+	<div class="container mb-50 mt-70">
 	<h3>냉장고 등록하기</h3>
 	1.냉장고가 몇칸인가요?(서랍포함)
 	<select id="storageCnt">

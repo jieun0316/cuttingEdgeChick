@@ -204,6 +204,13 @@ $(document).ready(function () {
 	  $("#report").on("click",function(){
 		window.open("/recipe/report-recipe?recipeNo="+${recipeVO.recipeNo}, 'report',"width = 600, height = 580, toolbar=0, top = 300, left = 700, location = no")
 		});
+	  
+	  // 레시피 삭제
+	  $(document).on("click", ".recipeDelBtn", function(){
+		  if( !confirm("리뷰를 삭제하시겠습니까?")){
+			  return false;
+		  }
+	  })
 
    }); // ready
    // 레시피 수정하기 버튼 (수정폼 생성)
@@ -277,7 +284,7 @@ $(document).ready(function () {
                   <div class="row mt-50">
                      <form action="deleteRecipeForm" method="post">
                         <sec:csrfInput />
-                        <button type="submit" class="btn btn-outline-success">레시피 삭제</button>
+                        <button type="submit" class="btn btn-outline-success recipeDelBtn">레시피 삭제</button>
                         <input type="hidden" name="recipeNo" value="${recipeVO.recipeNo}">
                      </form>
                   </div>

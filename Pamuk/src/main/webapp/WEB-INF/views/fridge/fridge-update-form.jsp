@@ -213,10 +213,22 @@ let storageNo="";
 </script>
 </head>
 <body>
-
+<div class="breadcumb-area bg-img bg-overlay"
+	style="background-image: url(/img/bg-img/breadcumb3.jpg);">
+	<div class="container h-100">
+		<div class="row h-100 align-items-center">
+			<div class="col-12">
+				<div class="breadcumb-text text-center">
+					<h2>Fridge</h2>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- ##### Breadcumb Area End ##### -->
 <!-- <input type="text">
 <input type="text"> -->
-<div class="container">
+<div class="container mb-50 mt-70">
 	<div id="left" class="col-sm-4 ">
 	<h2>냉장고 칸별 조회</h2>
   	<p>칸별로 어떤 재료가 있는지 확인, 추가, 수정, 삭제하세요</p>
