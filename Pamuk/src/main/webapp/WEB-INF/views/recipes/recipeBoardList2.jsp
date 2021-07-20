@@ -109,7 +109,6 @@
 							</a>
 							<div class="ratings">
 								<span>작성자 : ${recipeVO.memberVO.nick}&nbsp;&nbsp;|&nbsp;&nbsp;</span>
-								<span>조회수 : ${recipeVO.hits}</span>
 								<br>
 								<%-- 게시물 별점 평균 별 아이콘 갯수 지정 --%>
 								<c:choose>
@@ -138,33 +137,6 @@
 				</div>
 			</c:forEach><!-- // forEach -->
 		</div>
-		<!-- Pagination -->
-		<c:set var="pb" value="${requestScope.pagingBean}"></c:set>
-		<ul class="pagination justify-content-center">
-			<%--  이전 pageGroup 이 있으면 (<< 표시될 것이 있으면 ) --%>
-			<c:if test="${pb.previousPageGroup}">
-				<li class="page-item"><a class="page-link"
-					href="${pageContext.request.contextPath}/recipe/recipeBoardList?pageNo=${pb.startPageOfPageGroup-1}">&laquo;</a></li>
-			</c:if>
-			<c:forEach var="page" begin="${pb.startPageOfPageGroup}" end="${pb.endPageOfPageGroup}">
-				<c:choose>
-					<%-- 현재 페이지 표시 --%>
-					<c:when test="${pb.nowPage==page }">
-						<li class="page-item active"><a class="page-link"
-							href="${pageContext.request.contextPath}/recipe/recipeBoardList?pageNo=${page}">${page}</a></li>
-					</c:when>
-					<c:otherwise>
-						<li><a class="page-link"
-							href="${pageContext.request.contextPath}/recipe/recipeBoardList?pageNo=${page}">${page}</a></li>
-					</c:otherwise>
-				</c:choose>
-			</c:forEach>
-			<c:if test="${pb.nextPageGroup}">
-				<li><a class="page-link"
-					href="${pageContext.request.contextPath}/recipe/recipeBoardList?pageNo=${pb.endPageOfPageGroup+1}">&raquo;</a></li>
-			</c:if>
-		</ul>
-		<!-- /.Pagination -->
 		<sec:authorize access="isAuthenticated()">
 		<div class="row mt-50">
 			<button type="button" class="btn btn-outline-success" onclick="location.href='recipeBoardWriteForm'">레시피 작성</button>
