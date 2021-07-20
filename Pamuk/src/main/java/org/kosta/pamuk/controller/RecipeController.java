@@ -418,6 +418,7 @@ public class RecipeController {
 	}
 	
 	//레시피에 필요한 재료와 회원이 보유한 재료의 일치율이 높은 레시피 목록 가져오기
+	@Secured("ROLE_MEMBER")
 	@RequestMapping("matchingRecipeBoardList")
 	public String getMatchingRecipeBoardList(Model model) {
 		MemberVO pvo = (MemberVO) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
