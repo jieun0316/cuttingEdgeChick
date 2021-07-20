@@ -53,6 +53,7 @@ let storageNo="";
 		row+="<td>"+storageName+"</td>";
 		row+="<td name='td2'>"+ja[i].qty+"</td><td name='td3'>"+ja[i].storedDate+"</td><td name='td4'>"+ja[i].expiryDate+"</td>";
 		row+="<input type='hidden' name='storedItemNo' value='"+ja[i].storedItemNo+"'>";
+		//신선도 표시 
 		$.ajax({
 			type:"get",
 			url :"daysBeforeExpiry",
@@ -62,20 +63,20 @@ let storageNo="";
 			success:function(ga){
 				
 				if(ga<0) {
-					row+="<td bgcolor='132012'></td></tr>";
+					row+="<td bgcolor='132012'><input type='hidden' name='status' value='bad'</td></tr>";
 				} else if(ga<8)  {
 					row+="<td bgcolor='E49A17'></td></tr>";
 				} else{
 					row+="<td bgcolor='40CC0C'></td></tr>";
 				} //2-else
 				$("#storedItemInfo").html(row);	
-
-					} // ga function
-					
-				}); //ajax		
-
+				} // ga function
+			}); //ajax		
 			} //for
 	 	  } //1-else  
+	 		  if($("input[name=status]").val()=='bad'){
+	 			  alert("유통기한이 지난 재료가 있습니다!");
+	 		  }
 		} //showList
 
 

@@ -1,7 +1,7 @@
 package org.kosta.pamuk.controller;
 
 import java.util.ArrayList;
-
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -120,11 +120,18 @@ public List<StoredItemVO> updateStoredItem (StoredItemVO storedItemVO) {
 @PostMapping("deleteStoredItem")
 @ResponseBody
 public List<StoredItemVO> deleteStoredItem(@RequestBody Map<String,Object> map ) {
+	//Map<String, String> throwMap = new LinkedHashMap<String,String>();
 	String storageNo=(String)map.get("storageNo");
 	ArrayList<String> deleteArray =(ArrayList<String>)map.get("deleteArray");
 	int storageNoNum= Integer.parseInt(storageNo);
 	  for(int i=0; i<deleteArray.size(); i++) {
 		int deleteArrayNum= Integer.parseInt(deleteArray.get(i));
+		/*
+		 * //삭제되는 아이템의 신선도가 음수라면 map에 식재료를 키로, 수량을 qty로 추가. 아마 sysdate까지 해서 기록하는 table을
+		 * 하나 만들어줘야할듯 if (sm.daysRemaining(deleteArrayNum)<0) { StoredItemVO svo =
+		 * sm.getStoredItemByStoredItemNo(deleteArrayNum);
+		 * throwMap.put(svo.getItemName(), svo.getQty()); }
+		 */
 	    sm.deleteStoredItem(deleteArrayNum); 
 	  }
 	 return sm.getStoredItemByStorageNo(storageNoNum);
