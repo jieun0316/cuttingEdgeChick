@@ -72,7 +72,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		SELECT DISTINCT LISTAGG(item_name, ',') WITHIN GROUP (ORDER BY item_name)
 		FROM (SELECT DISTINCT item_name FROM stored_item WHERE storage_no IN
 		(SELECT storage_no FROM storage WHERE member_id=#{value} ))
-	</select>   
+	</select>  
+	
+	<select id="getStoredItemByStoredItemNo" parameterType="int" resultType="map">
+		SELECT item_name, qty 
+		FROM stored_item
+		WHERE stored_item_no = #{value}
+	</select> 
 </mapper>
  
  

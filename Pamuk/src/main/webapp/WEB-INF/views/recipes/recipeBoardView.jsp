@@ -204,6 +204,13 @@ $(document).ready(function () {
 	  $("#report").on("click",function(){
 		window.open("/recipe/report-recipe?recipeNo="+${recipeVO.recipeNo}, 'report',"width = 600, height = 580, toolbar=0, top = 300, left = 700, location = no")
 		});
+	  
+	  // 레시피 삭제
+	  $(document).on("click", ".recipeDelBtn", function(){
+		  if( !confirm("리뷰를 삭제하시겠습니까?")){
+			  return false;
+		  }
+	  })
 
    }); // ready
    // 레시피 수정하기 버튼 (수정폼 생성)
@@ -213,7 +220,7 @@ $(document).ready(function () {
       $step = parseInt($stepTitle.substring(0, 1));
       $stepTitle = $stepTitle.substring(3, $stepTitle.length);
       $index = $step-1;
-      $recipeContent  = $($this).parents(".prepStep").children("p").html();
+      $recipeContent  = $($this).parents(".prepStep").children("pre").html();
       
       // 수정폼으로 바꾸기
       let modifyForm = '<div class="prepStep">';
@@ -237,7 +244,7 @@ $(document).ready(function () {
       modifyOkForm += '<div class="single-preparation-step d-flex">';
       modifyOkForm += '<div class="preImgStep1 img mr-15"><img src="/upload/' + recipeContentVO.imagePath + '" alt="">';
       modifyOkForm += '</div></div>';
-      modifyOkForm += '<p class="mt-15">' + recipeContentVO.content + '</p>';
+      modifyOkForm += '<pre class="mt-15">' + recipeContentVO.content + '</pre>';
       modifyOkForm += '<div class="d-flex justify-content-end">';
       modifyOkForm += '<button type="submit" class="btn btn-outline-success btn-sm modifyBtn">수정하기</button>';
       modifyOkForm += '</div></div>';
@@ -277,7 +284,7 @@ $(document).ready(function () {
                   <div class="row mt-50">
                      <form action="deleteRecipeForm" method="post">
                         <sec:csrfInput />
-                        <button type="submit" class="btn btn-outline-success">레시피 삭제</button>
+                        <button type="submit" class="btn btn-outline-success recipeDelBtn">레시피 삭제</button>
                         <input type="hidden" name="recipeNo" value="${recipeVO.recipeNo}">
                      </form>
                   </div>
@@ -362,7 +369,7 @@ $(document).ready(function () {
                         <%-- <p>${paramMap.recipeContentVOList}</p> --%>
                      </div>
 
-                     <p class="mt-15">${content.content}</p>
+                     <pre class="mt-15">${content.content}</pre>
                      <sec:authorize access="isAuthenticated()">
                      <sec:authentication var="mvo" property="principal" />
                      <c:choose>

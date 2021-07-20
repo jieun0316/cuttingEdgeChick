@@ -364,6 +364,45 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		values
 		(#{recipeNo},#{reportContent}, sysdate)
 	</insert>
+<!-- 레시피에 필요한 식재료와 회원이 보유한 재료 중 공통항목을 찾아 count -->
+	<select id="getMatchingRecipeNoAndCount" resultType="map">
+		SELECT * FROM(
+		SELECT t1.recipe_no, t1.match_count, t2.total_count, ROUND(t1.match_count/t2.total_count*100) as percent
+		FROM (SELECT DISTINCT ri.recipe_no, COUNT(DISTINCT ri.item_name) as match_count
+			FROM recipe_item ri, stored_item si
+			WHERE ri.item_name=si.item_name
+				AND si.storage_no IN (SELECT storage_no FROM storage WHERE member_id=#{value})
+				GROUP BY ri.recipe_no
+				)  t1, 
+		(SELECT recipe_no, COUNT(item_name) as total_count
+		FROM recipe_item
+		GROUP BY recipe_no)  t2
+		WHERE t1.recipe_no=t2.recipe_no 
+		ORDER BY percent desc, t1.match_count desc 
+		)WHERE ROWNUM <![CDATA[<]]>=9
+ 	
+	</select>
 
+	<!-- 레시피번호 배열을 파라미터로 받아 조회 -->
+	<select id="getMatchingRecipeListByRecipeNo"
+		parameterType="list" resultMap="recipeDetailRM">
+		SELECT r.recipe_no, m.nick, r.recipe_name, hits, r.category,
+		r.recipe_thumbnail, avg(re.rating) as rating
+		FROM RECIPE r, member m,
+		review re
+		WHERE
+		r.recipe_no IN
+		<foreach collection="list" item="recipeNo" open="(" close=")"
+			separator=","> #{recipeNo}</foreach>
+		AND m.member_id = r.member_id
+		AND re.recipe_no(+) = r.recipe_no
+		GROUP BY
+		r.recipe_no, m.nick, r.recipe_name, hits, r.category,
+		r.recipe_thumbnail
+		ORDER BY CASE r.recipe_no
+		<foreach item="recipeNo" collection="list" separator=" "
+			index="index">WHEN #{recipeNo} THEN #{index}</foreach>
+		END
+	</select>
 </mapper>
 

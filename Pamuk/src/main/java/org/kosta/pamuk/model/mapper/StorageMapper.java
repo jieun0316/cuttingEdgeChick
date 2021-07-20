@@ -29,4 +29,6 @@ public interface StorageMapper {
 	  List<Map<String, Object>> getTotalStoredItemList(List<StorageVO> storageVOList);
 	  
 	  String getTotalStoredItemList2(String id);
+
+	//StoredItemVO getStoredItemByStoredItemNo(int storedItemNo);
 }

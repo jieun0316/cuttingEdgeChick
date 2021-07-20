@@ -1,7 +1,7 @@
 package org.kosta.pamuk.controller;
 
 import java.util.ArrayList;
-
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -34,7 +34,7 @@ public String fridgeRegisterForm() {
 	String id = pvo.getMemberId();
 	List<StorageVO> myStorage=sm.findStorageByMemberId(id);
 	if(!myStorage.isEmpty()) {
-	return "fridge/fridge-update-form.tiles";
+	return "redirect:/fridge/fridge-update-form";
 	}else {
 	return "fridge/fridge-register-form.tiles";
 	}
@@ -43,7 +43,7 @@ public String fridgeRegisterForm() {
 //스토리지(냉장 보관 칸) 생성
 //입력받은 숫자만큼 해당 타입의 칸을 생성해야
 //밑처럼 직접 추가해주는 방법 외에 타입을 hidden으로 받는 방법 생각해보기 
-@PostMapping("registerStorage") 
+@RequestMapping(value="registerStorage", method=RequestMethod.POST)
 public String registerStorage(int fridge, int freezer, int room) {
 	StorageVO svo = new StorageVO();
 	MemberVO pvo = (MemberVO) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -67,8 +67,14 @@ public String registerStorage(int fridge, int freezer, int room) {
 		svo.setLocationNo(i+1);
 		sm.registerStorage(svo);
 	} 
-	return "redirect:fridge-update-form";
+	return "redirect:/fridge/registerComplete";
 }
+
+  @RequestMapping("registerComplete") 
+  public String registerComplete() { 
+	  return "redirect:/fridge/fridge-update-form"; 
+	  }
+ 
 
 //스토리지(냉장고 보관 칸)에 재료 관리 페이지. 생성된 스토리지 탭들과 칸별 식재료명을 먼저 보여줌. 등록된 스토리지가 미존재시 등록페이지로 이동
 @RequestMapping("fridge-update-form")
@@ -120,11 +126,18 @@ public List<StoredItemVO> updateStoredItem (StoredItemVO storedItemVO) {
 @PostMapping("deleteStoredItem")
 @ResponseBody
 public List<StoredItemVO> deleteStoredItem(@RequestBody Map<String,Object> map ) {
+	//Map<String, String> throwMap = new LinkedHashMap<String,String>();
 	String storageNo=(String)map.get("storageNo");
 	ArrayList<String> deleteArray =(ArrayList<String>)map.get("deleteArray");
 	int storageNoNum= Integer.parseInt(storageNo);
 	  for(int i=0; i<deleteArray.size(); i++) {
 		int deleteArrayNum= Integer.parseInt(deleteArray.get(i));
+		/*
+		 * //삭제되는 아이템의 신선도가 음수라면 map에 식재료를 키로, 수량을 qty로 추가. 아마 sysdate까지 해서 기록하는 table을
+		 * 하나 만들어줘야할듯 if (sm.daysRemaining(deleteArrayNum)<0) { StoredItemVO svo =
+		 * sm.getStoredItemByStoredItemNo(deleteArrayNum);
+		 * throwMap.put(svo.getItemName(), svo.getQty()); }
+		 */
 	    sm.deleteStoredItem(deleteArrayNum); 
 	  }
 	 return sm.getStoredItemByStorageNo(storageNoNum);

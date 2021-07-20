@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+ <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -25,7 +26,8 @@
 	<div class="container bgImage">
 	 <div id="left" class="col-sm-4 bigText"  >
     	<h1>냉장고 등록</h1><br>
-    	<form action="registerStorage">
+    	<form action="registerStorage" method="post" >
+<sec:csrfInput/>
 	냉장 <input type="number" name="fridge" value="1"> 칸<br> 
 	냉동 <input type="number" name="freezer" value="1"> 칸<br> 
 	실온 <input type="number" name="room" value="1"> 칸<br> <br>
