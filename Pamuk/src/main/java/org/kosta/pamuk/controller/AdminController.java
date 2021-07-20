@@ -1,11 +1,15 @@
 package org.kosta.pamuk.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.Resource;
 
+import org.kosta.pamuk.model.mapper.RecipeMapper;
 import org.kosta.pamuk.model.vo.MemberVO;
+import org.kosta.pamuk.model.vo.ReportVO;
 import org.kosta.pamuk.service.MemberService;
+import org.kosta.pamuk.service.RecipeService;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,6 +21,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 public class AdminController {
 	@Resource
 	private MemberService memberService;
+	
+	@Resource
+	private RecipeService recipeService;
+	
+	@Resource
+	private RecipeMapper recipeMapper;
 	
 	@Secured("ROLE_ADMIN")
 	@RequestMapping("main")
@@ -47,5 +57,19 @@ public class AdminController {
 		public String authorizeStarChef(String memberId) {
 			memberService.authorizeStarChef(memberId);
 			return "redirect:starChefList";
+		}
+		
+		@Secured("ROLE_ADMIN")
+		@RequestMapping("reportedRecipeView")
+		public String reportedRecipeView(String reportContent, Model model) {
+			ArrayList<ReportVO> rlist = recipeService.reportedRecipeList();
+			model.addAttribute("rlist", rlist);
+			return "admin/reportedRecipe.tiles";
+		}
+		@Secured("ROLE_ADMIN")
+		@RequestMapping("deleteRecipeByRecipeNo")
+		public String deleteRecipeByRecipeNo(int recipeNo, Model model) {
+			recipeMapper.deleteRecipeByRecipeNo(recipeNo);
+			return "redirect:reportedRecipeView";
 		}
 }

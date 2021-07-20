@@ -1,10 +1,7 @@
 package org.kosta.pamuk.test;
 
-import java.util.ArrayList;
-
 import org.junit.jupiter.api.Test;
 import org.kosta.pamuk.model.mapper.RecipeMapper;
-import org.kosta.pamuk.model.vo.ReportVO;
 import org.kosta.pamuk.service.RecipeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -19,7 +16,7 @@ public class RecipeTest {
 
 	@Test
 	public void postRecipe() {
-
+/*
 		ReportVO rvo = new ReportVO(1, "11test");
 		rs.addReportedRecipe(rvo);
 		System.out.println(rm.findRecipeByNoAndContent(1, "11test"));
@@ -28,7 +25,7 @@ public class RecipeTest {
 		for(int i =0;i<list.size();i++) {
 			System.out.println(list.get(i));
 		}
-		
+	*/	
 //		// recipe Insert test
 //		if (testCase == 1) {
 //			RecipeVO recipeVO = new RecipeVO();

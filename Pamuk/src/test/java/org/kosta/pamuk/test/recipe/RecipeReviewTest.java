@@ -2,6 +2,7 @@ package org.kosta.pamuk.test.recipe;
 
 import org.junit.jupiter.api.Test;
 import org.kosta.pamuk.model.mapper.RecipeMapper;
+import org.kosta.pamuk.model.vo.ReportVO;
 import org.kosta.pamuk.service.MemberService;
 import org.kosta.pamuk.service.RecipeService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,7 +36,12 @@ class RecipeReviewTest {
 		System.out.println(rs.readReview(6));
 		*/
 		//System.out.println(rm.countReview(6));
-		System.out.println(rs.getBestRecipeListForMain());
+		//System.out.println(rs.getBestRecipeListForMain());
+		/*ReportVO reportVO = new ReportVO();
+		reportVO.setRecipeNo(6);
+		reportVO.setReportContent("홍보");
+		rs.reportRecipe(reportVO);*/
+		System.out.println(rs.reportedRecipeList());
 	}
 
 }

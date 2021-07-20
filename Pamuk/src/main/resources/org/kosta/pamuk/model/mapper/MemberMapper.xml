@@ -132,4 +132,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		delete from AUTHORITIES where
 		member_id=#{memberId} and authority='ROLE_STARCHEF'
 	</delete>
+	<insert id="reportRecipe">
+		insert into report_recipe(report_no, report_content, report_time) 
+		values(#{reportNo}, #{reportContent}, sysdate)
+	</insert>
 </mapper>

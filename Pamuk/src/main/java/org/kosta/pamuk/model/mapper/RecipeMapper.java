@@ -99,7 +99,7 @@ public interface RecipeMapper {
 	 * @param report_content
 	 * @return
 	 */
-	int findRecipeByNoAndContent(int recipeNo, String reportContent);
+	ArrayList<ReportVO> reportedRecipeList();
 
 	/**
 	 * 신고글을 등록합니다.
@@ -107,13 +107,6 @@ public interface RecipeMapper {
 	 * @param recipe_no
 	 * @param report_content
 	 */
-	void addReportedRecipe(int recipeNo, String reportContent);
-
-	/**
-	 * 신고글 리스트를 반환합니다.
-	 * 
-	 * @return
-	 */
-	ArrayList<ReportVO> getReportedRecipeList();
+	void reportRecipe(int recipeNo, String reportContent);
 
 }

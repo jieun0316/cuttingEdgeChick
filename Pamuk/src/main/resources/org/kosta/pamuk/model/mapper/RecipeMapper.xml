@@ -347,27 +347,23 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 
 	<!-- 신고 글 관련 -->
-	<!-- 기존 신고글 조회 -->
-	<select id="findRecipeByNoAndContent" resultType="int">
-		select count(*)
-		from report_recipe
-		where recipe_no=#{recipeNo} and
-		report_content=#{reportContent}
+	<!-- 신고글 조회 (신고 내용별 조회, recipe_no 당 가장 최근 신고기록 한개씩만 표시) -->
+
+	<select id="reportedRecipeList" resultType="reportVO">
+		select rr.recipe_no, rr.report_content, r.recipe_thumbnail, r.recipe_name, r.member_id, max(rr.report_time) as report_time
+		from report_recipe rr, recipe r 
+		where rr.recipe_no=r.recipe_no
+		group by rr.recipe_no, rr.report_content, r.recipe_thumbnail, r.recipe_name, r.member_id
+		order by report_time asc
 	</select>
 
 	<!-- 신고글 등록 -->
-	<insert id="addReportedRecipe">
+	<insert id="reportRecipe">
 		insert into
-		report_recipe(recipe_no, report_content)
+		report_recipe(recipe_no, report_content, report_time)
 		values
-		(#{recipeNo},#{reportContent})
+		(#{recipeNo},#{reportContent}, sysdate)
 	</insert>
 
-	<!-- 신고글 리스트를 반환 -->
-	<select id="getReportedRecipeList" resultType="reportVO">
-		select *
-		from
-		report_recipe
-	</select>
 </mapper>
 

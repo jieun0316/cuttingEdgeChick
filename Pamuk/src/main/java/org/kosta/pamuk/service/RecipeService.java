@@ -84,18 +84,20 @@ public interface RecipeService {
 
 	void deleteReview(ReviewVO reviewVO);
 
+	void deleteReviewByAdmin(String memberId, int recipeNo);
+	
 	/**
 	 * 신고글을 등록합니다.
 	 * @author broth and water
 	 * @param recipe_no
 	 * @param report_content
 	 */
-	void addReportedRecipe(ReportVO reportVO);
+	void reportRecipe(ReportVO reportVO);
 	
 	/**
 	 * 신고글을 조회합니다.
 	 * @return
 	 */
-	ArrayList<ReportVO> getReportedRecipeList();
-	void deleteReviewByAdmin(String memberId, int recipeNo);
+	ArrayList<ReportVO> reportedRecipeList();
+	
 }

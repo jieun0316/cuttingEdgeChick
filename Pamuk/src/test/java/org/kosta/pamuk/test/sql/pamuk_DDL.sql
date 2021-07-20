@@ -152,7 +152,8 @@ create table recipe_item(
 create table report_recipe (
 	recipe_no number not null,
 	report_content varchar2(100) not null,
-	constraint fk_recipe_report foreign key(recipe_no) references recipe(recipe_no)
+	report_time date not null,
+	constraint fk_recipe_report foreign key(recipe_no) references recipe(recipe_no) ON DELETE CASCADE
 )
 -------------------------------------------------------------------------------
 

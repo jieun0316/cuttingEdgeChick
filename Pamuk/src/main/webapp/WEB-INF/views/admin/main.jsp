@@ -61,7 +61,7 @@
 									<button class="btn delicious-btn mt-30" type="submit" id="manageBoard">게시글 관리</button>
 								</div>
 							</form>
-							<form action="#" method="get">
+							<form action="/admin/reportedRecipeView" method="get">
 								<div class="col-6 text-center">
 									<button class="btn delicious-btn mt-30" type="submit">신고된 글 보기</button>
 								</div>

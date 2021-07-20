@@ -5,8 +5,16 @@ select * from SAVED_RECIPE;
 select * from RECIPE_CONTENT;
 select * from authorities;
 select * from review
-
+select * from report_recipe;
 delete from SAVED_RECIPE
+
+insert into report_recipe(recipe_no, report_content, report_time) values('4', '홍보', sysdate)
+
+select rr.recipe_no, rr.report_content, r.recipe_thumbnail, r.recipe_name, r.member_id, max(rr.report_time) as report_time
+		from report_recipe rr, recipe r 
+		where rr.recipe_no=r.recipe_no
+		group by rr.recipe_no, rr.report_content, r.recipe_thumbnail, r.recipe_name, r.member_id
+		order by report_time asc
 
 truncate table review
 

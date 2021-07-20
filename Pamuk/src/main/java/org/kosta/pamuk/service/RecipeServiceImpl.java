@@ -185,22 +185,19 @@ public class RecipeServiceImpl implements RecipeService {
 		recipeMapper.updateRecipeContentByRecipeNo(recipeContentVO);
 	}
 
-	@Override
-	public void addReportedRecipe(ReportVO reportVO) {
-		int flag = recipeMapper.findRecipeByNoAndContent(reportVO.getRecipeNo(), reportVO.getReportContent());
-		if (flag == 0) {
-			recipeMapper.addReportedRecipe(reportVO.getRecipeNo(), reportVO.getReportContent());
-		}
-
-	}
-
-	@Override
-	public ArrayList<ReportVO> getReportedRecipeList() {
-		return recipeMapper.getReportedRecipeList();
-	}
 
 	@Override
 	public void deleteReviewByAdmin(String memberId, int recipeNo) {
 		recipeMapper.deleteReview(memberId, recipeNo);
+	}
+	
+
+	@Override
+	public void reportRecipe(ReportVO reportVO) {
+			recipeMapper.reportRecipe(reportVO.getRecipeNo(), reportVO.getReportContent());
+	}
+	@Override
+	public ArrayList<ReportVO> reportedRecipeList() {
+		return recipeMapper.reportedRecipeList();
 	}
 }
