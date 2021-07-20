@@ -377,7 +377,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		FROM (SELECT DISTINCT ri.recipe_no, COUNT(DISTINCT ri.item_name) as match_count
 			FROM recipe_item ri, stored_item si
 			WHERE ri.item_name=si.item_name
-				AND si.storage_no IN (SELECT storage_no FROM storage WHERE member_id='javaKing')
+				AND si.storage_no IN (SELECT storage_no FROM storage WHERE member_id=#{value})
 				GROUP BY ri.recipe_no
 				)  t1, 
 		(SELECT recipe_no, COUNT(item_name) as total_count
