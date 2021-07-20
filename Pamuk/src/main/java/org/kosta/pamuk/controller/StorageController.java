@@ -34,7 +34,7 @@ public String fridgeRegisterForm() {
 	String id = pvo.getMemberId();
 	List<StorageVO> myStorage=sm.findStorageByMemberId(id);
 	if(!myStorage.isEmpty()) {
-	return "fridge/fridge-update-form.tiles";
+	return "redirect:/fridge/fridge-update-form";
 	}else {
 	return "fridge/fridge-register-form.tiles";
 	}
