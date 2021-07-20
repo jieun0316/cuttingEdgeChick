@@ -1,11 +1,17 @@
 select * from MEMBER;
 select * from RECIPE;
 select * from RECIPE_ITEM;
+select * from ITEM;
 select * from SAVED_RECIPE;
 select * from RECIPE_CONTENT;
 select * from authorities;
 select * from review
+<<<<<<< HEAD
 select * from report_recipe;
+=======
+select * from category;
+
+>>>>>>> branch 'main' of https://github.com/jieun0316/cuttingEdgeChick.git
 delete from SAVED_RECIPE
 
 insert into report_recipe(recipe_no, report_content, report_time) values('4', '홍보', sysdate)

@@ -45,6 +45,14 @@
 	object-fit:cover;
 	
 }
+.prepStep pre {
+	font-family: 'Noto Sans KR', "Open Sans", sans-serif;
+	color: #9b9b9b;
+	font-size: 14px;
+	line-height: 2;
+	font-weight: 400;
+	white-space : break-spaces;
+}
 .ratings span {
 	color: #9b9b9b;
 	font-size: 14px;

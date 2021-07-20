@@ -53,6 +53,7 @@ let storageNo="";
 		row+="<td>"+storageName+"</td>";
 		row+="<td name='td2'>"+ja[i].qty+"</td><td name='td3'>"+ja[i].storedDate+"</td><td name='td4'>"+ja[i].expiryDate+"</td>";
 		row+="<input type='hidden' name='storedItemNo' value='"+ja[i].storedItemNo+"'>";
+		//신선도 표시 
 		$.ajax({
 			type:"get",
 			url :"daysBeforeExpiry",
@@ -62,20 +63,20 @@ let storageNo="";
 			success:function(ga){
 				
 				if(ga<0) {
-					row+="<td bgcolor='132012'></td></tr>";
+					row+="<td bgcolor='132012'><input type='hidden' name='status' value='bad'</td></tr>";
 				} else if(ga<8)  {
 					row+="<td bgcolor='E49A17'></td></tr>";
 				} else{
 					row+="<td bgcolor='40CC0C'></td></tr>";
 				} //2-else
 				$("#storedItemInfo").html(row);	
-
-					} // ga function
-					
-				}); //ajax		
-
+				} // ga function
+			}); //ajax		
 			} //for
 	 	  } //1-else  
+	 		  if($("input[name=status]").val()=='bad'){
+	 			  alert("유통기한이 지난 재료가 있습니다!");
+	 		  }
 		} //showList
 
 
@@ -212,10 +213,22 @@ let storageNo="";
 </script>
 </head>
 <body>
-
+<div class="breadcumb-area bg-img bg-overlay"
+	style="background-image: url(/img/bg-img/breadcumb3.jpg);">
+	<div class="container h-100">
+		<div class="row h-100 align-items-center">
+			<div class="col-12">
+				<div class="breadcumb-text text-center">
+					<h2>Fridge</h2>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- ##### Breadcumb Area End ##### -->
 <!-- <input type="text">
 <input type="text"> -->
-<div class="container">
+<div class="container mb-50 mt-70">
 	<div id="left" class="col-sm-4 ">
 	<h2>냉장고 칸별 조회</h2>
   	<p>칸별로 어떤 재료가 있는지 확인, 추가, 수정, 삭제하세요</p>
